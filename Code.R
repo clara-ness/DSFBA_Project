@@ -1,12 +1,20 @@
 ##Script for the project "European countries, their dietary habits and diabetes prevalence"
 
-library(readr)
-library(dplyr)
+install.packages(c('tibble', 'dplyr', 'readr'))
+# or install.packages('tidyverse')
  
+library(readr)
+library(dplyr                
 
 daily_caloric <- read_csv("daily-caloric.csv")
 
 newdata <- subset(daily_caloric, Year >= 2000)
+
+
+
+
+
+daily_caloric_eu<- subset(newdata, Europe==('Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom', 'Switzerland'))
 
 
 #add flags (failed for now ^^)
