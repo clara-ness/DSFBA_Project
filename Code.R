@@ -35,7 +35,7 @@ daily_caloric_eu <- daily_caloric[EU]
 
   
   
-  
+GDP <- read_csv("GDP.csv")
 
 Diabetes <- read_csv("Diabetes.csv")
 
