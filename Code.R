@@ -38,7 +38,7 @@ daily_caloric_eu <- select(filter (Europe == TRUE))
 daily_caloric_eu <- select(filter(education, Region == 2),c(Entit,Minor.Population:Education.Expenditures))
 EU <-c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom", "Switzerland")
 
-daily_caloric_eu <- daily_caloric[EU]
+daily_caloric_eu <- daily_caloric[EU] mmm
 
   
   
