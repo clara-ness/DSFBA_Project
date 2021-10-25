@@ -1,6 +1,6 @@
 ##Script for the project "European countries, their dietary habits and diabetes prevalence"
 
-install.packages(c('tibble', 'dplyr', 'readr'))
+install.packages(c('tibble', 'dplyr', 'readr', 'readxl'))
 # or install.packages('tidyverse')
  
 library(readr)
@@ -14,7 +14,7 @@ newdata <- subset(daily_caloric, Year >= 2000)
 
 
 
-daily_caloric_eu<- subset(newdata, Europe==('Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom', 'Switzerland'))
+daily_caloric_eu <- subset(newdata, Europe==('Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom', 'Switzerland'))
 
 
 #add flags (failed for now ^^)
@@ -35,20 +35,16 @@ EU <-c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmar
 daily_caloric_eu <- select(filter (Europe == TRUE))
 
 
-
 daily_caloric_eu <- select(filter(education, Region == 2),c(Entit,Minor.Population:Education.Expenditures))
 EU <-c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom", "Switzerland")
 
 daily_caloric_eu <- daily_caloric[EU]
 
   
-  
-GDP <- read_csv("GDP.csv")
-GDP_1960_2020_ <- read_excel("GDP (1960-2020).xls")
+
+GDP <- read_excel("GDP (1960-2020).xls")
 
 Diabetes <- read_csv("Diabetes.csv")
-
-
 
 
 # Keep only country rows and replace country names as needed
@@ -63,7 +59,6 @@ ctry_UNSD<-ctry_UNSD %>%
     country = ifelse(country == "Kyrgyzstan", "Kyrgyz Republic", country) , 
     country = ifelse(country == "Republic of Moldova", "Moldova", country) , 
     country = ifelse(country == "United Republic of Tanzania", "Tanzania", country) ,
-    country = ifelse(country == "Viet Nam", "Vietnam", country) 
+    country = ifelse(country == "Viet Nam", "Vietnam", country) )
     
 
-hello xx
