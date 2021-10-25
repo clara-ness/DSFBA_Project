@@ -4,7 +4,8 @@ install.packages(c('tibble', 'dplyr', 'readr'))
 # or install.packages('tidyverse')
  
 library(readr)
-library(dplyr)               
+library(dplyr)
+library(readxl)
 
 daily_caloric <- read_csv("daily-caloric.csv")
 
@@ -38,11 +39,12 @@ daily_caloric_eu <- select(filter (Europe == TRUE))
 daily_caloric_eu <- select(filter(education, Region == 2),c(Entit,Minor.Population:Education.Expenditures))
 EU <-c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom", "Switzerland")
 
-daily_caloric_eu <- daily_caloric[EU] mmm
+daily_caloric_eu <- daily_caloric[EU]
 
   
   
 GDP <- read_csv("GDP.csv")
+GDP_1960_2020_ <- read_excel("GDP (1960-2020).xls")
 
 Diabetes <- read_csv("Diabetes.csv")
 
