@@ -1,7 +1,7 @@
 ##Script for the project "European countries, their dietary habits and diabetes prevalence"
-#Hellooooo
-install.packages(c('tibble', 'dplyr', 'readr', 'readxl'))
-# or install.packages('tidyverse')
+
+#install.packages(c('tibble', 'dplyr', 'readr', 'readxl')) run this line once only at the begining 
+#or this one install.packages('tidyverse')
  
 library(readr)
 library(dplyr)
@@ -11,10 +11,9 @@ daily_caloric <- read_csv("daily-caloric.csv")
 
 newdata <- subset(daily_caloric, Year >= 2000)
 
+EU <-c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom", "Switzerland")
 
-
-
-daily_caloric_eu <- subset(newdata, Europe==('Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom', 'Switzerland'))
+my_list<-newdata[newdata$Entity %in% EU,] # Subset of table by looking if in each row, Entity is in the EU vector
 
 
 #add flags (failed for now ^^)
@@ -27,18 +26,6 @@ Countries <- c('Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia',
 Flags <- countrycode(Countries, 'country.name', 'unicode.symbol')
 dat <- newdata(Countries, Flags)
 gt(dat)
-
-EU <-c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom", "Switzerland")
-
-
-
-daily_caloric_eu <- select(filter (Europe == TRUE))
-
-
-daily_caloric_eu <- select(filter(education, Region == 2),c(Entit,Minor.Population:Education.Expenditures))
-EU <-c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom", "Switzerland")
-
-daily_caloric_eu <- daily_caloric[EU]
 
   
 
