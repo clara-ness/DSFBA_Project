@@ -34,6 +34,10 @@ GDP <- GDP[-c(1,2),-c(3:44)]
 
 Diabetes <- read_csv("Diabetes.csv")
 
+Diabetes2 <- subset(Diabetes, Year >= 2000)
+
+Diabetes_EU<-Diabetes2[Diabetes2$`Country/Region/World` %in% EU,]
+
 
 # Keep only country rows and replace country names as needed
 ctry_UNSD<-ctry_UNSD %>% 
