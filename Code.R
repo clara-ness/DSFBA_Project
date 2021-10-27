@@ -1,6 +1,6 @@
 ##Script for the project "European countries, their dietary habits and diabetes prevalence"
 
-#install.packages(c('tibble', 'dplyr', 'readr', 'readxl')) run this line once only at the begining 
+#install.packages(c('tibble', 'dplyr', 'readr', 'readxl','gt','remotes')) run this line once only at the begining 
 #or this one install.packages('tidyverse')
  
 library(readr)
