@@ -30,6 +30,7 @@ gt(dat)
   
 
 GDP <- read_excel("GDP (1960-2020).xls")
+GDP <- GDP[-c(1,2),-c(3:44)]
 
 Diabetes <- read_csv("Diabetes.csv")
 
