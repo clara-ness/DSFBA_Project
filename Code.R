@@ -7,6 +7,7 @@ library(readr)
 library(dplyr)
 library(readxl)
 library(data.table)
+library(tidyverse)
 
 daily_caloric <- read_csv("daily-caloric.csv")
 
@@ -23,9 +24,17 @@ setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbo
 
 Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates)
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
-colnames(Caloric_consumption) <- c("Entity", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
+#colnames(Caloric_consumption) <- c("Entity", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
 
-plot(daily_caloric)
+#plotting data 
+plot(Caloric_consumption)
+
+ggplot(data = Caloric_consumption)+
+  geom_point(aes(x = V1, y= V2))
+
+ggplot(data = Caloric_consumption, mapping = aes(x = V1, y = V2)) +
+  geom_boxplot()
+
 
 #try to put those 3 means in a table
 daily_caloric %>% 
