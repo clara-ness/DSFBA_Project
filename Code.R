@@ -6,15 +6,37 @@
 library(readr)
 library(dplyr)
 library(readxl)
+library(data.table)
 
 daily_caloric <- read_csv("daily-caloric.csv")
 
-newdata <- subset(daily_caloric, Year >= 2000)
+daily_caloric <- subset(daily_caloric, Year >= 2000)
 
 EU <-c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom", "Switzerland")
 
-my_list<-newdata[newdata$Entity %in% EU,] # Subset of table by looking if in each row, Entity is in the EU vector
+daily_caloric<-daily_caloric[daily_caloric$Entity %in% EU,] # Subset of table by looking if in each row, Entity is in the EU vector
 
+setDT(daily_caloric)[ , Calories_from_animal_protein := mean(`Calories from animal protein (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[ , Calories_from_plant_protein := mean(`Calories from plant protein (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbohydrates (FAO (2017))`), by = "Entity"]
+#FAO = Food and Agriculture Organisation 
+
+Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates)
+Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
+colnames(Caloric_consumption) <- c("Entity", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
+
+plot(daily_caloric)
+
+#try to put those 3 means in a table
+daily_caloric %>% 
+  group_by(Code) %>%
+  summarise(mean = mean(`Calories from animal protein (FAO (2017))`)
+daily_caloric %>%
+  group_by(Code) %>%
+  summarise(mean = mean(`Calories from plant protein (FAO (2017))`)
+daily_caloric %>%
+  group_by(Code) %>%
+  summarise(mean = mean(`Calories from carbohydrates (FAO (2017))`)
 
 #add flags (failed for now ^^)
 install.packages("countrycode")
