@@ -71,9 +71,9 @@ library(remotes)
 install_github('vincentarelbundock/countrycode')
 library(countrycode)
 library(gt)
-Countries <- c('Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom', 'Switzerland')
-Flags <- countrycode(Countries, 'country.name', 'unicode.symbol')
-dat <- newdata(Countries, Flags)
+EU <- c('Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom', 'Switzerland')
+Flags <- countrycode(EU, 'country.name', 'unicode.symbol')
+dat <- newdata(EU, Flags)
 gt(dat)
 
   
