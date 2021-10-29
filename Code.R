@@ -84,4 +84,5 @@ ctry_UNSD<-ctry_UNSD %>%
     country = ifelse(country == "United Republic of Tanzania", "Tanzania", country) ,
     country = ifelse(country == "Viet Nam", "Vietnam", country) )
     
-
+#Joint tables
+df = merge(x=Caloric_consumption,y=GDP,z=Diabetes_EU ,by="Entity")
