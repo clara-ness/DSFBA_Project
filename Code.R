@@ -47,11 +47,11 @@ boxplot(Caloric_consumption$V2)
 boxplot(Caloric_consumption[,0:4], main='Multiple Box plots')
 
 #ggplot
-ggplot(data = Caloric_consumption)+
-  geom_point(aes(x = V1, y= V2))
 
 ggplot(data = Caloric_consumption, mapping = aes(x = V1, y = V2)) +
   geom_boxplot()
+
+ggplot(data = Caloric_consumption, mapping = aes(x = V2, y = V3, color = as.factor(V1))) + geom_point()
 
 
 #try to put those 3 means in a table
