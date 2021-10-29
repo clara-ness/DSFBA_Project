@@ -29,6 +29,24 @@ Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
 #plotting data 
 plot(Caloric_consumption)
 
+plot(Caloric_consumption$V2, Caloric_consumption$V3, type="h")
+plot(Caloric_consumption$V2, Caloric_consumption$V4)
+plot(Caloric_consumption$V3, Caloric_consumption$V4)
+
+
+#Multiple plots 
+par(mfrow=c(3,3), mar=c(2,5,2,1), las=1, bty="n")
+plot(Caloric_consumption$V2)
+plot(Caloric_consumption$V2, Caloric_consumption$V3)
+plot(Caloric_consumption$V2, type= "c")
+plot(Caloric_consumption$V2, type= "s")
+plot(Caloric_consumption$V2, type= "h")
+barplot(Caloric_consumption$V2, main = 'Caloric Consumption',xlab = 'calories levels of animal protein',col='red',horiz = FALSE)
+hist(Caloric_consumption$V2)
+boxplot(Caloric_consumption$V2)
+boxplot(Caloric_consumption[,0:4], main='Multiple Box plots')
+
+#ggplot
 ggplot(data = Caloric_consumption)+
   geom_point(aes(x = V1, y= V2))
 
