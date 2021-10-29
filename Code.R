@@ -16,45 +16,45 @@ daily_caloric <- read_csv("daily-caloric.csv")
 
 daily_caloric <- subset(daily_caloric, Year >= 2000)
 
-EU <-c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom", "Switzerland")
+EU <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 
-daily_caloric<-daily_caloric[daily_caloric$Entity %in% EU,] # Subset of table by looking if in each row, Entity is in the EU vector
+daily_caloric<-daily_caloric[daily_caloric$Code %in% EU,] # Subset of table by looking if in each row, Entity is in the EU vector
 
 setDT(daily_caloric)[ , Calories_from_animal_protein := mean(`Calories from animal protein (FAO (2017))`), by = "Entity"]
 setDT(daily_caloric)[ , Calories_from_plant_protein := mean(`Calories from plant protein (FAO (2017))`), by = "Entity"]
 setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbohydrates (FAO (2017))`), by = "Entity"]
 #FAO = Food and Agriculture Organisation 
 
-Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates)
+Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates)
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
 #colnames(Caloric_consumption) <- c("Entity", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
 
 #Caloric consumption plotting 
 plot(Caloric_consumption)
 
-plot(Caloric_consumption$V2, Caloric_consumption$V3, type="h")
-plot(Caloric_consumption$V2, Caloric_consumption$V4)
+plot(Caloric_consumption$V5, Caloric_consumption$V3, type="h")
+plot(Caloric_consumption$V5, Caloric_consumption$V4)
 plot(Caloric_consumption$V3, Caloric_consumption$V4)
 
 
 #Caloric consumption multiple plots 
 par(mfrow=c(3,3), mar=c(2,5,2,1), las=1, bty="n")
-plot(Caloric_consumption$V2)
-plot(Caloric_consumption$V2, Caloric_consumption$V3)
-plot(Caloric_consumption$V2, type= "c")
-plot(Caloric_consumption$V2, type= "s")
-plot(Caloric_consumption$V2, type= "h")
-barplot(Caloric_consumption$V2, main = 'Caloric Consumption',xlab = 'calories levels of animal protein',col='red',horiz = FALSE)
-hist(Caloric_consumption$V2)
-boxplot(Caloric_consumption$V2)
+plot(Caloric_consumption$V5)
+plot(Caloric_consumption$V5, Caloric_consumption$V3)
+plot(Caloric_consumption$V5, type= "c")
+plot(Caloric_consumption$V5, type= "s")
+plot(Caloric_consumption$V5, type= "h")
+barplot(Caloric_consumption$V5, main = 'Caloric Consumption',xlab = 'calories levels of animal protein',col='red',horiz = FALSE)
+hist(Caloric_consumption$V5)
+boxplot(Caloric_consumption$V5)
 boxplot(Caloric_consumption[,0:4], main='Multiple Box plots')
 
 #Caloric consumption ggplot
 
-ggplot(data = Caloric_consumption, mapping = aes(x = V1, y = V2)) +
+ggplot(data = Caloric_consumption, mapping = aes(x = V1, y = V5)) +
   geom_boxplot()
 
-ggplot(data = Caloric_consumption, mapping = aes(x = V2, y = V3, color = as.factor(V1))) + geom_point()
+ggplot(data = Caloric_consumption, mapping = aes(x = V5, y = V3, color = as.factor(V1))) + geom_point()
 
 
 #try to put those 3 means in a table
