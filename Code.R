@@ -2,6 +2,8 @@
 
 #install.packages(c('tibble', 'dplyr', 'readr', 'readxl','gt','remotes')) run this line once only at the begining 
 #or this one install.packages('tidyverse')
+#install.packages('Rcpp') for non-mac user ^^
+#library(Rcpp)
  
 library(readr)
 library(dplyr)
