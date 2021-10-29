@@ -98,15 +98,24 @@ GDP <- GDP %>%
 
 #Diabetes table tidying
 Diabetes <- read_csv("Diabetes.csv")
+
 Diabetes2 <- subset(Diabetes, Year >= 2000 , Year <=2013)
+
 Diabetes_EU<-Diabetes2[Diabetes2$`ISO` %in% EU,]
 Diabetes_EU <- Diabetes_EU[-c(6,7)] #drop interval
 Diabetes_EU_men <-subset(Diabetes_EU, Sex=="Men")
 Diabetes_EU_women <-subset(Diabetes_EU, Sex=="Women")
+colnames(Diabetes_EU_men)<-c("country_name","country_code","sex","year","prop_men_diabetes")
+colnames(Diabetes_EU_women)<-c("country_name","country_code","sex","year","prop_women_diabetes")
 
 #Mean of 2000-2013
-setDT(Diabetes_EU_men)[ , list(`Age-standardised diabetes prevalence`= mean(`Age-standardised diabetes prevalence`)), by='Country/Region/World']
-setDT(Diabetes_EU_women)[ , list(`Age-standardised diabetes prevalence`= mean(`Age-standardised diabetes prevalence`)), by='Country/Region/World']
-    
+Diabetes_EU_men <- Diabetes_EU_men %>% 
+  group_by(country_name) %>%
+  summarize(prop_men_diabetes = mean(prop_men_diabetes))
+
+Diabetes_EU_women <- Diabetes_EU_women %>% 
+  group_by(country_name) %>%
+  summarize(prop_women_diabetes = mean(prop_women_diabetes))
+
 #Joint tables
 df = merge(x=Caloric_consumption,y=GDP,z=Diabetes_EU ,by="Entity")
