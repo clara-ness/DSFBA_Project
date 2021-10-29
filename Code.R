@@ -93,35 +93,20 @@ GDP <- GDP %>% pivot_longer(c('2000','2001','2002','2003','2004','2005','2006','
 colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
 GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
 GDP <- GDP %>% 
-  group_by(country_name) %>% 
+  group_by(country_name, country_code) %>% 
   summarize(avg_gdp = mean(avg_gdp))
 
 #Diabetes table tidying
 Diabetes <- read_csv("Diabetes.csv")
-
 Diabetes2 <- subset(Diabetes, Year >= 2000 , Year <=2013)
-
 Diabetes_EU<-Diabetes2[Diabetes2$`ISO` %in% EU,]
 Diabetes_EU <- Diabetes_EU[-c(6,7)] #drop interval
 Diabetes_EU_men <-subset(Diabetes_EU, Sex=="Men")
 Diabetes_EU_women <-subset(Diabetes_EU, Sex=="Women")
+
 #Mean of 2000-2013
 setDT(Diabetes_EU_men)[ , list(`Age-standardised diabetes prevalence`= mean(`Age-standardised diabetes prevalence`)), by='Country/Region/World']
 setDT(Diabetes_EU_women)[ , list(`Age-standardised diabetes prevalence`= mean(`Age-standardised diabetes prevalence`)), by='Country/Region/World']
-
-# Keep only country rows and replace country names as needed
-ctry_UNSD<-ctry_UNSD %>% 
-  filter(ISOalpha3!="") %>% 
-  select(country, UNSDsubregion) %>% 
-  mutate(
-    country = ifelse(country == "Bolivia (Plurinational State of)", "Bolivia", country) ,
-    country = ifelse(country == "Cabo Verde", "Cape Verde", country) , 
-    country = ifelse(country == "Democratic Republic of the Congo", "Congo Democratic Republic", country) ,
-    country = ifelse(country == "Côte d'Ivoire", "Cote d'Ivoire", country) ,
-    country = ifelse(country == "Kyrgyzstan", "Kyrgyz Republic", country) , 
-    country = ifelse(country == "Republic of Moldova", "Moldova", country) , 
-    country = ifelse(country == "United Republic of Tanzania", "Tanzania", country) ,
-    country = ifelse(country == "Viet Nam", "Vietnam", country))
     
 #Joint tables
 df = merge(x=Caloric_consumption,y=GDP,z=Diabetes_EU ,by="Entity")
