@@ -94,9 +94,16 @@ GDP <- GDP %>%
 
 #Diabetes table tidying
 Diabetes <- read_csv("Diabetes.csv")
-Diabetes2 <- subset(Diabetes, Year >= 2000)
-Diabetes_EU<-Diabetes2[Diabetes2$`Country/Region/World` %in% EU,]
 
+Diabetes2 <- subset(Diabetes, Year >= 2000 , Year <=2013)
+
+Diabetes_EU<-Diabetes2[Diabetes2$`ISO` %in% EU,]
+Diabetes_EU <- Diabetes_EU[-c(6,7)] #drop interval
+Diabetes_EU_men <-subset(Diabetes_EU, Sex=="Men")
+Diabetes_EU_women <-subset(Diabetes_EU, Sex=="Women")
+#Mean of 2000-2013
+setDT(Diabetes_EU_men)[ , list(`Age-standardised diabetes prevalence`= mean(`Age-standardised diabetes prevalence`)), by='Country/Region/World']
+setDT(Diabetes_EU_women)[ , list(`Age-standardised diabetes prevalence`= mean(`Age-standardised diabetes prevalence`)), by='Country/Region/World']
 
 # Keep only country rows and replace country names as needed
 ctry_UNSD<-ctry_UNSD %>% 
