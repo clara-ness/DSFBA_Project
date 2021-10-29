@@ -27,7 +27,7 @@ setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbo
 
 Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates)
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
-#colnames(Caloric_consumption) <- c("Entity", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
+colnames(Caloric_consumption) <- c("Entity", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
 Caloric_consumption<-Caloric_consumption %>%
   rowwise() %>%
   mutate(
@@ -103,11 +103,12 @@ Diabetes2 <- subset(Diabetes, Year >= 2000 , Year <=2013)
 
 Diabetes_EU<-Diabetes2[Diabetes2$`ISO` %in% EU,]
 Diabetes_EU <- Diabetes_EU[-c(6,7)] #drop interval
+
 Diabetes_EU_men <-subset(Diabetes_EU, Sex=="Men")
 Diabetes_EU_women <-subset(Diabetes_EU, Sex=="Women")
 colnames(Diabetes_EU_men)<-c("country_name","country_code","sex","year","prop_men_diabetes")
 colnames(Diabetes_EU_women)<-c("country_name","country_code","sex","year","prop_women_diabetes")
-
+Diabetes_EU_men$prop_men_diabetes <- as.numeric(Diabetes_EU_men$prop_men_diabetes)
 #Mean of 2000-2013
 Diabetes_EU_men <- Diabetes_EU_men %>% 
   group_by(country_name) %>%
@@ -116,6 +117,22 @@ Diabetes_EU_men <- Diabetes_EU_men %>%
 Diabetes_EU_women <- Diabetes_EU_women %>% 
   group_by(country_name) %>%
   summarize(prop_women_diabetes = mean(prop_women_diabetes))
+
+#Plot GDP and Diabetes
+GDP_diabetes<-full_join(GDP,Diabetes_EU_men, by="country_name")
+GDP_diabetes<-full_join(GDP_diabetes,Diabetes_EU_women, by="country_name")
+plot(GDP_diabetes$avg_gdp, GDP_diabetes$prop_men_diabetes)
+plot(GDP_diabetes$avg_gdp, GDP_diabetes$prop_women_diabetes)
+# Plot with men and woman
+GDP_Diabetes_reshaped <- data.frame(x = GDP_diabetes$avg_gdp,                           
+                          y = c(GDP_diabetes$prop_men_diabetes,GDP_diabetes$prop_women_diabetes),
+                          group = c(rep("y1", nrow(GDP_diabetes)),
+                                    rep("y2", nrow(GDP_diabetes))))
+
+ggplot(GDP_Diabetes_reshaped, aes(x, y, col = group)) +  geom_point()
+#4 rows with missing values
+
+#Plot GDP and Calories
 
 #Joint tables
 df = merge(x=Caloric_consumption,y=GDP,z=Diabetes_EU ,by="Entity")
