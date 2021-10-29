@@ -28,6 +28,11 @@ setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbo
 Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates)
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
 #colnames(Caloric_consumption) <- c("Entity", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
+Caloric_consumption<-Caloric_consumption %>%
+  rowwise() %>%
+  mutate(
+    Total_consumption = sum(c(V3,V4,V5))
+  )
 
 #Caloric consumption plotting 
 plot(Caloric_consumption)
@@ -53,8 +58,7 @@ boxplot(Caloric_consumption[,0:4], main='Multiple Box plots')
 
 ggplot(data = Caloric_consumption, mapping = aes(x = V1, y = V5)) +
   geom_boxplot()
-
-ggplot(data = Caloric_consumption, mapping = aes(x = V5, y = V3, color = as.factor(V1))) + geom_point()
+ggplot(data = Caloric_consumption, mapping = aes(x = V2, y = Total_consumption, color = as.factor(V1))) + geom_point()
 
 
 #try to put those 3 means in a table
