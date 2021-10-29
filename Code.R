@@ -11,6 +11,7 @@ library(readxl)
 library(data.table)
 library(tidyverse)
 
+#Caloric consumption table tidying
 daily_caloric <- read_csv("daily-caloric.csv")
 
 daily_caloric <- subset(daily_caloric, Year >= 2000)
@@ -28,7 +29,7 @@ Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Calories_fr
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
 #colnames(Caloric_consumption) <- c("Entity", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
 
-#plotting data 
+#Caloric consumption plotting 
 plot(Caloric_consumption)
 
 plot(Caloric_consumption$V2, Caloric_consumption$V3, type="h")
@@ -36,7 +37,7 @@ plot(Caloric_consumption$V2, Caloric_consumption$V4)
 plot(Caloric_consumption$V3, Caloric_consumption$V4)
 
 
-#Multiple plots 
+#Caloric consumption multiple plots 
 par(mfrow=c(3,3), mar=c(2,5,2,1), las=1, bty="n")
 plot(Caloric_consumption$V2)
 plot(Caloric_consumption$V2, Caloric_consumption$V3)
@@ -48,7 +49,7 @@ hist(Caloric_consumption$V2)
 boxplot(Caloric_consumption$V2)
 boxplot(Caloric_consumption[,0:4], main='Multiple Box plots')
 
-#ggplot
+#Caloric consumption ggplot
 
 ggplot(data = Caloric_consumption, mapping = aes(x = V1, y = V2)) +
   geom_boxplot()
@@ -73,20 +74,27 @@ library(remotes)
 install_github('vincentarelbundock/countrycode')
 library(countrycode)
 library(gt)
-EU <- c('Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom', 'Switzerland')
+EU <- c('AUT', 'BEL', 'BGR', 'HRV', 'CYP', 'CZE', 'DNK', 'EST', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'IRL', 'ITA', 'LVA', 'LTU', 'LUX', 'MLT', 'NLD', 'POL', 'PRT', 'ROU', 'SVK', 'SVN', 'ESP', 'SWE', 'GBR', 'CHE')
 Flags <- countrycode(EU, 'country.name', 'unicode.symbol')
 dat <- newdata(EU, Flags)
 gt(dat)
 
   
-
+#GDP table tidying
 GDP <- read_excel("GDP (1960-2020).xls")
-GDP <- GDP[-c(1,2),-c(3:44)]
+colnames(GDP) <- GDP[3,]
+GDP <- GDP[-c(1:3),-c(3:44,59:65)] #or maybe use the filter and select functions
+GDP <- GDP[GDP$"Country Code" %in% EU,]
+GDP <- GDP %>% pivot_longer(c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013'),names_to = "Year",values_to = "Gross Domestic Product")
+colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
+GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
+GDP <- GDP %>% 
+  group_by(country_name) %>% 
+  summarize(avg_gdp = mean(avg_gdp))
 
+#Diabetes table tidying
 Diabetes <- read_csv("Diabetes.csv")
-
 Diabetes2 <- subset(Diabetes, Year >= 2000)
-
 Diabetes_EU<-Diabetes2[Diabetes2$`Country/Region/World` %in% EU,]
 
 
@@ -102,7 +110,7 @@ ctry_UNSD<-ctry_UNSD %>%
     country = ifelse(country == "Kyrgyzstan", "Kyrgyz Republic", country) , 
     country = ifelse(country == "Republic of Moldova", "Moldova", country) , 
     country = ifelse(country == "United Republic of Tanzania", "Tanzania", country) ,
-    country = ifelse(country == "Viet Nam", "Vietnam", country) )
+    country = ifelse(country == "Viet Nam", "Vietnam", country))
     
 #Joint tables
 df = merge(x=Caloric_consumption,y=GDP,z=Diabetes_EU ,by="Entity")
