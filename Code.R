@@ -27,7 +27,7 @@ setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbo
 
 Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates)
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
-colnames(Caloric_consumption) <- c("Entity", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
+colnames(Caloric_consumption) <- c("country_name", "country_code", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
 Caloric_consumption<-Caloric_consumption %>%
   rowwise() %>%
   mutate(
@@ -134,5 +134,10 @@ ggplot(GDP_Diabetes_reshaped, aes(x, y, col = group)) +  geom_point()
 
 #Plot GDP and Calories
 
-#Joint tables
+#Joint GDP_diabetes and caloric consumption (neeed to add Counrty code to avoid NA in Diabetes rate)
+GDP_diabetes<-full_join(GDP,Diabetes_EU_men, by="country_code")
+GDP_diabetes<-full_join(GDP_diabetes,Diabetes_EU_women, by="country_code")
+
+GDP_diabetes_caloric<-full_join(GDP_diabetes,Caloric_consumption, by="country_code")
+
 df = merge(x=Caloric_consumption,y=GDP,z=Diabetes_EU ,by="Entity")
