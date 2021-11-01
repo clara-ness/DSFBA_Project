@@ -41,36 +41,12 @@ plot(Caloric_consumption$V5, Caloric_consumption$V3, type="h")
 plot(Caloric_consumption$V5, Caloric_consumption$V4)
 plot(Caloric_consumption$V3, Caloric_consumption$V4)
 
-
-#Caloric consumption multiple plots 
-par(mfrow=c(3,3), mar=c(2,5,2,1), las=1, bty="n")
-plot(Caloric_consumption$V5)
-plot(Caloric_consumption$V5, Caloric_consumption$V3)
-plot(Caloric_consumption$V5, type= "c")
-plot(Caloric_consumption$V5, type= "s")
-plot(Caloric_consumption$V5, type= "h")
-barplot(Caloric_consumption$V5, main = 'Caloric Consumption',xlab = 'calories levels of animal protein',col='red',horiz = FALSE)
-hist(Caloric_consumption$V5)
-boxplot(Caloric_consumption$V5)
-boxplot(Caloric_consumption[,0:4], main='Multiple Box plots')
-
 #Caloric consumption ggplot
 
 ggplot(data = Caloric_consumption, mapping = aes(x = V1, y = V5)) +
   geom_boxplot()
 ggplot(data = Caloric_consumption, mapping = aes(x = V2, y = Total_consumption, color = as.factor(V1))) + geom_point()
 
-
-#try to put those 3 means in a table
-daily_caloric %>% 
-  group_by(Code) %>%
-  summarise(mean = mean(`Calories from animal protein (FAO (2017))`)
-daily_caloric %>%
-  group_by(Code) %>%
-  summarise(mean = mean(`Calories from plant protein (FAO (2017))`)
-daily_caloric %>%
-  group_by(Code) %>%
-  summarise(mean = mean(`Calories from carbohydrates (FAO (2017))`)
 
 #add flags (failed for now ^^)
 install.packages("countrycode")
