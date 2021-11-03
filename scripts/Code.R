@@ -12,7 +12,7 @@ library(data.table)
 library(tidyverse)
 
 #Caloric consumption table tidying
-daily_caloric <- read_csv("daily-caloric.csv")
+daily_caloric <- read_csv("data/daily-caloric.csv")
 daily_caloric <- subset(daily_caloric, Year >= 2000)
 EU <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 daily_caloric<-daily_caloric[daily_caloric$Code %in% EU,] # Subset of table by looking if in each row, Entity is in the EU vector
@@ -56,7 +56,7 @@ gt(dat)
 
   
 #GDP table tidying
-GDP <- read_excel("GDP (1960-2020).xls")
+GDP <- read_excel("data/GDP (1960-2020).xls")
 colnames(GDP) <- GDP[3,]
 GDP <- GDP[-c(1:3),-c(3:44,59:65)] #or maybe use the filter and select functions
 GDP <- GDP[GDP$"Country Code" %in% EU,]
@@ -68,7 +68,7 @@ GDP <- GDP %>%
   summarize(avg_gdp = mean(avg_gdp))
 
 #Diabetes table tidying
-Diabetes <- read_csv("Diabetes.csv")
+Diabetes <- read_csv("data/Diabetes.csv")
 Diabetes2 <- subset(Diabetes, Year >= 2000 , Year <=2013)
 Diabetes_EU<-Diabetes2[Diabetes2$`ISO` %in% EU,]
 Diabetes_EU <- Diabetes_EU[-c(6,7)] #drop interval
