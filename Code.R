@@ -31,12 +31,14 @@ Caloric_consumption<-Caloric_consumption %>%
 
 #Caloric consumption plotting 
 plot(Caloric_consumption)
-plot(Caloric_consumption$V5, Caloric_consumption$"Calories from animal protein", type="h")
-plot(Caloric_consumption$V5, Caloric_consumption$"Calories from animal protein")
-plot(Caloric_consumption$V3, Caloric_consumption$"Calories from animal protein")
+plot(Caloric_consumption$country_name, Caloric_consumption$total_consumption, type="h")
+plot(Caloric_consumption$country_name, Caloric_consumption$cal_prot_animal)
+plot(Caloric_consumption$country_name, Caloric_consumption$cal_prot_plant)
+plot(Caloric_consumption$country_name, Caloric_consumption$cal_carbs)
+plot(Caloric_consumption$country_name, Caloric_consumption$cal_fat)
 
 #Caloric consumption ggplot
-ggplot(data = Caloric_consumption, mapping = aes(x = "country_name", y = "Calories from carbohydrates")) +
+ggplot(data = Caloric_consumption, mapping = aes(x = "country_name", y = "total_consumption")) +
   geom_boxplot()
 ggplot(data = Caloric_consumption, mapping = aes(x =  "Calories from animal protein", y = Total_consumption, color = as.factor("country_name"))) + geom_point()
 
@@ -104,4 +106,4 @@ ggplot(GDP_Diabetes_reshaped, aes(x, y, col = group)) +  geom_point()
 GDP_diabetes_test<-merge(x = GDP, y = Diabetes_EU_men[ , c( "country_code", "prop_men_diabetes")], by = "country_code", all.x=TRUE)
 GDP_diabetes_test<-merge(x = GDP_diabetes_test, y = Diabetes_EU_women[ , c( "country_code", "prop_women_diabetes")], by = "country_code", all.x=TRUE)
 
-GDP_diabetes_test<- merge(x = GDP_diabetes_test, y = Caloric_consumption[ , c( "country_code", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")], by = "country_code", all.x=TRUE)
+GDP_diabetes_test<- merge(x = GDP_diabetes_test, y = Caloric_consumption[ , c("country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs","cal_fat")], by = "country_code", all.x=TRUE)
