@@ -1,10 +1,51 @@
 # Analysis
 
 ```{r, echo = FALSE, message = FALSE}
-source(here::here("scripts/setup.R"))
+source(here::here("scripts/Code.R"))
 ```
 
 * Answers to the research questions
 * Different methods considered
 * Competing approaches
 * Justifications
+
+## Our research questions
+```
+1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
+
+```{r echo= FALSE}
+cor(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_men_diabetes)
+cor(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_women_diabetes)
+
+```
+We see a very small correlation. It would be interesting to push the analysis a bit further to see the representation in a graph. 
+
+```{r echo= FALSE}
+plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_men_diabetes)
+plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_women_diabetes)
+```
+
+
+2.Do European countries that have higher GDPs consume less calories ?
+```{r echo= FALSE}
+cor(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
+plot(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
+```
+
+
+3.How do the proportions of macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ?
+```{r}
+
+```
+
+
+4.And how do these differences relate to the diabetes prevalence in these countries ?
+```{r}
+
+```
+
+5.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
+```{r}
+
+```
+
