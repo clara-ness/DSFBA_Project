@@ -106,4 +106,4 @@ ggplot(GDP_Diabetes_reshaped, aes(x, y, col = group)) +  geom_point()
 GDP_diabetes_test<-merge(x = GDP, y = Diabetes_EU_men[ , c( "country_code", "prop_men_diabetes")], by = "country_code", all.x=TRUE)
 GDP_diabetes_test<-merge(x = GDP_diabetes_test, y = Diabetes_EU_women[ , c( "country_code", "prop_women_diabetes")], by = "country_code", all.x=TRUE)
 
-GDP_diabetes_test<- merge(x = GDP_diabetes_test, y = Caloric_consumption[ , c("country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs","cal_fat")], by = "country_code", all.x=TRUE)
+GDP_diabetes_test<- merge(x = GDP_diabetes_test, y = Caloric_consumption[ , c("country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs","cal_fat", "total_consumption")], by = "country_code", all.x=TRUE)
