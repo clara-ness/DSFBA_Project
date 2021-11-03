@@ -24,7 +24,6 @@ Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
 colnames(Caloric_consumption) <- c("country_name", "country_code", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
 Caloric_consumption<-Caloric_consumption %>%
-  rowwise() %>%
   mutate(
     Total_consumption = sum(c("Calories from animal protein","Calories from animal protein","Calories from plant protein")))
 
