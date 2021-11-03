@@ -2,15 +2,42 @@
 title: "European countries, their dietary habits and diabetes prevalence"
 output: html_notebook
 ---
-##Introduction 
+## Introduction 
 
-#Our research questions
-Do European countries that have higher GDPs really have lower diabetes prevalence ?  Do European countries that have higher GDPs consume less calories ? How do the proportions of macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?  
+# Data
+# 2 Data
+
+```{r, echo = FALSE, message = FALSE}
+source(here::here("scripts/setup.R"))
+```
+
+
+# Our research questions
+Do European countries that have higher GDPs really have lower diabetes prevalence ? Do European countries that have higher GDPs consume less calories ? How do the proportions of macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?  
  What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
 
-```{r}
-plot(cars)
+# Analysis 
+
+```{r, echo = FALSE, message = FALSE}
+source(here::here("scripts/Code.R"))
 ```
+1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
+
+```{r}
+cor()
+```
+
+
+2.Do European countries that have higher GDPs consume less calories ?
+
+3.How do the proportions of macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ?
+
+4.And how do these differences relate to the diabetes prevalence in these countries ?
+
+5.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
+
+
+
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
 ```{r}
