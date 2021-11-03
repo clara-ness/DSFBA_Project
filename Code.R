@@ -19,13 +19,15 @@ daily_caloric<-daily_caloric[daily_caloric$Code %in% EU,] # Subset of table by l
 setDT(daily_caloric)[ , Calories_from_animal_protein := mean(`Calories from animal protein (FAO (2017))`), by = "Entity"]
 setDT(daily_caloric)[ , Calories_from_plant_protein := mean(`Calories from plant protein (FAO (2017))`), by = "Entity"]
 setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbohydrates (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[ , Calories_from_fat := mean(`Calories from fat (FAO (2017))`), by = "Entity"]
 #FAO = Food and Agriculture Organisation 
-Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates)
+Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates,daily_caloric$Calories_from_fat)
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
-colnames(Caloric_consumption) <- c("country_name", "country_code", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")
+colnames(Caloric_consumption) <- c("country_name", "country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs","cal_fat")
 Caloric_consumption<-Caloric_consumption %>%
+  group_by(country_code) %>%
   mutate(
-    Total_consumption = sum(c("Calories from animal protein","Calories from animal protein","Calories from plant protein")))
+    total_consumption = sum(c(cal_prot_animal,cal_prot_plant,cal_carbs,cal_fat)))
 
 #Caloric consumption plotting 
 plot(Caloric_consumption)
