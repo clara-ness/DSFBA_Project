@@ -99,4 +99,8 @@ GDP_Diabetes_reshaped <- data.frame(x = GDP_diabetes$avg_gdp,
 
 ggplot(GDP_Diabetes_reshaped, aes(x, y, col = group)) +  geom_point()
 
-#Joining tables GDP and Caloric consumption
+#Joining tables with merge
+GDP_diabetes_test<-merge(x = GDP, y = Diabetes_EU_men[ , c( "country_code", "prop_men_diabetes")], by = "country_code", all.x=TRUE)
+GDP_diabetes_test<-merge(x = GDP_diabetes_test, y = Diabetes_EU_women[ , c( "country_code", "prop_women_diabetes")], by = "country_code", all.x=TRUE)
+
+GDP_diabetes_test<- merge(x = GDP_diabetes_test, y = Caloric_consumption[ , c( "country_code", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates")], by = "country_code", all.x=TRUE)
