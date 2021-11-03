@@ -1,43 +1,37 @@
 ---
-title: "DSFBA Project"
-output:
-  html_document:
-    df_print: paged
-  pdf_document: default
+title: "DSFBA_Project"
+author: "Alesya Alpbaz, Fabien Calderini and Clara Nessi"
+date: "03/11/2021"
+output: html_document
 ---
-## Introduction 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Introduction
 
 # Data
-# 2 Data
-
-#```{r, echo = FALSE, message = FALSE}
-#source(here::here("Code.R"))
-#```
-# Our research questions
-Do European countries that have higher GDPs really have lower diabetes prevalence ? Do European countries that have higher GDPs consume less calories ? How do the proportions of macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?  
- What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
-
-# Analysis 
 
 
+## Analysis 
+## Our research questions
 ```
 1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
 
-```{r}
+```{r correlation, echo= FALSE}
 cor(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_men_diabetes)
 cor(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_women_diabetes)
 
 ```
 We see a very small correlation. It would be interesting to push the analysis a bit further to see the representation in a graph. 
 
-```{r}
+```{r plotGDP_diabetes_test, echo= FALSE}}
 plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_men_diabetes)
 plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_women_diabetes)
 ```
 
 
 2.Do European countries that have higher GDPs consume less calories ?
-```{r}
+```{r GDP_diabetes_test, echo= FALSE}}
 cor(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
 plot(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
 ```
@@ -49,3 +43,27 @@ plot(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
 
 5.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
 
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
