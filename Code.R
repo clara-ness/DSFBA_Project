@@ -26,18 +26,18 @@ colnames(Caloric_consumption) <- c("country_name", "country_code", "Calories fro
 Caloric_consumption<-Caloric_consumption %>%
   rowwise() %>%
   mutate(
-    Total_consumption = sum(c(V3,V4,V5)))
+    Total_consumption = sum(c("Calories from animal protein","Calories from animal protein","Calories from plant protein")))
 
 #Caloric consumption plotting 
 plot(Caloric_consumption)
-plot(Caloric_consumption$V5, Caloric_consumption$V3, type="h")
-plot(Caloric_consumption$V5, Caloric_consumption$V4)
-plot(Caloric_consumption$V3, Caloric_consumption$V4)
+plot(Caloric_consumption$V5, Caloric_consumption$"Calories from animal protein", type="h")
+plot(Caloric_consumption$V5, Caloric_consumption$"Calories from animal protein")
+plot(Caloric_consumption$V3, Caloric_consumption$"Calories from animal protein")
 
 #Caloric consumption ggplot
-ggplot(data = Caloric_consumption, mapping = aes(x = V1, y = V5)) +
+ggplot(data = Caloric_consumption, mapping = aes(x = "country_name", y = "Calories from carbohydrates")) +
   geom_boxplot()
-ggplot(data = Caloric_consumption, mapping = aes(x = V2, y = Total_consumption, color = as.factor(V1))) + geom_point()
+ggplot(data = Caloric_consumption, mapping = aes(x =  "Calories from animal protein", y = Total_consumption, color = as.factor("country_name"))) + geom_point()
 
 
 #add flags (failed for now ^^)
