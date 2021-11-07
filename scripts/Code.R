@@ -87,9 +87,10 @@ Diabetes_EU_women <- Diabetes_EU_women %>%
   group_by(country_code) %>%
   summarize(prop_women_diabetes = mean(prop_women_diabetes))
 
-#Joining tables GDP and Diabetes
+#Joining tables GDP, Diabetes and Caloric consumption
 GDP_diabetes<-full_join(GDP,Diabetes_EU_men, by="country_code")
 GDP_diabetes<-full_join(GDP_diabetes,Diabetes_EU_women, by="country_code")
+GDP_diabetes<-full_join(GDP_diabetes,Caloric_consumption, by="country_code")
 
 # Plot GDP and Diabetes (men and woman)
 plot(GDP_diabetes$avg_gdp, GDP_diabetes$prop_men_diabetes)
