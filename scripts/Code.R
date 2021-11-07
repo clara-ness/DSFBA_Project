@@ -23,8 +23,9 @@ setDT(daily_caloric)[ , Calories_from_fat := mean(`Calories from fat (FAO (2017)
 #FAO = Food and Agriculture Organisation 
 Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates,daily_caloric$Calories_from_fat)
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
-colnames(Caloric_consumption) <- c("country_name", "country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs","cal_fat")
-Caloric_consumption<-Caloric_consumption %>%
+Caloric_consumption <- Caloric_consumption[,-1] #drop country name
+colnames(Caloric_consumption) <- c("country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs","cal_fat")
+Caloric_consumption <-Caloric_consumption %>%
   group_by(country_code) %>%
   mutate(
     total_consumption = sum(c(cal_prot_animal,cal_prot_plant,cal_carbs,cal_fat)))
@@ -58,7 +59,7 @@ gt(dat)
 #GDP table tidying
 GDP <- read_excel("data/GDP (1960-2020).xls")
 colnames(GDP) <- GDP[3,]
-GDP <- GDP[-c(1:3),-c(3:44,59:65)] #or maybe use the filter and select functions
+GDP <- GDP[-c(1:3),-c(3:44,59:65)] #to drop not useful lines and years, also maybe use the filter and select functions
 GDP <- GDP[GDP$"Country Code" %in% EU,]
 GDP <- GDP %>% pivot_longer(c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013'),names_to = "Year",values_to = "Gross Domestic Product")
 colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
@@ -71,19 +72,19 @@ GDP <- GDP %>%
 Diabetes <- read_csv("data/Diabetes.csv")
 Diabetes2 <- subset(Diabetes, Year >= 2000 , Year <=2013)
 Diabetes_EU<-Diabetes2[Diabetes2$`ISO` %in% EU,]
-Diabetes_EU <- Diabetes_EU[-c(6,7)] #drop interval
+Diabetes_EU <- Diabetes_EU[-c(1,6,7)] #drop interval and country name
 Diabetes_EU_men <-subset(Diabetes_EU, Sex=="Men")
 Diabetes_EU_women <-subset(Diabetes_EU, Sex=="Women")
-colnames(Diabetes_EU_men)<-c("country_name","country_code","sex","year","prop_men_diabetes")
-colnames(Diabetes_EU_women)<-c("country_name","country_code","sex","year","prop_women_diabetes")
+colnames(Diabetes_EU_men)<-c("country_code","sex","year","prop_men_diabetes")
+colnames(Diabetes_EU_women)<-c("country_code","sex","year","prop_women_diabetes")
 Diabetes_EU_men$prop_men_diabetes <- as.numeric(Diabetes_EU_men$prop_men_diabetes)
 
 #Mean of 2000-2013
 Diabetes_EU_men <- Diabetes_EU_men %>% 
-  group_by(country_name,country_code) %>%
+  group_by(country_code) %>%
   summarize(prop_men_diabetes = mean(prop_men_diabetes))
 Diabetes_EU_women <- Diabetes_EU_women %>% 
-  group_by(country_name,country_code) %>%
+  group_by(country_code) %>%
   summarize(prop_women_diabetes = mean(prop_women_diabetes))
 
 #Joining tables GDP and Diabetes
