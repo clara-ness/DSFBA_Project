@@ -9,3 +9,72 @@ source(here::here("scripts/setup.R"))
 * Wrangling/cleaning
 * Spotting mistakes and missing data (could be part of EDA too)
 * Listing anomalies and outliers (could be part of EDA too)
+
+For our research, we are going to use seven different datasets.
+
+## Caloric consumption
+
+
+The first is the dataset with information related to caloric consumption. We downloaded it from the portal https://ourworldindata.org/diet-compositions.  It is composed of many information related to caloric consumption for almost all countries in the world. It gives us information on the average nutrition of different countries from 1961 to 2013, and we have information about: 
+
+```{r}
+daily_caloric <- read_csv(here::here("data/daily-caloric.csv"))
+```
+
+* We only want to focus on observations from European countries with Switzerland and the UK in the 2000s, which is why we have sorted the data as follows:
+```{r}
+daily_caloric <- read_csv("data/daily-caloric.csv")
+daily_caloric <- subset(daily_caloric, Year >= 2000)
+EU <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
+daily_caloric<-daily_caloric[daily_caloric$Code %in% EU,]
+view(daily_caloric)
+```
+
+* We will then focus on these variables:`Entity`, `Code`, `Calories from animal protein (FAO (2017))`, `,Calories from plant protein (FAO (2017))`, `Calories from fat (FAO (2017))`, `Calories from carbohydrates (FAO (2017))`, `point`.
+
+
+  + `Entity` Name of the country 
+  + `Code` ISO country code
+  + `Calories from animal protein (FAO (2017))` The average per capita supply of calories derived from animal protein    all measured in kilocalories per person per day.
+  + `Calories from plant protein (FAO (2017))` The average per capita supply of calories derived from plant protein,     all measured in kilocalories per person per day.
+  + `Calories from fat (FAO (2017))`The average per capita supply of calories derived from fat, all measured in          kilocalories per person per day.
+  + `Calories from carbohydrates (FAO (2017))` The average per capita supply of calories derived from carbohydrates,     all measured in kilocalories per person per day.  
+  
+*The intake of specific macronutrients (carbohydrates, protein and fats) are derived based on average food composition factors – these factors are derived and presented in the Food and Agriculture Organisation’s (FAO) Food Balance Sheet Handbook (https://www.fao.org/faostat/en/#data).
+
+*We then did the mean of consumption for each type of macronutrients in each countries between the years 2000 and 2013 and we also did the sum of the macronutrients for each country.
+
+```{r}
+setDT(daily_caloric)[ , Calories_from_animal_protein := mean(`Calories from animal protein (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[ , Calories_from_plant_protein := mean(`Calories from plant protein (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbohydrates (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[ , Calories_from_fat := mean(`Calories from fat (FAO (2017))`), by = "Entity"]
+Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates,daily_caloric$Calories_from_fat)
+Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
+Caloric_consumption <- Caloric_consumption[,-1] 
+colnames(Caloric_consumption) <- c("country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs","cal_fat")
+Caloric_consumption <-Caloric_consumption %>%
+  group_by(country_code) %>%
+  mutate(
+    total_consumption = sum(c(cal_prot_animal,cal_prot_plant,cal_carbs,cal_fat)))
+```
+
+*With these new numbers, we created a dataframe and named the columns accordingly:
+  + `country_code` ISO country code
+  + `cal_prot_animal`The mean of the calories from animal protein consumed in each country in the years 2000-2013
+  + `cal_prot_plant` The mean of the calories from plant protein consumed in each country in the years 2000-2013
+  + `cal_carbs`The mean of the calories from carbohydrates consumed in each country in the years 2000-2013
+  + `cal_fat` The mean of the calories from fat consumed in each country in the years 2000-2013
+  + `total_consumption` The total consumption based on the means of the consumption of each type of macronutrients in    each countries in the years 2000-2013.
+  
+
+
+## GDP
+
+
+
+
+
+
+
+## Diabetes
