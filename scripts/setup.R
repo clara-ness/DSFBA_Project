@@ -6,7 +6,7 @@
 ##maps only if we use it otherwise can create some conflicts
   packages <- c(
   "here", # for the project's organization
-  "tidyverse", "lubridate", # for wrangling
+  "tidyverse", "lubridate","readr","dplyr", "readxl","data.table", # for wrangling
   "ggrepel", "gghighlight", "patchwork", "maps", "scales", # for plotting
   "knitr", "kableExtra", "bookdown", "rmarkdown" # for the report
 )

@@ -57,7 +57,7 @@ gt(dat)
 
   
 #GDP table tidying
-GDP <- read_excel("data/GDP (1960-2020).xls")
+GDP <- read_excel("data/GDP(1960-2020).xls")
 colnames(GDP) <- GDP[3,]
 GDP <- GDP[-c(1:3),-c(3:44,59:65)] #to drop not useful lines and years, also maybe use the filter and select functions
 GDP <- GDP[GDP$"Country Code" %in% EU,]

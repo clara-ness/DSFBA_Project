@@ -81,7 +81,7 @@ Caloric_consumption <-Caloric_consumption %>%
 Our second dataset, downloaded from the portal https://data.worldbank.org, gives us information about the GDP of many countries over the course of 60 years (1960-2020).
 
 ```{r}
-GDP <- read_excel("data/GDP (1960-2020).xls")
+GDP <- read_excel("data/GDP(1960-2020).xls")
 ```
 
 *It is composed of 266 observations of 65 variables :
