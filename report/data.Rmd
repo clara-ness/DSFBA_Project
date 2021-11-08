@@ -34,7 +34,7 @@ view(daily_caloric)
 
 * We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries' names.
 
-* We then focused on these variables:`Entity`, `Code`, `Calories from animal protein (FAO (2017))`, `,Calories from plant protein (FAO (2017))`, `Calories from fat (FAO (2017))`, `Calories from carbohydrates (FAO (2017))`, `point`.
+* We then focused on these variables:`Entity`, `Code`, `Calories from animal protein (FAO (2017))`, `,Calories from plant protein (FAO (2017))`, `Calories from fat (FAO (2017))`, `Calories from carbohydrates (FAO (2017))`.
 
 
   `Entity` Name of the country 
