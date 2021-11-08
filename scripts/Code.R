@@ -88,13 +88,13 @@ Diabetes_EU_women <- Diabetes_EU_women %>%
   summarize(prop_women_diabetes = mean(prop_women_diabetes))
 
 #Joining tables GDP, Diabetes and Caloric consumption
-GDP_diabetes<-full_join(GDP,Diabetes_EU_men, by="country_code")
-GDP_diabetes<-full_join(GDP_diabetes,Diabetes_EU_women, by="country_code")
-GDP_diabetes<-full_join(GDP_diabetes,Caloric_consumption, by="country_code")
+GDP_diabetes_cal <-full_join(GDP,Diabetes_EU_men, by="country_code")
+GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
+GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
 
 # Plot GDP and Diabetes (men and woman)
-plot(GDP_diabetes$avg_gdp, GDP_diabetes$prop_men_diabetes)
-plot(GDP_diabetes$avg_gdp, GDP_diabetes$prop_women_diabetes)
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
 
 #What is this code for ?
 GDP_Diabetes_reshaped <- data.frame(x = GDP_diabetes$avg_gdp,                           
@@ -103,10 +103,3 @@ GDP_Diabetes_reshaped <- data.frame(x = GDP_diabetes$avg_gdp,
                                     rep("y2", nrow(GDP_diabetes))))
 
 ggplot(GDP_Diabetes_reshaped, aes(x, y, col = group)) +  geom_point()
-
-#Joining tables with merge
-GDP_diabetes_test<-merge(x = GDP, y = Diabetes_EU_men[ , c( "country_code", "prop_men_diabetes")], by = "country_code", all.x=TRUE)
-GDP_diabetes_test<-merge(x = GDP_diabetes_test, y = Diabetes_EU_women[ , c( "country_code", "prop_women_diabetes")], by = "country_code", all.x=TRUE)
-
-GDP_diabetes_test<- merge(x = GDP_diabetes_test, y = Caloric_consumption[ , c("country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs","cal_fat", "total_consumption")], by = "country_code", all.x=TRUE)
-
