@@ -37,12 +37,12 @@ view(daily_caloric)
 * We then focused on these variables:`Entity`, `Code`, `Calories from animal protein (FAO (2017))`, `,Calories from plant protein (FAO (2017))`, `Calories from fat (FAO (2017))`, `Calories from carbohydrates (FAO (2017))`, `point`.
 
 
-  + `Entity` Name of the country 
-  + `Code` ISO country code
-  + `Calories from animal protein (FAO (2017))` The average per capita supply of calories derived from animal protein    all measured in kilocalories per person per day.
-  + `Calories from plant protein (FAO (2017))` The average per capita supply of calories derived from plant protein,     all measured in kilocalories per person per day.
-  + `Calories from fat (FAO (2017))`The average per capita supply of calories derived from fat, all measured in          kilocalories per person per day.
-  + `Calories from carbohydrates (FAO (2017))` The average per capita supply of calories derived from carbohydrates,     all measured in kilocalories per person per day.  
+  `Entity` Name of the country 
+  `Code` ISO country code
+  `Calories from animal protein (FAO (2017))` The average per capita supply of calories derived from animal protein    all measured in kilocalories per person per day.
+  `Calories from plant protein (FAO (2017))` The average per capita supply of calories derived from plant protein,     all measured in kilocalories per person per day.
+  `Calories from fat (FAO (2017))`The average per capita supply of calories derived from fat, all measured in          kilocalories per person per day.
+  `Calories from carbohydrates (FAO (2017))` The average per capita supply of calories derived from carbohydrates,     all measured in kilocalories per person per day.  
   
 * The intake of specific macronutrients (carbohydrates, protein and fats) are derived based on average food composition factors – these factors are derived and presented in the Food and Agriculture Organisation’s (FAO) Food Balance Sheet Handbook (https://www.fao.org/faostat/en/#data).
 
@@ -66,12 +66,12 @@ Caloric_consumption <-Caloric_consumption %>%
 * Our assumption was that a county's wealth may fluctuate over the course of 10 years (ex: a dip during the economic crisis of 2008) but an overall mean is sufficient to compare the different countries and their riches.
 
 * With these new numbers, we created a dataframe and named the columns accordingly:
-  + `country_code` ISO country code
-  + `cal_prot_animal`The mean of the calories from animal protein consumed in each country in the years 2000-2013
-  + `cal_prot_plant` The mean of the calories from plant protein consumed in each country in the years 2000-2013
-  + `cal_carbs`The mean of the calories from carbohydrates consumed in each country in the years 2000-2013
-  + `cal_fat` The mean of the calories from fat consumed in each country in the years 2000-2013
-  + `total_consumption` The total consumption based on the means of the consumption of each type of macronutrients in    each countries in the years 2000-2013.
+  `country_code` ISO country code
+  `cal_prot_animal`The mean of the calories from animal protein consumed in each country in the years 2000-2013
+  `cal_prot_plant` The mean of the calories from plant protein consumed in each country in the years 2000-2013
+  `cal_carbs`The mean of the calories from carbohydrates consumed in each country in the years 2000-2013
+  `cal_fat` The mean of the calories from fat consumed in each country in the years 2000-2013
+  `total_consumption` The total consumption based on the means of the consumption of each type of macronutrients in    each countries in the years 2000-2013.
   
 
 
@@ -84,13 +84,13 @@ Our second dataset, downloaded from the portal https://data.worldbank.org, gives
 GDP <- read_excel(here::here("data/GDP(1960-2020).xls"))
 ```
 
-*It is composed of 266 observations of 65 variables :
+* It is composed of 266 observations of 65 variables :
 
-+ `Country Name` Name of the country
-+ `Country Code` ISO country code
-+ `Indicator Name` equal to "GDP in current US$" for every row
-+ `Indicator Code` equal to "NY.GDP.MKTP.CD" for every row
-+ And a variable for each year from 1960 to 2020
+`Country Name` Name of the country
+`Country Code` ISO country code
+`Indicator Name` equal to "GDP in current US$" for every row
+`Indicator Code` equal to "NY.GDP.MKTP.CD" for every row
+And a variable for each year from 1960 to 2020
 
 * As we can see below, RStudio imported the Excel file as is, and so our column names found themselves at the 3rd row and therefore column names of columns 3 to 65 have been attributed numbers.
 
@@ -133,9 +133,9 @@ GDP <- GDP %>%
 ```
 
 * We now have a dataframe with the following variables :
-+ `country_name` name of the country
-+ `country_code` ISO code of the country
-+ `avg_gdp` the average GDP of a country over the course of 2000-2013
+`country_name` name of the country
+`country_code` ISO code of the country
+`avg_gdp` the average GDP of a country over the course of 2000-2013
 
 ### Diabetes
 
