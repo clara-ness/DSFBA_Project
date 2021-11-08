@@ -96,10 +96,3 @@ GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_
 plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)
 plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
 
-#What is this code for ?
-GDP_Diabetes_reshaped <- data.frame(x = GDP_diabetes$avg_gdp,                           
-                          y = c(GDP_diabetes$prop_men_diabetes,GDP_diabetes$prop_women_diabetes),
-                          group = c(rep("y1", nrow(GDP_diabetes)),
-                                    rep("y2", nrow(GDP_diabetes))))
-
-ggplot(GDP_Diabetes_reshaped, aes(x, y, col = group)) +  geom_point()
