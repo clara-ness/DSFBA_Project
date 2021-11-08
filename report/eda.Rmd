@@ -9,3 +9,17 @@ source(here::here("scripts/setup.R"))
 * Univariate visualizations
 * Multivariate visualizations
 * Summary tables
+
+```{r echo= FALSE}
+plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_men_diabetes)
+plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_women_diabetes)
+```
+
+
+
+```{r echo= FALSE}
+plot(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
+```
+
+
+
