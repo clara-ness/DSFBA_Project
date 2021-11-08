@@ -10,6 +10,14 @@ source(here::here("scripts/setup.R"))
 * Multivariate visualizations
 * Summary tables
 
+
+
+#plotting GDP against Diabetes, men & women, Aleysa 
+
+#GDP againt total calories, each macronut Clara
+
+#Diabetes againt calories Fabien
+
 ```{r echo= FALSE}
 plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_men_diabetes)
 plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_women_diabetes)
