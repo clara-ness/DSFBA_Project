@@ -34,8 +34,7 @@ view(daily_caloric)
 
 * We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries' names.
 
-* We then focused on these variables:`Entity`, `Code`, `Calories from animal protein (FAO (2017))`, `,Calories from plant protein (FAO (2017))`, `Calories from fat (FAO (2017))`, `Calories from carbohydrates (FAO (2017))`.
-
+* We then focused on these variables:
 
   `Entity` Name of the country  
   `Code` ISO country code  
@@ -66,6 +65,7 @@ Caloric_consumption <-Caloric_consumption %>%
 * Our assumption was that a county's wealth may fluctuate over the course of 10 years (ex: a dip during the economic crisis of 2008) but an overall mean is sufficient to compare the different countries and their riches.
 
 * With these new numbers, we created a dataframe and named the columns accordingly:
+
   `country_code` ISO country code  
   `cal_prot_animal`The mean of the calories from animal protein consumed in each country in the years 2000-2013  
   `cal_prot_plant` The mean of the calories from plant protein consumed in each country in the years 2000-2013  
