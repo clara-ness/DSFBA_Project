@@ -4,7 +4,7 @@
 
 # load the required packages
 ##maps only if we use it otherwise can create some conflicts
-packages <- c(
+  packages <- c(
   "here", # for the project's organization
   "tidyverse", "lubridate", # for wrangling
   "ggrepel", "gghighlight", "patchwork", "maps", "scales", # for plotting
