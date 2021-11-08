@@ -12,7 +12,12 @@ source(here::here("scripts/setup.R"))
 
 
 
-#plotting GDP against Diabetes, men & women, Aleysa 
+## Plotting GDP against Diabetes (Men & Women)
+```{r}
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
+```
+
 
 #GDP againt total calories, each macronut Clara
 
