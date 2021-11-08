@@ -16,20 +16,12 @@ source(here::here("scripts/Code.R"))
 ```{r echo= FALSE}
 cor(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_men_diabetes)
 cor(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_women_diabetes)
-
-```
-We see a very small correlation. It would be interesting to push the analysis a bit further to see the representation in a graph. 
-
-```{r echo= FALSE}
-plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_men_diabetes)
-plot(GDP_diabetes_test$avg_gdp,GDP_diabetes_test$prop_women_diabetes)
 ```
 
 
 2.Do European countries that have higher GDPs consume less calories ?
 ```{r echo= FALSE}
 cor(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
-plot(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
 ```
 
 
