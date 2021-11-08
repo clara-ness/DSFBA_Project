@@ -26,7 +26,7 @@ plot(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$prop_women_diabetes)
 
 
 ```{r echo= FALSE}
-plot(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption)
 ```
 
 
