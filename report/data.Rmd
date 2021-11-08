@@ -137,7 +137,50 @@ GDP <- GDP %>%
 `country_code` ISO code of the country
 `avg_gdp` the average GDP of a country over the course of 2000-2013
 
+
 ### Diabetes
+
+```{r}
+diabetes <- read_csv(here::here("data/Diabetes.csv"))
+```
+*keep only data from 2000-2013
+
+```{r}
+Diabetes2 <- subset(Diabetes, Year >= 2000 , Year <=2013)
+```
+
+* keep only european countries
+
+```{r}
+Diabetes_EU<-Diabetes2[Diabetes2$`ISO` %in% EU,]
+```
+* drop interval and country names
+
+```{r}
+Diabetes_EU <- Diabetes_EU[-c(1,6,7)]
+```
+* separate men and women
+
+```{r}
+Diabetes_EU_men <-subset(Diabetes_EU, Sex=="Men")
+Diabetes_EU_women <-subset(Diabetes_EU, Sex=="Women")
+```
+* change colomn name
+
+```{r}
+colnames(Diabetes_EU_men)<-c("country_code","sex","year","prop_men_diabetes")
+colnames(Diabetes_EU_women)<-c("country_code","sex","year","prop_women_diabetes")
+```
+* group by country
+
+```{r}
+Diabetes_EU_men <- Diabetes_EU_men %>% 
+  group_by(country_code) %>%
+  summarize(prop_men_diabetes = mean(prop_men_diabetes))
+Diabetes_EU_women <- Diabetes_EU_women %>% 
+  group_by(country_code) %>%
+  summarize(prop_women_diabetes = mean(prop_women_diabetes))
+```
 
 
 
