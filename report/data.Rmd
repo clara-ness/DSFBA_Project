@@ -189,8 +189,8 @@ Diabetes_EU_women <- Diabetes_EU_women %>%
 Finally, we joined all three tables in one dataset with the 'country_code' key :
 
 ```{r}
-#GDP_diabetes_cal <-full_join(GDP,Diabetes_EU_men, by="country_code")
-#GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
-#GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
+GDP_diabetes_cal <-full_join(GDP,Diabetes_EU_men, by="country_code")
+GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
+GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
 ```
 
