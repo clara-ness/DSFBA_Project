@@ -141,7 +141,7 @@ GDP <- GDP %>%
 ### Diabetes
 
 ```{r}
-diabetes <- read_csv(here::here("data/Diabetes.csv"))
+Diabetes <- read_csv(here::here("data/Diabetes.csv"))
 ```
 *keep only data from 2000-2013
 
