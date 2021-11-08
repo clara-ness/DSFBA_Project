@@ -95,7 +95,7 @@ It is composed of 266 observations of 65 variables :
 As we can see below, RStudio imported the Excel file as is, and so our column names found themselves at the 3rd row and therefore column names of columns 3 to 65 have been attributed numbers.
 
 ```{r}
-comment mettre résultats ?
+GDP
 ```
 
 We decided to fix that and to filter out the years that is in our interest and that we have in common with other tables, AKA the years 2000-2013. We decided to get rid of the 'Indicator Name' and 'Indicator Code' variables as well since the values are the same for every row and they do not provide additional useful information.
