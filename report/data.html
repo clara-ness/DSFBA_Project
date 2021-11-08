@@ -186,11 +186,21 @@ pre code {
 <li><p>We only wanted to focus on observations from European countries with Switzerland and the UK in the 2000s, which is why we have sorted the data as follows:</p></li>
 <li><p>We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries’ names.</p></li>
 <li><p>We then focused on these variables:<code>Entity</code>, <code>Code</code>, <code>Calories from animal protein (FAO (2017))</code>, <code>,Calories from plant protein (FAO (2017))</code>, <code>Calories from fat (FAO (2017))</code>, <code>Calories from carbohydrates (FAO (2017))</code>.</p>
-<p><code>Entity</code> Name of the country <code>Code</code> ISO country code <code>Calories from animal protein (FAO (2017))</code> The average per capita supply of calories derived from animal protein all measured in kilocalories per person per day. <code>Calories from plant protein (FAO (2017))</code> The average per capita supply of calories derived from plant protein, all measured in kilocalories per person per day. <code>Calories from fat (FAO (2017))</code>The average per capita supply of calories derived from fat, all measured in kilocalories per person per day. <code>Calories from carbohydrates (FAO (2017))</code> The average per capita supply of calories derived from carbohydrates, all measured in kilocalories per person per day.</p></li>
+<p><code>Entity</code> Name of the country<br />
+<code>Code</code> ISO country code<br />
+<code>Calories from animal protein (FAO (2017))</code> The average per capita supply of calories derived from animal protein all measured in kilocalories per person per day<br />
+<code>Calories from plant protein (FAO (2017))</code> The average per capita supply of calories derived from plant protein, all measured in kilocalories per person per day<br />
+<code>Calories from fat (FAO (2017))</code>The average per capita supply of calories derived from fat, all measured in kilocalories per person per day<br />
+<code>Calories from carbohydrates (FAO (2017))</code> The average per capita supply of calories derived from carbohydrates, all measured in kilocalories per person per day</p></li>
 <li><p>The intake of specific macronutrients (carbohydrates, protein and fats) are derived based on average food composition factors – these factors are derived and presented in the Food and Agriculture Organisation’s (FAO) Food Balance Sheet Handbook (<a href="https://www.fao.org/faostat/en/#data" class="uri">https://www.fao.org/faostat/en/#data</a>).</p></li>
 <li><p>We then computed the mean of the consumption for each type of macronutrient in each country between the years 2000 and 2013, and the sum of total calories per person per day for each country in order to answer our second research question.</p></li>
 <li><p>Our assumption was that a county’s wealth may fluctuate over the course of 10 years (ex: a dip during the economic crisis of 2008) but an overall mean is sufficient to compare the different countries and their riches.</p></li>
-<li><p>With these new numbers, we created a dataframe and named the columns accordingly: <code>country_code</code> ISO country code <code>cal_prot_animal</code>The mean of the calories from animal protein consumed in each country in the years 2000-2013 <code>cal_prot_plant</code> The mean of the calories from plant protein consumed in each country in the years 2000-2013 <code>cal_carbs</code>The mean of the calories from carbohydrates consumed in each country in the years 2000-2013 <code>cal_fat</code> The mean of the calories from fat consumed in each country in the years 2000-2013 <code>total_consumption</code> The total consumption based on the means of the consumption of each type of macronutrients in each countries in the years 2000-2013.</p></li>
+<li><p>With these new numbers, we created a dataframe and named the columns accordingly: <code>country_code</code> ISO country code<br />
+<code>cal_prot_animal</code>The mean of the calories from animal protein consumed in each country in the years 2000-2013<br />
+<code>cal_prot_plant</code> The mean of the calories from plant protein consumed in each country in the years 2000-2013<br />
+<code>cal_carbs</code>The mean of the calories from carbohydrates consumed in each country in the years 2000-2013<br />
+<code>cal_fat</code> The mean of the calories from fat consumed in each country in the years 2000-2013<br />
+<code>total_consumption</code> The total consumption based on the means of the consumption of each type of macronutrients in each countries in the years 2000-2013</p></li>
 </ul>
 </div>
 <div id="gdp" class="section level3">
@@ -199,7 +209,11 @@ pre code {
 <ul>
 <li>It is composed of 266 observations of 65 variables :</li>
 </ul>
-<p><code>Country Name</code> Name of the country <code>Country Code</code> ISO country code <code>Indicator Name</code> equal to “GDP in current US$” for every row <code>Indicator Code</code> equal to “NY.GDP.MKTP.CD” for every row And a variable for each year from 1960 to 2020</p>
+<p><code>Country Name</code> Name of the country<br />
+<code>Country Code</code> ISO country code<br />
+<code>Indicator Name</code> equal to “GDP in current US$” for every row<br />
+<code>Indicator Code</code> equal to “NY.GDP.MKTP.CD” for every row<br />
+And a variable for each year from 1960 to 2020</p>
 <ul>
 <li>As we can see below, RStudio imported the Excel file as is, and so our column names found themselves at the 3rd row and therefore column names of columns 3 to 65 have been attributed numbers.</li>
 </ul>
@@ -229,8 +243,11 @@ pre code {
 <li><p>In order to join tables easily, we transformed the columns corresponding to different years to a single “year” column, in order to have at each row of this dataset the GDP of a certain country at a certain year.</p></li>
 <li><p>To make it easier to manipulate data, we decided to rename our variables for this table as well. We also made sure that the type of our numeric variable (GDP) was numeric and not character, like it was by default.</p></li>
 <li><p>Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.</p></li>
-<li><p>We now have a dataframe with the following variables : <code>country_name</code> name of the country <code>country_code</code> ISO code of the country <code>avg_gdp</code> the average GDP of a country over the course of 2000-2013</p></li>
+<li><p>We now have a dataframe with the following variables :</p></li>
 </ul>
+<p><code>country_name</code> name of the country<br />
+<code>country_code</code> ISO code of the country<br />
+<code>avg_gdp</code> the average GDP of a country over the course of 2000-2013</p>
 </div>
 <div id="diabetes" class="section level3">
 <h3>Diabetes</h3>
