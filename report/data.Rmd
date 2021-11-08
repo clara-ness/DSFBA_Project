@@ -29,7 +29,7 @@ daily_caloric <- read_csv(here::here("data/daily-caloric.csv"))
 daily_caloric <- subset(daily_caloric, Year >= 2000)
 EU <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 daily_caloric<-daily_caloric[daily_caloric$Code %in% EU,]
-view(daily_caloric)
+daily_caloric
 ```
 
 * We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries' names.
