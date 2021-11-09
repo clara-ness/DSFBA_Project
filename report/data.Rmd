@@ -52,6 +52,11 @@ setDT(daily_caloric)[ , Calories_from_animal_protein := mean(`Calories from anim
 setDT(daily_caloric)[ , Calories_from_plant_protein := mean(`Calories from plant protein (FAO (2017))`), by = "Entity"]
 setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbohydrates (FAO (2017))`), by = "Entity"]
 setDT(daily_caloric)[ , Calories_from_fat := mean(`Calories from fat (FAO (2017))`), by = "Entity"]
+```
+
+* We then create a new table with the mean and we also add the sum of total calories per person per day for each country in order to get a broader view with the total consumption of calories.
+
+```{r}
 Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates,daily_caloric$Calories_from_fat)
 Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
 Caloric_consumption <- Caloric_consumption[,-1] 
