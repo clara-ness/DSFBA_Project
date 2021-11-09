@@ -21,6 +21,26 @@ plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
 
 #GDP againt total calories, each macronut Clara
 
+```{r}
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption, type="h")
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_prot_animal)
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_prot_plant)
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_carbs)
+plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_fat)
+
+ggplot(data = GDP_diabetes_cal, mapping = aes(x = "country_name", y = "total_consumption")) +
+  geom_boxplot()
+ggplot(data = GDP_diabetes_cal, mapping = aes(x = country_code, y = total_consumption, color = as.factor("country_name"))) + geom_point()
+
+
+```
+
+
+
+
+
+
+
 #Diabetes againt calories Fabien
 
 ```{r echo= FALSE}
