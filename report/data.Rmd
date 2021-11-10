@@ -136,33 +136,9 @@ GDP <- GDP %>%
   group_by(country_name, country_code) %>% 
   summarize(avg_gdp = mean(avg_gdp))
 GDP %>%
-
-  #label_number("avg_gdp",accuracy = T,scale=1,prefix = "$", suffix = "M")
-   #unit_format(unit = "$Millions", scale = 1e-10)(c("avg_gdp"))
-   #mutate_at(c(3), funs(c(scale(.)))) #this scaling method doesn't work, how to do it ?
+   mutate_at(c(3), funs(c(scale(.)))) #this scaling method doesn't work, how to do it ?
   
-library(dplyr)
-library(gt)
 
-GDP %>%
-  group_by(avg_gdp)%>%
-  mutate(avg_gdp = avg_gdp/0.00000000001) %>%
-  fmt_number(columns = avg_gdpM)
-
-GDP <-
-  exibble %>%
-  gt() %>%
-  fmt_number(
-  GDP$avg_gdp,
-  rows = everything(),
-  decimals = 4,
-  n_sigfig = NULL,
-  drop_trailing_zeros = FALSE,
-  drop_trailing_dec_mark = TRUE,
-  use_seps = TRUE,
-  accounting = FALSE,
-  scale_by = 1/(exp(11)),
-  suffixing = F)
 ```
 
 * We now have a dataframe with the following variables :
