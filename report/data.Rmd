@@ -144,7 +144,7 @@ GDP <- GDP %>%
 `avg_gdp` the average GDP of a country over the course of 2000-2013  
 
 ### Diabetes
-The third dataset, from https://www.ncdrisc.org/data-downloads-diabetes.html, provides us information about the age-standardised diabetes prevalence for each country and sex/gender from 1980 to 2014.
+The third dataset, from https://www.ncdrisc.org/data-downloads-diabetes.html, gives us information about the age-standardised diabetes prevalence for each country and gender from 1980 to 2014.
 
 * It is composed of 14'000 observations for 7 variables :
 `Country/Region/World ` Name of the country
