@@ -30,22 +30,19 @@ plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
 #GDP againt total calories, each macronut Clara
 
 ```{r}
-plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption, type="h")
-plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_prot_animal)
-plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_prot_plant)
-plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_carbs)
-plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_fat)
 
 plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption,
-main="Overlaying Graphs",
+main="Caloric consumption by country",
 ylab="",
 type="p",
 col="blue")
 lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat, col="red", type="p")
-legend("topleft",
-c("GDP_diabetes_cal$total_consumption","GDP_diabetes_cal$cal_fat"),
-fill=c("blue","red")
-)
+lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs, col="green", type="p")
+lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal, col="orange", type="p")
+lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant, col="purple", type="p")
+legend("topleft", c("Total Tonsumption","Fat", "Carbs", "Animal Protein", "Plant Protein"),
+fill=c("blue","red", "green", "orange", "purple"))
+
 
 ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption)) +
   geom_point() + # Show dots
