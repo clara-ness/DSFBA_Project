@@ -164,7 +164,7 @@ Diabetes <- read_csv(here::here("data/Diabetes.csv"))
 Diabetes <- subset(Diabetes, Year >= 2000 , Year <=2013)
 ```
 
-* We also want to keep only european countries.
+* We keep only european countries as our two first datasets:
 
 ```{r}
 Diabetes_EU<-Diabetes[Diabetes$`ISO` %in% EU,]
@@ -194,15 +194,18 @@ colnames(Diabetes_EU_men)<-c("country_code","sex","year","prop_men_diabetes")
 colnames(Diabetes_EU_women)<-c("country_code","sex","year","prop_women_diabetes")
 ```
 * Finally we group observations by country to get the mean of prevalence of diabetes between 2000 and 2013 for each european countries :
-
+* For men :
 ```{r}
 Diabetes_EU_men <- Diabetes_EU_men %>% 
   group_by(country_code) %>%
   summarize(prop_men_diabetes = mean(prop_men_diabetes))
+Diabetes_EU_men
+```
+*For women :
+```{r}
 Diabetes_EU_women <- Diabetes_EU_women %>% 
   group_by(country_code) %>%
   summarize(prop_women_diabetes = mean(prop_women_diabetes))
-Diabetes_EU_men
 Diabetes_EU_women
 ```
 
