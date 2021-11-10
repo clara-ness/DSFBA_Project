@@ -129,7 +129,7 @@ colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
 GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
 ```
 
-* Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.
+* Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together. (We also decided to scale our data)
 
 ```{r}
 GDP <- GDP %>% 
@@ -202,5 +202,7 @@ Finally, we joined all three tables in one dataset with the 'country_code' key :
 GDP_diabetes_cal <-full_join(GDP,Diabetes_EU_men, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
+
+GDP_diabetes_cal[,3:10] <- scale(GDP_diabetes_cal[,-c(1,2)]) #attempt of scaling the whole table
 ```
 
