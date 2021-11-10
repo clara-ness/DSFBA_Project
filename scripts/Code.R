@@ -67,6 +67,8 @@ GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
 GDP <- GDP %>% 
   group_by(country_name, country_code) %>% 
   summarize(avg_gdp = mean(avg_gdp))
+GDP %>%
+  mutate_at(c(3), funs(c(scale(.)))) #this scaling method doesn't work, how to do it ?
 
 #Diabetes table tidying
 Diabetes <- read_csv("data/Diabetes.csv")

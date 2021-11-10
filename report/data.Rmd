@@ -136,7 +136,7 @@ GDP <- GDP %>%
   group_by(country_name, country_code) %>% 
   summarize(avg_gdp = mean(avg_gdp))
 GDP %>%
-   mutate_at(c(3), funs(c(scale(.))))
+   mutate_at(c(3), funs(c(scale(.)))) #this scaling method doesn't work, how to do it ?
 ```
 
 * We now have a dataframe with the following variables :
