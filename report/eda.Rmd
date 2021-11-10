@@ -79,14 +79,14 @@ GDP_diabetes_cal <-within(GDP_diabetes_cal, rank3 <- rank(order(rank_GDP, rank_C
 
 
 
-
 #Diabetes againt calories Fabien
 
-```{r echo= FALSE}
-plot(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$prop_men_diabetes)
-plot(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$prop_women_diabetes)
+```{r}
+plot(GDP_diabetes_cal$cal_carbs,GDP_diabetes_cal$prop_men_diabetes)
+plot(GDP_diabetes_cal$total_consumption,GDP_diabetes_cal$prop_women_diabetes)
+ggplot(data = GDP_diabetes_cal) +
+  geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes))
 ```
-
 
 
 ```{r echo= FALSE}
