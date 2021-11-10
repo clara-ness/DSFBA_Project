@@ -72,6 +72,26 @@ GDP_diabetes_cal <-within(GDP_diabetes_cal, rank3 <- rank(order(rank_GDP, rank_C
   order_by(rank3)
 #not the same so ranking maybe link btw regimes and lowest diabetes rates??
   
+#Plotting evolution of the microcarbs in the years for each countries 
+  
+ggplot(data = daily_caloric, aes("Calories from animal animal protein (FAO (2017))", c(Entity))) +
+  geom_line(color = "steelblue",size = 1) +
+  geom_point(color="steelblue") + 
+  labs(title = "Caloric consumption per year",
+       subtitle = "per country",
+       y = "y", x = "x")
+
+caloric_count <- count(daily_caloric, Year, "Calories from animal animal protein (FAO (2017))", Code)
+glimpse(caloric_count)
+
+ggplot(data = caloric_count, aes("Calories from animal animal protein (FAO (2017))", Code)) +
+  geom_line(color = "steelblue",size = 1) +
+  geom_point(color="steelblue") + 
+  labs(title = "Caloric consumption per year",
+       subtitle = "per country",
+       y = "y", x = "x")+
+      facet_wrap(~ "Calories from animal animal protein (FAO (2017))", Code)
+  
 ```
 
 
