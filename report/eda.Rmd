@@ -39,15 +39,22 @@ plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_fat)
 plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption,
 main="Overlaying Graphs",
 ylab="",
-type="l",
+type="p",
 col="blue")
-lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat, col="red")
+lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat, col="red", type="p")
 legend("topleft",
 c("GDP_diabetes_cal$total_consumption","GDP_diabetes_cal$cal_fat"),
 fill=c("blue","red")
 )
-ggplot(data = GDP_diabetes_cal, mapping = aes(x = "country_name", y = "total_consumption")) +
-  geom_boxplot()
+
+ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption)) +
+  geom_point() + # Show dots
+  geom_text(
+    label= (GDP_diabetes_cal$country_code),  
+    nudge_x = 0.25, nudge_y = 0.25, 
+    check_overlap = T
+  )
+
 ggplot(data = GDP_diabetes_cal, mapping = aes(x = country_code, y = total_consumption, color = as.factor("country_name"))) + geom_point()
 
 
