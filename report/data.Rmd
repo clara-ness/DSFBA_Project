@@ -144,13 +144,10 @@ GDP %>%
 library(dplyr)
 library(gt)
 
-mtcars %>%
-  group_by(cyl)%>%
-  summarise(Transaction_count = n() * 100, mpg = sum(mpg)) %>%
-  mutate(Count_contribution = Transaction_count/sum(Transaction_count)) %>%
-  gt() %>%
-  fmt_percent(columns = Count_contribution,decimals = 1) %>%
-  fmt_number(columns = Transaction_count)
+GDP %>%
+  group_by(avg_gdp)%>%
+  mutate(avg_gdp = avg_gdp/0.00000000001) %>%
+  fmt_number(columns = avg_gdpM)
 
 GDP <-
   exibble %>%
