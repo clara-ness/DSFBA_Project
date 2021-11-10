@@ -62,7 +62,14 @@ ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$prop_men_diabetes, y=GDP_diabete
 
 ggplot(data = GDP_diabetes_cal, mapping = aes(x = country_code, y = total_consumption, color = as.factor("country_name"))) + geom_point()
 
+#ranking GDP and total consumption 
+GDP_diabetes_cal$rank_GDP <- rank(GDP_diabetes_cal$avg_gdp)
+GDP_diabetes_cal$rank_Consumption <- rank(GDP_diabetes_cal$total_consumption)
 
+#Rank btw them 
+GDP_diabetes_cal <-within(GDP_diabetes_cal, rank3 <- rank(order(rank_GDP, rank_Consumption), ties.method='first'))
+  order_by(rank3)
+#not the same so ranking maybe link btw regimes and lowest diabetes rates?
 ```
 
 
