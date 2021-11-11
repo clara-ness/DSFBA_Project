@@ -81,16 +81,16 @@ ggplot(data = daily_caloric, aes("Calories from animal animal protein (FAO (2017
        subtitle = "per country",
        y = "y", x = "x")
 
-caloric_count <- count(daily_caloric, Year, "Calories from animal animal protein (FAO (2017))", Code)
+caloric_count <- count(daily_caloric, Year, "Calories from animal protein (FAO (2017))", Code)
 glimpse(caloric_count)
 
-ggplot(data = caloric_count, aes("Calories from animal animal protein (FAO (2017))", Code)) +
+ggplot(data = caloric_count, aes("Calories from animal protein (FAO (2017))", Code)) +
   geom_line(color = "steelblue",size = 1) +
   geom_point(color="steelblue") + 
   labs(title = "Caloric consumption per year",
        subtitle = "per country",
        y = "y", x = "x")+
-      facet_wrap(~ "Calories from animal animal protein (FAO (2017))", Code)
+      facet_wrap(~Year, "Calories from animal protein (FAO (2017))")
   
 ```
 
