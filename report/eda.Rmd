@@ -58,8 +58,8 @@ ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$prop_men_diabetes, y=GDP_diabete
     label= (GDP_diabetes_cal$country_code),  
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)
-##the last 2 plots not the same distributions!! so Question 1 not so trivial after all
 
+##the last 2 plots not the same distributions!! so Question 1 not so trivial after all
 ggplot(data = GDP_diabetes_cal, mapping = aes(x = country_code, y = total_consumption, color = as.factor("country_name"))) + geom_point()
 
 #ranking GDP and total consumption 
@@ -73,25 +73,27 @@ GDP_diabetes_cal <-within(GDP_diabetes_cal, rank3 <- rank(order(rank_GDP, rank_C
 #not the same so ranking maybe link btw regimes and lowest diabetes rates??
   
 #Plotting evolution of the microcarbs in the years for each countries 
-  
-ggplot(data = daily_caloric, aes("Calories from animal animal protein (FAO (2017))", c(Entity))) +
-  geom_line(color = "steelblue",size = 1) +
-  geom_point(color="steelblue") + 
-  labs(title = "Caloric consumption per year",
-       subtitle = "per country",
-       y = "y", x = "x")
 
-caloric_count <- count(daily_caloric, Year, "Calories from animal protein (FAO (2017))", Code)
-glimpse(caloric_count)
+cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
 
-ggplot(data = caloric_count, aes("Calories from animal protein (FAO (2017))", Code)) +
-  geom_line(color = "steelblue",size = 1) +
-  geom_point(color="steelblue") + 
-  labs(title = "Caloric consumption per year",
-       subtitle = "per country",
-       y = "y", x = "x")+
-      facet_wrap(~Year, "Calories from animal protein (FAO (2017))")
+for (i in 1:nrow(cal_unique)) { # Loop for each entity 
+tmp <- cal_unique$Entity[i]     # Getting the entity name i
+
+# Taking subset of data table for the chosen entity i 
+tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))",
+                                                            "Calories from plant protein (FAO (2017))",
+                                                            "Calories from fat (FAO (2017))",
+                                                            "Calories from carbohydrates (FAO (2017))"))
+
+# Melting the data by years (i.e. getting each value for the different rows for each years) 
+tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
+
+# Print plot
+print(ggplot(df, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
+       y = "Value", x = "Year"))
   
+} 
 ```
 
 
