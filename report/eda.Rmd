@@ -89,7 +89,7 @@ tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from anim
 tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 
 # Print plot
-print(ggplot(df, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
   labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
        y = "Value", x = "Year"))
   
