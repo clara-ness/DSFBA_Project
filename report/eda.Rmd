@@ -23,24 +23,29 @@ ggplot(data = GDP) +
 
 ## Plotting GDP against Diabetes (Men & Women)
 ```{r}
+#since there are diabetes for men and women i am not sure the coloring on this graph is entirely correct
 ggplot(data = GDP_diabetes_cal) +
-  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
+  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue"))+
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red"))
 ```
 
 However, we see that apart of 5 outliers, our observations are mostly bunched up at the left of the graph. We decided to exclude these 5 observations, to see if we can observe a trend with the other countries. These outliers, as observed in the graph before, are the countries that had a big increase of GDP in the time period of 2000-2013.
 
 ```{r}
-GDP_no_outlier <- arrange(GDP, desc(GDP$avg_gdp))
+GDP_no_outlier <- arrange(GDP_summarized, desc(GDP_summarized$avg_gdp))
 GDP_no_outlier <- GDP_no_outlier[-c(1:5),]
 
 GDP_diabetes_cal2 <- left_join(GDP_no_outlier,Diabetes_EU_men, by="country_code")
 GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Diabetes_EU_women, by="country_code")
 GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Caloric_consumption, by="country_code")
 
-ggplot(data = GDP_diabetes_cal2) + 
+#since there are diabetes for men and women i am not sure the coloring on this graph is entirely correct
+ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
+  geom_smooth(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue"), method = "lm") +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red"))
+  geom_smooth(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red"), method = "lm")
+
 ```
 
 Without the outliers, we can see a bit more clearly. Indeed, it seems that the richer a country is, the lesser it has a high diabetes rate among its population. But what about the 5 most rich countries in Europe ?
