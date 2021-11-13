@@ -1,7 +1,7 @@
 # Exploratory data analysis
 
 ```{r, echo = FALSE, message = FALSE}
-source(here::here("scripts/setup.R")) #we should also add the data.Rmd file no ?
+source(here::here("scripts/setup.R"))
 ```
 
 * Mapping out the underlying structure
@@ -10,7 +10,7 @@ source(here::here("scripts/setup.R")) #we should also add the data.Rmd file no ?
 * Multivariate visualizations
 * Summary tables
 
-
+First, even though we will be taking the means of the variables with which we are trying to answer our questions, it is interesting to observe their evolution in each country over time. We started with the GDP.
 
 ## GDP per country
 
@@ -25,6 +25,23 @@ ggplot(data = GDP_diabetes_cal) +
 plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)
 plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
 ```
+
+However, we see that apart of 5 outliers, our observations are mostly bunched up at the left of the graph. We decided to exclude these 5 observations, which are the richest countries, to see if we can observe a trend.
+
+```{r}
+GDP_no_outlier <- arrange(GDP, desc(GDP$avg_gdp))
+GDP_no_outlier <- GDP_no_outlier[-c(1:5),]
+
+GDP_diabetes_cal2 <- left_join(GDP_no_outlier,Diabetes_EU_men, by="country_code")
+GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Diabetes_EU_women, by="country_code")
+GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Caloric_consumption, by="country_code")
+
+plot(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)
+plot(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes)
+```
+
+Without the outliers, we can see a bit more clearly. Indeed, it seems that the richer a country is, the lesser it has a high diabetes rate among its population. But what about the 5 most rich countries in Europe ?
+
 
 
 #GDP againt total calories, each macronut Clara

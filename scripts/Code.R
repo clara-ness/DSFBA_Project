@@ -67,6 +67,7 @@ GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
 GDP <- GDP %>% 
   group_by(country_name, country_code) %>% 
   summarize(avg_gdp = mean(avg_gdp))
+GDP$avg_gdp <- GDP$avg_gdp/1000000000
 
 #Diabetes table tidying
 Diabetes <- read_csv("data/Diabetes.csv")
@@ -91,8 +92,6 @@ Diabetes_EU_women <- Diabetes_EU_women %>%
 GDP_diabetes_cal <-full_join(GDP,Diabetes_EU_men, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
-
-GDP_diabetes_cal[,3:10] <- scale(GDP_diabetes_cal[,-c(1,2)]) #attempt of scaling the final table
 
 # Plot GDP and Diabetes (men and woman)
 plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)

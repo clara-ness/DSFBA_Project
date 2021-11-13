@@ -103,7 +103,7 @@ And a variable for each year from 1960 to 2020
 GDP
 ```
 
-* We decided to fix that and to filter out the years that is in our interest and that we have in common with other tables, AKA the years 2000-2013. We decided to get rid of the 'Indicator Name' and 'Indicator Code' variables as well since the values are the same for every row and they do not provide additional useful information.
+* We decided to fix that and to filter out the years that is in our interest and that we have in common with other tables, so the years 2000-2013. We decided to get rid of the 'Indicator Name' and 'Indicator Code' variables as well since the values are the same for every row and they do not provide additional useful information.
 
 ```{r}
 colnames(GDP) <- GDP[3,]
@@ -129,12 +129,13 @@ colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
 GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
 ```
 
-* Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together. (We also decided to scale our data)
+* Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together. In order to have graphs that are easy to read in the exploratory data analysis, we also decided to divide the `avg_gdp` column by a billion.
 
 ```{r}
 GDP <- GDP %>% 
   group_by(country_name, country_code) %>% 
   summarize(avg_gdp = mean(avg_gdp))
+GDP$avg_gdp <- GDP$avg_gdp/1000000000
 ```
 
 * We now have a dataframe with the following variables :
@@ -144,64 +145,77 @@ GDP <- GDP %>%
 `avg_gdp` the average GDP of a country over the course of 2000-2013  
 
 ### Diabetes
-The third dataset, from https://www.ncdrisc.org/data-downloads-diabetes.html, gives us information about the age-standardised diabetes prevalence for each country and gender from 1980 to 2014.
 
-* It is composed of 14'000 observations for 7 variables :
-`Country/Region/World ` Name of the country
-`ISO` ISO country code
-`Sex` Gender of the group
-`Age-standardised diabetes prevalence` 
-`Lower 95% uncertainty interval` 
-`Upper 95% uncertainty interval`
-And a variable for each year from 1980 to 2014.
+The third dataset, from https://www.ncdrisc.org/data-downloads-diabetes.html, gives us information about the age-standardised diabetes prevalence for each country and gender from 1980 to 2014.
 
 ```{r}
 Diabetes <- read_csv(here::here("data/Diabetes.csv"))
 ```
+
+* It is composed of 14'000 observations for 7 variables :
+
+`Country/Region/World ` Name of the country  
+`ISO` ISO country code  
+`Sex` Gender for which the diabetes prevalence is measured in a certain country at a certain year  
+`Year` Year of observation (1980-2014)
+`Age-standardised diabetes prevalence` Diabetes rate considering all ages  
+`Lower 95% uncertainty interval` Lower confidence interval limit for the diabetes rate 
+`Upper 95% uncertainty interval` Higher confidence interval limit for the diabetes rate  
+
 *  We filter our data to keep only observations between 2000 and 2013 (common interval between our 3 datasets).
 
 ```{r}
 Diabetes <- subset(Diabetes, Year >= 2000 , Year <=2013)
 ```
 
-* We keep only european countries as our two first datasets:
+* We keep only European countries as our two first datasets:
 
 ```{r}
 Diabetes_EU<-Diabetes[Diabetes$`ISO` %in% EU,]
 Diabetes_EU
 ```
+
 * We will not use the 95% confidence interval in our plots.
 
 ```{r}
 Diabetes_EU <- Diabetes_EU[-c(1,6,7)]
 ```
-* Now we will separate our dataset in two subset : 
-* one with data about men :
+
+* Now we will separate our dataset into two subsets. One with data about men :
 
 ```{r}
 Diabetes_EU_men <-subset(Diabetes_EU, Sex=="Men")
 Diabetes_EU_men
 ```
-* another one with data about women :
+
+* Another one with data about women :
+
 ```{r}
 Diabetes_EU_women <-subset(Diabetes_EU, Sex=="Women")
 Diabetes_EU_women
 ```
+
 * We change some column names to be more consistent between our datasets.
+
 
 ```{r}
 colnames(Diabetes_EU_men)<-c("country_code","sex","year","prop_men_diabetes")
 colnames(Diabetes_EU_women)<-c("country_code","sex","year","prop_women_diabetes")
 ```
+
 * Finally we group observations by country to get the mean of prevalence of diabetes between 2000 and 2013 for each european countries :
+
 * For men :
+
 ```{r}
 Diabetes_EU_men <- Diabetes_EU_men %>% 
   group_by(country_code) %>%
   summarize(prop_men_diabetes = mean(prop_men_diabetes))
 Diabetes_EU_men
 ```
+
 *For women :
+
 ```{r}
 Diabetes_EU_women <- Diabetes_EU_women %>% 
   group_by(country_code) %>%
@@ -219,7 +233,5 @@ Finally, we joined all three tables in one dataset with the 'country_code' key :
 GDP_diabetes_cal <-full_join(GDP,Diabetes_EU_men, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
-
-GDP_diabetes_cal[,3:10] <- scale(GDP_diabetes_cal[,-c(1,2)]) #attempt of scaling the whole table
 ```
 
