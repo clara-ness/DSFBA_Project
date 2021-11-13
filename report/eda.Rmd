@@ -15,18 +15,20 @@ First, even though we will be taking the means of the variables with which we ar
 ## GDP per country
 
 ```{r}
-ggplot(data = GDP_diabetes_cal) +
-  geom_point(mapping = aes(x = country_code, y = avg_gdp))
+ggplot(data = GDP) +
+  geom_point(mapping = aes(x = year, y = avg_gdp)) +
+  facet_wrap(~ country_name, nrow = 4)
 ```
 
 
 ## Plotting GDP against Diabetes (Men & Women)
 ```{r}
-plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)
-plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
+ggplot(data = GDP_diabetes_cal) +
+  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
+  geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red"))
 ```
 
-However, we see that apart of 5 outliers, our observations are mostly bunched up at the left of the graph. We decided to exclude these 5 observations, which are the richest countries, to see if we can observe a trend.
+However, we see that apart of 5 outliers, our observations are mostly bunched up at the left of the graph. We decided to exclude these 5 observations, to see if we can observe a trend with the other countries. These outliers, as observed in the graph before, are the countries that had a big increase of GDP in the time period of 2000-2013.
 
 ```{r}
 GDP_no_outlier <- arrange(GDP, desc(GDP$avg_gdp))
@@ -36,8 +38,9 @@ GDP_diabetes_cal2 <- left_join(GDP_no_outlier,Diabetes_EU_men, by="country_code"
 GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Diabetes_EU_women, by="country_code")
 GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Caloric_consumption, by="country_code")
 
-plot(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)
-plot(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes)
+ggplot(data = GDP_diabetes_cal2) + 
+  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
+  geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red"))
 ```
 
 Without the outliers, we can see a bit more clearly. Indeed, it seems that the richer a country is, the lesser it has a high diabetes rate among its population. But what about the 5 most rich countries in Europe ?

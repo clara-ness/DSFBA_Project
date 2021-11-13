@@ -122,20 +122,19 @@ GDP <- GDP[GDP$"Country Code" %in% EU,]
 GDP <- GDP %>% pivot_longer(c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013'),names_to = "Year",values_to = "Gross Domestic Product")
 ```
 
-* To make it easier to manipulate data, we decided to rename our variables for this table as well. We also made sure that the type of our numeric variable (GDP) was numeric and not character, like it was by default.
+* To make it easier to manipulate data, we decided to rename our variables for this table as well. We also made sure that the type of our numeric variable (GDP) was numeric and not character, like it was by default. In order to have graphs that are easy to read in the exploratory data analysis, we also decided to divide the `avg_gdp` column by a billion.
 
 ```{r}
 colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
-GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
+GDP$avg_gdp <- as.numeric(GDP$avg_gdp)/1000000000
 ```
 
-* Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together. In order to have graphs that are easy to read in the exploratory data analysis, we also decided to divide the `avg_gdp` column by a billion.
+* Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.
 
 ```{r}
-GDP <- GDP %>% 
+GDP_summarized <- GDP %>% 
   group_by(country_name, country_code) %>% 
   summarize(avg_gdp = mean(avg_gdp))
-GDP$avg_gdp <- GDP$avg_gdp/1000000000
 ```
 
 * We now have a dataframe with the following variables :
@@ -230,7 +229,7 @@ Diabetes_EU_women
 Finally, we joined all three tables in one dataset with the 'country_code' key :
 
 ```{r}
-GDP_diabetes_cal <-full_join(GDP,Diabetes_EU_men, by="country_code")
+GDP_diabetes_cal <-full_join(GDP_summarized,Diabetes_EU_men, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
 ```
