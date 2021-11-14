@@ -10,7 +10,8 @@ During the last 2 years, COVID-19 has been a main focus of the news. Though arou
 
 ## Related Work
 
-https://diabetesatlas.org/data/en/country/71/fr.html
+The article published by M. Adeva-Andany (2019) “Dietary habits contribute to define the risk of type 2 diabetes in humans” states that type 2 diabetes could be prevented by a better  dietary habits.They also found that higher animal protein consumption induced a greater risk of developing type 2 diabetes regardless of body mass index. In addition, they have also said that: "Low intake of animal products is linked to high educational level so that well-informed individuals tend to consume diets with elevated content of vegetable food" which can be linked to the GDP. (https://www.sciencedirect.com/science/article/pii/S240545771930419X?casa_token=Dzx3S9e8WgsAAAAA:IUYCy_uePTCOLUn38QUDO5KtpJopGpHdNIXZtHVVsGy9NWuXQ78Hp2juTvtjFQp67Dk2by-fMgPfrg) 
+  
 
 ## Research questions
 
