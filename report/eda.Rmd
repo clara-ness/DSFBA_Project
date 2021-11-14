@@ -145,21 +145,21 @@ print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex))
 
 We see right away that the prevalence of diabetes is higher for man than women across all countries (there are however two exceptions : in Romania between 2000 and 2003 and Slovenia between 2000 and 2006). 
 
-* Moreover, we observe that we have a decrease over time for these countries :  
+Moreover, we observe that we have a decrease over time for these countries :  
 
-Belgium  
-Denmark  
-Finland  
+* Belgium  
+* Denmark  
+* Finland  
 
-* We have countries with a decrease over time for women and not for men:  
+We have countries with a decrease over time for women and not for men:  
 
-Austria  
-Malta  
-Netherlands  
-Germany  
-Italy   
-Spain  
-Switzerland 
+* Austria  
+* Malta  
+* Netherlands  
+* Germany  
+* Italy   
+* Spain  
+* Switzerland 
 
 In other European countries, the prevalence of diabetes is increasing (at different paces) over time.
 
