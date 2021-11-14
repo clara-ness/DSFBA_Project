@@ -16,12 +16,12 @@ https://diabetesatlas.org/data/en/country/71/fr.html
 
 Therefore, we would like to find out answers to the following questions :
 
-- Do European countries that have higher GDPs really have lower diabetes prevalence ?
+  1. Do European countries that have higher GDPs really have lower diabetes prevalence ?
 
-- Do European countries that have higher GDPs consume less calories ?
+  2. Do European countries that have higher GDPs consume less calories ?
 
-- How do the proportions of macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ?
+  3. How do the proportions of macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ?
 
-- And how do these differences relate to the diabetes prevalence in these countries ?
+  4. And how do these differences relate to the diabetes prevalence in these countries ?
 
-- What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
+  5. What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
