@@ -52,7 +52,38 @@ Without the outliers, we can see a bit more clearly. Indeed, it seems that the r
 
 
 
-#GDP againt total calories, each macronut Clara
+##Evolution of calories in each countries
+
+First, we tried to see if there was a trend in the consumption of macro-nutrients in the 2000s for each country in our sample by plotting those evolution over time:
+```{r}
+#Plotting evolution of the microcarbs in the years for each countries 
+
+cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
+
+for (i in 1:nrow(cal_unique)) { # Loop for each entity 
+tmp <- cal_unique$Entity[i]     # Getting the entity name i
+
+# Taking subset of data table for the chosen entity i 
+tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))",
+                                                            "Calories from plant protein (FAO (2017))",
+                                                            "Calories from fat (FAO (2017))",
+                                                            "Calories from carbohydrates (FAO (2017))"))
+
+# Melting the data by years (i.e. getting each value for the different rows for each years) 
+tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
+
+# Print plot
+print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
+       y = "Value", x = "Year"))
+  
+}
+```
+There do not seem to be any trends in the graphs above and calorie consumption is rather stable in each country which is why we will take the average consumption for each macro-nutrients.
+We can however note that the 5 front outliers have a higher fat consumption than the countries with a smaller GDP. 
+
+##GDP againt total calories
+
 
 ```{r}
 #Plotting different cal consumption with GDP (trying to find a trend)
@@ -97,28 +128,7 @@ GDP_diabetes_cal$rank_Consumption <- rank(GDP_diabetes_cal$total_consumption)
 #order_by(rank3)
 #not the same so ranking maybe link btw regimes and lowest diabetes rates??
   
-#Plotting evolution of the microcarbs in the years for each countries 
 
-cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
-
-for (i in 1:nrow(cal_unique)) { # Loop for each entity 
-tmp <- cal_unique$Entity[i]     # Getting the entity name i
-
-# Taking subset of data table for the chosen entity i 
-tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))",
-                                                            "Calories from plant protein (FAO (2017))",
-                                                            "Calories from fat (FAO (2017))",
-                                                            "Calories from carbohydrates (FAO (2017))"))
-
-# Melting the data by years (i.e. getting each value for the different rows for each years) 
-tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
-
-# Print plot
-print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
-  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
-       y = "Value", x = "Year"))
-  
-} 
 ```
 
 
