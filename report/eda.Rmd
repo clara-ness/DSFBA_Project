@@ -143,6 +143,21 @@ plot(GDP_diabetes_cal$cal_carbs,GDP_diabetes_cal$prop_men_diabetes)
 plot(GDP_diabetes_cal$total_consumption,GDP_diabetes_cal$prop_women_diabetes)
 ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes))
+
+#plotting the evolution of the prevalence of diabetes for each country 
+Diabetes_EU <- Diabetes_EU[-c(2)]
+Diabetes_unique <- unique(Diabetes_EU[c('country')]) # Sorting table by country (unique)
+
+for (i in 1:nrow(Diabetes_unique)) { 
+tmp <- Diabetes_unique$country[i]     
+
+# Taking subset of data table for the chosen country i 
+tmp2 <- subset(Diabetes_EU,country == tmp, select = c("sex","year","prop_diabetes"))
+
+# Print plot
+print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line()
+  + labs(title = paste("Evolution of diabetes prevalence in",tmp)))
+}
 ```
 
 

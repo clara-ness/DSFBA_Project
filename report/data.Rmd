@@ -177,20 +177,21 @@ Diabetes_EU
 * We will not use the 95% confidence interval in our plots.
 
 ```{r}
-Diabetes_EU <- Diabetes_EU[-c(1,6,7)]
+Diabetes_EU <- Diabetes_EU[-c(6,7)]
+colnames(Diabetes_EU)<-c("country","ISO","sex","year","prop_diabetes")
 ```
 
 * Now we will separate our dataset into two subsets. One with data about men :
 
 ```{r}
-Diabetes_EU_men <-subset(Diabetes_EU, Sex=="Men")
+Diabetes_EU_men <-subset(Diabetes_EU, sex=="Men")
 Diabetes_EU_men
 ```
 
 * Another one with data about women :
 
 ```{r}
-Diabetes_EU_women <-subset(Diabetes_EU, Sex=="Women")
+Diabetes_EU_women <-subset(Diabetes_EU, sex=="Women")
 Diabetes_EU_women
 ```
 
@@ -198,8 +199,8 @@ Diabetes_EU_women
 
 
 ```{r}
-colnames(Diabetes_EU_men)<-c("country_code","sex","year","prop_men_diabetes")
-colnames(Diabetes_EU_women)<-c("country_code","sex","year","prop_women_diabetes")
+colnames(Diabetes_EU_men)<-c("country","country_code","sex","year","prop_men_diabetes")
+colnames(Diabetes_EU_women)<-c("country","country_code","sex","year","prop_women_diabetes")
 ```
 
 * Finally we group observations by country to get the mean of prevalence of diabetes between 2000 and 2013 for each european countries :
