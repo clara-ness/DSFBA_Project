@@ -25,7 +25,7 @@ cor(GDP_diabetes_test$avg_gdp, GDP_diabetes_test$total_consumption)
 ```
 
 
-3.How do the proportions of macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?
+3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?
 ```{r}
 
 ```
