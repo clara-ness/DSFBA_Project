@@ -10,7 +10,7 @@ To answer our research questions, we used three different datasets. While search
 
 ### Caloric consumption
 
-The first dataset we used, downloaded from the portal https://ourworldindata.org/diet-compositions, contains information related to the consumption of macronutrients in calories for different countries.. It gives us information on the average nutrition of different countries from 1961 to 2013 : 
+The first dataset we used, downloaded from the portal https://ourworldindata.org/diet-compositions, contains information related to the consumption of macronutrients in calories for different countries. It gives us information on the average nutrition of different countries from 1961 to 2013 : 
 
 ```{r}
 daily_caloric <- read_csv(here::here("data/daily-caloric.csv"))
@@ -20,16 +20,17 @@ daily_caloric <- read_csv(here::here("data/daily-caloric.csv"))
 
   + `Entity` Name of the country  
   + `Code` ISO country code  
+  + `Year`Year of the observation  
   + `Calories from animal protein (FAO (2017))` The average per capita supply of calories derived from animal protein    all measured in kilocalories per person per day  
   + `Calories from plant protein (FAO (2017))` The average per capita supply of calories derived from plant protein,     all measured in kilocalories per person per day  
   + `Calories from fat (FAO (2017))`The average per capita supply of calories derived from fat, all measured in kilocalories per person per day  
   + `Calories from carbohydrates (FAO (2017))` The average per capita supply of calories derived from carbohydrates, all measured in kilocalories per person per day  
   
   
-* The intake of specific macronutrients (carbohydrates, protein and fats) are derived based on average food composition factors – these factors are derived and presented in the Food and Agriculture Organisation’s (FAO) Food Balance Sheet Handbook (https://www.fao.org/faostat/en/#data).
+The intake of specific macronutrients (carbohydrates, protein and fats) are derived based on average food composition factors – these factors are derived and presented in the Food and Agriculture Organisation’s (FAO) Food Balance Sheet Handbook (https://www.fao.org/faostat/en/#data).
 
 
-* We only wanted to focus on observations from European countries with Switzerland and the UK in the 2000s, which is why we have sorted the data as follows:
+We will only focus on observations of European countries in the 2000s, which is why we have sorted the data as follows:
 
 ```{r}
 daily_caloric <- subset(daily_caloric, Year >= 2000)
@@ -38,9 +39,9 @@ daily_caloric<-daily_caloric[daily_caloric$Code %in% EU,]
 daily_caloric
 ```
 
-* We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries' names.
+We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries' names.
 
-* We then computed the mean of the consumption for each type of macronutrient in each country between the years 2000 and 2013, and the sum of total calories per person per day for each country in order to answer our second research question.
+Then, we proceeded to compute the mean of the consumption for each type of macronutrient in each country between the years 2000 and 2013, and the sum of total calories per person per day for each country in order to answer our second research question.
 
 ```{r}
 setDT(daily_caloric)[ , Calories_from_animal_protein := mean(`Calories from animal protein (FAO (2017))`), by = "Entity"]
@@ -49,7 +50,7 @@ setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbo
 setDT(daily_caloric)[ , Calories_from_fat := mean(`Calories from fat (FAO (2017))`), by = "Entity"]
 ```
 
-* We then create a new table with the mean and we also add the sum of total calories per person per day for each country in order to get a broader view with the total consumption of calories.
+We then created a new table by adding the sum of total calories per person per day for each country in order to get a broader view with the total consumption of calories. To make sure that the joining of tables go smoothly, we also removed duplicates, the country name column. 
 
 ```{r}
 Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates,daily_caloric$Calories_from_fat)
@@ -62,9 +63,9 @@ Caloric_consumption <-Caloric_consumption %>%
     total_consumption = sum(c(cal_prot_animal,cal_prot_plant,cal_carbs,cal_fat)))
 ```
 
-* Our assumption was that a county's wealth may fluctuate over the course of 10 years (ex: a dip during the economic crisis of 2008) but an overall mean is sufficient to compare the different countries and their riches.
+Our assumption was that a county's wealth may fluctuate over the course of 10 years (ex: a dip during the economic crisis of 2008) but an overall mean is sufficient to compare the different countries and their riches.
 
-* With these new numbers, we created a dataframe and named the columns accordingly:
+* We now have a dataframe with the following variables :
 
   + `country_code` ISO country code  
   + `cal_prot_animal`The mean of the calories from animal protein consumed in each country in the years 2000-2013  
@@ -90,41 +91,41 @@ GDP <- read_excel(here::here("data/GDP(1960-2020).xls"))
   + `Country Code` ISO country code  
   + `Indicator Name` equal to "GDP in current US$" for every row  
   + `Indicator Code` equal to "NY.GDP.MKTP.CD" for every row  
-And a variable for each year from 1960 to 2020  
+  + And a variable for each year from 1960 to 2020  
 
-* As we can see below, RStudio imported the Excel file as is, and so our column names found themselves at the 3rd row and therefore column names of columns 3 to 65 have been attributed numbers.
+As we can see below, RStudio imported the Excel file as is, and so our column names found themselves at the 3rd row and therefore column names of columns 3 to 65 have been attributed numbers.
 
 ```{r}
 GDP
 ```
 
-* We decided to fix that and to filter out the years that is in our interest and that we have in common with other tables, so the years 2000-2013. We decided to get rid of the 'Indicator Name' and 'Indicator Code' variables as well since the values are the same for every row and they do not provide additional useful information.
+We decided to fix that and to filter out the years that is in our interest and that we have in common with other tables, so the years 2000-2013. We decided to get rid of the `Indicator Name` and `Indicator Code` variables as well since the values are the same for every row and they do not provide additional useful information.
 
 ```{r}
 colnames(GDP) <- GDP[3,]
 GDP <- GDP[-c(1:3),-c(3:44,59:65)]
 ```
 
-* Now, we want to filter out the European countries, just like in the first table :
+Now, we want to filter out the European countries, just like in the first table :
 
 ```{r}
 GDP <- GDP[GDP$"Country Code" %in% EU,]
 ```
 
-* In order to join tables easily, we transformed the columns corresponding to different years to a single “year” column, in order to have at each row of this dataset the GDP of a certain country at a certain year.
+In order to join tables easily, we transformed the columns corresponding to different years to a single “year” column, in order to have at each row of this dataset the GDP of a certain country at a certain year.
 
 ```{r}
 GDP <- GDP %>% pivot_longer(c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013'),names_to = "Year",values_to = "Gross Domestic Product")
 ```
 
-* To make it easier to manipulate data, we decided to rename our variables for this table as well. We also made sure that the type of our numeric variable (GDP) was numeric and not character, like it was by default. In order to have graphs that are easy to read in the exploratory data analysis, we also decided to divide the `avg_gdp` column by a billion.
+To make it easier to manipulate data, we decided to rename our variables for this table as well. We also made sure that the type of our numeric variable (GDP) was numeric and not character, like it was by default. In order to have graphs that are easy to read in the exploratory data analysis, we also decided to divide the `avg_gdp` column by a billion.
 
 ```{r}
 colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
 GDP$avg_gdp <- as.numeric(GDP$avg_gdp)/1000000000
 ```
 
-* Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.
+Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.
 
 ```{r}
 GDP_summarized <- GDP %>% 
@@ -132,7 +133,7 @@ GDP_summarized <- GDP %>%
   summarize(avg_gdp = mean(avg_gdp))
 ```
 
-* We now have a dataframe with the following variables :
+We now have a dataframe with the following variables :
 
   + `country_name` name of the country  
   + `country_code` ISO code of the country  
@@ -140,7 +141,7 @@ GDP_summarized <- GDP %>%
 
 ### Diabetes
 
-The third dataset, from https://www.ncdrisc.org/data-downloads-diabetes.html, gives us information about the age-standardised diabetes prevalence for each country and gender from 1980 to 2014.
+The third dataset, downloaded from https://www.ncdrisc.org/data-downloads-diabetes.html, gives us information about the age-standardised diabetes prevalence for each country and gender from 1980 to 2014.
 
 ```{r}
 Diabetes <- read_csv(here::here("data/Diabetes.csv"))
@@ -156,20 +157,15 @@ Diabetes <- read_csv(here::here("data/Diabetes.csv"))
   + `Lower 95% uncertainty interval` Lower confidence interval limit for the diabetes rate 
   + `Upper 95% uncertainty interval` Higher confidence interval limit for the diabetes rate  
 
-*  We filter our data to keep only observations between 2000 and 2013 (common interval between our 3 datasets).
+Like with the first 2 datasets, we filtered our data to keep only European countries and observations between the years 2000 and 2013.
 
 ```{r}
 Diabetes <- subset(Diabetes, Year >= 2000 , Year <=2013)
-```
-
-* We keep only European countries as our two first datasets:
-
-```{r}
 Diabetes_EU<-Diabetes[Diabetes$`ISO` %in% EU,]
 Diabetes_EU
 ```
 
-* We will not use the 95% confidence interval in our plots.
+We also decided not to use the 95% confidence interval in our plots.
 
 ```{r}
 Diabetes_EU <- Diabetes_EU[-c(6,7)]
