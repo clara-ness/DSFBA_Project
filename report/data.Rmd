@@ -50,7 +50,7 @@ setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbo
 setDT(daily_caloric)[ , Calories_from_fat := mean(`Calories from fat (FAO (2017))`), by = "Entity"]
 ```
 
-We then created a new table by adding the sum of total calories per person per day for each country in order to get a broader view with the total consumption of calories. To make sure that the joining of tables go smoothly, we also removed duplicates, the country name column. 
+We then created a new table by adding the sum of total calories per person per day for each country in order to get a broader view with the total consumption of calories. To make sure that the joining of tables go smoothly, we also removed duplicates and the country name column. 
 
 ```{r}
 Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates,daily_caloric$Calories_from_fat)
@@ -139,6 +139,8 @@ We now have a dataframe with the following variables :
   + `country_code` ISO code of the country  
   + `avg_gdp` the average GDP of a country over the course of 2000-2013  
 
+
+
 ### Diabetes
 
 The third dataset, downloaded from https://www.ncdrisc.org/data-downloads-diabetes.html, gives us information about the age-standardised diabetes prevalence for each country and gender from 1980 to 2014.
@@ -165,36 +167,35 @@ Diabetes_EU<-Diabetes[Diabetes$`ISO` %in% EU,]
 Diabetes_EU
 ```
 
-We also decided not to use the 95% confidence interval in our plots.
+We also decided not to use the 95% confidence interval in our plots and drop the country name column.
 
 ```{r}
-Diabetes_EU <- Diabetes_EU[-c(6,7)]
-colnames(Diabetes_EU)<-c("country","ISO","sex","year","prop_diabetes")
+Diabetes_EU <- Diabetes_EU[-c(1,6,7)]
+colnames(Diabetes_EU)<-c("ISO","sex","year","prop_diabetes")
 ```
 
-* Now we will separate our dataset into two subsets. One with data about men :
+Then, we separated our dataset into two subsets. One with data about men :
 
 ```{r}
 Diabetes_EU_men <-subset(Diabetes_EU, sex=="Men")
 Diabetes_EU_men
 ```
 
-* Another one with data about women :
+Another one with data about women :
 
 ```{r}
 Diabetes_EU_women <-subset(Diabetes_EU, sex=="Women")
 Diabetes_EU_women
 ```
 
-* We change some column names to be more consistent between our datasets.
-
+We then changed the variable names of these 2 subsets to facilitate joining tables later on.
 
 ```{r}
-colnames(Diabetes_EU_men)<-c("country","country_code","sex","year","prop_men_diabetes")
-colnames(Diabetes_EU_women)<-c("country","country_code","sex","year","prop_women_diabetes")
+colnames(Diabetes_EU_men)<-c("country_code","sex","year","prop_men_diabetes")
+colnames(Diabetes_EU_women)<-c("country_code","sex","year","prop_women_diabetes")
 ```
 
-* Finally we group observations by country to get the mean of prevalence of diabetes between 2000 and 2013 for each european countries :
+Finally we grouped observations by country to get the mean prevalence/rate of diabetes between 2000 and 2013 for each European country :
 
 * For men :
 
@@ -214,11 +215,15 @@ Diabetes_EU_women <- Diabetes_EU_women %>%
 Diabetes_EU_women
 ```
 
+We now have 2 dataframes with the following variables :
+
+  + `country_code` ISO code of the country  
+  + `prop_men_diabetes` or `prop_women_diabetes`the average diabetes rate in a country in the 2000-2013 timeframe
 
 
 ## Joining tables
 
-Finally, we joined all three tables in one dataset with the 'country_code' key :
+For the last step of our tidying, we joined all three tables in one dataset with the `country_code` key :
 
 ```{r}
 GDP_diabetes_cal <-full_join(GDP_summarized,Diabetes_EU_men, by="country_code")
