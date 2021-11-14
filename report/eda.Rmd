@@ -84,6 +84,7 @@ We can however note that the 5 front outliers have a higher fat consumption than
 
 ##GDP againt total calories
 
+We now plot the different consumption and the total consumption of each macro-nutrients to see if there's a trend:
 
 ```{r}
 #Plotting different cal consumption with GDP (trying to find a trend)
@@ -98,7 +99,12 @@ lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal, col="orange", t
 lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant, col="purple", type="p")
 legend("topleft", c("Total Tonsumption","Fat", "Carbs", "Animal Protein", "Plant Protein"),
 fill=c("blue","red", "green", "orange", "purple"))
+```
 
+We thus see that total consumption is higher in countries with higher GDP, which may indicate a positive correlation.
+To better understand this trend, we plot total consumption with the GDP of countries.
+
+```{r}
 #ggplot total consumption against GDP
 ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption)) +
   geom_point() + # Show dots
@@ -106,13 +112,27 @@ ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$tota
     label= (GDP_diabetes_cal$country_code),  
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)
+```
+We always end up with these 5 outliers that have a higher than average GDP so if we remove them from the average we have:
 
+```{r}
+GDP_cal_no_outliers<-GDP_diabetes_cal[-c(15,10,29,26,11),]
+ggplot(GDP_cal_no_outliers, aes(x=GDP_cal_no_outliers$avg_gdp, y=GDP_cal_no_outliers$total_consumption)) +
+  geom_point() + # Show dots
+  geom_text(
+    label= (GDP_cal_no_outliers$country_code),  
+    nudge_x = 0.25, nudge_y = 0.25, 
+    check_overlap = T)
+```
+Now we can see clearly that there's a trend.
+
+```{r}
 #ggplot total consumption against Diabetes
 ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$prop_men_diabetes, y=GDP_diabetes_cal$total_consumption)) +
   geom_point() + # Show dots
   geom_text(
     label= (GDP_diabetes_cal$country_code),  
-    nudge_x = 0.25, nudge_y = 0.25, 
+    nudge_x = 0.5, nudge_y = 0.5, 
     check_overlap = T)
 
 ##the last 2 plots not the same distributions!! so Question 1 not so trivial after all
