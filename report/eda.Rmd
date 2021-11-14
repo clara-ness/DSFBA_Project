@@ -69,7 +69,7 @@ tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 # Print plot
 print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
   labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
-       y = "Value", x = "Year"))
+       y = "Calories", x = "Year"))
   
 }
 ```
@@ -88,7 +88,7 @@ ggplot() +
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_animal), color = "red") +  
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "green") +
   xlab('Caloric consumption by GDP') +
-  ylab('Value')
+  ylab('Calories')
 
 ```
 
@@ -103,7 +103,7 @@ ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$tota
     check_overlap = T)+
  geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption, color = "red"), method = "lm")+
    xlab('Average GDP') +
-  ylab('Value')
+  ylab('Calories')
 ```
 We always end up with these 5 outliers that have a higher than average GDP so if we remove them from the average we have:
 
@@ -116,7 +116,7 @@ ggplot(GDP_diabetes_cal2, aes(x=GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$t
     check_overlap = T)+
 geom_smooth(mapping = aes(x = GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption, color = "red"), method = "lm")+
    xlab('Average GDP') +
-  ylab('Value')
+  ylab('Calories')
 ```
 Now we can see clearly that there's a trend.
 
@@ -147,7 +147,7 @@ print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex))
 
 We see right away that the prevalence of diabetes is higher for man than women across all countries (there are however two exceptions : in Romania between 2000 and 2003 and Slovenia between 2000 and 2006). 
 Moreover, we observe that we have a decrease over time for these countries :
-* Belgium
+*Belgium
 * Denmark
 * Finland
 We have countries with a decrease over time for women and not for men:
