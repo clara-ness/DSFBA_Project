@@ -232,3 +232,7 @@ GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_
 GDP_diabetes_cal
 ```
 
+## Missing values
+
+We did not have any NA values in our tables, we think this is due to the fact that we really spent time on gathering quality data that matched in terms of dates and countries.
+

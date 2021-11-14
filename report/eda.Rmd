@@ -166,7 +166,7 @@ In other European countries, the prevalence of diabetes is increasing (at differ
 
 ## Plotting Diabetes against each type of macronutrient consumption
 
-Finally, we want to see the diabetes prevalence against the total calorie consumption as well as each type of macronutrient consumed:
+Finally, we want to plot the relation between the diabetes prevalence against the total calorie consumption as well as each type of macronutrient consumed.
 
 ```{r}
 # Diabetes vs total calories
@@ -220,12 +220,12 @@ ggplot(data = GDP_diabetes_cal) +
   scale_y_continuous(labels = scales::percent)
 ```
 
-We can see a negative trend for the total consumption and the calories from animal protein. We can observe a positive trend against calories from plant protein. For protein from carbohydrates, we can see a slighty positive trend for women.
+We can see a negative trend for the total consumption, the calories from animal protein and the calories from fat. We can observe a positive trend against calories from plant protein. For protein from carbohydrates, we can see a slighty positive trend for women.
 
 
 ## Plotting Diabetes against each type of macronutrient consumption (without outliers)
 
-Now we want to see if we have different trends when we remove our 5 outliers: 
+Now, since they affected our plots that included the GDP variable so much, we want to see if we have different trends when we remove our 5 outliers. 
 
 ```{r}
 # Diabetes vs total calories
