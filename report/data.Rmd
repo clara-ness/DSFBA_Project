@@ -4,20 +4,14 @@
 source(here::here("scripts/setup.R"))
 ```
 
-* Sources
-* Description
-* Wrangling/cleaning
-* Spotting mistakes and missing data (could be part of EDA too)
-* Listing anomalies and outliers (could be part of EDA too)
-
-For our research, we used three different datasets. While searching for datasets, we made sure that the years and countries matched for every one of them.
+To answer our research questions, we used three different datasets. While searching for datasets, we made sure that the years and countries matched for every one of them.
 
 ## Wrangling and cleaning
 
 ### Caloric consumption
 
 
-The first is the dataset with information related to caloric consumption. We downloaded it from the portal https://ourworldindata.org/diet-compositions. It is composed of many information related to caloric consumption for almost all countries in the world. It gives us information on the average nutrition of different countries from 1961 to 2013, and we have information about: 
+The first dataset we used, downloaded from the portal https://ourworldindata.org/diet-compositions, contains information related to the consumption of macronutrients in calories for different countries.. It gives us information on the average nutrition of different countries from 1961 to 2013 : 
 
 ```{r}
 daily_caloric <- read_csv(here::here("data/daily-caloric.csv"))
