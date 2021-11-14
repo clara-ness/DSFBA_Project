@@ -93,8 +93,8 @@ GDP_diabetes_cal$rank_Consumption <- rank(GDP_diabetes_cal$total_consumption)
 
 
 #Rank btw them 
-GDP_diabetes_cal <-within(GDP_diabetes_cal, rank3 <- rank(order(rank_GDP, rank_Consumption), ties.method='first'))
-  order_by(rank3)
+#GDP_diabetes_cal <-within(GDP_diabetes_cal, rank3 <- rank(order(rank_GDP, rank_Consumption), ties.method='first'))
+#order_by(rank3)
 #not the same so ranking maybe link btw regimes and lowest diabetes rates??
   
 #Plotting evolution of the microcarbs in the years for each countries 
