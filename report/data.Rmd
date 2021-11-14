@@ -4,11 +4,6 @@
 source(here::here("scripts/setup.R"))
 ```
 
-* Sources
-* Description
-* Wrangling/cleaning
-* Spotting mistakes and missing data (could be part of EDA too)
-* Listing anomalies and outliers (could be part of EDA too)
 
 For our research, we used three different datasets. While searching for datasets, we made sure that the years and countries matched for every one of them.
 
@@ -17,7 +12,9 @@ For our research, we used three different datasets. While searching for datasets
 ### Caloric consumption
 
 
-The first is the dataset with information related to caloric consumption. We downloaded it from the portal https://ourworldindata.org/diet-compositions. It is composed of many information related to caloric consumption for almost all countries in the world. It gives us information on the average nutrition of different countries from 1961 to 2013, and we have information about: 
+The first one is the dataset with information related to caloric consumption. We downloaded it from the portal https://ourworldindata.org/diet-compositions. It is composed of many information related to caloric consumption for almost all countries in the world. It gives us information on the average nutrition of different countries from 1961 to 2013.
+
+* It is composed of 8981 observations of 7 variables.
 
 ```{r}
 daily_caloric <- read_csv(here::here("data/daily-caloric.csv"))
@@ -42,6 +39,7 @@ daily_caloric
   + `Calories from plant protein (FAO (2017))` The average per capita supply of calories derived from plant protein,     all measured in kilocalories per person per day  
   + `Calories from fat (FAO (2017))`The average per capita supply of calories derived from fat, all measured in kilocalories per person per day  
   + `Calories from carbohydrates (FAO (2017))` The average per capita supply of calories derived from carbohydrates, all measured in kilocalories per person per day  
+  
   
 * The intake of specific macronutrients (carbohydrates, protein and fats) are derived based on average food composition factors – these factors are derived and presented in the Food and Agriculture Organisation’s (FAO) Food Balance Sheet Handbook (https://www.fao.org/faostat/en/#data).
 

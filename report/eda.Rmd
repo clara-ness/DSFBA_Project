@@ -4,12 +4,6 @@
 source(here::here("scripts/setup.R"))
 ```
 
-* Mapping out the underlying structure
-* Identifying the most important variables
-* Univariate visualizations
-* Multivariate visualizations
-* Summary tables
-
 First, even though we will be taking the means of the variables with which we are trying to answer our questions, it is interesting to observe their evolution in each country over time. We started with the GDP.
 
 ## GDP per country
@@ -87,11 +81,11 @@ We now plot the different consumption and the total consumption of each macro-nu
 
 ```{r}
 ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = total_consumption), color = "blue") +
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_fat), color = "red") +
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_carbs), color = "green") +
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_animal), color = "purple") +  
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "orange") +
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = total_consumption), color = "orange") +
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_fat), color = "blue") +
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_carbs), color = "purple") +
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_animal), color = "red") +  
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "green") +
   xlab('Caloric consumption by GDP') +
   ylab('Value')
 
@@ -106,7 +100,9 @@ ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$tota
    label= (GDP_diabetes_cal$country_code),  
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)+
- geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption, color = "red"), method = "lm")
+ geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption, color = "red"), method = "lm")+
+   xlab('Average GDP') +
+  ylab('Value')
 ```
 We always end up with these 5 outliers that have a higher than average GDP so if we remove them from the average we have:
 
@@ -117,7 +113,9 @@ ggplot(GDP_diabetes_cal2, aes(x=GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$t
     label= (GDP_diabetes_cal2$country_code),  
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)+
-geom_smooth(mapping = aes(x = GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption, color = "red"), method = "lm")
+geom_smooth(mapping = aes(x = GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption, color = "red"), method = "lm")+
+   xlab('Average GDP') +
+  ylab('Value')
 ```
 Now we can see clearly that there's a trend.
 
