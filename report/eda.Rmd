@@ -25,7 +25,7 @@ ggplot(data = GDP) +
 ```{r}
 #since there are diabetes for men and women i am not sure the coloring on this graph is entirely correct
 ggplot(data = GDP_diabetes_cal) +
-  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue"))+
+  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red"))
 ```
 
@@ -43,9 +43,8 @@ GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Caloric_consumption, by="countr
 ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue"), method = "lm") +
-  geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red"))
+  geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red"), method = "lm")
-
 ```
 
 Without the outliers, we can see a bit more clearly. Indeed, it seems that the richer a country is, the lesser it has a high diabetes rate among its population. But what about the 5 most rich countries in Europe ?
