@@ -94,21 +94,19 @@ ggplot() +
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "orange") +
   xlab('Caloric consumption by GDP') +
   ylab('Value')
- scale_color_manual(values = c("total_consumption", "cal_fat","cal_carbs","cal_prot_animal","cal_prot_plant"))
 
 ```
 
 We see that total consumption does not really change. We then plot the total consumption with each country's GDP.
 
 ```{r}
-#ggplot total consumption against GDP
 ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption)) +
   geom_point() + # Show dots
   geom_text(
-    label= (GDP_diabetes_cal$country_code),  
+   label= (GDP_diabetes_cal$country_code),  
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)+
-  geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption, color = "red"), method = "lm")
+ geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption, color = "red"), method = "lm")
 ```
 We always end up with these 5 outliers that have a higher than average GDP so if we remove them from the average we have:
 
