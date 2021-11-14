@@ -167,11 +167,11 @@ Diabetes_EU<-Diabetes[Diabetes$`ISO` %in% EU,]
 Diabetes_EU
 ```
 
-We also decided not to use the 95% confidence interval in our plots and drop the country name column.
+We also decided not to use the 95% confidence interval variable.
 
 ```{r}
-Diabetes_EU <- Diabetes_EU[-c(1,6,7)]
-colnames(Diabetes_EU)<-c("ISO","sex","year","prop_diabetes")
+Diabetes_EU <- Diabetes_EU[-c(6,7)]
+colnames(Diabetes_EU)<-c("country","ISO","sex","year","prop_diabetes")
 ```
 
 Then, we separated our dataset into two subsets. One with data about men :
@@ -191,8 +191,8 @@ Diabetes_EU_women
 We then changed the variable names of these 2 subsets to facilitate joining tables later on.
 
 ```{r}
-colnames(Diabetes_EU_men)<-c("country_code","sex","year","prop_men_diabetes")
-colnames(Diabetes_EU_women)<-c("country_code","sex","year","prop_women_diabetes")
+colnames(Diabetes_EU_men)<-c("country","country_code","sex","year","prop_men_diabetes")
+colnames(Diabetes_EU_women)<-c("country","country_code","sex","year","prop_women_diabetes")
 ```
 
 Finally we grouped observations by country to get the mean prevalence/rate of diabetes between 2000 and 2013 for each European country :
