@@ -213,7 +213,7 @@ pre code {
 #&gt; #   Calories from carbohydrates (FAO (2017)) &lt;dbl&gt;</code></pre>
 <p>We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries’ names.</p>
 <p>Then, we proceeded to compute the mean of the consumption for each type of macronutrient in each country between the years 2000 and 2013, and the sum of total calories per person per day for each country in order to answer our second research question.</p>
-<p>We then created a new table by adding the sum of total calories per person per day for each country in order to get a broader view with the total consumption of calories. To make sure that the joining of tables go smoothly, we also removed duplicates, the country name column.</p>
+<p>We then created a new table by adding the sum of total calories per person per day for each country in order to get a broader view with the total consumption of calories. To make sure that the joining of tables go smoothly, we also removed duplicates and the country name column.</p>
 <p>Our assumption was that a county’s wealth may fluctuate over the course of 10 years (ex: a dip during the economic crisis of 2008) but an overall mean is sufficient to compare the different countries and their riches.</p>
 <ul>
 <li><p>We now have a dataframe with the following variables :</p>
@@ -387,6 +387,12 @@ pre code {
 #&gt;  9 ESP                       0.0588
 #&gt; 10 EST                       0.0641
 #&gt; # ... with 19 more rows</code></pre>
+<p>We now have 2 dataframes with the following variables :</p>
+<ul>
+<li><code>country_code</code> ISO code of the country<br />
+</li>
+<li><code>prop_men_diabetes</code> or <code>prop_women_diabetes</code>the average diabetes rate in a country in the 2000-2013 timeframe</li>
+</ul>
 </div>
 </div>
 <div id="joining-tables" class="section level2">

@@ -223,7 +223,7 @@ We now have 2 dataframes with the following variables :
 
 ## Joining tables
 
-For the last step of our tidying, we joined all three tables in one dataset with the `country_code` key :
+For the last step of our tidying, we joined all four tables in one dataset with the `country_code` key :
 
 ```{r}
 GDP_diabetes_cal <-full_join(GDP_summarized,Diabetes_EU_men, by="country_code")

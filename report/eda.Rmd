@@ -6,7 +6,8 @@ source(here::here("scripts/setup.R"))
 
 First, even though we will be taking the means of the variables with which we are trying to answer our questions, it is interesting to observe their evolution in each country over time. We started with the GDP.
 
-## GDP per country
+
+## Evolution of GDP per country
 
 ```{r}
 ggplot(data = GDP) +
@@ -15,8 +16,13 @@ ggplot(data = GDP) +
   labs(x="Year",y="GDP")
 ```
 
+We can see that the GDP of France, Germany, Italy, Spain and the United Kingdom had a significant increase between 2000 and 2008.
+
 
 ## Plotting GDP against Diabetes (Men & Women)
+
+Now let's see if there is a relation between the GDP of a country and its diabetes prevalence.
+
 ```{r}
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes),color = "blue") +
@@ -24,7 +30,7 @@ ggplot(data = GDP_diabetes_cal) +
   labs(x="GDP",y="Diabetes rate")
 ```
 
-However, we see that apart of 5 outliers, our observations are mostly bunched up at the left of the graph. We decided to exclude these 5 observations, to see if we can observe a trend with the other countries. These outliers, as observed in the graph before, are the countries that had a big increase of GDP in the time period of 2000-2013.
+We observe that apart of 5 outliers, our observations are mostly bunched up at the left of the graph. We decided to exclude these 5 observations, to see if we can observe a trend with the other countries. These outliers, as we can see on the graph before, are the countries that had a big increase of GDP in the time period of 2000-2013.
 
 ```{r}
 GDP_no_outlier <- arrange(GDP_summarized, desc(GDP_summarized$avg_gdp))
@@ -42,28 +48,24 @@ ggplot(data = GDP_diabetes_cal2) +
   labs(x="GDP",y="Diabetes rate")
 ```
 
-Without the outliers, we can see a bit more clearly. Indeed, it seems that the richer a country is, the lesser it has a high diabetes rate among its population. But what about the 5 most rich countries in Europe ?
+Without the outliers, we can see a bit more clearly. Indeed, it seems that the richer a country is, the lesser it has a high diabetes rate among its population.
 
 
+## Evolution of the consumption of macronutrients in calories per country
 
-## Evolution of calories in each countries
+For the second table, we tried to see again if there was a trend in the consumption of different macro-nutrients in the 2000s for each country in our sample.
 
-First, we tried to see if there was a trend in the consumption of macro-nutrients in the 2000s for each country in our sample by plotting those evolution over time:
 ```{r}
-#Plotting the evolution of the micronutrients consumption over the years for each country
-
+#Plotting the evolution of the macronutrients consumption over the years for each country
 cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
 
 for (i in 1:nrow(cal_unique)) { # Loop for each entity 
 tmp <- cal_unique$Entity[i]     # Getting the entity name i
 
 # Taking subset of data table for the chosen entity i 
-tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))",
-                                                            "Calories from plant protein (FAO (2017))",
-                                                            "Calories from fat (FAO (2017))",
-                                                            "Calories from carbohydrates (FAO (2017))"))
+tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))","Calories from plant protein (FAO (2017))","Calories from fat (FAO (2017))","Calories from carbohydrates (FAO (2017))"))
 
-# Melting the data by years (i.e. getting each value for the different rows for each years) 
+# Melting the data by years (i.e. getting each value for the different rows for each year) 
 tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 
 # Print plot
@@ -74,11 +76,12 @@ print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
 }
 ```
 
-There do not seem to be any trends in the graphs above and diets are rather stable in each country, which is why we will take the average consumption for each macro-nutrient. We can however note that the 5 outliers mentioned before have a higher fat consumption than the countries with a smaller GDP. 
+There do not seem to be any trends in the graphs above and diets seem rather stable in each country, which is why we will take the average consumption for each macro-nutrient. We can however note that the 5 outliers mentioned before tend to have a higher fat consumption than the countries with a smaller GDP. 
 
-## GDP againt total calories
 
-We now plot the different consumption and the total consumption of each macro-nutrients to see if there's a trend:
+## Plotting GDP against total calories consumed
+
+We then wanted to analyse the relation between a country's GDP and its individual consumption of each macronutrient as well as its total calorie consumption to see if there's a trend.(total calories = orange, fat = blue, carbohydrates = purple, animal protein = red, plant protein = green)
 
 ```{r}
 ggplot() + 
@@ -87,12 +90,10 @@ ggplot() +
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_carbs), color = "purple") +
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_animal), color = "red") +  
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "green") +
-  xlab('Caloric consumption by GDP') +
-  ylab('Calories')
-
+  labs(x = "GDP", y= "Calories")
 ```
 
-We see that total consumption does not really change. We then plot the total consumption with each country's GDP.
+We see that the total calorie consumption does not really change. We wanted a close up on the relation between the total calorie consumption with the GDP for each country to see if we can spot outliers again, so we created other plots.
 
 ```{r}
 ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption)) +
@@ -101,32 +102,29 @@ ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$tota
    label= (GDP_diabetes_cal$country_code),  
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)+
- geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption, color = "red"), method = "lm")+
-   xlab('Average GDP') +
-  ylab('Calories')
+ geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption), color = "red", method = "lm")+
+   labs( x = "Average GDP", y = "Calories")
 ```
-We always end up with these 5 outliers that have a higher than average GDP so if we remove them from the average we have:
+
+We end up again with these 5 outliers that have a higher than average GDP so if we remove them, we obtain the following plots :
 
 ```{r}
 ggplot(GDP_diabetes_cal2, aes(x=GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption)) +
-  geom_point() + # Show dots
+  geom_point() +
   geom_text(
     label= (GDP_diabetes_cal2$country_code),  
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)+
-geom_smooth(mapping = aes(x = GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption, color = "red"), method = "lm")+
-   xlab('Average GDP') +
-  ylab('Calories')
+geom_smooth(mapping = aes(x = GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption), color = "red", method = "lm")+
+   labs(x = "Average GDP", y = "Calories")
 ```
-Now we can see clearly that there's a trend.
+
+Now we can more easily state that there's a trend. It appears that the higher a country's GDP, the higher the total calories consumed, contrary to our hypothesis.
 
 
+## Evolution of Diabetes per country
 
-
-
-## Evolution of Diabetes over time
-
-To begin with, we tried to see if there was a trend in the evolution of diabetes prevalence in the 2000s for each country in our sample by plotting those evolution over time:
+Once again, we tried to see if the diabetes prevalence in each country changed over the years 2000-2013.
 
 ```{r}
 #plotting the evolution of the prevalence of diabetes for each country 
@@ -166,7 +164,7 @@ In other european countries, the prevalence of diabetes is increasing (at differ
 
 ## Plotting Diabetes against each type of calories consumption
 
-Now we want to see the diabetes prevalence against total calories consumption and also against each type calories consumed:
+Now we want to see the diabetes prevalence against the total calories consumption and also against each type calories consumed:
 
 ```{r}
 #plotting diabetes against total calories consumption and each type of calories consumed
@@ -179,6 +177,7 @@ ggplot(data = GDP_diabetes_cal) +
   labs(title="Diabetes vs total calories per day", x="Total calories per day", y="Diabetes prevalence") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
+
 #diabetes vs calories from animal protein
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue")) +
@@ -188,6 +187,7 @@ ggplot(data = GDP_diabetes_cal) +
   labs(title="Diabetes vs daily calories from animal protein", x="Total calories from animal protein per day", y="Diabetes prevalence") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
+
 #diabetes vs calories from plant protein
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue")) +
@@ -223,6 +223,7 @@ ggplot(data = GDP_diabetes_cal2) +
   labs(title="Diabetes vs total calories per day (without outliers)", x="Total calories per day", y="Diabetes prevalence") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
+
 #diabetes vs calories from animal protein
 ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue")) +
@@ -232,6 +233,7 @@ ggplot(data = GDP_diabetes_cal2) +
   labs(title="Diabetes vs daily calories from animal protein (without outliers)", x="Total calories from animal protein per day", y="Diabetes prevalence") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
+
 #diabetes vs calories from plant protein
 ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue")) +
