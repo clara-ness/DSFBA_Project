@@ -91,13 +91,23 @@ plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption,
 main="Caloric consumption by country",
 ylab="",
 type="p",
-col="blue")
-lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat, col="red", type="p")
-lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs, col="green", type="p")
-lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal, col="orange", type="p")
-lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant, col="purple", type="p")
-legend("topleft", c("Total Tonsumption","Fat", "Carbs", "Animal Protein", "Plant Protein"),
+col="blue") +
+lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat, col="red", type="p") 
+lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs, col="green", type="p") 
+lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal, col="orange", type="p") 
+lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant, col="purple", type="p") 
+legend("topleft", c("Total Tonsumption","Fat", "Carbs", "Animal Protein", "Plant Protein") 
 fill=c("blue","red", "green", "orange", "purple"))
+
+ggplot() + 
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = total_consumption), color = "blue") +
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_fat), color = "red") +
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_carbs), color = "green") +
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_animal), color = "purple") +  
+  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "orange") +
+  xlab('Caloric consumption by GDP') +
+  ylab('Value')
+
 ```
 
 We thus see that total consumption is higher in countries with higher GDP, which may indicate a positive correlation.
