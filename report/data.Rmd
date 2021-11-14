@@ -4,29 +4,30 @@
 source(here::here("scripts/setup.R"))
 ```
 
-<<<<<<< HEAD
-
-For our research, we used three different datasets. While searching for datasets, we made sure that the years and countries matched for every one of them.
-=======
 To answer our research questions, we used three different datasets. While searching for datasets, we made sure that the years and countries matched for every one of them.
->>>>>>> 06538350b6e82054f2b287a72c3b0850645e8107
 
 ## Wrangling and cleaning
 
 ### Caloric consumption
 
-
-<<<<<<< HEAD
-The first one is the dataset with information related to caloric consumption. We downloaded it from the portal https://ourworldindata.org/diet-compositions. It is composed of many information related to caloric consumption for almost all countries in the world. It gives us information on the average nutrition of different countries from 1961 to 2013.
-
-* It is composed of 8981 observations of 7 variables.
-=======
 The first dataset we used, downloaded from the portal https://ourworldindata.org/diet-compositions, contains information related to the consumption of macronutrients in calories for different countries.. It gives us information on the average nutrition of different countries from 1961 to 2013 : 
->>>>>>> 06538350b6e82054f2b287a72c3b0850645e8107
 
 ```{r}
 daily_caloric <- read_csv(here::here("data/daily-caloric.csv"))
 ```
+
+* It is composed of 8981 observations of 7 variables:
+
+  + `Entity` Name of the country  
+  + `Code` ISO country code  
+  + `Calories from animal protein (FAO (2017))` The average per capita supply of calories derived from animal protein    all measured in kilocalories per person per day  
+  + `Calories from plant protein (FAO (2017))` The average per capita supply of calories derived from plant protein,     all measured in kilocalories per person per day  
+  + `Calories from fat (FAO (2017))`The average per capita supply of calories derived from fat, all measured in kilocalories per person per day  
+  + `Calories from carbohydrates (FAO (2017))` The average per capita supply of calories derived from carbohydrates, all measured in kilocalories per person per day  
+  
+  
+* The intake of specific macronutrients (carbohydrates, protein and fats) are derived based on average food composition factors – these factors are derived and presented in the Food and Agriculture Organisation’s (FAO) Food Balance Sheet Handbook (https://www.fao.org/faostat/en/#data).
+
 
 * We only wanted to focus on observations from European countries with Switzerland and the UK in the 2000s, which is why we have sorted the data as follows:
 
@@ -38,18 +39,6 @@ daily_caloric
 ```
 
 * We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries' names.
-
-* We then focused on these variables:
-
-  + `Entity` Name of the country  
-  + `Code` ISO country code  
-  + `Calories from animal protein (FAO (2017))` The average per capita supply of calories derived from animal protein    all measured in kilocalories per person per day  
-  + `Calories from plant protein (FAO (2017))` The average per capita supply of calories derived from plant protein,     all measured in kilocalories per person per day  
-  + `Calories from fat (FAO (2017))`The average per capita supply of calories derived from fat, all measured in kilocalories per person per day  
-  + `Calories from carbohydrates (FAO (2017))` The average per capita supply of calories derived from carbohydrates, all measured in kilocalories per person per day  
-  
-  
-* The intake of specific macronutrients (carbohydrates, protein and fats) are derived based on average food composition factors – these factors are derived and presented in the Food and Agriculture Organisation’s (FAO) Food Balance Sheet Handbook (https://www.fao.org/faostat/en/#data).
 
 * We then computed the mean of the consumption for each type of macronutrient in each country between the years 2000 and 2013, and the sum of total calories per person per day for each country in order to answer our second research question.
 
