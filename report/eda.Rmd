@@ -208,6 +208,16 @@ ggplot(data = GDP_diabetes_cal) +
   labs(title="Diabetes vs daily calories from carbohydrates", x="Total calories from carbohydrates per day", y="Diabetes prevalence") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
+
+# Diabetes vs calories from fat
+ggplot(data = GDP_diabetes_cal) +
+  geom_point(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue")) +
+  geom_smooth(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
+  geom_point(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red")) +
+  geom_smooth(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
+  labs(title="Diabetes vs daily calories from fat", x="Total calories from fat per day", y="Diabetes prevalence") +
+  scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
+  scale_y_continuous(labels = scales::percent)
 ```
 
 We can see a negative trend for the total consumption and the calories from animal protein. We can observe a positive trend against calories from plant protein. For protein from carbohydrates, we can see a slighty positive trend for women.
@@ -255,6 +265,16 @@ ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
   labs(title="Diabetes vs daily calories from carbohydrates (without outliers)", x="Total calories from carbohydrates per day", y="Diabetes prevalence") +
+  scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
+  scale_y_continuous(labels = scales::percent)
+
+# Diabetes vs calories from fat
+ggplot(data = GDP_diabetes_cal2) +
+  geom_point(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue")) +
+  geom_smooth(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
+  geom_point(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red")) +
+  geom_smooth(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
+  labs(title="Diabetes vs daily calories from fat (without outliers)", x="Total calories from fat per day", y="Diabetes prevalence") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
