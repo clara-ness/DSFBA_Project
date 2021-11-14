@@ -207,7 +207,9 @@ ggplot(data = GDP_diabetes_cal) +
 ```
 We can see a negative trend for the total consumption and the calories from animal protein. We can observe a positive trend against calories from plant protein. For protein from carbohydrates, we can see a slighty positive trend for women.
 
-Now we want to see if we have different trend when we remove our 5 outliers: 
+## Plotting Diabetes against each type of calories consumption (without outliers)
+
+Now we want to see if we have different trends when we remove our 5 outliers: 
 
 ```{r}
 ggplot(data = GDP_diabetes_cal2) +
@@ -249,4 +251,4 @@ ggplot(data = GDP_diabetes_cal2) +
 
 ```
 
-Without our 5 outliers, we observe not much change in the trend of each type of calories consumed apart for carbohydrates where the trend changes for men and become slighly positive.
+Without our 5 outliers, we observe not much change in the trend of each type of calories consumed apart for carbohydrates where the trend changes for men and become slightly positive.
