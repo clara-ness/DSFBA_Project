@@ -21,7 +21,7 @@ We can see that the GDP of France, Germany, Italy, Spain and the United Kingdom 
 
 ## Plotting GDP against Diabetes (Men & Women)
 
-Now let's see if there is a relation between the GDP of a country and its diabetes prevalence.
+Now let's see if there is a relation between the GDP of a country and its diabetes prevalence. (men = blue, women = red)
 
 ```{r}
 ggplot(data = GDP_diabetes_cal) +
