@@ -19,8 +19,8 @@ ggplot(data = GDP) +
 ## Plotting GDP against Diabetes (Men & Women)
 ```{r}
 ggplot(data = GDP_diabetes_cal) +
-  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
-  geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red")) +
+  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes),color = "blue") +
+  geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red") +
   labs(x="GDP",y="Diabetes rate")
 ```
 
@@ -35,10 +35,10 @@ GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Diabetes_EU_women, by="country_
 GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Caloric_consumption, by="country_code")
 
 ggplot(data = GDP_diabetes_cal2) +
-  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
-  geom_smooth(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue"), method = "lm") +
-  geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red")) +
-  geom_smooth(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red"), method = "lm") +
+  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes), color = "blue") +
+  geom_smooth(mapping = aes(x = avg_gdp, y = prop_men_diabetes), color = "blue", method = "lm") +
+  geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red") +
+  geom_smooth(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red", method = "lm") +
   labs(x="GDP",y="Diabetes rate")
 ```
 
