@@ -56,7 +56,7 @@ Without the outliers, we can see a bit more clearly. Indeed, it seems that the r
 For the second table, we tried to see again if there was a trend in the consumption of different macro-nutrients in the 2000s for each country in our sample.
 
 ```{r}
-#Plotting the evolution of the macronutrients consumption over the years for each country
+# Plotting the evolution of the macronutrients consumption over the years for each country
 cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
 
 for (i in 1:nrow(cal_unique)) { # Loop for each entity 
@@ -127,7 +127,7 @@ Now we can more easily state that there's a trend. It appears that the higher a 
 Once again, we tried to see if the diabetes prevalence in each country changed over the years 2000-2013.
 
 ```{r}
-#plotting the evolution of the prevalence of diabetes for each country 
+# Plotting the evolution of the prevalence of diabetes for each country 
 Diabetes_EU2 <- Diabetes_EU[-c(2)] #remove ISO country code
 Diabetes_unique <- unique(Diabetes_EU2[c('country')]) # Sorting table by country (unique)
 
@@ -144,31 +144,32 @@ print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex))
 ```
 
 We see right away that the prevalence of diabetes is higher for man than women across all countries (there are however two exceptions : in Romania between 2000 and 2003 and Slovenia between 2000 and 2006). 
-Moreover, we observe that we have a decrease over time for these countries :  
 
-* Belgium  
-* Denmark  
-* Finland  
+* Moreover, we observe that we have a decrease over time for these countries :  
 
-We have countries with a decrease over time for women and not for men:  
+Belgium  
+Denmark  
+Finland  
 
-* Austria  
-* Malta  
-* Netherlands  
-* Germany  
-* Italy   
-* Spain  
-* Switzerland 
+* We have countries with a decrease over time for women and not for men:  
 
-In other european countries, the prevalence of diabetes is increasing (at different pace) over time.
+Austria  
+Malta  
+Netherlands  
+Germany  
+Italy   
+Spain  
+Switzerland 
 
-## Plotting Diabetes against each type of calories consumption
+In other European countries, the prevalence of diabetes is increasing (at different paces) over time.
 
-Now we want to see the diabetes prevalence against the total calories consumption and also against each type calories consumed:
+
+## Plotting Diabetes against each type of macronutrient consumption
+
+Finally, we want to see the diabetes prevalence against the total calorie consumption as well as each type of macronutrient consumed:
 
 ```{r}
-#plotting diabetes against total calories consumption and each type of calories consumed
-#diabetes vs total consumption
+# Diabetes vs total calories
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
@@ -178,7 +179,7 @@ ggplot(data = GDP_diabetes_cal) +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
-#diabetes vs calories from animal protein
+# Diabetes vs calories from animal protein
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
@@ -188,7 +189,7 @@ ggplot(data = GDP_diabetes_cal) +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
-#diabetes vs calories from plant protein
+# Diabetes vs calories from plant protein
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
@@ -198,7 +199,7 @@ ggplot(data = GDP_diabetes_cal) +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
-#diabetes vs calories from carbohydrates
+# Diabetes vs calories from carbohydrates
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
@@ -208,13 +209,16 @@ ggplot(data = GDP_diabetes_cal) +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
+
 We can see a negative trend for the total consumption and the calories from animal protein. We can observe a positive trend against calories from plant protein. For protein from carbohydrates, we can see a slighty positive trend for women.
 
-## Plotting Diabetes against each type of calories consumption (without outliers)
+
+## Plotting Diabetes against each type of macronutrient consumption (without outliers)
 
 Now we want to see if we have different trends when we remove our 5 outliers: 
 
 ```{r}
+# Diabetes vs total calories
 ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
@@ -224,7 +228,7 @@ ggplot(data = GDP_diabetes_cal2) +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
-#diabetes vs calories from animal protein
+# Diabetes vs calories from animal protein
 ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
@@ -234,7 +238,7 @@ ggplot(data = GDP_diabetes_cal2) +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
-#diabetes vs calories from plant protein
+# Diabetes vs calories from plant protein
 ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
@@ -244,7 +248,7 @@ ggplot(data = GDP_diabetes_cal2) +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
-#diabetes vs calories from carbohydrates
+# Diabetes vs calories from carbohydrates
 ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
