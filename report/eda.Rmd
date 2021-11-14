@@ -154,8 +154,6 @@ GDP_diabetes_cal$rank_Consumption <- rank(GDP_diabetes_cal$total_consumption)
 
 
 
-
-
 #Diabetes againt calories Fabien
 
 ```{r}
