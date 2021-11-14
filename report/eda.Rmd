@@ -115,11 +115,10 @@ ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$tota
 We always end up with these 5 outliers that have a higher than average GDP so if we remove them from the average we have:
 
 ```{r}
-GDP_cal_no_outliers<-GDP_diabetes_cal[-c(15,10,29,26,11),]
-ggplot(GDP_cal_no_outliers, aes(x=GDP_cal_no_outliers$avg_gdp, y=GDP_cal_no_outliers$total_consumption)) +
+ggplot(GDP_diabetes_cal2, aes(x=GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption)) +
   geom_point() + # Show dots
   geom_text(
-    label= (GDP_cal_no_outliers$country_code),  
+    label= (GDP_diabetes_cal2$country_code),  
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)
 ```
@@ -176,11 +175,3 @@ print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex))
   + labs(title = paste("Evolution of diabetes prevalence in",tmp)))
 }
 ```
-
-
-```{r echo= FALSE}
-plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption)
-```
-
-
-
