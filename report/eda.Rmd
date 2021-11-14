@@ -86,19 +86,6 @@ There do not seem to be any trends in the graphs above and diets are rather stab
 We now plot the different consumption and the total consumption of each macro-nutrients to see if there's a trend:
 
 ```{r}
-#Plotting different cal consumption with GDP (trying to find a trend)
-plot(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption,
-main="Caloric consumption by country",
-ylab="",
-type="p",
-col="blue") +
-lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat, col="red", type="p") 
-lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs, col="green", type="p") 
-lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal, col="orange", type="p") 
-lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant, col="purple", type="p") 
-legend("topleft", c("Total Tonsumption","Fat", "Carbs", "Animal Protein", "Plant Protein"), 
-fill=c("blue","red", "green", "orange", "purple"))
-
 ggplot() + 
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = total_consumption), color = "blue") +
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_fat), color = "red") +
@@ -111,8 +98,7 @@ ggplot() +
 
 ```
 
-We thus see that total consumption is higher in countries with higher GDP, which may indicate a positive correlation.
-To better understand this trend, we plot total consumption with the GDP of countries.
+We see that total consumption does not really change. We then plot the total consumption with each country's GDP.
 
 ```{r}
 #ggplot total consumption against GDP
