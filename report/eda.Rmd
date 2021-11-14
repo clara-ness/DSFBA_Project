@@ -96,7 +96,7 @@ lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat, col="red", type="p")
 lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs, col="green", type="p") 
 lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal, col="orange", type="p") 
 lines(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant, col="purple", type="p") 
-legend("topleft", c("Total Tonsumption","Fat", "Carbs", "Animal Protein", "Plant Protein") 
+legend("topleft", c("Total Tonsumption","Fat", "Carbs", "Animal Protein", "Plant Protein"), 
 fill=c("blue","red", "green", "orange", "purple"))
 
 ggplot() + 
@@ -107,6 +107,7 @@ ggplot() +
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "orange") +
   xlab('Caloric consumption by GDP') +
   ylab('Value')
+ scale_color_manual(values = c("total_consumption", "cal_fat","cal_carbs","cal_prot_animal","cal_prot_plant"))
 
 ```
 
