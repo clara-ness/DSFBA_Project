@@ -141,23 +141,23 @@ tmp2 <- subset(Diabetes_EU2,country == tmp, select = c("sex","year","prop_diabet
 
 # Print plot for each country
 print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line()
-  + labs(title = paste("Evolution of diabetes prevalence in",tmp), y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent))
+  + labs(title = paste("Evolution of diabetes prevalence in",tmp), x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent))
 }
 ```
 
 We see right away that the prevalence of diabetes is higher for man than women across all countries (there are however two exceptions : in Romania between 2000 and 2003 and Slovenia between 2000 and 2006). 
-Moreover, we observe that we have a decrease over time for these countries :
-*Belgium
-* Denmark
-* Finland
-We have countries with a decrease over time for women and not for men:
-* Austria
-* Malta
-* Netherlands
-* Germany
-* Italy
-* Spain
-* Switzerland
+Moreover, we observe that we have a decrease over time for these countries :  
+* Belgium  
+* Denmark  
+* Finland  
+We have countries with a decrease over time for women and not for men:  
+* Austria  
+* Malta  
+* Netherlands  
+* Germany  
+* Italy   
+* Spain  
+* Switzerland  
 In other european countries, the prevalence of diabetes is increasing (at different pace) over time.
 
 ## Plotting Diabetes against each type of calories consumption

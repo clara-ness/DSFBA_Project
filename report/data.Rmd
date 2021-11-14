@@ -209,7 +209,7 @@ Diabetes_EU_men <- Diabetes_EU_men %>%
 Diabetes_EU_men
 ```
 
-*For women :
+* For women :
 
 ```{r}
 Diabetes_EU_women <- Diabetes_EU_women %>% 
