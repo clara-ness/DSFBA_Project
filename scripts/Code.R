@@ -1,5 +1,62 @@
 ##Script for the project "European countries, their dietary habits and diabetes prevalence"
 
+##Leaflet and mapping 
+
+install.packages("leaflet")
+
+
+library(leaflet)
+
+#test
+m <- leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
+setView(Europe)
+m  # Print the map
+
+source(here::here("scripts/setup.R"))
+source(here::here("/report/data.Rmd"))
+#Map Europe
+install.packages("eurostat")
+
+library(tidyverse)
+library(eurostat)
+library(leaflet)
+library(sf)
+library(geojsonsf)
+
+EU_coord<- geojsonsf::geojson_sf('data/CNTR_RG_60M_2020_3035.geojson')
+
+all_data = merge(EU_coord, GDP_diabetes_cal, by.x = "ISO3_CODE", by.y = "country_code")
+
+view(all_data)
+
+st_write(all_data, "MapApp/geojson_manipulation/main.geojson")
+
+
+
+
+get_eurostat_geospatial(resolution = 10, 
+                        nuts_level = 0, 
+                        year = 2016)
+
+SHP_0 <- get_eurostat_geospatial(resolution = 10, 
+                                 nuts_level = 0, 
+                                 year = 2016)
+
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+              weight = 1,
+              fillColor = "blue",
+              fillOpacity = 0.2)
+
+
+
+
+
+
 #install.packages(c('tibble', 'dplyr', 'readr', 'readxl','gt','remotes')) run this line once only at the begining 
 #or this one install.packages('tidyverse')
 #install.packages('Rcpp') for non-mac user ^^

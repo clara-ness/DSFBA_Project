@@ -21,3 +21,4 @@ source(here::here("scripts/Code.R"))
 
 
 4.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
+
