@@ -25,17 +25,18 @@ library(leaflet)
 library(sf)
 library(geojsonsf)
 
-EU_coord<- geojsonsf::geojson_sf('data/CNTR_RG_60M_2020_3035.geojson')
+#merge data with country's coordinate through geojson
+
+EU_coord<- geojsonsf::geojson_sf('data/CNTR_RG_60M_2020_3035.geojson') # source of the geojson file https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries
 
 all_data = merge(EU_coord, GDP_diabetes_cal, by.x = "ISO3_CODE", by.y = "country_code")
-
-view(all_data)
 
 st_write(all_data, "MapApp/geojson_manipulation/main.geojson")
 
 
+#mapping
 
-
+#trying one way 
 get_eurostat_geospatial(resolution = 10, 
                         nuts_level = 0, 
                         year = 2016)
@@ -53,8 +54,28 @@ leaflet(SHP_0) %>%
               fillOpacity = 0.2)
 
 
+L.geoJSON(geojsonFeature).addTo(map)
 
+#trying the other way 
 
+map_lad <- map %>%
+  leaflet::addPolygons(
+    data = all_data,  # EU polygon data from geojson
+    weight = 1,  # line thickness
+    opacity = 1,  # line transparency
+    color = "black",  # line colour
+    fillOpacity = ifelse(  # conditional fill opacity
+      test = all_data$st_areashape > 1E+09,  # if area is over this value
+      yes = 0.5,  # then make it half-opaque
+      no = 0  # otherwise make it entirely transparent
+    ),
+    fillColor = "red",
+    label = ~ISO3_CODE  # LAD name as a hover label
+  )
+
+map_lad
+
+#https://rpubs.com/mattdray/basic-leaflet-maps to be continued...
 
 
 #install.packages(c('tibble', 'dplyr', 'readr', 'readxl','gt','remotes')) run this line once only at the begining 
