@@ -75,7 +75,12 @@ Our assumption was that a county's wealth may fluctuate over the course of 10 ye
   
 The final table is the following:
 ```{r}
-kable(Caloric_consumption)
+knitr::kable(
+  Caloric_consumption,
+  align = "lccrr",
+  caption = "Caloric Consumption",
+  col.names = c('Country Code', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption')
+)
 ```
 
 
