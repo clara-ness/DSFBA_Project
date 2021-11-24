@@ -76,7 +76,7 @@ Our assumption was that a county's wealth may fluctuate over the course of 10 ye
 The final table is the following:
 ```{r}
 kbl(Caloric_consumption,
-    caption = "**Table 1**: Caloric Consumption.",
+    caption = "**Table 1**: Caloric Consumption",
     col.names = c('Country Code', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
@@ -105,7 +105,7 @@ GDP <- read_excel(here::here("data/GDP(1960-2020).xls"))
 As we can see below, RStudio imported the Excel file as is, and so our column names found themselves at the 3rd row and therefore column names of columns 3 to 65 have been attributed numbers.
 
 ```{r}
-kable(GDP)
+GDP
 ```
 
 We decided to fix that and to filter out the years that is in our interest and that we have in common with other tables, so the years 2000-2013. We decided to get rid of the `Indicator Name` and `Indicator Code` variables as well since the values are the same for every row and they do not provide additional useful information.
@@ -140,6 +140,13 @@ Lastly, we computed the average GDP for each country over the years 2000-2013 in
 GDP_summarized <- GDP %>% 
   group_by(country_name, country_code) %>% 
   summarize(avg_gdp = mean(avg_gdp))
+
+kbl(GDP_summarized,
+    caption = "**Table 2**: GDP",
+    col.names = c('Country Name', 'Country Code', 'Average GDP'),
+    align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
 ```
 
 We now have a dataframe with the following variables :
@@ -212,7 +219,14 @@ Finally we grouped observations by country to get the mean prevalence/rate of di
 Diabetes_EU_men <- Diabetes_EU_men %>% 
   group_by(country_code) %>%
   summarize(prop_men_diabetes = mean(prop_men_diabetes))
-kable(Diabetes_EU_men)
+
+kbl(Diabetes_EU_men,
+    caption = "**Table 3**: Diabetes men",
+    col.names = c('Country Code', 'Diabetes rates'),
+    align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+
 ```
 
 * For women :
@@ -221,7 +235,13 @@ kable(Diabetes_EU_men)
 Diabetes_EU_women <- Diabetes_EU_women %>% 
   group_by(country_code) %>%
   summarize(prop_women_diabetes = mean(prop_women_diabetes))
-kable(Diabetes_EU_women)
+
+kbl(Diabetes_EU_men,
+    caption = "**Table 4**: Diabetes women",
+    col.names = c('Country Code', 'Diabetes rates'),
+    align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
 ```
 
 We now have 2 dataframes with the following variables :
@@ -238,7 +258,13 @@ For the last step of our tidying, we joined all four tables in one dataset with 
 GDP_diabetes_cal <-full_join(GDP_summarized,Diabetes_EU_men, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
-GDP_diabetes_cal
+
+kbl(GDP_diabetes_cal,
+    caption = "**Finale Dataset**: GDP, diabetes and calories",
+    col.names = c('Country Name','Country Code','GDP','Men Diabetes', 'Women Diabetes', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
+    align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
 ```
 
 ## Missing values
