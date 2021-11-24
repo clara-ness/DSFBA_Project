@@ -75,6 +75,20 @@ map_lad <- map %>%
 
 map_lad
 
+pal <- colorNumeric("viridis", NULL)
+
+
+leaflet(all_data) %>%
+  addTiles() %>%
+  addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 1,
+              fillColor = ~pal(log10(total_consumption)),
+              label = ~paste0(ISO3_CODE, ": ", formatC(total_consumption, big.mark = ","))) %>%
+  addLegend(pal = pal, values = ~log10(total_consumption), opacity = 1.0,
+            labFormat = labelFormat(transform = function(x) round(10^x)))
+
+
+
+
 #https://rpubs.com/mattdray/basic-leaflet-maps to be continued...
 
 
