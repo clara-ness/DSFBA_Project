@@ -10,7 +10,7 @@ source(here::here("scripts/Code.R"))
 * Justifications
 
 ## Our research questions
-```
+
 1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
 
 

@@ -104,9 +104,7 @@ GDP <- read_excel(here::here("data/GDP(1960-2020).xls"))
 
 As we can see below, RStudio imported the Excel file as is, and so our column names found themselves at the 3rd row and therefore column names of columns 3 to 65 have been attributed numbers.
 
-```{r}
-GDP
-```
+
 
 We decided to fix that and to filter out the years that is in our interest and that we have in common with other tables, so the years 2000-2013. We decided to get rid of the `Indicator Name` and `Indicator Code` variables as well since the values are the same for every row and they do not provide additional useful information.
 
@@ -180,7 +178,6 @@ Like with the first 2 datasets, we filtered our data to keep only European count
 ```{r}
 Diabetes <- subset(Diabetes, Year >= 2000 , Year <=2013)
 Diabetes_EU<-Diabetes[Diabetes$`ISO` %in% EU,]
-kable(Diabetes_EU)
 ```
 
 We also decided not to use the 95% confidence interval variable.
@@ -190,18 +187,18 @@ Diabetes_EU <- Diabetes_EU[-c(6,7)]
 colnames(Diabetes_EU)<-c("country","ISO","sex","year","prop_diabetes")
 ```
 
-Then, we separated our dataset into two subsets. One with data about men :
+Then, we separated our dataset into two subsets. One with data about men.
 
 ```{r}
 Diabetes_EU_men <-subset(Diabetes_EU, sex=="Men")
-kable(Diabetes_EU_men)
+
 ```
 
-Another one with data about women :
+Another one with data about women.
 
 ```{r}
 Diabetes_EU_women <-subset(Diabetes_EU, sex=="Women")
-kable(Diabetes_EU_women)
+
 ```
 
 We then changed the variable names of these 2 subsets to facilitate joining tables later on.
