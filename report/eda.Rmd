@@ -56,6 +56,8 @@ Without the outliers, we can see a bit more clearly. Indeed, it seems that the r
 For the second table, we tried to see again if there was a trend in the consumption of different macro-nutrients in the 2000s for each country in our sample.
 
 ```{r}
+library("ggpubr")
+
 # Plotting the evolution of the macronutrients consumption over the years for each country
 cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
 
@@ -69,11 +71,13 @@ tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from anim
 tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 
 # Print plot
-print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+
+ggarrange(print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
   labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
-       y = "Calories", x = "Year"))
+       y = "Calories", x = "Year")))
   
 }
+
 ```
 
 There do not seem to be any trends in the graphs above and diets seem rather stable in each country, which is why we will take the average consumption for each macro-nutrient. We can however note that the 5 outliers mentioned before tend to have a higher fat consumption than the countries with a smaller GDP. 
