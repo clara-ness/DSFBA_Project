@@ -75,12 +75,12 @@ Our assumption was that a county's wealth may fluctuate over the course of 10 ye
   
 The final table is the following:
 ```{r}
-knitr::kable(
-  Caloric_consumption,
-  align = "lccrr",
-  caption = "Caloric Consumption",
-  col.names = c('Country Code', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption')
-)
+kbl(Caloric_consumption,
+    caption = "**Table 1**: Caloric Consumption.",
+    col.names = c('Country Code', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
+    align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
 ```
 
 
