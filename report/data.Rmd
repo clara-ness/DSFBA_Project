@@ -30,13 +30,12 @@ daily_caloric <- read_csv(here::here("data/daily-caloric.csv"))
 The intake of specific macronutrients (carbohydrates, protein and fats) are derived based on average food composition factors – these factors are derived and presented in the Food and Agriculture Organisation’s (FAO) Food Balance Sheet Handbook (https://www.fao.org/faostat/en/#data).
 
 
-We will only focus on observations of European countries in the 2000s, which is why we have sorted the data as follows:
+We will only focus on observations of European countries in the 2000s.
 
 ```{r}
 daily_caloric <- subset(daily_caloric, Year >= 2000)
 EU <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 daily_caloric<-daily_caloric[daily_caloric$Code %in% EU,]
-daily_caloric
 ```
 
 We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries' names.
@@ -72,8 +71,13 @@ Our assumption was that a county's wealth may fluctuate over the course of 10 ye
   + `cal_prot_plant` The mean of the calories from plant protein consumed in each country in the years 2000-2013  
   + `cal_carbs`The mean of the calories from carbohydrates consumed in each country in the years 2000-2013  
   + `cal_fat` The mean of the calories from fat consumed in each country in the years 2000-2013  
-  + `total_consumption` The total consumption based on the means of the consumption of each type of macronutrients in    each countries in the years 2000-2013  
+  + `total_consumption` The total consumption based on the means of the consumption of each type of macronutrients in    each countries in the years 2000-2013
   
+The final table is the following:
+```{r}
+kable(Caloric_consumption)
+```
+
 
 
 ### GDP
@@ -96,7 +100,7 @@ GDP <- read_excel(here::here("data/GDP(1960-2020).xls"))
 As we can see below, RStudio imported the Excel file as is, and so our column names found themselves at the 3rd row and therefore column names of columns 3 to 65 have been attributed numbers.
 
 ```{r}
-GDP
+kable(GDP)
 ```
 
 We decided to fix that and to filter out the years that is in our interest and that we have in common with other tables, so the years 2000-2013. We decided to get rid of the `Indicator Name` and `Indicator Code` variables as well since the values are the same for every row and they do not provide additional useful information.
@@ -164,7 +168,7 @@ Like with the first 2 datasets, we filtered our data to keep only European count
 ```{r}
 Diabetes <- subset(Diabetes, Year >= 2000 , Year <=2013)
 Diabetes_EU<-Diabetes[Diabetes$`ISO` %in% EU,]
-Diabetes_EU
+kable(Diabetes_EU)
 ```
 
 We also decided not to use the 95% confidence interval variable.
@@ -178,14 +182,14 @@ Then, we separated our dataset into two subsets. One with data about men :
 
 ```{r}
 Diabetes_EU_men <-subset(Diabetes_EU, sex=="Men")
-Diabetes_EU_men
+kable(Diabetes_EU_men)
 ```
 
 Another one with data about women :
 
 ```{r}
 Diabetes_EU_women <-subset(Diabetes_EU, sex=="Women")
-Diabetes_EU_women
+kable(Diabetes_EU_women)
 ```
 
 We then changed the variable names of these 2 subsets to facilitate joining tables later on.
@@ -203,7 +207,7 @@ Finally we grouped observations by country to get the mean prevalence/rate of di
 Diabetes_EU_men <- Diabetes_EU_men %>% 
   group_by(country_code) %>%
   summarize(prop_men_diabetes = mean(prop_men_diabetes))
-Diabetes_EU_men
+kable(Diabetes_EU_men)
 ```
 
 * For women :
@@ -212,7 +216,7 @@ Diabetes_EU_men
 Diabetes_EU_women <- Diabetes_EU_women %>% 
   group_by(country_code) %>%
   summarize(prop_women_diabetes = mean(prop_women_diabetes))
-Diabetes_EU_women
+kable(Diabetes_EU_women)
 ```
 
 We now have 2 dataframes with the following variables :
