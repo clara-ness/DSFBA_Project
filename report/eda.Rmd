@@ -56,7 +56,6 @@ Without the outliers, we can see a bit more clearly. Indeed, it seems that the r
 For the second table, we tried to see again if there was a trend in the consumption of different macro-nutrients in the 2000s for each country in our sample.
 
 ```{r}
-library("ggpubr")
 
 # Plotting the evolution of the macronutrients consumption over the years for each country
 cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
@@ -72,9 +71,9 @@ tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 
 # Print plot
 
-ggarrange(print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
   labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
-       y = "Calories", x = "Year")))
+       y = "Calories", x = "Year"))
   
 }
 
