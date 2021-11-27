@@ -1,7 +1,7 @@
 # Analysis
 
 ```{r, echo = FALSE, message = FALSE}
-source(here::here("scripts/Code.R"))
+source(here::here("scripts/setup.R"))
 ```
 
 * Answers to the research questions
