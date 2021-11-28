@@ -60,6 +60,7 @@ Caloric_consumption <-Caloric_consumption %>%
   group_by(country_code) %>%
   mutate(
     total_consumption = sum(c(cal_prot_animal,cal_prot_plant,cal_carbs,cal_fat)))
+Caloric_consumption$total_consumption <- as.numeric(Caloric_consumption$total_consumption) 
 ```
 
 Our assumption was that a county's wealth may fluctuate over the course of 10 years (ex: a dip during the economic crisis of 2008) but an overall mean is sufficient to compare the different countries and their riches.

@@ -74,8 +74,36 @@ tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
   labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
        y = "Calories", x = "Year"))
-  
-}
+  }
+
+
+
+library(shiny)
+ui <- tagList(
+    tags$head(
+        tags$title("HTML Button Test")
+    ),
+    tags$main(
+        tags$h1("HTML Button Test"),
+        tags$p("Click the button."),
+        tags$button(
+            id = "btn",
+            class = "shiny-bound-input action-button",
+            "My Button"
+        ) 
+    )
+)
+
+
+#one way 
+#install.packages("plotly")
+
+#library(ggplot2)
+#library(plotly)
+#p <- ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+  #labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
+       #y = "Calories", x = "Year")
+#ggplotly(p)
 
 ```
 

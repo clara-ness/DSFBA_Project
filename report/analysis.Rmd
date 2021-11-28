@@ -16,8 +16,74 @@ source(here::here("scripts/setup.R"))
 
 2.Do European countries that have higher GDPs consume less calories ?
 
+As mentioned in the first point, countries with a higher GDP consume fewer calories which could be an explanation for the lower diabetes rate. Furthermore, we know from the EDA part that richer countries consume more fat on average but what is the real relationship between calorie consumption and GDP?
+
+```{r}
+#cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption)
+#lm_cal =lm(GDP_diabetes_cal$country_code ~ GDP_diabetes_cal$cal_prot_animal + GDP_diabetes_cal$cal_prot_plant + GDP_diabetes_cal$cal_carbs + GDP_diabetes_cal$cal_fat, data = GDP_diabetes_cal)
+
+#summary(lm_cal)
+```
+Neither the correlation between these two variables nor the linear regression is significant. However, it will be interesting to look further.  To do this we can make clusters 
+```{r}
+rownames(GDP_diabetes_cal) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU","GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
+
+data_1 <- GDP_diabetes_cal[,-(1:2),drop=FALSE] 
+model <- kmeans(data_1, centers = 3)
+
+# displays the class determined by
+# the model for all observations:
+model$cluster
+
+Data_cluster <- data.frame(data_1,
+  cluster = as.factor(model$cluster)
+)
+
+head(Data_cluster)
+
+#prediction of cluster 
+#install.packages('parameters')
+#install.packages('see')
+library(see)
+library(parameters)
+
+res_kmeans <- cluster_analysis(data_1,
+                 n = 3,
+                 method = "kmeans")
+
+predict(res_kmeans) # get clusters
+
+plot(res_kmeans)
+```
+
+
+```{r}
+#trying to plot the consumption patterns
+#library(plotly)
+#library(dplyr)
+
+
+#GDP_diabetes_cal$total_consumption <- sapply(strsplit(rownames(GDP_diabetes_cal), " "), "[[", 1)
+
+#df <- GDP_diabetes_cal
+#df <- df %>% group_by(total_consumption)
+#df <- df %>% summarize(count = n())
+#fig <- df %>% plot_ly(labels = ~total_consumption, values = ~count)
+#fig <- fig %>% add_pie(hole = 0.6)
+#fig <- fig %>% layout(title = "Donut charts using Plotly",  showlegend = F,
+                      xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+
+#fig
+
+
+```
+
+
 
 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?
+
+
 
 
 4.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
