@@ -159,30 +159,46 @@ Once again, we tried to see if the diabetes prevalence in each country changed o
 
 ```{r}
 # Plotting the evolution of the prevalence of diabetes for each country 
-Diabetes_EU2 <- Diabetes_EU[-c(2)] #remove ISO country code
-Diabetes_unique <- unique(Diabetes_EU2[c('country')]) # Sorting table by country (unique)
+#Diabetes_EU2 <- Diabetes_EU[-c(2)] #remove ISO country code
+#Diabetes_unique <- unique(Diabetes_EU2[c('country')]) # Sorting table by country (unique)
 
-for (i in 1:nrow(Diabetes_unique)) { 
-tmp <- Diabetes_unique$country[i]     
+#for (i in 1:nrow(Diabetes_unique)) { 
+#tmp <- Diabetes_unique$country[i]     
 
 # Taking subset of data table for the chosen country i 
-tmp2 <- subset(Diabetes_EU2,country == tmp, select = c("sex","year","prop_diabetes"))
+#tmp2 <- subset(Diabetes_EU2,country == tmp, select = c("sex","year","prop_diabetes"))
 
 # Print plot for each country
-print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line()
-  + labs(title = paste("Evolution of diabetes prevalence in",tmp), x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent))
-}
+#print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line()
+#  + labs(title = paste("Evolution of diabetes prevalence in",tmp), x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent))
+#}
 ```
 
-We see right away that the prevalence of diabetes is higher for man than women across all countries (there are however two exceptions : in Romania between 2000 and 2003 and Slovenia between 2000 and 2006). 
 
-Moreover, we observe that we have a decrease over time for these countries :  
+We saw right away that the prevalence of diabetes is higher for man than women across all countries (there are however two exceptions : in Romania between 2000 and 2003 and Slovenia between 2000 and 2006).
+
+We observed three different scenarios for countries that we selected:
+A decrease over time of diabetes over time for:
 
 * Belgium  
 * Denmark  
 * Finland  
 
-We have countries with a decrease over time for women and not for men:  
+We take Belgium as an example :
+```{r}
+# Plotting the evolution of the prevalence of diabetes for each country 
+Diabetes_EU2 <- Diabetes_EU[-c(2)] #remove ISO country code
+Diabetes_unique <- unique(Diabetes_EU2[c('country')]) # Sorting table by country (unique)
+
+
+# Taking subset of data table for the chosen country
+BelgiumPlot <- subset(Diabetes_EU2,country == 'Belgium', select = c("sex","year","prop_diabetes"))
+
+# Print plot for each country
+ggplot(data = BelgiumPlot, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line() + labs(title ="Evolution of diabetes prevalence in Belgium", x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent)
+```
+
+A decrease over time for women but not for men for :
 
 * Austria  
 * Malta  
@@ -192,7 +208,25 @@ We have countries with a decrease over time for women and not for men:
 * Spain  
 * Switzerland 
 
+We take Austria as an example :
+```{r}
+# Taking subset of data table for the chosen country
+AustriaPlot <- subset(Diabetes_EU2,country == 'Austria', select = c("sex","year","prop_diabetes"))
+
+# Print plot for each country
+ggplot(data = AustriaPlot, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line() + labs(title ="Evolution of diabetes prevalence in Austria", x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent)
+```
+
 In other European countries, the prevalence of diabetes is increasing (at different paces) over time.
+We take Croatia as an example :
+
+```{r}
+# Taking subset of data table for the chosen country
+CroatiaPlot <- subset(Diabetes_EU2,country == 'Croatia', select = c("sex","year","prop_diabetes"))
+
+# Print plot for each country
+ggplot(data = CroatiaPlot, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line() + labs(title ="Evolution of diabetes prevalence in Croatia", x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent)
+```
 
 
 ## Plotting Diabetes against each type of macronutrient consumption
