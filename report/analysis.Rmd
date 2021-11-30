@@ -119,7 +119,9 @@ plot(res_kmeans)
 
 ### 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?
 
+top 5, last 5 ?
 
+parler des différents écarts entre macronutriments OU proportions par rapport aux total calories
 
 
 ### 4.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
