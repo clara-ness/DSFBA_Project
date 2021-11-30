@@ -24,7 +24,10 @@ As mentioned in the first point, countries with a higher GDP consume fewer calor
 
 #summary(lm_cal)
 ```
-Neither the correlation between these two variables nor the linear regression is significant. However, it will be interesting to look further.  To do this we can make clusters 
+
+Neither the correlation between these two variables nor the linear regression is significant. However, it will be interesting to look further.  To do this we can 
+make clusters 
+
 ```{r}
 rownames(GDP_diabetes_cal) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU","GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 
