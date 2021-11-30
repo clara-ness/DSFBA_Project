@@ -57,10 +57,49 @@ For the second table, we tried to see again if there was a trend in the consumpt
 
 ```{r}
 
+#Trying to put a button to display all the countires graphs
 # Plotting the evolution of the macronutrients consumption over the years for each country
+#cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
+
+#for (i in 1:nrow(cal_unique)) { # Loop for each entity 
+#tmp <- cal_unique$Entity[i]     # Getting the entity name i
+
+# Taking subset of data table for the chosen entity i 
+#tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))","Calories #from plant protein (FAO (2017))","Calories from fat (FAO (2017))","Calories from carbohydrates (FAO (2017))"))
+
+# Melting the data by years (i.e. getting each value for the different rows for each year) 
+#tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
+
+# Print plot
+#print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+#  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
+       y = "Calories", x = "Year"))
+#}
+
+#library(shiny)
+#ui <- tagList(
+#    tags$head(
+#        tags$title("HTML Button Test")
+#    ),
+#    tags$main(
+#        tags$h1("HTML Button Test"),
+#        tags$p("Click the button."),
+#        tags$button(
+#            id = "btn",
+#            class = "shiny-bound-input action-button",
+#            "My Button"
+#        ) 
+#    )
+#)
+
+```
+In the different countries, there is one difference that stands out and that seems to be related to wealth. Indeed, countries with a higher GDP like Austria consume on average more fat as can be seen on this graph:
+
+```{r}
+#Plotting for Austria
 cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
 
-for (i in 1:nrow(cal_unique)) { # Loop for each entity 
+for (i in 1) { # Loop for each entity 
 tmp <- cal_unique$Entity[i]     # Getting the entity name i
 
 # Taking subset of data table for the chosen entity i 
@@ -74,38 +113,31 @@ tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
   labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
        y = "Calories", x = "Year"))
-  }
-
-
-
-library(shiny)
-ui <- tagList(
-    tags$head(
-        tags$title("HTML Button Test")
-    ),
-    tags$main(
-        tags$h1("HTML Button Test"),
-        tags$p("Click the button."),
-        tags$button(
-            id = "btn",
-            class = "shiny-bound-input action-button",
-            "My Button"
-        ) 
-    )
-)
-
-
-#one way 
-#install.packages("plotly")
-
-#library(ggplot2)
-#library(plotly)
-#p <- ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
-  #labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
-       #y = "Calories", x = "Year")
-#ggplotly(p)
-
+}
 ```
+
+Whereas, countries with a lower GDP have a different pattern with lower fat consumption like Bulgarian below:
+```{r}
+#Plotting for Bulgaria 
+cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
+
+for (i in 3) { # Loop for each entity 
+tmp <- cal_unique$Entity[i]     # Getting the entity name i
+
+# Taking subset of data table for the chosen entity i 
+tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))","Calories from plant protein (FAO (2017))","Calories from fat (FAO (2017))","Calories from carbohydrates (FAO (2017))"))
+
+# Melting the data by years (i.e. getting each value for the different rows for each year) 
+tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
+
+# Print plot
+
+print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
+       y = "Calories", x = "Year"))
+}
+```
+
 
 There do not seem to be any trends in the graphs above and diets seem rather stable in each country, which is why we will take the average consumption for each macro-nutrient. We can however note that the 5 outliers mentioned before tend to have a higher fat consumption than the countries with a smaller GDP. 
 
