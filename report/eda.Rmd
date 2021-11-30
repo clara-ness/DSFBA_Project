@@ -73,7 +73,7 @@ For the second table, we tried to see again if there was a trend in the consumpt
 # Print plot
 #print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
 #  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
-       y = "Calories", x = "Year"))
+#       y = "Calories", x = "Year"))
 #}
 
 #library(shiny)
