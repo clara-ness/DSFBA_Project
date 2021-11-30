@@ -11,10 +11,43 @@ source(here::here("scripts/setup.R"))
 
 ## Our research questions
 
-1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
+### 1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
 
+This first question serves more as a control, since we learned during our research prior to our project that countries with higher GDPs tend to have lower diabetes rates. Indeed, we can observe that in the EDA. 
 
-2.Do European countries that have higher GDPs consume less calories ?
+But, when we try to fit a linear model on these variables and observe correlations we see that these relationships are not significant at all.
+
+```{r}
+#with outliers
+cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
+cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)
+
+lm_gdp_diabetes_women <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_women_diabetes)
+
+lm_gdp_diabetes_men <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_men_diabetes)
+
+summary(lm_gdp_diabetes_women)
+summary(lm_gdp_diabetes_men)
+```
+
+However, once we exclude outliers, we see that the relationship is way more significant !
+
+```{r}
+#without outliers
+cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes)
+cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)
+
+lm_gdp_diabetes_women2 <- lm(GDP_diabetes_cal2$avg_gdp ~ GDP_diabetes_cal2$prop_women_diabetes)
+
+lm_gdp_diabetes_men2 <- lm(GDP_diabetes_cal2$avg_gdp ~ GDP_diabetes_cal2$prop_men_diabetes)
+
+summary(lm_gdp_diabetes_women2)
+summary(lm_gdp_diabetes_men2)
+```
+
+#### LOOK SPECIFICALLY INTO RICH COUNTRIES
+
+### 2.Do European countries that have higher GDPs consume less calories ?
 
 As mentioned in the first point, countries with a higher GDP consume fewer calories which could be an explanation for the lower diabetes rate. Furthermore, we know from the EDA part that richer countries consume more fat on average but what is the real relationship between calorie consumption and GDP?
 
@@ -84,10 +117,10 @@ plot(res_kmeans)
 
 
 
-3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?
+### 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?
 
 
 
 
-4.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
+### 4.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
 

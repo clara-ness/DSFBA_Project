@@ -93,6 +93,7 @@ For the second table, we tried to see again if there was a trend in the consumpt
 #)
 
 ```
+
 In the different countries, there is one difference that stands out and that seems to be related to wealth. Indeed, countries with a higher GDP like Austria consume on average more fat as can be seen on this graph:
 
 ```{r}
@@ -116,7 +117,8 @@ print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
 }
 ```
 
-Whereas, countries with a lower GDP have a different pattern with lower fat consumption like Bulgarian below:
+Whereas, countries with a lower GDP have a different pattern with lower fat consumption like Bulgaria below:
+
 ```{r}
 #Plotting for Bulgaria 
 cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
@@ -217,6 +219,7 @@ A decrease over time of diabetes over time for:
 * Finland  
 
 We take Belgium as an example :
+
 ```{r}
 # Plotting the evolution of the prevalence of diabetes for each country 
 Diabetes_EU2 <- Diabetes_EU[-c(2)] #remove ISO country code
@@ -241,6 +244,7 @@ A decrease over time for women but not for men for :
 * Switzerland 
 
 We take Austria as an example :
+
 ```{r}
 # Taking subset of data table for the chosen country
 AustriaPlot <- subset(Diabetes_EU2,country == 'Austria', select = c("sex","year","prop_diabetes"))
@@ -250,6 +254,7 @@ ggplot(data = AustriaPlot, mapping = aes(x = year, y =prop_diabetes, color =sex)
 ```
 
 In other European countries, the prevalence of diabetes is increasing (at different paces) over time.
+
 We take Croatia as an example :
 
 ```{r}
