@@ -9,8 +9,6 @@ source(here::here("scripts/setup.R"))
 * Competing approaches
 * Justifications
 
-## Our research questions
-
 ### 1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
 
 This first question serves more as a control, since we learned during our research prior to our project that countries with higher GDPs tend to have lower diabetes rates. Indeed, we can observe that in the EDA. 
@@ -45,7 +43,7 @@ summary(lm_gdp_diabetes_women2)
 summary(lm_gdp_diabetes_men2)
 ```
 
-#### LOOK SPECIFICALLY INTO RICH COUNTRIES
+#### LOOK SPECIFICALLY INTO RICH COUNTRIES ?
 
 ### 2.Do European countries that have higher GDPs consume less calories ?
 
@@ -111,7 +109,7 @@ plot(res_kmeans)
 
 
 
-### 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ? And how do these differences relate to the diabetes prevalence in these countries ?
+### 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ?
 
 top 5, last 5 ?
 
@@ -125,5 +123,5 @@ parler des différents écarts entre macronutriments OU proportions par rapport 
 ```
 
 
-### 4.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
+### 4.How do these differences relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
 
