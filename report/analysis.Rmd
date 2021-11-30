@@ -20,7 +20,7 @@ As mentioned in the first point, countries with a higher GDP consume fewer calor
 
 ```{r}
 #cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption)
-#lm_cal =lm(GDP_diabetes_cal$country_code ~ GDP_diabetes_cal$cal_prot_animal + GDP_diabetes_cal$cal_prot_plant + GDP_diabetes_cal$cal_carbs + GDP_diabetes_cal$cal_fat, data = GDP_diabetes_cal)
+#lm_cal =lm(GDP_diabetes_cal$country_code ~ GDP_diabetes_cal$cal_prot_animal + GDP_diabetes_cal$cal_prot_plant + #GDP_diabetes_cal$cal_carbs + GDP_diabetes_cal$cal_fat, data = GDP_diabetes_cal)
 
 #summary(lm_cal)
 ```
@@ -74,8 +74,8 @@ plot(res_kmeans)
 #fig <- df %>% plot_ly(labels = ~total_consumption, values = ~count)
 #fig <- fig %>% add_pie(hole = 0.6)
 #fig <- fig %>% layout(title = "Donut charts using Plotly",  showlegend = F,
-                      xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+                      #xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                      #yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 
 #fig
 
