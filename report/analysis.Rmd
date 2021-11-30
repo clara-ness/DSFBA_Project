@@ -51,12 +51,6 @@ summary(lm_gdp_diabetes_men2)
 
 As mentioned in the first point, countries with a higher GDP consume fewer calories which could be an explanation for the lower diabetes rate. Furthermore, we know from the EDA part that richer countries consume more fat on average but what is the real relationship between calorie consumption and GDP?
 
-```{r}
-#cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption)
-#lm_cal =lm(GDP_diabetes_cal$country_code ~ GDP_diabetes_cal$cal_prot_animal + GDP_diabetes_cal$cal_prot_plant + #GDP_diabetes_cal$cal_carbs + GDP_diabetes_cal$cal_fat, data = GDP_diabetes_cal)
-
-#summary(lm_cal)
-```
 
 Neither the correlation between these two variables nor the linear regression is significant. However, it will be interesting to look further.  To do this we can 
 make clusters 
@@ -122,6 +116,13 @@ plot(res_kmeans)
 top 5, last 5 ?
 
 parler des différents écarts entre macronutriments OU proportions par rapport aux total calories
+
+```{r}
+#cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption)
+#lm_cal =lm(GDP_diabetes_cal$country_code ~ GDP_diabetes_cal$cal_prot_animal + GDP_diabetes_cal$cal_prot_plant + #GDP_diabetes_cal$cal_carbs + GDP_diabetes_cal$cal_fat, data = GDP_diabetes_cal)
+
+#summary(lm_cal)
+```
 
 
 ### 4.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
