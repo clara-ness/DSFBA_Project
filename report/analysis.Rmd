@@ -117,12 +117,6 @@ top 5, last 5 ?
 
 parler des différents écarts entre macronutriments OU proportions par rapport aux total calories
 
-```{r}
-#cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption)
-#lm_cal =lm(GDP_diabetes_cal$country_code ~ GDP_diabetes_cal$cal_prot_animal + GDP_diabetes_cal$cal_prot_plant + #GDP_diabetes_cal$cal_carbs + GDP_diabetes_cal$cal_fat, data = GDP_diabetes_cal)
-
-#summary(lm_cal)
-```
 
 
 ### 4.What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
