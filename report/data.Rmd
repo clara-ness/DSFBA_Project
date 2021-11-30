@@ -10,7 +10,7 @@ To answer our research questions, we used three different datasets. While search
 
 ### Caloric consumption
 
-The first dataset we used, downloaded from the portal https://ourworldindata.org/diet-compositions, contains information related to the consumption of macronutrients in calories for different countries. It gives us information on the average nutrition of different countries from 1961 to 2013 : 
+The first dataset we used, downloaded from the portal https://ourworldindata.org/diet-compositions, contains information related to the supply of macronutrients in calories for different countries. We used data related to food supply rather than food consumption, as the latter is harder to find and generally, supply reflects the population's demand and therefore its food consumption. The dataset gives us information on the average nutrition of different countries from 1961 to 2013 : 
 
 ```{r}
 daily_caloric <- read_csv(here::here("data/daily-caloric.csv"))
