@@ -142,7 +142,7 @@ GDP_summarized <- GDP %>%
 
 kbl(GDP_summarized,
     caption = "**Table 2**: GDP",
-    col.names = c('Country Name', 'Country Code', 'Average GDP'),
+    col.names = c('Country Name', 'Country Code', 'Average GDP (in billion $'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -220,7 +220,7 @@ Diabetes_EU_men <- Diabetes_EU_men %>%
 
 kbl(Diabetes_EU_men,
     caption = "**Table 3**: Diabetes men",
-    col.names = c('Country Code', 'Diabetes rates'),
+    col.names = c('Country Code', 'Diabetes rate'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -236,7 +236,7 @@ Diabetes_EU_women <- Diabetes_EU_women %>%
 
 kbl(Diabetes_EU_men,
     caption = "**Table 4**: Diabetes women",
-    col.names = c('Country Code', 'Diabetes rates'),
+    col.names = c('Country Code', 'Diabetes rate'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -259,7 +259,7 @@ GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_
 
 kbl(GDP_diabetes_cal,
     caption = "**Finale Dataset**: GDP, diabetes and calories",
-    col.names = c('Country Name','Country Code','GDP','Men Diabetes', 'Women Diabetes', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
+    col.names = c('Country Name','Country Code','Average GDP (in billion $)','Men Diabetes', 'Women Diabetes', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 

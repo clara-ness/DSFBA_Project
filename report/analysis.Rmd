@@ -112,7 +112,7 @@ fig
 
 top 5, last 5 ?
 
-parler des différents écarts entre macronutriments OU proportions par rapport aux total calories
+parler des proportions par rapport aux total calories + peut-être qu'on doit regarder le PIB par personne pour que les graphiques fassent du sens + regarder les échelles dans EDA
 
 
 
