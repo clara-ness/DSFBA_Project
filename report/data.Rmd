@@ -130,7 +130,8 @@ To make it easier to manipulate data, we decided to rename our variables for thi
 
 ```{r}
 colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
-GDP$avg_gdp <- as.numeric(GDP$avg_gdp)/1000000000
+GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
+#GDP$avg_gdp <- as.numeric(GDP$avg_gdp)/1000000000
 ```
 
 Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.
@@ -159,10 +160,24 @@ We now have a dataframe with the following variables :
 Since we will be comparing the GDP with the calories consumed per person, it could be useful to have the GDP per person for the analysis. This is why we will be importing this dataset from https://data.worldbank.org/indicator/SP.POP.TOTL which gives us information on the evolution of the population per country over 1960-2020.
 
 ```{r}
-population <- read_excel(“here::here("data/population.xls"))
-
+population <- read_excel(here::here("data/population.xls"))
 ```
+As this dataset comes from the same source and is the same file type as GDP, we can do proceed with the same wrangling
 
+```{r}
+colnames(population) <- population[3,]
+population <- population[-c(1:3),-c(3:44,59:65)]
+population <- population[population$"Country Code" %in% EU,]
+population <- population %>% pivot_longer(c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013'),names_to = "Year",values_to = "Total Population")
+colnames(population) <- c("country_name","country_code","year","avg_population")
+population$avg_population <- as.numeric(population$avg_population)
+
+population_summarized <- population %>% 
+  group_by(country_code) %>% 
+  summarize(avg_population = mean(avg_population))
+
+#test : mutate(GDP, GDP_per_person = GDP$avg_gdp/population$avg_population)
+```
 
 ### Diabetes
 
