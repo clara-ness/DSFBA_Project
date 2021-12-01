@@ -96,22 +96,22 @@ plot(res_kmeans)
 
 ```{r}
 #trying to plot the consumption patterns
-library(plotly)
-library(dplyr)
+#library(plotly)
+#library(dplyr)
 
-donut<- data.frame(GDP_diabetes_cal , cat=c("cal_prot_animal", "cal_carbs", "cal_prot_plant", "cal_fat"))
+#donut<- data.frame(GDP_diabetes_cal , cat=c("cal_prot_animal", "cal_carbs", "cal_prot_plant", "cal_fat"))
 
 #GDP_diabetes_cal$total_consumption <- sapply(strsplit(rownames(GDP_diabetes_cal), " "), "[[", 1)
 
-donut <- donut %>% group_by(cat)
-donut <- donut %>% summarize(count = n())
-fig <- donut %>% plot_ly(labels = ~cat, values = ~count)
-fig <- fig %>% add_pie(hole = 0.6)
-fig <- fig %>% layout(title = "Donut charts to show consumption patterns",  showlegend = F,
-                      xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+#donut <- donut %>% group_by(cat)
+#donut <- donut %>% summarize(count = n())
+#fig <- donut %>% plot_ly(labels = ~cat, values = ~count)
+#fig <- fig %>% add_pie(hole = 0.6)
+#fig <- fig %>% layout(title = "Donut charts to show consumption patterns",  showlegend = F,
+                     # xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                     # yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 
-fig
+#fig
 
 ```
 
