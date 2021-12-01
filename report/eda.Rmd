@@ -117,7 +117,7 @@ print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
 }
 ```
 
-Whereas, countries with a lower GDP have a different pattern with lower fat consumption like Bulgaria below:
+Whereas, countries with a lower GDP like Bulgaria have a lower fat consumption, as seen below:
 
 ```{r}
 #Plotting for Bulgaria 
@@ -141,7 +141,7 @@ print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
 ```
 
 
-There do not seem to be any trends in the graphs above and diets seem rather stable in each country, which is why we will take the average consumption for each macro-nutrient. We can however note that the 5 outliers mentioned before tend to have a higher fat consumption than the countries with a smaller GDP. 
+There do not seem to be any trends in the graphs above and diets seem rather stable in each country, which is why we will take the average consumption for each macro-nutrient for our analysis. We can however note that the 5 outliers mentioned before tend to have a higher fat consumption than the countries with a smaller GDP. 
 
 
 ## Plotting GDP against total calories consumed

@@ -13,7 +13,7 @@ source(here::here("scripts/setup.R"))
 
 This first question serves more as a control, since we learned during our research prior to our project that countries with higher GDPs tend to have lower diabetes rates. Indeed, we can observe that in the EDA. 
 
-But, when we try to fit a linear model on these variables and observe correlations we see that these relationships are not significant at all.
+It is important to note that, when we try to fit a linear model on these variables and observe correlations over all observations, we see that these relationships are not significant at all.
 
 ```{r}
 #with outliers
@@ -47,7 +47,7 @@ summary(lm_gdp_diabetes_men2)
 
 ### 2.Do European countries that have higher GDPs consume less calories ?
 
-As mentioned in the first point, countries with a higher GDP consume fewer calories which could be an explanation for the lower diabetes rate. Furthermore, we know from the EDA part that richer countries consume more fat on average but what is the real relationship between calorie consumption and GDP?
+As mentioned in the first point, countries with a higher GDP have a lower diabetes rate which could potentially be explained by the consumption of fewer calories. Furthermore, we know from the EDA part that richer countries consume more fat on average but what is the real relationship between calorie consumption and GDP?
 
 
 Neither the correlation between these two variables nor the linear regression is significant. However, it will be interesting to look further.  To do this we can 
