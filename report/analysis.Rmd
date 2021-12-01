@@ -24,8 +24,8 @@ lm_gdp_diabetes_women <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_wom
 
 lm_gdp_diabetes_men <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_men_diabetes)
 
-summary(lm_gdp_diabetes_women)
-summary(lm_gdp_diabetes_men)
+kable(summary(lm_gdp_diabetes_women))
+kable(summary(lm_gdp_diabetes_men))
 ```
 
 However, once we exclude outliers, we see that the relationship is way more significant !
