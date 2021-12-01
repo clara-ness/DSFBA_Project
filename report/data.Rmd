@@ -130,8 +130,6 @@ To make it easier to manipulate data, we decided to rename our variables for thi
 
 ```{r}
 colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
-GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
-#GDP$avg_gdp <- as.numeric(GDP$avg_gdp)/1000000000
 ```
 
 Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.
@@ -176,7 +174,11 @@ population_summarized <- population %>%
   group_by(country_code) %>% 
   summarize(avg_population = mean(avg_population))
 
-#test : mutate(GDP, GDP_per_person = GDP$avg_gdp/population$avg_population)
+#test
+GDP <- mutate(GDP, GDP_per_person = GDP$avg_gdp/population$avg_population)
+GDP_summarized2 <- GDP %>% 
+  group_by(country_name, country_code) %>% 
+  summarize(GDP_per_person = mean(GDP_per_person))
 ```
 
 ### Diabetes
