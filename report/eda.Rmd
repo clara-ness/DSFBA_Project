@@ -111,7 +111,7 @@ tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 
 # Print plot
 
-print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +ylim(0,2000) +
   labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
        y = "Calories", x = "Year"))
 }
@@ -134,7 +134,7 @@ tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 
 # Print plot
 
-print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) + ylim(0,2000) +
   labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
        y = "Calories", x = "Year"))
 }
