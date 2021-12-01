@@ -119,7 +119,7 @@ fig
 
 ### 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ?
 
-We observed during the EDA that richer countries seemed to consume more fat on average.Not we want to see if we can confirm this relationship, and observe if there isn't a correlation between the average GDP of a country and the consumption of other macronutrients too.
+We observed during the EDA that richer countries seemed to consume more fat on average. Now we want to see if we can confirm this relationship, and observe if there isn't a correlation between the average GDP of a country and the consumption of other macronutrients too.
 
 ```{r}
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)
@@ -138,6 +138,9 @@ summary(lm_gdp_cal_carbs)
 summary(lm_gdp_cal_fat)
 ```
 
+The relationship between the average GDP of a country and the calories consumed from fat per person is therefore not as significant as we may have thought. For other macronutriments, there seems to be no correlation at all.
+
+Another way to answer this research question can be to see the relationship between the wealth of a country and the proportions of the total calories consumed dedicated to each macronutrient.
 
 ```{r}
 GDP_diabetes_cal <- mutate(GDP_diabetes_cal, proportion_animal_prot = cal_prot_animal/total_consumption, proportion_plant_prot = cal_prot_plant/total_consumption, proportion_carbs = cal_carbs/total_consumption, proportion_fat = cal_fat/total_consumption)
@@ -158,7 +161,7 @@ summary(lm_gdp_prop_carbs)
 summary(lm_gdp_prop_fat)
 ```
 
-With proportions, correlation is higher than with calorie count and linear regression parameters a bit more significant but the relationship is still not strong enough.
+With proportions, correlation is higher than with calorie count and linear regression parameters a bit more significant but the relationships are still not strong enough.
 
 -top 5, last 5 ?
 
