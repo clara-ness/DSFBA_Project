@@ -47,10 +47,19 @@ summary(lm_gdp_diabetes_men2)
 
 ### 2.Do European countries that have higher GDPs consume less calories ?
 
-As mentioned in the first point, countries with a higher GDP have a lower diabetes rate which could potentially be explained by the consumption of fewer calories. Furthermore, we know from the EDA part that richer countries consume more fat on average but what is the real relationship between calorie consumption and GDP?
+As mentioned in the first point, countries with a higher GDP have a lower diabetes rate which could potentially be explained by the consumption of fewer calories.
 
+But is there a real correlation between these two variables ? Let's check :
 
-Neither the correlation between these two variables nor the linear regression is significant. However, it will be interesting to look further.  To do this we can 
+```{r}
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption)
+
+lm_gdp_total_cal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$total_consumption)
+
+summary(lm_gdp_total_cal)
+```
+
+Neither the correlation between these two variables nor the linear regression is significant. However, it would be interesting to look further.  To do this we can 
 make clusters 
 
 ```{r}
@@ -110,9 +119,54 @@ fig
 
 ### 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ?
 
-top 5, last 5 ?
+We observed during the EDA that richer countries seemed to consume more fat on average.Not we want to see if we can confirm this relationship, and observe if there isn't a correlation between the average GDP of a country and the consumption of other macronutrients too.
 
-parler des proportions par rapport aux total calories + peut-être qu'on doit regarder le PIB par personne pour que les graphiques fassent du sens + regarder les échelles dans EDA
+```{r}
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant)
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs)
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat)
+
+lm_gdp_cal_prot_animal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot_animal)
+lm_gdp_cal_prot_plant <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot_plant)
+lm_gdp_cal_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_carbs)
+lm_gdp_cal_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_fat)
+
+summary(lm_gdp_cal_prot_animal)
+summary(lm_gdp_cal_prot_plant)
+summary(lm_gdp_cal_carbs)
+summary(lm_gdp_cal_fat)
+```
+
+
+```{r}
+GDP_diabetes_cal <- mutate(GDP_diabetes_cal, proportion_animal_prot = cal_prot_animal/total_consumption, proportion_plant_prot = cal_prot_plant/total_consumption, proportion_carbs = cal_carbs/total_consumption, proportion_fat = cal_fat/total_consumption)
+
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_animal_prot)
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_plant_prot)
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_carbs)
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_fat)
+
+lm_gdp_prop_animal_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_animal_prot)
+lm_gdp_prop_plant_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_plant_prot)
+lm_gdp_prop_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_carbs)
+lm_gdp_prop_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_fat)
+
+summary(lm_gdp_prop_animal_prot)
+summary(lm_gdp_prop_plant_prot)
+summary(lm_gdp_prop_carbs)
+summary(lm_gdp_prop_fat)
+```
+
+With proportions, correlation is higher than with calorie count and linear regression parameters a bit more significant but the relationship is still not strong enough.
+
+-top 5, last 5 ?
+
+-parler des proportions par rapport aux total calories
+
+-peut-être qu'on doit regarder le PIB par personne pour que les graphiques fassent du sens (j'ai trouvé un dataset) et trouver une relation
+
+-regarder les échelles dans EDA
 
 
 
