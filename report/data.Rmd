@@ -156,7 +156,13 @@ We now have a dataframe with the following variables :
 
 #### Population
 
-Since our 
+Since we will be comparing the GDP with the calories consumed per person, it could be useful to have the GDP per person for the analysis. This is why we will be importing this dataset from https://data.worldbank.org/indicator/SP.POP.TOTL which gives us information on the evolution of the population per country over 1960-2020.
+
+```{r}
+population <- read_excel(“here::here("data/population.xls"))
+
+```
+
 
 ### Diabetes
 
