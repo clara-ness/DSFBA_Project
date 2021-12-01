@@ -169,8 +169,6 @@ With proportions, correlation is higher than with calorie count and linear regre
 
 -peut-être qu'on doit regarder le PIB par personne pour que les graphiques fassent du sens (j'ai trouvé un dataset) et trouver une relation
 
--regarder les échelles dans EDA
-
 
 
 ### 4.How do these differences relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?

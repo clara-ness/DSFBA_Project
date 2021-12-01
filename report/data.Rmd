@@ -68,11 +68,11 @@ Our assumption was that a county's wealth may fluctuate over the course of 10 ye
 * We now have a dataframe with the following variables :
 
   + `country_code` ISO country code  
-  + `cal_prot_animal`The mean of the calories from animal protein consumed in each country in the years 2000-2013  
-  + `cal_prot_plant` The mean of the calories from plant protein consumed in each country in the years 2000-2013  
-  + `cal_carbs`The mean of the calories from carbohydrates consumed in each country in the years 2000-2013  
-  + `cal_fat` The mean of the calories from fat consumed in each country in the years 2000-2013  
-  + `total_consumption` The total consumption based on the means of the consumption of each type of macronutrients in    each countries in the years 2000-2013
+  + `cal_prot_animal`The mean of the calories from animal protein consumed per person in each country in the years 2000-2013  
+  + `cal_prot_plant` The mean of the calories from plant protein consumed per person in each country in the years 2000-2013  
+  + `cal_carbs`The mean of the calories from carbohydrates consumed per person in each country in the years 2000-2013  
+  + `cal_fat` The mean of the calories from fat consumed per person in each country in the years 2000-2013  
+  + `total_consumption` The total calorie consumption per person based on the means of the consumption of each type of macronutrients in    each countries in the years 2000-2013
   
 The final table is the following:
 ```{r}
@@ -154,7 +154,9 @@ We now have a dataframe with the following variables :
   + `country_code` ISO code of the country  
   + `avg_gdp` the average GDP of a country over the course of 2000-2013  
 
+#### Population
 
+Since our 
 
 ### Diabetes
 
