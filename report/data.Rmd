@@ -130,6 +130,7 @@ To make it easier to manipulate data, we decided to rename our variables for thi
 
 ```{r}
 colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
+GDP$avg_gdp <- as.numeric(GDP$avg_gdp)
 ```
 
 Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.
@@ -137,7 +138,7 @@ Lastly, we computed the average GDP for each country over the years 2000-2013 in
 ```{r}
 GDP_summarized <- GDP %>% 
   group_by(country_name, country_code) %>% 
-  summarize(avg_gdp = mean(avg_gdp))
+  dplyr::summarize(avg_gdp = mean(avg_gdp))
 
 kbl(GDP_summarized,
     caption = "**Table 2**: GDP",
@@ -241,7 +242,7 @@ Finally we grouped observations by country to get the mean prevalence/rate of di
 ```{r}
 Diabetes_EU_men <- Diabetes_EU_men %>% 
   group_by(country_code) %>%
-  summarize(prop_men_diabetes = mean(prop_men_diabetes))
+  dplyr::summarize(prop_men_diabetes = mean(prop_men_diabetes))
 
 kbl(Diabetes_EU_men,
     caption = "**Table 3**: Diabetes men",
@@ -257,7 +258,7 @@ kbl(Diabetes_EU_men,
 ```{r}
 Diabetes_EU_women <- Diabetes_EU_women %>% 
   group_by(country_code) %>%
-  summarize(prop_women_diabetes = mean(prop_women_diabetes))
+  dplyr::summarize(prop_women_diabetes = mean(prop_women_diabetes))
 
 kbl(Diabetes_EU_men,
     caption = "**Table 4**: Diabetes women",
