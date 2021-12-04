@@ -25,8 +25,7 @@ lm_gdp_diabetes_women <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_wom
 lm_gdp_diabetes_men <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_men_diabetes)
 
 
-pretty_lm <- prettify(summary(lm_gdp_diabetes_men)))
-kableExtra::(pretty_lm)
+kable(prettify(summary(lm_gdp_diabetes_men)))
 ```
 
 However, once we exclude outliers, we see that the relationship is way more significant !
@@ -40,8 +39,8 @@ lm_gdp_diabetes_women2 <- lm(GDP_diabetes_cal2$avg_gdp ~ GDP_diabetes_cal2$prop_
 
 lm_gdp_diabetes_men2 <- lm(GDP_diabetes_cal2$avg_gdp ~ GDP_diabetes_cal2$prop_men_diabetes)
 
-summary(lm_gdp_diabetes_women2)
-summary(lm_gdp_diabetes_men2)
+kable(prettify(summary(lm_gdp_diabetes_women2)))
+kable(prettify(summary(lm_gdp_diabetes_men2)))
 ```
 
 #### LOOK SPECIFICALLY INTO RICH COUNTRIES ?
@@ -57,42 +56,78 @@ cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption)
 
 lm_gdp_total_cal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$total_consumption)
 
-summary(lm_gdp_total_cal)
+kable(prettify(summary(lm_gdp_total_cal)))
 ```
 
-Neither the correlation between these two variables nor the linear regression is significant. However, it would be interesting to look further.  To do this we can 
-make clusters 
+
+Neither the correlation between these two variables nor the linear regression is significant. However, it would be interesting to look further.  To do this we can use the clustering method. To determine the number of clusters we use the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
 
 ```{r}
-rownames(GDP_diabetes_cal) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU","GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
-
 data_1 <- GDP_diabetes_cal[,-(1:2),drop=FALSE] 
-model <- kmeans(data_1, centers = 3)
+rownames(data_1) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU","GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 
-# displays the class determined by
-# the model for all observations:
-model$cluster
+fviz_nbclust(data_1, kmeans, method = "wss") +
+  geom_vline(xintercept = 2, linetype = 2) + # add line for better visualisation
+  labs(subtitle = "Elbow method") # add subtitle
 
-Data_cluster <- data.frame(data_1,
-  cluster = as.factor(model$cluster)
-)
+```
 
-head(Data_cluster)
+We therefore see from the graph above that the optimal number of clusters is 2. The allocation of countries according to their cluster is therefore as follows:
 
-#prediction of cluster 
-#install.packages('parameters')
-#install.packages('see')
-library(see)
-library(parameters)
+```{r}
 
 res_kmeans <- cluster_analysis(data_1,
-                 n = 3,
+                 n = 2,
                  method = "kmeans")
 
 predict(res_kmeans) # get clusters
 
+myCluster <- data.frame(row.names(data_1), res_kmeans)
+
+
+cluster_1<- myCluster %>%
+  group_by(res_kmeans)
+
+  
+kable(myCluster, col.names = c("Country","Cluster"))
+
+```
+
+To get a better idea of the difference between the clusters, we will plot the means of each dimension in each group:
+
+```{r}
 plot(res_kmeans)
 ```
+We can therefore see that diabetes is indeed lower in the first cluster which is the countries with the highest GPD. However, in terms of total calorie intake it is also the first cluster that consumes the most calories. One might therefore think that calorie consumption is not the main reason why high-GDP countries have lower diabetes rates.
+Nevertheless, we found it interesting to try to make 3 clusters to see the difference in total calorie consumption compared to the GDP rate.
+```{r}
+model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
+
+# displays the class determined by
+# the model for all observations:
+kable(model_cluster$cluster,  col.names = c("Cluster"))
+
+Data_cluster <- data.frame(data_1,
+  cluster = as.factor(model_cluster$cluster)
+)
+
+```
+We then plot those 3 clusters to see the differences: 
+```{r}
+res_kmeans_3 <- cluster_analysis(data_1,
+                 n = 3,
+                 method = "kmeans")
+
+predict(res_kmeans_3) # get clusters
+kable(res_kmeans_3)
+
+```
+
+The table shows that there is a better distribution of GDP, we will again make a graph to compare the differences between the clusters.
+```{r}
+plot(res_kmeans_3)
+```
+Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rates. 
 
 
 ```{r}
@@ -128,15 +163,16 @@ cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant)
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs)
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat)
 
+
 lm_gdp_cal_prot_animal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot_animal)
 lm_gdp_cal_prot_plant <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot_plant)
 lm_gdp_cal_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_carbs)
 lm_gdp_cal_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_fat)
 
-summary(lm_gdp_cal_prot_animal)
-summary(lm_gdp_cal_prot_plant)
-summary(lm_gdp_cal_carbs)
-summary(lm_gdp_cal_fat)
+kable(prettify(summary(lm_gdp_cal_prot_animal)))
+kable(prettify(summary(lm_gdp_cal_prot_plant)))
+kable(prettify(summary(lm_gdp_cal_carbs)))
+kable(prettify(summary(lm_gdp_cal_fat)))
 ```
 
 The relationship between the average GDP of a country and the calories consumed from fat per person is therefore not as significant as we may have thought. For other macronutriments, there seems to be no correlation at all.
@@ -156,10 +192,10 @@ lm_gdp_prop_plant_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proport
 lm_gdp_prop_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_carbs)
 lm_gdp_prop_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_fat)
 
-summary(lm_gdp_prop_animal_prot)
-summary(lm_gdp_prop_plant_prot)
-summary(lm_gdp_prop_carbs)
-summary(lm_gdp_prop_fat)
+kable(prettify(summary(lm_gdp_prop_animal_prot)))
+kable(prettify(summary(lm_gdp_prop_plant_prot)))
+kable(prettify(summary(lm_gdp_prop_carbs)))
+kable(prettify(summary(lm_gdp_prop_fat)))
 ```
 
 With proportions, correlation is higher than with calorie count and linear regression parameters a bit more significant but the relationships are still not strong enough.

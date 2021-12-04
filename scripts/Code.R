@@ -29,7 +29,7 @@ library(geojsonsf)
 
 EU_coord<- geojsonsf::geojson_sf('data/CNTR_RG_60M_2020_3035.geojson') # source of the geojson file https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries
 
-all_data = merge(EU_coord, GDP_diabetes_cal, by.x = "ISO3_CODE", by.y = "country_code")
+all_data = merge(EU_coord, myCluster, by.x = "ISO3_CODE", by.y = "row.names.data_1.")
 
 st_write(all_data, "MapApp/geojson_manipulation/main.geojson")
 
@@ -55,6 +55,7 @@ leaflet(SHP_0) %>%
 
 
 L.geoJSON(geojsonFeature).addTo(map)
+
 
 #trying the other way 
 
