@@ -13,7 +13,7 @@ First, even though we will be taking the means of the variables with which we ar
 ggplot(data = GDP) +
   geom_point(mapping = aes(x = year, y = avg_gdp)) +
   facet_wrap(~ country_name, nrow = 4) +
-  labs(x="Year",y="GDP")
+  labs(x="Year",y="GDP (in billion $)")
 
 #GDP per person
 ggplot(data = GDP2) +
@@ -35,7 +35,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red") +
   labs(x="Average GDP (in billion $)",y="Diabetes rate")
 
-#GDP per person
+#GDP per person, should we put this here ?
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = gdp_per_person, y = prop_men_diabetes),color = "blue") +
   geom_smooth(mapping = aes(x = gdp_per_person, y = prop_men_diabetes), color = "blue", method = "lm") +
