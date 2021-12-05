@@ -232,7 +232,7 @@ kable(prettify(summary(lm_gdp_cal_carbs)))
 kable(prettify(summary(lm_gdp_cal_fat)))
 ```
 
-The relationship between the average GDP of a country and the calories consumed from fat per person is therefore not as significant as we may have thought. For other macronutriments, there seems to be no correlation at all.
+The relationship between the average GDP of a country and the calories consumed from fat per person is the only macronutriment that is significant. For other macronutriments, there seems to be no correlation at all.
 
 Let's see if considering the GDP per person instead of the total makes a difference.
 
