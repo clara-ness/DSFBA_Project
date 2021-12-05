@@ -11,8 +11,6 @@ source(here::here("scripts/setup.R"))
 
 ### 1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
 
---> we already grouped countries in 3 categories in EDA, introduce clustering here
-
 This first question serves more as a control, since we learned during our research prior to our project that countries with higher GDPs tend to have lower diabetes rates. Indeed, we can observe that in the EDA. 
 
 It is important to note that, when we try to fit a linear model on these variables and observe correlations over all observations, we see that these relationships are not significant at all.
@@ -26,7 +24,7 @@ lm_gdp_diabetes_women <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_wom
 
 lm_gdp_diabetes_men <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_men_diabetes)
 
-
+kable(prettify(summary(lm_gdp_diabetes_women)))
 kable(prettify(summary(lm_gdp_diabetes_men)))
 ```
 
@@ -45,14 +43,8 @@ kable(prettify(summary(lm_gdp_diabetes_women2)))
 kable(prettify(summary(lm_gdp_diabetes_men2)))
 ```
 
-```{r}
-ggplot(data = GDP_diabetes_cal) +
-  geom_point(mapping = aes(x = gdp_per_person, y = prop_men_diabetes),color = "blue") +
-  geom_smooth(mapping = aes(x = gdp_per_person, y = prop_men_diabetes), color = "blue", method = "lm") +
-  geom_point(mapping = aes(x = gdp_per_person, y = prop_women_diabetes), color = "red") +
-  geom_smooth(mapping = aes(x = gdp_per_person, y = prop_women_diabetes), color = "red", method = "lm") +
-  labs(x="Average GDP per capita",y="Diabetes rate")
-```
+In the EDA section, we grouped countries in 3 categories, according to the relationship between the GDP and diabetes rate. Here, we confirmed statistically that a relationship exists between these 2 variables when we remove outliers. This therefore made us think that these countries could be categorized into clusters.
+
 
 ### 2.Do European countries that have higher GDPs consume less calories ?
 
