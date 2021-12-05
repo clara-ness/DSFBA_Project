@@ -382,4 +382,4 @@ ggplot(data = GDP_diabetes_cal2) +
 
 ```
 
-Without our 5 outliers, we observe not much change in the trend of each type of calories consumed apart for carbohydrates where the trend changes for men and become slightly positive. --> doesn't really make sense for fat and total calories ?
+Without our 5 outliers, we observe not much change in the trend of each type of calories consumed apart for carbohydrates where the trend changes for men and become slightly positive.
