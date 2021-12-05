@@ -153,7 +153,7 @@ Oddly enough, it seems that a higher consumption of animal protein could be rela
 
 
 
-### 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer governments ?
+### 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer countries ?
 
 We observed during the EDA that richer countries seemed to consume more fat on average. Now we want to see if we can confirm this relationship, and observe if there isn't a correlation between the average GDP of a country and the consumption of other macronutrients too.
 
@@ -173,27 +173,33 @@ kable(prettify(summary(lm_gdp_cal_prot_animal)))
 kable(prettify(summary(lm_gdp_cal_prot_plant)))
 kable(prettify(summary(lm_gdp_cal_carbs)))
 kable(prettify(summary(lm_gdp_cal_fat)))
-################
+
+
+################################
 ggplot() + 
   geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = total_consumption), color = "orange") +
+  geom_smooth(mapping = aes(x = GDP_diabetes_cal_pp$GDP_per_person, y=GDP_diabetes_cal_pp$total_consumption), color = "orange", method = "lm") +
   labs(x = "GDP per capita", y= "Calories")
 
 ggplot() + 
   geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = cal_fat), color = "blue") +
+  geom_smooth(mapping = aes(x = GDP_diabetes_cal_pp$GDP_per_person, y=GDP_diabetes_cal_pp$cal_fat), color = "blue", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from fat")
+
 ggplot() +
   geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = cal_carbs), color = "purple") +
+  geom_smooth(mapping = aes(x = GDP_diabetes_cal_pp$GDP_per_person, y=GDP_diabetes_cal_pp$cal_carbs), color = "purple", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from carbs")
+
 ggplot() +
   geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = cal_prot_animal), color = "red") +  
+  geom_smooth(mapping = aes(x = GDP_diabetes_cal_pp$GDP_per_person, y=GDP_diabetes_cal_pp$cal_prot_animal), color = "red", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from animal protein")
+
 ggplot() +
   geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = cal_prot_plant), color = "green") +
+  geom_smooth(mapping = aes(x = GDP_diabetes_cal_pp$GDP_per_person, y=GDP_diabetes_cal_pp$cal_prot_plant), color = "green", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from plant protein")
-
-
-
-
 
 ```
 
