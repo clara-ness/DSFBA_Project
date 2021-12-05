@@ -287,7 +287,10 @@ cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs)
 cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs)
 cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat)
 cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)
+```
+The correlations are quite significant for fat calories, animal protein and also for plant protein. Nevertheless, carbs would not have a huge effect on the rate of diabetes. Furthermore, it is interesting to note that the correlation is always higher for women. Perhaps malnutrition raises the risk of diabetes in women more than in men? We will continue this analysis by running linear regressions. 
 
+```{r}
 lm_diabetes_men_cal_prot_animal <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_prot_animal)
 lm_diabetes_women_cal_prot_animal <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_prot_animal)
 lm_diabetes_men_cal_prot_plant <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_prot_plant)
@@ -305,7 +308,9 @@ kable(prettify(summary(lm_diabetes_men_cal_carbs)))
 kable(prettify(summary(lm_diabetes_women_cal_carbs)))
 kable(prettify(summary(lm_diabetes_men_cal_fat)))
 kable(prettify(summary(lm_diabetes_women_cal_fat)))
-
+```
+Only animal protein and fat are significant for women which will further support the view that malnutrition has a greater impact on the rate of diabetes in women than in men. We will now take the proportions to get a better idea of the relationship of macronutrients to diabetes rates.
+```{r}
 #proportions
 cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot)
 cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_animal_prot)
@@ -333,5 +338,52 @@ kable(prettify(summary(lm_diabetes_men_prop_carbs)))
 kable(prettify(summary(lm_diabetes_women_prop_carbs)))
 kable(prettify(summary(lm_diabetes_men_prop_fat)))
 kable(prettify(summary(lm_diabetes_women_prop_fat)))
+```
+All macronutrients except protein are highly significant for women, which confirms our hypothesis that malnutrition has a greater impact on the rate of diabetes in women than in men. 
+
+We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rate for each cluster. To see the patterns of each cluster we will average each cluster. 
+```{r}
+#means for each cluster
+countries_cluster_1 <- countries_cluster_1[,-10]
+cl1 <- summarize_all(countries_cluster_1, mean)
+cl1 <- rbind(countries_cluster_1, cl1)
+row.names(cl1)[3] <- ("Means")
+kable(cl1[3,])
+
+countries_cluster_2 <- countries_cluster_2[,-10]
+cl2 <- summarize_all(countries_cluster_2, mean)
+cl2 <- rbind(countries_cluster_2, cl2)
+row.names(cl2)[17] <- ("Means")
+kable(cl2[17,])
+
+countries_cluster_3 <- countries_cluster_3[,-10]
+cl3 <- summarize_all(countries_cluster_3, mean)
+cl3 <- rbind(countries_cluster_3, cl3)
+row.names(cl3)[12] <- ("Means")
+kable(cl3[12,])
+```
+As we see from the cluster averages, cluster 2 has the highest rate of diabetes followed by cluster 3 and finally the cluster with the lowest rate of diabetes. 
+```{r}
+slices <- c(cl1[3,5],cl1[3,6],cl1[3,7], cl1[3,8] )
+lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels 
+pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Pie Chart of Consumption Pattern of Cluster 1")
+
+slices <- c(cl2[17,5],cl2[17,6],cl2[17,7], cl2[17,8] )
+lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels 
+pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Pie Chart of Consumption Pattern of Cluster 2")
+
+slices <- c(cl3[12,5],cl3[12,6],cl3[12,7], cl3[12,8] )
+lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels 
+pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Pie Chart of Consumption Pattern of Cluster 3")
+
 ```
 
