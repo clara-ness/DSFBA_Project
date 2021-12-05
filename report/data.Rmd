@@ -183,21 +183,20 @@ colnames(population) <- c("country_name","country_code","year","avg_population")
 population$avg_population <- as.numeric(population$avg_population)
 ```
 
-We now have a dataframe with the following variables :
-
-  + `country_name` name of the country  
-  + `country_code` ISO code of the country  
-  + `avg_population` the population of a country over the course of 2000-2013
-  
-In order to compare the GDP per person and calorie consumption per person, we will create a separate table.
+In order to compare the GDP per person and calorie consumption per person, we will create a separate table which we will join to the final clean dataset.
 
 ```{r}
-#test
 GDP2 <- mutate(GDP2, gdp_per_person = GDP2$avg_gdp/population$avg_population)
 GDP_summarized2 <- GDP2 %>% 
   group_by(country_name, country_code) %>% 
   dplyr::summarize(gdp_per_person = mean(gdp_per_person))
 ```
+
+We now have a dataframe with the following variables :
+
+  + `country_name` name of the country  
+  + `country_code` ISO code of the country  
+  + `gdp_per_person` the average GDP per person of a country over the course of 2000-2013
 
 ### Diabetes
 

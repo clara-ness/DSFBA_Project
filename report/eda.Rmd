@@ -16,8 +16,8 @@ ggplot(data = GDP) +
   labs(x="Year",y="GDP")
 
 #GDP per person
-ggplot(data = GDP) +
-  geom_point(mapping = aes(x = year, y = GDP_per_person)) +
+ggplot(data = GDP2) +
+  geom_point(mapping = aes(x = year, y = gdp_per_person)) +
   facet_wrap(~ country_name, nrow = 4) +
   labs(x="Year",y="GDP per capita")
 ```
@@ -36,11 +36,11 @@ ggplot(data = GDP_diabetes_cal) +
   labs(x="Average GDP (in billion $)",y="Diabetes rate")
 
 #GDP per person
-ggplot(data = GDP_diabetes_cal_pp) +
-  geom_point(mapping = aes(x = GDP_per_person, y = prop_men_diabetes),color = "blue") +
-  geom_smooth(mapping = aes(x = GDP_per_person, y = prop_men_diabetes), color = "blue", method = "lm") +
-  geom_point(mapping = aes(x = GDP_per_person, y = prop_women_diabetes), color = "red") +
-  geom_smooth(mapping = aes(x = GDP_per_person, y = prop_women_diabetes), color = "red", method = "lm") +
+ggplot(data = GDP_diabetes_cal) +
+  geom_point(mapping = aes(x = gdp_per_person, y = prop_men_diabetes),color = "blue") +
+  geom_smooth(mapping = aes(x = gdp_per_person, y = prop_men_diabetes), color = "blue", method = "lm") +
+  geom_point(mapping = aes(x = gdp_per_person, y = prop_women_diabetes), color = "red") +
+  geom_smooth(mapping = aes(x = gdp_per_person, y = prop_women_diabetes), color = "red", method = "lm") +
   labs(x="Average GDP per capita",y="Diabetes rate")
 ```
 
