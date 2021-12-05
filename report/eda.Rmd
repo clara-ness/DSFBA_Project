@@ -14,12 +14,6 @@ ggplot(data = GDP) +
   geom_point(mapping = aes(x = year, y = avg_gdp)) +
   facet_wrap(~ country_name, nrow = 4) +
   labs(x="Year",y="GDP (in billion $)")
-
-#GDP per person
-ggplot(data = GDP2) +
-  geom_point(mapping = aes(x = year, y = gdp_per_person)) +
-  facet_wrap(~ country_name, nrow = 4) +
-  labs(x="Year",y="GDP per capita")
 ```
 
 We can see that the GDP of France, Germany, Italy, Spain and the United Kingdom had a significant increase between 2000 and 2008.
@@ -34,14 +28,6 @@ ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes),color = "blue") +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red") +
   labs(x="Average GDP (in billion $)",y="Diabetes rate")
-
-#GDP per person, should we put this here ?
-ggplot(data = GDP_diabetes_cal) +
-  geom_point(mapping = aes(x = gdp_per_person, y = prop_men_diabetes),color = "blue") +
-  geom_smooth(mapping = aes(x = gdp_per_person, y = prop_men_diabetes), color = "blue", method = "lm") +
-  geom_point(mapping = aes(x = gdp_per_person, y = prop_women_diabetes), color = "red") +
-  geom_smooth(mapping = aes(x = gdp_per_person, y = prop_women_diabetes), color = "red", method = "lm") +
-  labs(x="Average GDP per capita",y="Diabetes rate")
 ```
 
 We observe that apart of 5 outliers, our observations are mostly bunched up at the left of the graph. We decided to exclude these 5 observations, to see if we can observe a trend with the other countries. These outliers, as we can see on the graph before, are the countries that had a big increase of GDP in the time period of 2000-2013.
@@ -108,7 +94,7 @@ For the second table, we tried to see again if there was a trend in the consumpt
 
 ```
 
-In the different countries, there is one difference that stands out and that seems to be related to wealth. Indeed, countries with a higher GDP like Austria consume on average more fat as can be seen on this graph:
+In different countries, there is one difference that stands out and that seems to be related to wealth. Indeed, countries with a higher GDP like Austria consume on average more fat as can be seen on this graph:
 
 ```{r}
 #Plotting for Austria
@@ -396,4 +382,4 @@ ggplot(data = GDP_diabetes_cal2) +
 
 ```
 
-Without our 5 outliers, we observe not much change in the trend of each type of calories consumed apart for carbohydrates where the trend changes for men and become slightly positive.
+Without our 5 outliers, we observe not much change in the trend of each type of calories consumed apart for carbohydrates where the trend changes for men and become slightly positive. --> doesn't really make sense for fat and total calories ?
