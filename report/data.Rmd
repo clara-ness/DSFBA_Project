@@ -131,7 +131,8 @@ To make it easier to manipulate data, we decided to rename our variables for thi
 ```{r}
 colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
 GDP$avg_gdp <- as.numeric(GDP$avg_gdp)/1000000000
-GDP2 <- GDP$avg_gdp*1000000000
+GDP2 <- GDP
+GDP2$avg_gdp <- GDP2$avg_gdp*1000000000
 ```
 
 Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.
@@ -192,10 +193,10 @@ In order to compare the GDP per person and calorie consumption per person, we wi
 
 ```{r}
 #test
-GDP2 <- mutate(GDP2, GDP_per_person = GDP2$avg_gdp/population$avg_population)
+GDP2 <- mutate(GDP2, gdp_per_person = GDP2$avg_gdp/population$avg_population)
 GDP_summarized2 <- GDP2 %>% 
   group_by(country_name, country_code) %>% 
-  dplyr::summarize(GDP_per_person = mean(GDP_per_person))
+  dplyr::summarize(gdp_per_person = mean(gdp_per_person))
 ```
 
 ### Diabetes
@@ -295,15 +296,14 @@ We now have 2 dataframes with the following variables :
 For the last step of our tidying, we joined all four tables in one dataset with the `country_code` key :
 
 ```{r}
-GDP_diabetes_cal <-full_join(GDP_summarized,Diabetes_EU_men, by="country_code")
+GDP_diabetes_cal <-full_join(GDP_summarized,GDP_summarized2, by="country_code")
+GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_men, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
 
-GDP_diabetes_cal_pp <-full_join(GDP_diabetes_cal, GDP_summarized2, by="country_code")
-
 kbl(GDP_diabetes_cal,
     caption = "**Finale Dataset**: GDP, diabetes and calories",
-    col.names = c('Country Name','Country Code','Average GDP (in billion $)','Men Diabetes', 'Women Diabetes', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
+    col.names = c('Country Name','Country Code','Average GDP (in billion $)','GDP per person (in $)','Men Diabetes', 'Women Diabetes', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
