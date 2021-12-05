@@ -60,6 +60,8 @@ fviz_nbclust(data_1, kmeans, method = "wss") +
 We therefore see from the graph above that the optimal number of clusters is 3. The allocation of countries according to their cluster is therefore as follows:
 
 ```{r}
+set.seed(123)
+
 model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
 
 #model_cluster_centers <- model_cluster$centers
@@ -294,6 +296,7 @@ ggplot() +
   labs(x = "GDP per capita", y= "Calories from plant protein")
 ```
 
+**after within cluster analysis**
 Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans".
 
 
