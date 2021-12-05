@@ -69,9 +69,23 @@ ggplot() +
   labs(x = "GDP per capita", y= "Calories")
 ```
 
-#VOIR RESULTAT + COMMENTAIRE
+The plot looks more or less the same as the one in the EDA section without the outliers. But is the relationship with this new variable statistically significant ?
 
-Next we can use the clustering method. To determine the number of clusters we use the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
+```{r}
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$total_consumption)
+
+lm_gdp_pp_total_cal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$total_consumption)
+
+kable(prettify(summary(lm_gdp_pp_total_cal)))
+```
+
+We see that the correlation is higher now and the significance of the relationship, even though not high enough, increased.
+
+Next we can proceed with a cluster analysis, with the ones defined in the first question.
+
+#NEXT SECTION : END OF QUESTION 1 ? 
+
+To determine the number of clusters we use the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
 
 ```{r}
 data_1 <- GDP_diabetes_cal[,-(1:2),drop=FALSE] 
