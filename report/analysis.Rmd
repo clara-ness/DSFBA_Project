@@ -45,10 +45,37 @@ kable(prettify(summary(lm_gdp_diabetes_men2)))
 
 In the EDA section, we grouped countries in 3 categories, according to the relationship between the GDP and diabetes rate. Here, we confirmed statistically that a relationship exists between these 2 variables when we remove outliers. This therefore made us think that these countries could be categorized into clusters.
 
+**clustering**
+
+```{r}
+cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes)
+cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_men_diabetes)
+cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_diabetes)
+cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_men_diabetes)
+cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_diabetes)
+cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_men_diabetes)
+
+lm_gdp_diabetes_women_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_women_diabetes)
+lm_gdp_diabetes_men_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_men_diabetes)
+lm_gdp_diabetes_women_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_women_diabetes)
+lm_gdp_diabetes_men_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_men_diabetes)
+lm_gdp_diabetes_women_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_women_diabetes)
+lm_gdp_diabetes_men_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_men_diabetes)
+
+kable(prettify(summary(lm_gdp_diabetes_women_clust1)))
+kable(prettify(summary(lm_gdp_diabetes_men_clust1)))
+kable(prettify(summary(lm_gdp_diabetes_women_clust2)))
+kable(prettify(summary(lm_gdp_diabetes_men_clust2)))
+kable(prettify(summary(lm_gdp_diabetes_women_clust3)))
+kable(prettify(summary(lm_gdp_diabetes_men_clust3)))
+```
+Clustering here doesn't necessarily help us answer the research question. We can confirm with the previous statistical test without outliers that overall, the GDP of a country and its diabetes rate are negatively correlated. 
+
+However, the clusters defined above could help us answer our other research questions.
 
 ### 2.Do European countries that have higher GDPs consume less calories ?
 
-As mentioned in the first point, countries with a higher GDP have a lower diabetes rate which could potentially be explained by the consumption of fewer calories.
+As mentioned in the first point, countries with a higher GDP tend to have a lower diabetes rate, which could potentially be explained by the consumption of fewer calories.
 
 But is there a real correlation between these two variables ? Let's check :
 
@@ -151,6 +178,7 @@ countries_cluster_3 <- filter(Data_cluster, cluster == "3") # rich countries cou
 We then plot those 3 clusters to see the differences: 
 
 ```{r}
+#what does this do ?
 res_kmeans_3 <- cluster_analysis(data_1,
                  n = 3,
                  method = "kmeans")
