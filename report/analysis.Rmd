@@ -70,12 +70,10 @@ predict(res_kmeans) # get clusters
 myCluster <- data.frame(row.names(data_1), res_kmeans)
 
 
-cluster_1<- myCluster %>%
-  group_by(res_kmeans)
-
-  
-kable(myCluster, col.names = c("Country","Cluster"))
-
+countries_cluster1 <- filter(myCluster, res_kmeans == "1") #very rich countries 
+countries_cluster2 <- filter(myCluster, res_kmeans == "2") # less rich countries
+kable(countries_cluster1)
+kable(countries_cluster2)
 ```
 
 To get a better idea of the difference between the clusters, we will plot the means of each dimension in each group:
@@ -105,7 +103,11 @@ Data_cluster <- data.frame(data_1,
 
 countries_cluster_1 <- filter(Data_cluster, cluster == "1") #very rich countries (only 2 : LUX & GBR)
 countries_cluster_2 <- filter(Data_cluster, cluster == "2") # less rich countries
-countries_cluster_3 <- filter(Data_cluster, cluster == "3") # rich countries countries
+countries_cluster_3 <- filter(Data_cluster, cluster == "3") # rich countries
+
+kable(countries_cluster_1)
+kable(countries_cluster_2)
+kable(countries_cluster_3)
 ```
 
 We then plot those 3 clusters to see the differences: 
