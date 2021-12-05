@@ -65,6 +65,7 @@ model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
 Data_cluster <- data.frame(data_1,
   cluster = as.factor(model_cluster$cluster))
 
+
 countries_cluster_1 <- filter(Data_cluster, cluster == "1")
 countries_cluster_2 <- filter(Data_cluster, cluster == "2") 
 countries_cluster_3 <- filter(Data_cluster, cluster == "3")
@@ -77,7 +78,7 @@ kable(countries_cluster_3)
 Now let's plot these clusters to see the differences between them.
 
 ```{r}
-res_kmeans <- cluster_analysis(data_1, n=3, method = "kmeans")
+res_kmeans <- cluster_analysis(data_1, n=3, method = "kmeans",iterations = 20)
 
 predict(res_kmeans)
 
