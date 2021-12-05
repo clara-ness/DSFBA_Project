@@ -306,7 +306,7 @@ kbl(GDP_diabetes_cal,
     col.names = c('Country Name','Country Code','Average GDP (in billion $)','Men Diabetes', 'Women Diabetes', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 ```
 
 ## Missing values

@@ -41,7 +41,7 @@ ggplot(data = GDP_diabetes_cal_pp) +
   geom_smooth(mapping = aes(x = GDP_per_person, y = prop_men_diabetes), color = "blue", method = "lm") +
   geom_point(mapping = aes(x = GDP_per_person, y = prop_women_diabetes), color = "red") +
   geom_smooth(mapping = aes(x = GDP_per_person, y = prop_women_diabetes), color = "red", method = "lm") +
-  labs(x="Average GDP (in billion $)",y="Diabetes rate")
+  labs(x="Average GDP per capita",y="Diabetes rate")
 ```
 
 We observe that apart of 5 outliers, our observations are mostly bunched up at the left of the graph. We decided to exclude these 5 observations, to see if we can observe a trend with the other countries. These outliers, as we can see on the graph before, are the countries that had a big increase of GDP in the time period of 2000-2013.
