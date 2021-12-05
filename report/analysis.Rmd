@@ -113,21 +113,11 @@ kable(countries_cluster_3)
 We then plot those 3 clusters to see the differences: 
 
 ```{r}
-#what does this do ?
-res_kmeans_3 <- cluster_analysis(data_1,
-                 n = 3,
-                 method = "kmeans")
-
-predict(res_kmeans_3) # get clusters
-kable(res_kmeans_3)
-
-```
-
-The table shows that there is a better distribution of GDP, we will again make a graph to compare the differences between the clusters.
-
-```{r}
 plot(res_kmeans_3)
 ```
+
+
+The table shows that there is a better distribution of GDP, we will again make a graph to compare the differences between the clusters.
 
 ```{r}
 cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes)
@@ -194,7 +184,7 @@ Next we can proceed with a cluster analysis, with the ones defined in the first 
 
 **insert more analysis**
 
-Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". *--> en faite ça va dans le même sens je trouve !*
+Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans".
 
 We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rates. 
 
