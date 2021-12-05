@@ -48,7 +48,7 @@ In the EDA section, we grouped countries in 3 categories, according to the relat
 To determine the number of clusters we used the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
 
 ```{r}
-data_1 <- GDP_diabetes_cal[,-(1:2),drop=FALSE] 
+data_1 <- GDP_diabetes_cal[,-(1:2),drop=FALSE] #-> introduce the proportions later on ?
 rownames(data_1) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU","GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 
 fviz_nbclust(data_1, kmeans, method = "wss") +
@@ -241,7 +241,26 @@ ggplot() +
   geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_plant), color = "green") +
   geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$cal_prot_plant), color = "green", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from plant protein")
+
+#correlations and linear regressions
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_animal)
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_plant)
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_carbs)
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_fat)
+
+
+lm_gdp_pp_cal_prot_animal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_animal)
+lm_gdp_pp_cal_prot_plant <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_plant)
+lm_gdp_pp_cal_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_carbs)
+lm_gdp_pp_cal_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_fat)
+
+kable(prettify(summary(lm_gdp_pp_cal_prot_animal)))
+kable(prettify(summary(lm_gdp_pp_cal_prot_plant)))
+kable(prettify(summary(lm_gdp_pp_cal_carbs)))
+kable(prettify(summary(lm_gdp_pp_cal_fat)))
 ```
+
+**insert analysis here**
 
 Another way to answer this research question can be to see the relationship between the wealth of a country and the proportions of the total calories consumed dedicated to each macronutrient.
 
@@ -287,6 +306,50 @@ ggplot() +
   geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_plant_prot), color = "green") +
   geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$proportion_plant_prot), color = "green", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from plant protein")
+
+#correlations and linear regressions
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_animal_prot)
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_plant_prot)
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_carbs)
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_fat)
+
+lm_gdp_pp_prop_animal_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_animal_prot)
+lm_gdp_pp_prop_plant_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_plant_prot)
+lm_gdp_pp_prop_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_carbs)
+lm_gdp_pp_prop_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_fat)
+
+kable(prettify(summary(lm_gdp_pp_prop_animal_prot)))
+kable(prettify(summary(lm_gdp_pp_prop_plant_prot)))
+kable(prettify(summary(lm_gdp_pp_prop_carbs)))
+kable(prettify(summary(lm_gdp_pp_prop_fat)))
+```
+
+**insert analysis here**
+
+```{r}
+#reintroduce clustering including proportions ?
+
+#rest of code needs to be modified
+cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes)
+cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_men_diabetes)
+cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_diabetes)
+cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_men_diabetes)
+cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_diabetes)
+cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_men_diabetes)
+
+lm_gdp_diabetes_women_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_women_diabetes)
+lm_gdp_diabetes_men_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_men_diabetes)
+lm_gdp_diabetes_women_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_women_diabetes)
+lm_gdp_diabetes_men_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_men_diabetes)
+lm_gdp_diabetes_women_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_women_diabetes)
+lm_gdp_diabetes_men_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_men_diabetes)
+
+kable(prettify(summary(lm_gdp_diabetes_women_clust1)))
+kable(prettify(summary(lm_gdp_diabetes_men_clust1)))
+kable(prettify(summary(lm_gdp_diabetes_women_clust2)))
+kable(prettify(summary(lm_gdp_diabetes_men_clust2)))
+kable(prettify(summary(lm_gdp_diabetes_women_clust3)))
+kable(prettify(summary(lm_gdp_diabetes_men_clust3)))
 ```
 
 **after within cluster analysis**
