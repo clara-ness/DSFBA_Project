@@ -158,7 +158,7 @@ We now have a dataframe with the following variables :
 
 #### Population
 
-Since we will be comparing the GDP with the calories consumed per person, it could be useful to have the GDP per person for the analysis. This is why we will be importing this dataset from https://data.worldbank.org/indicator/SP.POP.TOTL which gives us information on the evolution of the population per country over 1960-2020.
+Since we will be observing the relation between the GDP with the calories consumed per person, it could be useful to have the GDP per person for the analysis. This is why we will be importing this dataset from https://data.worldbank.org/indicator/SP.POP.TOTL which gives us information on the evolution of the population per country over 1960-2020.
 
 ```{r}
 population <- read_excel(here::here("data/population.xls"))
@@ -183,7 +183,7 @@ colnames(population) <- c("country_name","country_code","year","avg_population")
 population$avg_population <- as.numeric(population$avg_population)
 ```
 
-In order to compare the GDP per person and calorie consumption per person, we will create a separate table which we will join to the final clean dataset.
+In order to analyze the link between the GDP per person and calorie consumption per person, we will create a separate table which we will join to the final clean dataset.
 
 ```{r}
 GDP2 <- mutate(GDP2, gdp_per_person = GDP2$avg_gdp/population$avg_population)
