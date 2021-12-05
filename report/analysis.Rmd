@@ -386,4 +386,6 @@ lbls <- paste(lbls,"%",sep="") # ad % to labels
 pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Pie Chart of Consumption Pattern of Cluster 3")
 
 ```
+There is not much difference between the different patterns for the different clusters. However, it should be noted that carbs represent 53% of the diet of cluster 2 and that this food greatly influences the rate of diabetes, particularly among women.  Indeed, there is a 1% increase in diabetes for every 0.168 carbs consumed on average per capita with a significant p-value at 1%. The proportion of carbs should therefore be reduced to less than half of the total proportion to try to have a negative impact on the diabetes rate.
 
+Strangely enough, the proportion of fat is lower in cluster 3 (33%) which has the highest diabetes rate which is therefore counter intuitive. But this result is consistent with the negative correlations of fat with diabetes rate calculated above. It is therefore complicated to draw a conclusion regarding the proportion of fat to be consumed to reduce the diabetes rate. Our hypothesis is that even if cluster 1 consumes more fat, it is composed of rich countries that have more prevention measures and certainly better hospital infrastructure.
