@@ -125,7 +125,7 @@ plot(res_kmeans)
 ```
 
 We can therefore see that diabetes is indeed lower in the first cluster which is the countries with the highest GPD. However, in terms of total calorie intake it is also the first cluster that consumes the most calories. One might therefore think that calorie consumption is not the main reason why high-GDP countries have lower diabetes rates.
-Nevertheless, we found it interesting to try to make 3 clusters to see the difference in total calorie consumption compared to the GDP rate.
+Nevertheless, we found it interesting to try to make 3 clusters to see the difference in total calorie consumption compared to the GDP.
 
 ```{r}
 model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
@@ -138,6 +138,14 @@ Data_cluster <- data.frame(data_1,
   cluster = as.factor(model_cluster$cluster)
 )
 
+```
+
+```{r}
+#dataframes for each cluster, to see if correlation
+
+countries_cluster_1 <- filter(Data_cluster, cluster == "1") #very rich countries (only 2 : LUX & GBR)
+countries_cluster_2 <- filter(Data_cluster, cluster == "2") # less rich countries
+countries_cluster_3 <- filter(Data_cluster, cluster == "3") # rich countries countries
 ```
 
 We then plot those 3 clusters to see the differences: 
@@ -158,7 +166,9 @@ The table shows that there is a better distribution of GDP, we will again make a
 plot(res_kmeans_3)
 ```
 
-Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rates. 
+Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". *--> en faite ça va dans le même sens je trouve !*
+
+We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rates. 
 
 ```{r}
 #trying to plot the consumption patterns
