@@ -45,60 +45,25 @@ kable(prettify(summary(lm_gdp_diabetes_men2)))
 
 In the EDA section, we grouped countries in 3 categories, according to the relationship between the GDP and diabetes rate. Here, we confirmed statistically that a relationship exists between these 2 variables when we remove outliers. This therefore made us think that these countries could be categorized into clusters.
 
-To determine the number of clusters we use the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
+To determine the number of clusters we used the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
 
 ```{r}
 data_1 <- GDP_diabetes_cal[,-(1:2),drop=FALSE] 
 rownames(data_1) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU","GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 
 fviz_nbclust(data_1, kmeans, method = "wss") +
-  geom_vline(xintercept = 2, linetype = 2) + # add line for better visualisation
+  geom_vline(xintercept = 3, linetype = 2) + # add line for better visualisation
   labs(subtitle = "Elbow method") # add subtitle
 
 ```
 
-We therefore see from the graph above that the optimal number of clusters is 2. The allocation of countries according to their cluster is therefore as follows:
-
-```{r}
-
-res_kmeans <- cluster_analysis(data_1,
-                 n = 2,
-                 method = "kmeans")
-
-predict(res_kmeans) # get clusters
-
-myCluster <- data.frame(row.names(data_1), res_kmeans)
-
-
-countries_cluster1 <- filter(myCluster, res_kmeans == "1") #very rich countries 
-countries_cluster2 <- filter(myCluster, res_kmeans == "2") # less rich countries
-
-kable(countries_cluster1)
-kable(countries_cluster2)
-```
-
-To get a better idea of the difference between the clusters, we will plot the means of each dimension in each group:
-
-```{r}
-plot(res_kmeans)
-```
-
-We can therefore see that diabetes is indeed lower in the first cluster which is the countries with the highest GPD. However, in terms of total calorie intake it is also the first cluster that consumes the most calories. One might therefore think that calorie consumption is not the main reason why high-GDP countries have lower diabetes rates.
-Nevertheless, we found it interesting to try to make 3 clusters to see the difference in total calorie consumption compared to the GDP.
+We therefore see from the graph above that the optimal number of clusters is 3. The allocation of countries according to their cluster is therefore as follows:
 
 ```{r}
 model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
 
-# displays the class determined by
-# the model for all observations:
-
 Data_cluster <- data.frame(data_1,
   cluster = as.factor(model_cluster$cluster))
-
-```
-
-```{r}
-#dataframes for each cluster, to see if correlation
 
 countries_cluster_1 <- filter(Data_cluster, cluster == "1") #very rich countries (only 2 : LUX & GBR)
 countries_cluster_2 <- filter(Data_cluster, cluster == "2") # less rich countries
@@ -109,14 +74,7 @@ kable(countries_cluster_2)
 kable(countries_cluster_3)
 ```
 
-We then plot those 3 clusters to see the differences: 
-
-```{r}
-plot(res_kmeans_3)
-```
-
-
-The table shows that there is a better distribution of GDP, we will again make a graph to compare the differences between the clusters.
+**Description and order of clusters**
 
 ```{r}
 cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes)
