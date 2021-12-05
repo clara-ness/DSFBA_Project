@@ -64,15 +64,8 @@ set.seed(123)
 
 model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
 
-#model_cluster_centers <- model_cluster$centers
-
-#model_cluster_centers <- sort(model_cluster_centers)
-
-#ordered_model_cluster <- kmeans(model_cluster, centers = model_cluster_centers)
-
 Data_cluster <- data.frame(data_1,
-  cluster = as.factor(model_cluster$cluster)) #but with ordered_model_cluster$cluster in paranthesis
-
+  cluster = as.factor(model_cluster$cluster))
 
 countries_cluster_1 <- filter(Data_cluster, cluster == "1")
 countries_cluster_2 <- filter(Data_cluster, cluster == "2") 
