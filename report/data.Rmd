@@ -179,7 +179,9 @@ population_summarized <- population %>%
 GDP <- mutate(GDP, GDP_per_person = GDP$avg_gdp/population$avg_population)
 GDP_summarized2 <- GDP %>% 
   group_by(country_name, country_code) %>% 
-  summarize(GDP_per_person = mean(GDP_per_person))
+  dplyr::summarize(GDP_per_person = mean(GDP_per_person))
+
+
 ```
 
 ### Diabetes
@@ -282,6 +284,8 @@ For the last step of our tidying, we joined all four tables in one dataset with 
 GDP_diabetes_cal <-full_join(GDP_summarized,Diabetes_EU_men, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
+
+GDP_diabetes_cal_pp <-full_join(GDP_diabetes_cal, GDP_summarized2, by="country_code")
 
 kbl(GDP_diabetes_cal,
     caption = "**Finale Dataset**: GDP, diabetes and calories",

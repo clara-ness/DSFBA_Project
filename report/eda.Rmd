@@ -14,6 +14,12 @@ ggplot(data = GDP) +
   geom_point(mapping = aes(x = year, y = avg_gdp)) +
   facet_wrap(~ country_name, nrow = 4) +
   labs(x="Year",y="GDP")
+
+#GDP per person
+ggplot(data = GDP) +
+  geom_point(mapping = aes(x = year, y = GDP_per_person)) +
+  facet_wrap(~ country_name, nrow = 4) +
+  labs(x="Year",y="GDP per capita")
 ```
 
 We can see that the GDP of France, Germany, Italy, Spain and the United Kingdom had a significant increase between 2000 and 2008.
@@ -27,6 +33,14 @@ Now let's see if there is a relation between the GDP of a country and its diabet
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes),color = "blue") +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red") +
+  labs(x="Average GDP (in billion $)",y="Diabetes rate")
+
+#GDP per person
+ggplot(data = GDP_diabetes_cal_pp) +
+  geom_point(mapping = aes(x = GDP_per_person, y = prop_men_diabetes),color = "blue") +
+  geom_smooth(mapping = aes(x = GDP_per_person, y = prop_men_diabetes), color = "blue", method = "lm") +
+  geom_point(mapping = aes(x = GDP_per_person, y = prop_women_diabetes), color = "red") +
+  geom_smooth(mapping = aes(x = GDP_per_person, y = prop_women_diabetes), color = "red", method = "lm") +
   labs(x="Average GDP (in billion $)",y="Diabetes rate")
 ```
 

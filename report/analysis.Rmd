@@ -173,6 +173,28 @@ kable(prettify(summary(lm_gdp_cal_prot_animal)))
 kable(prettify(summary(lm_gdp_cal_prot_plant)))
 kable(prettify(summary(lm_gdp_cal_carbs)))
 kable(prettify(summary(lm_gdp_cal_fat)))
+################
+ggplot() + 
+  geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = total_consumption), color = "orange") +
+  labs(x = "GDP per capita", y= "Calories")
+
+ggplot() + 
+  geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = cal_fat), color = "blue") +
+  labs(x = "GDP per capita", y= "Calories from fat")
+ggplot() +
+  geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = cal_carbs), color = "purple") +
+  labs(x = "GDP per capita", y= "Calories from carbs")
+ggplot() +
+  geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = cal_prot_animal), color = "red") +  
+  labs(x = "GDP per capita", y= "Calories from animal protein")
+ggplot() +
+  geom_line(data = GDP_diabetes_cal_pp, aes(x = GDP_per_person, y = cal_prot_plant), color = "green") +
+  labs(x = "GDP per capita", y= "Calories from plant protein")
+
+
+
+
+
 ```
 
 The relationship between the average GDP of a country and the calories consumed from fat per person is therefore not as significant as we may have thought. For other macronutriments, there seems to be no correlation at all.
