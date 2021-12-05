@@ -62,8 +62,14 @@ We therefore see from the graph above that the optimal number of clusters is 3. 
 ```{r}
 model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
 
+#model_cluster_centers <- model_cluster$centers
+
+#model_cluster_centers <- sort(model_cluster_centers)
+
+#ordered_model_cluster <- kmeans(model_cluster, centers = model_cluster_centers)
+
 Data_cluster <- data.frame(data_1,
-  cluster = as.factor(model_cluster$cluster))
+  cluster = as.factor(model_cluster$cluster)) #but with ordered_model_cluster$cluster in paranthesis
 
 
 countries_cluster_1 <- filter(Data_cluster, cluster == "1")
@@ -84,6 +90,8 @@ predict(res_kmeans)
 
 plot(res_kmeans)
 ```
+
+We can therefore see that diabetes is indeed lower in clusters which contain the countries with higher GPDs. Let's see if this relationship is significant within each cluster :
 
 ```{r}
 cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes)
@@ -147,9 +155,11 @@ kable(prettify(summary(lm_gdp_pp_total_cal)))
 
 We see that the correlation is higher now and the significance of the relationship, even though not high enough, increased.
 
-Next we can proceed with a cluster analysis, with the ones defined in the first question.
+Next we can proceed with an analysis within clusters, with the ones defined in the first question.
 
 **insert more analysis**
+
+However, in terms of total calorie intake it is also the *.th* cluster that consumes the most calories. One might therefore think that calorie consumption is not the main reason why high-GDP countries have lower diabetes rates.
 
 Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans".
 
