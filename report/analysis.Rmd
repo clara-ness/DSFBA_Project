@@ -45,73 +45,6 @@ kable(prettify(summary(lm_gdp_diabetes_men2)))
 
 In the EDA section, we grouped countries in 3 categories, according to the relationship between the GDP and diabetes rate. Here, we confirmed statistically that a relationship exists between these 2 variables when we remove outliers. This therefore made us think that these countries could be categorized into clusters.
 
-**clustering**
-
-```{r}
-cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes)
-cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_men_diabetes)
-cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_diabetes)
-cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_men_diabetes)
-cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_diabetes)
-cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_men_diabetes)
-
-lm_gdp_diabetes_women_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_women_diabetes)
-lm_gdp_diabetes_men_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_men_diabetes)
-lm_gdp_diabetes_women_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_women_diabetes)
-lm_gdp_diabetes_men_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_men_diabetes)
-lm_gdp_diabetes_women_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_women_diabetes)
-lm_gdp_diabetes_men_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_men_diabetes)
-
-kable(prettify(summary(lm_gdp_diabetes_women_clust1)))
-kable(prettify(summary(lm_gdp_diabetes_men_clust1)))
-kable(prettify(summary(lm_gdp_diabetes_women_clust2)))
-kable(prettify(summary(lm_gdp_diabetes_men_clust2)))
-kable(prettify(summary(lm_gdp_diabetes_women_clust3)))
-kable(prettify(summary(lm_gdp_diabetes_men_clust3)))
-```
-Clustering here doesn't necessarily help us answer the research question. We can confirm with the previous statistical test without outliers that overall, the GDP of a country and its diabetes rate are negatively correlated. 
-
-However, the clusters defined above could help us answer our other research questions.
-
-### 2.Do European countries that have higher GDPs consume less calories ?
-
-As mentioned in the first point, countries with a higher GDP tend to have a lower diabetes rate, which could potentially be explained by the consumption of fewer calories.
-
-But is there a real correlation between these two variables ? Let's check :
-
-```{r}
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption)
-
-lm_gdp_total_cal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$total_consumption)
-
-kable(prettify(summary(lm_gdp_total_cal)))
-```
-
-Neither the correlation between these two variables nor the linear regression is significant. However, it would be interesting to look further. First, we can see if using the GDP per person instead of the total makes a difference.
-
-```{r}
-ggplot() + 
-  geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = total_consumption), color = "orange") +
-  geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$total_consumption), color = "orange", method = "lm") +
-  labs(x = "GDP per capita", y= "Calories")
-```
-
-The plot looks more or less the same as the one in the EDA section without the outliers. But is the relationship with this new variable statistically significant ?
-
-```{r}
-cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$total_consumption)
-
-lm_gdp_pp_total_cal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$total_consumption)
-
-kable(prettify(summary(lm_gdp_pp_total_cal)))
-```
-
-We see that the correlation is higher now and the significance of the relationship, even though not high enough, increased.
-
-Next we can proceed with a cluster analysis, with the ones defined in the first question.
-
-#NEXT SECTION : END OF QUESTION 1 ? 
-
 To determine the number of clusters we use the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
 
 ```{r}
@@ -193,6 +126,71 @@ The table shows that there is a better distribution of GDP, we will again make a
 ```{r}
 plot(res_kmeans_3)
 ```
+
+```{r}
+cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes)
+cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_men_diabetes)
+cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_diabetes)
+cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_men_diabetes)
+cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_diabetes)
+cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_men_diabetes)
+
+lm_gdp_diabetes_women_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_women_diabetes)
+lm_gdp_diabetes_men_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_men_diabetes)
+lm_gdp_diabetes_women_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_women_diabetes)
+lm_gdp_diabetes_men_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_men_diabetes)
+lm_gdp_diabetes_women_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_women_diabetes)
+lm_gdp_diabetes_men_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_men_diabetes)
+
+kable(prettify(summary(lm_gdp_diabetes_women_clust1)))
+kable(prettify(summary(lm_gdp_diabetes_men_clust1)))
+kable(prettify(summary(lm_gdp_diabetes_women_clust2)))
+kable(prettify(summary(lm_gdp_diabetes_men_clust2)))
+kable(prettify(summary(lm_gdp_diabetes_women_clust3)))
+kable(prettify(summary(lm_gdp_diabetes_men_clust3)))
+```
+Clustering here doesn't necessarily help us answer the research question. We can confirm with the previous statistical test without outliers that overall, the GDP of a country and its diabetes rate are negatively correlated. 
+
+However, the clusters defined above could help us answer our other research questions.
+
+### 2.Do European countries that have higher GDPs consume less calories ?
+
+As mentioned in the first point, countries with a higher GDP tend to have a lower diabetes rate, which could potentially be explained by the consumption of fewer calories.
+
+But is there a real correlation between these two variables ? Let's check :
+
+```{r}
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption)
+
+lm_gdp_total_cal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$total_consumption)
+
+kable(prettify(summary(lm_gdp_total_cal)))
+```
+
+Neither the correlation between these two variables nor the linear regression is significant. However, it would be interesting to look further. First, we can see if using the GDP per person instead of the total makes a difference.
+
+```{r}
+ggplot() + 
+  geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = total_consumption), color = "orange") +
+  geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$total_consumption), color = "orange", method = "lm") +
+  labs(x = "GDP per capita", y= "Calories")
+```
+
+The plot looks more or less the same as the one in the EDA section without the outliers. But is the relationship with this new variable statistically significant ?
+
+```{r}
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$total_consumption)
+
+lm_gdp_pp_total_cal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$total_consumption)
+
+kable(prettify(summary(lm_gdp_pp_total_cal)))
+```
+
+We see that the correlation is higher now and the significance of the relationship, even though not high enough, increased.
+
+Next we can proceed with a cluster analysis, with the ones defined in the first question.
+
+**insert more analysis**
 
 Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". *--> en faite ça va dans le même sens je trouve !*
 
