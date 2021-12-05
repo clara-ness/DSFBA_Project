@@ -72,6 +72,7 @@ myCluster <- data.frame(row.names(data_1), res_kmeans)
 
 countries_cluster1 <- filter(myCluster, res_kmeans == "1") #very rich countries 
 countries_cluster2 <- filter(myCluster, res_kmeans == "2") # less rich countries
+
 kable(countries_cluster1)
 kable(countries_cluster2)
 ```
@@ -90,11 +91,9 @@ model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
 
 # displays the class determined by
 # the model for all observations:
-kable(model_cluster$cluster,  col.names = c("Cluster"))
 
 Data_cluster <- data.frame(data_1,
-  cluster = as.factor(model_cluster$cluster)
-)
+  cluster = as.factor(model_cluster$cluster))
 
 ```
 
