@@ -134,7 +134,7 @@ lm_gdp_total_cal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$total_consump
 kable(prettify(summary(lm_gdp_total_cal)))
 ```
 
-Neither the correlation between these two variables nor the linear regression is significant. However, it would be interesting to look further. First, we can see if using the GDP per person instead of the total makes a difference.
+Neither the correlation between these two variables nor the linear regression is significant. However, it would be interesting to look further. First, we can see if using the GDP per person instead of the total average makes a difference.
 
 ```{r}
 ggplot() + 
@@ -153,17 +153,28 @@ lm_gdp_pp_total_cal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$tot
 kable(prettify(summary(lm_gdp_pp_total_cal)))
 ```
 
-We see that the correlation is higher now and the significance of the relationship, even though not high enough, increased.
+We see that the correlation with the variable `gdp_per_person`is higher now and the significance of the parameter in the regression, even though not high enough, increased.
 
 Next we can proceed with an analysis within clusters, with the ones defined in the first question.
 
+```{r}
+cor(countries_cluster_1$gdp_per_person, countries_cluster_1$total_consumption)
+cor(countries_cluster_2$gdp_per_person, countries_cluster_2$total_consumption)
+cor(countries_cluster_3$gdp_per_person, countries_cluster_3$total_consumption)
+
+lm_gdp_total_cal_clust1 <- lm(countries_cluster_1$gdp_per_person ~ countries_cluster_1$total_consumption)
+lm_gdp_total_cal_clust2 <- lm(countries_cluster_2$gdp_per_person ~ countries_cluster_2$total_consumption)
+lm_gdp_total_cal_clust3 <- lm(countries_cluster_3$gdp_per_person ~ countries_cluster_3$total_consumption)
+
+kable(prettify(summary(lm_gdp_total_cal_clust1)))
+kable(prettify(summary(lm_gdp_total_cal_clust2)))
+kable(prettify(summary(lm_gdp_total_cal_clust3)))
+```
 **insert more analysis**
 
 However, in terms of total calorie intake it is also the *.th* cluster that consumes the most calories. One might therefore think that calorie consumption is not the main reason why high-GDP countries have lower diabetes rates.
 
-Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans".
-
-We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rates. 
+We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rates. **-> à effacer ou question 4 ? **
 
 ```{r}
 #trying to plot the consumption patterns
@@ -283,6 +294,7 @@ ggplot() +
   labs(x = "GDP per capita", y= "Calories from plant protein")
 ```
 
+Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans".
 
 
 ### 4.How do these differences relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
@@ -299,6 +311,7 @@ cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs)
 cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat)
 cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)
 ```
+
 The correlations are quite significant for fat calories, animal protein and also for plant protein. Nevertheless, carbs would not have a huge effect on the rate of diabetes. Furthermore, it is interesting to note that the correlation is always higher for women. Perhaps malnutrition raises the risk of diabetes in women more than in men? We will continue this analysis by running linear regressions. 
 
 ```{r}
