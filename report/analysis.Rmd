@@ -98,6 +98,7 @@ kable(prettify(summary(lm_gdp_diabetes_men_clust2)))
 kable(prettify(summary(lm_gdp_diabetes_women_clust3)))
 kable(prettify(summary(lm_gdp_diabetes_men_clust3)))
 ```
+
 Clustering here doesn't necessarily help us answer the research question. We can confirm with the previous statistical test without outliers that overall, the GDP of a country and its diabetes rate are negatively correlated. 
 
 However, the clusters defined above could help us answer our other research questions.
