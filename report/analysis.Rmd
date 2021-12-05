@@ -175,29 +175,29 @@ kable(prettify(summary(lm_gdp_cal_carbs)))
 kable(prettify(summary(lm_gdp_cal_fat)))
 
 
-################################
+#with GDP per person
 ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = total_consumption), color = "orange") +
+  geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = total_consumption), color = "orange") +
   geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$total_consumption), color = "orange", method = "lm") +
   labs(x = "GDP per capita", y= "Calories")
 
 ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_fat), color = "blue") +
+  geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_fat), color = "blue") +
   geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$cal_fat), color = "blue", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from fat")
 
 ggplot() +
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_carbs), color = "purple") +
+  geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_carbs), color = "purple") +
   geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$cal_carbs), color = "purple", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from carbs")
 
 ggplot() +
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_animal), color = "red") +  
+  geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_animal), color = "red") +  
   geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$cal_prot_animal), color = "red", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from animal protein")
 
 ggplot() +
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_plant), color = "green") +
+  geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_plant), color = "green") +
   geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$cal_prot_plant), color = "green", method = "lm") +
   labs(x = "GDP per capita", y= "Calories from plant protein")
 
