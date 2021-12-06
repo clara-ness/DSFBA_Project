@@ -20,12 +20,33 @@ It is important to note that, when we try to fit a linear model on these variabl
 cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
 cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)
 
-lm_gdp_diabetes_women <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_women_diabetes)
+lm_gdp_diabetes_women <- lm(avg_gdp ~ prop_women_diabetes, data = GDP_diabetes_cal)
 
-lm_gdp_diabetes_men <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$prop_men_diabetes)
+lm_gdp_diabetes_men <- lm(avg_gdp ~ prop_men_diabetes, data = GDP_diabetes_cal)
 
-kable(prettify(summary(lm_gdp_diabetes_women)))
-kable(prettify(summary(lm_gdp_diabetes_men)))
+tab_model(
+  lm_gdp_diabetes_women, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)  
+```
+<br><br>
+```{r}
+tab_model(
+  lm_gdp_diabetes_men, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
+
+
 ```
 
 However, once we exclude outliers, we see that the relationship is way more significant !
@@ -35,12 +56,31 @@ However, once we exclude outliers, we see that the relationship is way more sign
 cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes)
 cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)
 
-lm_gdp_diabetes_women2 <- lm(GDP_diabetes_cal2$avg_gdp ~ GDP_diabetes_cal2$prop_women_diabetes)
+lm_gdp_diabetes_women2 <- lm(avg_gdp ~ prop_women_diabetes, data = GDP_diabetes_cal2)
 
-lm_gdp_diabetes_men2 <- lm(GDP_diabetes_cal2$avg_gdp ~ GDP_diabetes_cal2$prop_men_diabetes)
+lm_gdp_diabetes_men2 <- lm(avg_gdp ~ prop_men_diabetes, data = GDP_diabetes_cal2)
 
-kable(prettify(summary(lm_gdp_diabetes_women2)))
-kable(prettify(summary(lm_gdp_diabetes_men2)))
+tab_model(
+  lm_gdp_diabetes_women2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)  
+```
+<br><br>
+```{r}
+tab_model(
+  lm_gdp_diabetes_men2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 ```
 
 In the EDA section, we grouped countries in 3 categories, according to the relationship between the GDP and diabetes rate. Here, we confirmed statistically that a relationship exists between these 2 variables when we remove outliers. This therefore made us think that these countries could be categorized into clusters.
@@ -70,9 +110,21 @@ countries_cluster_1 <- filter(Data_cluster, cluster == "1")
 countries_cluster_2 <- filter(Data_cluster, cluster == "2") 
 countries_cluster_3 <- filter(Data_cluster, cluster == "3")
 
-kable(countries_cluster_1)
-kable(countries_cluster_2)
-kable(countries_cluster_3)
+kbl(countries_cluster_1,
+    caption = "**Table**: Cluster 1",
+    align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+kbl(countries_cluster_2,
+    caption = "**Table**: Cluster 2",
+    align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+kbl(countries_cluster_3,
+    caption = "**Table**: Cluster 3",
+    align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 ```
 
 Now let's plot these clusters to see the differences between them.
