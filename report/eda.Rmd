@@ -265,7 +265,6 @@ CroatiaPlot <- subset(Diabetes_EU2,country == 'Croatia', select = c("sex","year"
 ggplot(data = CroatiaPlot, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line() + labs(title ="Evolution of diabetes prevalence in Croatia", x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent)
 ```
 
-
 ## Plotting Diabetes against each type of macronutrient consumption
 
 Finally, we want to plot the relation between the diabetes prevalence against the total calorie consumption as well as each type of macronutrient consumed.
