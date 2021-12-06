@@ -558,7 +558,9 @@ lm_diabetes_women_cal_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabe
 kable(prettify(summary(lm_diabetes_men_cal_fat)))
 kable(prettify(summary(lm_diabetes_women_cal_fat)))
 ```
+
 Only animal protein and fat are significant for women which will further support the view that malnutrition has a greater impact on the rate of diabetes in women than in men. We will now take the proportions to get a better idea of the relationship of macronutrients to diabetes rates.
+
 ```{r}
 #proportion animal protein
 cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot)
