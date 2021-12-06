@@ -435,8 +435,8 @@ We are going to investigate this very issue of calorie consumption patterns that
 countries_cluster_1 <- countries_cluster_1[,-10]
 cl1 <- summarize_all(countries_cluster_1, mean)
 cl1 <- rbind(countries_cluster_1, cl1)
-row.names(cl1)[3] <- ("Means")
-kable(cl1[3,])
+row.names(cl1)[12] <- ("Means")
+kable(cl1[12,])
 
 countries_cluster_2 <- countries_cluster_2[,-10]
 cl2 <- summarize_all(countries_cluster_2, mean)
@@ -447,12 +447,12 @@ kable(cl2[17,])
 countries_cluster_3 <- countries_cluster_3[,-10]
 cl3 <- summarize_all(countries_cluster_3, mean)
 cl3 <- rbind(countries_cluster_3, cl3)
-row.names(cl3)[12] <- ("Means")
-kable(cl3[12,])
+row.names(cl3)[3] <- ("Means")
+kable(cl3[3,])
 ```
-As we see from the cluster averages, cluster 2 has the highest rate of diabetes followed by cluster 3 and finally the cluster with the lowest rate of diabetes. 
+As we see from the cluster averages, cluster 2 has the highest rate of diabetes followed by cluster 1 and finally the cluster 3 with the lowest rate of diabetes. 
 ```{r}
-slices <- c(cl1[3,5],cl1[3,6],cl1[3,7], cl1[3,8] )
+slices <- c(cl1[12,5],cl1[12,6],cl1[12,7], cl1[12,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
@@ -466,7 +466,7 @@ lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
 pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Pie Chart of Consumption Pattern of Cluster 2")
 
-slices <- c(cl3[12,5],cl3[12,6],cl3[12,7], cl3[12,8] )
+slices <- c(cl3[3,5],cl3[3,6],cl3[3,7], cl3[3,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
@@ -476,4 +476,4 @@ pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Pie Chart of Consumpt
 ```
 There is not much difference between the different patterns for the different clusters. However, it should be noted that carbs represent 53% of the diet of cluster 2 and that this food greatly influences the rate of diabetes, particularly among women.  Indeed, there is a 1% increase in diabetes for every 0.168 carbs consumed on average per capita with a significant p-value at 1%. The proportion of carbs should therefore be reduced to less than half of the total proportion to try to have a negative impact on the diabetes rate.
 
-Strangely enough, the proportion of fat is lower in cluster 3 (33%) which has the highest diabetes rate which is therefore counter intuitive. But this result is consistent with the negative correlations of fat with diabetes rate calculated above. It is therefore complicated to draw a conclusion regarding the proportion of fat to be consumed to reduce the diabetes rate. Our hypothesis is that even if cluster 1 consumes more fat, it is composed of rich countries that have more prevention measures and certainly better hospital infrastructure.
+Strangely enough, the proportion of fat is lower in cluster 1 (33%) which has the highest diabetes rate which is therefore counter intuitive. But this result is consistent with the negative correlations of fat with diabetes rate calculated above. It is therefore complicated to draw a conclusion regarding the proportion of fat to be consumed to reduce the diabetes rate. Our hypothesis is that even if cluster 1 consumes more fat, it is composed of rich countries that have more prevention measures and certainly better hospital infrastructure.
