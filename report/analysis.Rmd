@@ -199,7 +199,7 @@ The results indicate that even within the clusters, these variables are not exac
 When we look at our cluster plot, in terms of total calorie intake it is also the 3rd cluster, which contains the richest countries considering GDP per person, that consumes the most calories. One might therefore think that calorie consumption is not the main reason why high-GDP countries have lower diabetes rates.
 
 
-### 3.How do the macronutrients (animal protein/plant protein/fat/carbohydrates) consumed differ between richer and poorer countries ?
+### 3.How do the macronutrients (animal protein/plant protein/carbohydrates/fat) consumed differ between richer and poorer countries ?
 
 We observed during the EDA that richer countries seemed to consume more fat on average. Now we want to see if we can confirm this relationship, and observe if there isn't a correlation between the average GDP of a country and the consumption of other macronutrients too.
 
@@ -498,6 +498,7 @@ kable(prettify(summary(lm_gdp_pp_prop_fat_clust3)))
 ```
 
 **analysis cluster 3**
+
 Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans".
 
 
