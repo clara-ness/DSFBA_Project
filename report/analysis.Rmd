@@ -64,8 +64,7 @@ set.seed(123)
 
 model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
 
-Data_cluster <- data.frame(data_1,
-  cluster = as.factor(model_cluster$cluster))
+Data_cluster <- data.frame(data_1, cluster = as.factor(model_cluster$cluster))
 
 countries_cluster_1 <- filter(Data_cluster, cluster == "1")
 countries_cluster_2 <- filter(Data_cluster, cluster == "2") 
@@ -83,7 +82,7 @@ res_kmeans <- cluster_analysis(data_1, n=3, method = "kmeans",iterations = 20)
 
 predict(res_kmeans)
 
-plot(res_kmeans)
+plot(res_kmeans) # --> result is not correct always...
 ```
 
 We can therefore see that diabetes is indeed lower in clusters which contain the countries with higher GPDs. Let's see if this relationship is significant within each cluster :
