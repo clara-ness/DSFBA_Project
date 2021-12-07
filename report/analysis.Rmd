@@ -453,7 +453,7 @@ predict(res_kmeans_bis)
 plot(res_kmeans_bis)
 ```
 
-We will be referring to these graphs in our analysis in the next sections.
+We will be referring to these graphs and this cluster plot in our analysis in the next sections.
 
 ### GDP - Animal protein
 
@@ -468,7 +468,7 @@ lm_gdp_cal_prot_animal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_pro
 kable(prettify(summary(lm_gdp_cal_prot_animal)))
 ```
 
-Even though the correlation is positive, it is not very high. By looking at the summary of the linear regression, we can also see that the parameter is not significant. This could maybe be explained by the fact that variance is very high at the left part of the graph where the average GDP is lower. But what if we took the GDP per capita instead of the average GDP of a country ? The graph above seems to show again that the consumption of this macronutrient is very stable regardless of the GDP per capita of a country.
+Even though the correlation is positive, it is not very high. By looking at the summary of the linear regression, we can also see that the parameter is not significant. But what if we took the GDP per capita instead of the average GDP of a country ? The graph above seems to show again that the consumption of this macronutrient is very stable regardless of the GDP per capita of a country.
 
 ```{r}
 #GDP per capita - calories
@@ -490,9 +490,9 @@ lm_gdp_pp_prop_animal_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_
 kable(prettify(summary(lm_gdp_pp_prop_animal_prot)))
 ```
 
-Here, the correlation is slightly lower than with the calorie count and the parameter's estimate is a bit less significant but still quite solid. Now let's see if we can find better explanations within our defined clusters.
+Here, the correlation is slightly lower than with the calorie count and the parameter's estimate is a bit less significant but still quite solid. Now let's see if we can find this positive relationship and better explanations within our defined clusters.
 
-From our cluster plot above, we see that high GDP countries (clusters 1 and 3) tend to consume more calories of animal protein than low GDP countries, this is also the case for the proportions of calories consumed from animal protein. Are the correlations and linear regression in line with these observations ?
+From our cluster plot above, we see that high GDP countries (clusters 1 and 3) tend to consume more calories of animal protein than low GDP countries, this is also the case for the proportions of calories consumed from animal protein. This follows what we have found so far. Are the correlations and linear regression in line with these observations ?
 
 ```{r}
 #cluster 1
@@ -519,9 +519,9 @@ lm_gdp_pp_prop_animal_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ 
 kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust3)))
 ```
 
-For each cluster, the correlation is positive and but still not so high, and the estimate of the parameter for cluster 2 is significant.
+For each cluster, the correlation is positive and but still not so strong, and the estimate of the parameter for cluster 2 is significant.
 
-In general, though it seems positive, we cannot conclude that there is a correlation between the wealth of a country and its animal protein.
+In general, though it seems positive, we cannot conclude that there is a strong correlation between the wealth of a country and its animal protein consumption.
 
 ### GDP - Plant protein
 
@@ -536,7 +536,7 @@ lm_gdp_cal_prot_plant <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot
 kable(prettify(summary(lm_gdp_cal_prot_plant)))
 ```
 
-As we can see, the correlation is very low
+As we can see, the correlation is very low and when we try to fit a linear model over these 2 variables, the parameter estimation is not significant at all. Let's see if taking the GDP per capita makes a difference. In the graph above, the consumption of this macronutrient is very stable too.
 
 ```{r}
 #GDP per capita - calories
@@ -547,6 +547,7 @@ lm_gdp_pp_cal_prot_plant <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_ca
 kable(prettify(summary(lm_gdp_pp_cal_prot_plant)))
 ```
 
+The correlation improves when we consider the GDP per capita instead of the average. We also see that the relationship between the 2 variables is rather negative. However the parameter estimation is still not significant enough, even though it improved. Can we find a better explanation by using the proportion of calories rather than the calorie count of the plant protein consumed ?
 
 ```{r}
 #GDP per capita - proportion
@@ -556,6 +557,10 @@ lm_gdp_pp_prop_plant_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_c
 
 kable(prettify(summary(lm_gdp_pp_prop_plant_prot)))
 ```
+
+The correlation improved immensely ! Now we can confirm that the relationship is rather negative, even though the correlation is rather moderate than strong. But now our parameter estimation as significant as possible. How does this translate to our clusters ?
+
+The cluster plot above indicates that in countries with higher GDPs like in cluster 1 and 3, the proportions of calories consumed from plant protein are lower than in countries with lower GDPs. Let's see if we can confirm these observations and see if these relationships are strong enough within each cluster.
 
 ```{r}
 #cluster 1
@@ -582,6 +587,10 @@ lm_gdp_pp_prop_plant_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ c
 kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust3)))
 ```
 
+We see that the correlations within clusters is weaker. And actually, even in countries with lower GDPs that belong to cluster 2, the relationship is rather negative. This indicates us that visual interpretation is not enough for analysis.
+
+Therefore, we cannot conclude that there is a significant link between the wealth of a country and its plant protein consumption, although this relationship seems negative.
+
 ### GDP - Carbohydrates
 
 ```{r}
@@ -592,6 +601,8 @@ lm_gdp_cal_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_carbs)
 
 kable(prettify(summary(lm_gdp_cal_carbs)))
 ```
+
+This could maybe be explained by the fact that variance is very high at the left part of the graph where the average GDP is lower. --> if correlation low
 
 ```{r}
 #GDP per capita - calories
