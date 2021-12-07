@@ -256,10 +256,6 @@ When we look at our cluster plot, in terms of total calorie intake it is also th
 We observed during the EDA that richer countries seemed to consume more fat on average. Now we want to see if we can confirm this relationship, and observe if there isn't a correlation between the average GDP of a country and the consumption of other macronutrients too.
 
 ```{r}
-##############################################
-##### GDP - calories from animal protein #####
-##############################################
-
 #calories from animal protein
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)
 
@@ -267,45 +263,6 @@ lm_gdp_cal_prot_animal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_pro
 
 kable(prettify(summary(lm_gdp_cal_prot_animal)))
 
-#with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_animal), color = "red") +  
-  labs(x = "GDP per capita", y= "Calories from animal protein")
-
-#correlations and linear regressions
-cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_animal)
-
-lm_gdp_pp_cal_prot_animal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_animal)
-
-kable(prettify(summary(lm_gdp_pp_cal_prot_animal)))
-
-#adding proportions to the final table
-GDP_diabetes_cal <- mutate(GDP_diabetes_cal, proportion_animal_prot = cal_prot_animal/total_consumption, proportion_plant_prot = cal_prot_plant/total_consumption, proportion_carbs = cal_carbs/total_consumption, proportion_fat = cal_fat/total_consumption)
-
-#proportion animal protein
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_animal_prot)
-
-lm_gdp_prop_animal_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_animal_prot)
-
-kable(prettify(summary(lm_gdp_prop_animal_prot)))
-
-#proportion with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_animal_prot), color = "red") +  
-  labs(x = "GDP per capita", y= "Calories from animal protein")
-
-#GDP per person  ~ proportion animal protein
-cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_animal_prot)
-
-lm_gdp_pp_prop_animal_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_animal_prot)
-
-kable(prettify(summary(lm_gdp_pp_prop_animal_prot)))
-```
-
-```{r}
-#############################################
-##### GDP - calories from plant protein #####
-#############################################
 
 #calories from plant protein
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant)
@@ -314,42 +271,6 @@ lm_gdp_cal_prot_plant <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot
 
 kable(prettify(summary(lm_gdp_cal_prot_plant)))
 
-#with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_plant), color = "green") +
-  labs(x = "GDP per capita", y= "Calories from plant protein")
-
-#correlations and linear regressions
-cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_plant)
-
-lm_gdp_pp_cal_prot_plant <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_plant)
-
-kable(prettify(summary(lm_gdp_pp_cal_prot_plant)))
-
-#proportion plant protein
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_plant_prot)
-
-lm_gdp_prop_plant_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_plant_prot)
-
-kable(prettify(summary(lm_gdp_prop_plant_prot)))
-
-#proportion with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_plant_prot), color = "green") +
-  labs(x = "GDP per capita", y= "Calories from plant protein")
-
-#GDP per person  ~ proportion plant protein
-cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_plant_prot)
-
-lm_gdp_pp_prop_plant_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_plant_prot)
-
-kable(prettify(summary(lm_gdp_pp_prop_plant_prot)))
-```
-
-```{r}
-#####################################
-##### GDP - calories from carbs #####
-#####################################
 
 #calories from carbs
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs)
@@ -358,17 +279,88 @@ lm_gdp_cal_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_carbs)
 
 kable(prettify(summary(lm_gdp_cal_carbs)))
 
+
+#calories from fat
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat)
+
+lm_gdp_cal_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_fat)
+
+kable(prettify(summary(lm_gdp_cal_fat)))
+```
+
+The relationship between the average GDP of a country and the calories consumed from fat per person is the only macronutriment that is significant. For other macronutriments, there seems to be no correlation at all.
+
+Let's see if considering the GDP per person instead of the total makes a difference.
+
+```{r}
 #with GDP per person
 ggplot() + 
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = total_consumption), color = "orange") +
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_fat), color = "blue") +
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_carbs), color = "purple") +
-  labs(x = "GDP per capita", y= "Calories from carbs")
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_animal), color = "red") +  
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_plant), color = "green") +
+  labs(x = "GDP per capita", y= "Calories")
+
 
 #correlations and linear regressions
+
+#calories from animal protein
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_animal)
+
+lm_gdp_pp_cal_prot_animal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_animal)
+
+kable(prettify(summary(lm_gdp_pp_cal_prot_animal)))
+
+
+#calories from plant protein
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_plant)
+
+lm_gdp_pp_cal_prot_plant <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_plant)
+
+kable(prettify(summary(lm_gdp_pp_cal_prot_plant)))
+
+
+#calories from carbs
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_carbs)
 
 lm_gdp_pp_cal_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_carbs)
 
 kable(prettify(summary(lm_gdp_pp_cal_carbs)))
+
+
+#calories from fat
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_fat)
+
+lm_gdp_pp_cal_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_fat)
+
+kable(prettify(summary(lm_gdp_pp_cal_fat)))
+```
+
+**insert analysis here**
+
+Another way to answer this research question can be to see the relationship between the wealth of a country and the proportions of the total calories consumed dedicated to each macronutrient.
+
+```{r}
+#adding proportions to the final table
+GDP_diabetes_cal <- mutate(GDP_diabetes_cal, proportion_animal_prot = cal_prot_animal/total_consumption, proportion_plant_prot = cal_prot_plant/total_consumption, proportion_carbs = cal_carbs/total_consumption, proportion_fat = cal_fat/total_consumption)
+
+
+#proportion animal protein
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_animal_prot)
+
+lm_gdp_prop_animal_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_animal_prot)
+
+kable(prettify(summary(lm_gdp_prop_animal_prot)))
+
+
+#proportion plant protein
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_plant_prot)
+
+lm_gdp_prop_plant_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_plant_prot)
+
+kable(prettify(summary(lm_gdp_prop_plant_prot)))
+
 
 #proportion carbs
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_carbs)
@@ -377,42 +369,6 @@ lm_gdp_prop_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_c
 
 kable(prettify(summary(lm_gdp_prop_carbs)))
 
-#proportion with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_carbs), color = "purple") +
-  labs(x = "GDP per capita", y= "Calories from carbs")
-
-#GDP per person  ~ proportion carbs
-cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_carbs)
-
-lm_gdp_pp_prop_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_carbs)
-
-kable(prettify(summary(lm_gdp_pp_prop_carbs)))
-```
-
-```{r}
-###################################
-##### GDP - calories from fat #####
-###################################
-
-#calories from fat
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat)
-
-lm_gdp_cal_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_fat)
-
-kable(prettify(summary(lm_gdp_cal_fat)))
-
-#with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_fat), color = "blue") +
-  labs(x = "GDP per capita", y= "Calories from fat")
-
-#correlations and linear regressions
-cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_fat)
-
-lm_gdp_pp_cal_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_fat)
-
-kable(prettify(summary(lm_gdp_pp_cal_fat)))
 
 #proportions fat
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_fat)
@@ -420,30 +376,53 @@ cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_fat)
 lm_gdp_prop_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_fat)
 
 kable(prettify(summary(lm_gdp_prop_fat)))
+```
 
-#proportion with GDP per person
+With proportions, correlation is higher than with calorie count and linear regression parameters a bit more significant but the relationships are still not strong enough.
+
+```{r}
+#with GDP per person
 ggplot() + 
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_fat), color = "blue") +
-  labs(x = "GDP per capita", y= "Calories from fat")
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_carbs), color = "purple") +
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_animal_prot), color = "red") +  
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_plant_prot), color = "green") +
+  labs(x = "GDP per capita", y= "Calories")
 
-#GDP per person  ~ proportion fat
+
+#correlations and linear regressions
+
+#proportion animal protein
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_animal_prot)
+
+lm_gdp_pp_prop_animal_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_animal_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_animal_prot)))
+
+
+#proportion plant protein
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_plant_prot)
+
+lm_gdp_pp_prop_plant_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_plant_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_plant_prot)))
+
+
+#proportion carbs
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_carbs)
+
+lm_gdp_pp_prop_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_carbs)
+
+kable(prettify(summary(lm_gdp_pp_prop_carbs)))
+
+
+#proportion fat
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_fat)
 
 lm_gdp_pp_prop_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_fat)
 
 kable(prettify(summary(lm_gdp_pp_prop_fat)))
 ```
-
-The relationship between the average GDP of a country and the calories consumed from fat per person is the only macronutriment that is significant. For other macronutriments, there seems to be no correlation at all.
-
-Let's see if considering the GDP per person instead of the total makes a difference.
-
-
-**insert analysis here**
-
-Another way to answer this research question can be to see the relationship between the wealth of a country and the proportions of the total calories consumed dedicated to each macronutrient.
-
-With proportions, correlation is higher than with calorie count and linear regression parameters a bit more significant but the relationships are still not strong enough.
 
 **insert analysis here**
 
