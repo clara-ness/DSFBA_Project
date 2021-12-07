@@ -25,9 +25,11 @@ rownames(c0) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men
 kbl(c0,
    caption = "**Corrolation with outliers",
    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
-
+   kable_classic( full_width = F, html_font = "Cambria") %>%
+   kable_styling(position = "left", bootstrap_options = c('striped', 'hover', 'condensed')) 
+```
+<br><br>
+```{r}
 
 lm_gdp_diabetes_women <- lm(avg_gdp ~ prop_women_diabetes, data = GDP_diabetes_cal)
 
@@ -37,7 +39,7 @@ tab_model(
   lm_gdp_diabetes_women, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes vs Women diabetes"),
   CSS = list(
-    css.width = '500px',
+    css.width = '800px',
     css.centeralign = 'text-align: left;', 
     css.firsttablecol = 'font-weight: bold;',  
     css.summary = 'color: black;'
@@ -60,6 +62,8 @@ tab_model(
 
 ```
 
+<br><br>
+
 However, once we exclude outliers, we see that the relationship is way more significant !
 
 ```{r}
@@ -74,7 +78,9 @@ kbl(c_out,
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
-
+```
+<br><br>
+```{r}
 
 lm_gdp_diabetes_women2 <- lm(avg_gdp ~ prop_women_diabetes, data = GDP_diabetes_cal2)
 
@@ -137,23 +143,30 @@ kbl(countries_cluster_1,
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+```
+<br>
+```{r}
 kbl(countries_cluster_2,
     caption = "**Table**: Cluster 2",
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+```
+<br>
+```{r}
 kbl(countries_cluster_3,
     caption = "**Table**: Cluster 3",
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 ```
+<br>
 
 It is important to note that our 3rd cluster only contains 2 countries, and therefore when we analyse correlation and linear regression parameters, we will be mainly considering the overall nature of the relationships. (positive or negative link?)
 
 Now let's plot these clusters to see the differences between them.
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 res_kmeans <- cluster_analysis(data_1, n=3, method = "kmeans",iterations = 20)
 
 predict(res_kmeans)
@@ -183,8 +196,9 @@ kbl(c1,
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
-
-
+```
+<br><br>
+```{r}
 lm_gdp_diabetes_women_clust1 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_1)
 lm_gdp_diabetes_men_clust1 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_1)
 
@@ -222,8 +236,9 @@ kbl(c2,
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
-
-
+```
+<br><br>
+```{r}
 lm_gdp_diabetes_women_clust2 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_2)
 lm_gdp_diabetes_men_clust2 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_2)
 
@@ -240,7 +255,7 @@ tab_model(
 ```
 <br><br>
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 tab_model(
   lm_gdp_diabetes_men_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes vs Men diabetes (cluster 2)"),
@@ -262,7 +277,9 @@ kbl(c3,
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
-
+```
+<br><br>
+```{r}
 
 lm_gdp_diabetes_women_clust3 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_3)
 lm_gdp_diabetes_men_clust3 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_3)
