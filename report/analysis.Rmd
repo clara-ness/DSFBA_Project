@@ -311,185 +311,171 @@ We will be referring to these graphs in our analysis in the next sections.
 ### GDP - Animal protein
 
 ```{r}
-#calories from animal protein
+#Average GDP - calories
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)
 
 lm_gdp_cal_prot_animal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot_animal)
 
 kable(prettify(summary(lm_gdp_cal_prot_animal)))
 
-#with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_animal), color = "red") +  
-  labs(x = "GDP per capita", y= "Calories from animal protein")
 
-#correlations and linear regressions
+#GDP per capita - calories
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_animal)
 
 lm_gdp_pp_cal_prot_animal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_animal)
 
 kable(prettify(summary(lm_gdp_pp_cal_prot_animal)))
 
-#proportion animal protein
+
+#Average GDP - proportion
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_animal_prot)
 
 lm_gdp_prop_animal_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_animal_prot)
 
 kable(prettify(summary(lm_gdp_prop_animal_prot)))
 
-#proportion with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_animal_prot), color = "red") +  
-  labs(x = "GDP per capita", y= "Calories from animal protein")
 
-#GDP per person  ~ proportion animal protein
+#GDP per capita - proportion
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_animal_prot)
 
 lm_gdp_pp_prop_animal_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_animal_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_animal_prot)))
 
-#cluster 1 - proportion animal protein
+
+#cluster 1
 cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_animal_prot)
 
 lm_gdp_pp_prop_animal_prot_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_animal_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust1)))
 
-#cluster 2 - proportion animal protein
+
+#cluster 2
 cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_animal_prot)
 
 lm_gdp_pp_prop_animal_prot_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_animal_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust2)))
 
-#cluster 3 - proportion animal protein
+
+#cluster 3
 cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_animal_prot)
 
 lm_gdp_pp_prop_animal_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_animal_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust3)))
-
 ```
 
 ### GDP - Plant protein
 
 ```{r}
-#calories from plant protein
+#Average GDP - calories
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant)
 
 lm_gdp_cal_prot_plant <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot_plant)
 
 kable(prettify(summary(lm_gdp_cal_prot_plant)))
 
-#with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_plant), color = "green") +
-  labs(x = "GDP per capita", y= "Calories from plant protein")
 
-#correlations and linear regressions
+#GDP per capita - calories
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_plant)
 
 lm_gdp_pp_cal_prot_plant <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_plant)
 
 kable(prettify(summary(lm_gdp_pp_cal_prot_plant)))
 
-#proportion plant protein
+
+#Average GDP - proportion
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_plant_prot)
 
 lm_gdp_prop_plant_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_plant_prot)
 
 kable(prettify(summary(lm_gdp_prop_plant_prot)))
 
-#proportion with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_plant_prot), color = "green") +
-  labs(x = "GDP per capita", y= "Calories from plant protein")
 
-#GDP per person  ~ proportion plant protein
+#GDP per capita - proportion
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_plant_prot)
 
 lm_gdp_pp_prop_plant_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_plant_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_plant_prot)))
 
-#cluster 1 - proportion plant protein
+
+#cluster 1
 cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_plant_prot)
 
 lm_gdp_pp_prop_plant_prot_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_plant_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust1)))
 
-#cluster 2 - proportion plant protein
+
+#cluster 2
 cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_plant_prot)
 
 lm_gdp_pp_prop_plant_prot_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_plant_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust2)))
 
-#cluster 3 - proportion plant protein
+
+#cluster 3
 cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_plant_prot)
 
 lm_gdp_pp_prop_plant_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_plant_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust3)))
-
 ```
 
 ### GDP - Carbohydrates
 
 ```{r}
-#calories from carbs
+#Average GDP - calories
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs)
 
 lm_gdp_cal_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_carbs)
 
 kable(prettify(summary(lm_gdp_cal_carbs)))
 
-#with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_carbs), color = "purple") +
-  labs(x = "GDP per capita", y= "Calories from carbs")
 
-#correlations and linear regressions
+#GDP per capita - calories
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_carbs)
 
 lm_gdp_pp_cal_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_carbs)
 
 kable(prettify(summary(lm_gdp_pp_cal_carbs)))
 
-#proportion carbs
+
+#Average GDP - proportion
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_carbs)
 
 lm_gdp_prop_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_carbs)
 
 kable(prettify(summary(lm_gdp_prop_carbs)))
 
-#proportion with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_carbs), color = "purple") +
-  labs(x = "GDP per capita", y= "Calories from carbs")
 
-#GDP per person  ~ proportion carbs
+#GDP per capita - proportion
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_carbs)
 
 lm_gdp_pp_prop_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_carbs)
 
 kable(prettify(summary(lm_gdp_pp_prop_carbs)))
 
-#cluster 1 - proportion carbs
+
+#cluster 1
 cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_carbs)
 
 lm_gdp_pp_prop_carbs_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_carbs)
 
 kable(prettify(summary(lm_gdp_pp_prop_carbs_clust1)))
 
-#cluster 2 - proportion carbs
+
+#cluster 2
 cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_carbs)
 
 lm_gdp_pp_prop_carbs_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_carbs)
 
 kable(prettify(summary(lm_gdp_pp_prop_carbs_clust2)))
+
 
 #cluster 3 - proportion carbs
 cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_carbs)
@@ -497,51 +483,44 @@ cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_car
 lm_gdp_pp_prop_carbs_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_carbs)
 
 kable(prettify(summary(lm_gdp_pp_prop_carbs_clust3)))
-
 ```
 
 ### GDP - Fats
 
 ```{r}
-#calories from fat
+#Average GDP - calories
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat)
 
 lm_gdp_cal_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_fat)
 
 kable(prettify(summary(lm_gdp_cal_fat)))
 
-#with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_fat), color = "blue") +
-  labs(x = "GDP per capita", y= "Calories from fat")
 
-#correlations and linear regressions
+#GDP per capita - calories
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_fat)
 
 lm_gdp_pp_cal_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_fat)
 
 kable(prettify(summary(lm_gdp_pp_cal_fat)))
 
-#proportions fat
+
+#Average GDP - proportion
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_fat)
 
 lm_gdp_prop_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_fat)
 
 kable(prettify(summary(lm_gdp_prop_fat)))
 
-#proportion with GDP per person
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_fat), color = "blue") +
-  labs(x = "GDP per capita", y= "Calories from fat")
 
-#GDP per person  ~ proportion fat
+#GDP per capita - proportion
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_fat)
 
 lm_gdp_pp_prop_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_fat)
 
 kable(prettify(summary(lm_gdp_pp_prop_fat)))
 
-#cluster 1 - proportion fat
+
+#cluster 1
 cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_fat)
 
 lm_gdp_pp_prop_fat_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_fat)
@@ -549,14 +528,15 @@ lm_gdp_pp_prop_fat_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countrie
 kable(prettify(summary(lm_gdp_pp_prop_fat_clust1)))
 
 
-#cluster 2 - proportion fat
+#cluster 2
 cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_fat)
 
 lm_gdp_pp_prop_fat_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_fat)
 
 kable(prettify(summary(lm_gdp_pp_prop_fat_clust2)))
 
-#cluster 3 - proportion fat
+
+#cluster 3
 cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_fat)
 
 lm_gdp_pp_prop_fat_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_fat)
