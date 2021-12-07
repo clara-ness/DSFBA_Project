@@ -253,14 +253,16 @@ When we look at our cluster plot, in terms of total calorie intake it is also th
 
 ## 3.How do the macronutrients (animal protein/plant protein/carbohydrates/fat) consumed differ between richer and poorer countries ?
 
-We observed during the EDA that richer countries seemed to consume more fat on average. Now we want to see if we can confirm this relationship, and observe if there isn't a correlation between the average GDP of a country and the consumption of other macronutrients too.
+We observed during the EDA that richer countries seemed to consume more fat on average. Now we want to see if we can confirm this relationship, and find out if there is a correlation between the average GDP of a country and the calories consumed for other macronutrients too.
 
-Before analysing these relationships, let's introduce once again the plot of macronutrients 
+Since the units of the variables "calories consumed from animal protein/plant protein/carbs/fat" are on a per capita basis, we think that including the GDP per capita in the analysis could improve the results. Additionally, we want to find out if including the proportions of the calories consumed from different macronutrients on the total calories affects our analysis. 
 
 ```{r}
 #adding proportions to the final table
 GDP_diabetes_cal <- mutate(GDP_diabetes_cal, proportion_animal_prot = cal_prot_animal/total_consumption, proportion_plant_prot = cal_prot_plant/total_consumption, proportion_carbs = cal_carbs/total_consumption, proportion_fat = cal_fat/total_consumption)
 ```
+
+With these new metrics introduced, we will plot again these relationships.
 
 ```{r}
 #with GDP per person + calories
@@ -278,8 +280,10 @@ ggplot() +
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_carbs), color = "purple") +
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_animal_prot), color = "red") +  
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_plant_prot), color = "green") +
-  labs(x = "GDP per capita", y= "Calories")
+  labs(x = "GDP per capita", y= "Proportion of calories")
 ```
+
+It is also important to plot the clusters again to observe differences in the proportions of calories consumed.
 
 ```{r}
 #clustering pt 2
