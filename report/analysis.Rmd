@@ -115,7 +115,7 @@ In the EDA section, we grouped countries in 3 categories, according to the relat
 
 To determine the number of clusters we used the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 data_1 <- GDP_diabetes_cal[,-(1:2),drop=FALSE] #-> introduce the proportions later on ?
 rownames(data_1) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU","GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 
@@ -127,7 +127,7 @@ fviz_nbclust(data_1, kmeans, method = "wss") +
 
 We therefore see from the graph above that the optimal number of clusters is 3. The allocation of countries according to their cluster is therefore as follows:
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 set.seed(123)
 
 model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
@@ -279,8 +279,7 @@ kbl(c3,
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
 ```
 <br><br>
-```{r}
-
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 lm_gdp_diabetes_women_clust3 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_3)
 lm_gdp_diabetes_men_clust3 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_3)
 
@@ -297,7 +296,7 @@ tab_model(
 
 ```
 <br><br>
-```{r}
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 tab_model(
   lm_gdp_diabetes_men_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes vs Men diabetes (cluster 3)"),
@@ -322,11 +321,28 @@ As mentioned in the first point, countries with a higher GDP tend to have a lowe
 But is there a real correlation between these two variables ? Let's check :
 
 ```{r}
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption)
+c4 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption)))
 
-lm_gdp_total_cal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$total_consumption)
+rownames(c4) <- c("Between avg_gdp and total calories")
 
-kable(prettify(summary(lm_gdp_total_cal)))
+kbl(c4,
+   caption = "**Corrolation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+
+lm_gdp_total_cal <- lm(avg_gdp ~ total_consumption, data = GDP_diabetes_cal)
+
+tab_model(
+  lm_gdp_total_cal, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("avg_gdp vs total consumption"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 ```
 
 Neither the correlation between these two variables nor the linear regression is significant. However, it would be interesting to look further. First, we can see if using the GDP per person instead of the total average makes a difference.
