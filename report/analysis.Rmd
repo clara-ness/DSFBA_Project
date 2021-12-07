@@ -306,11 +306,11 @@ predict(res_kmeans_bis)
 plot(res_kmeans_bis)
 ```
 
-```{r}
-##############################################
-##### GDP - calories from animal protein #####
-##############################################
+We will be referring to these graphs in our analysis in the next sections.
 
+### GDP - Animal protein
+
+```{r}
 #calories from animal protein
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)
 
@@ -372,11 +372,9 @@ kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust3)))
 
 ```
 
-```{r}
-#############################################
-##### GDP - calories from plant protein #####
-#############################################
+### GDP - Plant protein
 
+```{r}
 #calories from plant protein
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant)
 
@@ -438,11 +436,9 @@ kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust3)))
 
 ```
 
-```{r}
-#####################################
-##### GDP - calories from carbs #####
-#####################################
+### GDP - Carbohydrates
 
+```{r}
 #calories from carbs
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs)
 
@@ -504,11 +500,9 @@ kable(prettify(summary(lm_gdp_pp_prop_carbs_clust3)))
 
 ```
 
-```{r}
-###################################
-##### GDP - calories from fat #####
-###################################
+### GDP - Fats
 
+```{r}
 #calories from fat
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat)
 
