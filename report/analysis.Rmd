@@ -17,8 +17,17 @@ It is important to note that, when we try to fit a linear model on these variabl
 
 ```{r}
 #with outliers
-cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes)
-cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)
+
+c0 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes), cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)))
+
+rownames(c0) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
+
+kbl(c0,
+   caption = "**Corrolation with outliers",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+
 
 lm_gdp_diabetes_women <- lm(avg_gdp ~ prop_women_diabetes, data = GDP_diabetes_cal)
 
@@ -56,11 +65,11 @@ However, once we exclude outliers, we see that the relationship is way more sign
 ```{r}
 #without outliers
 
-c0 <- matrix(c(cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes), cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)))
+c_out <- matrix(c(cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes), cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)))
 
-rownames(c0) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
+rownames(c_out) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
 
-kbl(c0,
+kbl(c_out,
    caption = "**Corrolation without outliers",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
