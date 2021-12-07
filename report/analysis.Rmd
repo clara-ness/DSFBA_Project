@@ -521,7 +521,7 @@ kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust3)))
 
 For each cluster, the correlation is positive and but still not so strong, and the estimate of the parameter for cluster 2 is significant.
 
-In general, though it seems positive, we cannot conclude that there is a strong correlation between the wealth of a country and its animal protein consumption.
+In general, though it seems positive, we cannot conclude that there is a strong link between the wealth of a country and its animal protein consumption.
 
 ### GDP - Plant protein
 
@@ -587,11 +587,13 @@ lm_gdp_pp_prop_plant_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ c
 kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust3)))
 ```
 
-We see that the correlations within clusters is weaker. And actually, even in countries with lower GDPs that belong to cluster 2, the relationship is rather negative. This indicates us that visual interpretation is not enough for analysis.
+We see that the correlations within clusters is weaker. And actually, even in countries with lower GDPs that belong to cluster 2, the relationship is rather negative. This indicates us that visual interpretation is not enough for analysis. We can maybe say that less wealthy countries that are more developed than those in the same cluster as them may consume more plant protein than more wealthy countries but they still consume less of this macronutrient than their cluster mates.
 
 Therefore, we cannot conclude that there is a significant link between the wealth of a country and its plant protein consumption, although this relationship seems negative.
 
 ### GDP - Carbohydrates
+
+Next, we will be evaluating the relationship of a country's GDP and its carbohydrate consumption. In the EDA graph, there isn't really trend in general between these 2 variables. The calories consumed from carbs is more or less stable for countries with an average GDP of around 500 billion dollars and more. Let's check the correlation.
 
 ```{r}
 #Average GDP - calories
@@ -602,7 +604,9 @@ lm_gdp_cal_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_carbs)
 kable(prettify(summary(lm_gdp_cal_carbs)))
 ```
 
-This could maybe be explained by the fact that variance is very high at the left part of the graph where the average GDP is lower. --> if correlation low
+The correlation is negative and very low. This could maybe be explained by the fact that variance is very high at the left part of the graph where the average GDP is lower, up until 500 billion dollars. The parameter estimation is not significant either, this regression is not appropriate to explain this relationship.
+
+But what if we compared the 2 metrics at the same unit level like in the previous 2 sections ? Our graph above indicates that there may be a slight decrease of the caloric intake of carbs per capita the more a country's GDP per capita is higher. Let's see if this is true.
 
 ```{r}
 #GDP per capita - calories
@@ -613,6 +617,7 @@ lm_gdp_pp_cal_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal
 kable(prettify(summary(lm_gdp_pp_cal_carbs)))
 ```
 
+Indeed, the correlation is higher now but it is still not strong enough. Our parameter is once again not significant to explain this new dependent variable either. But what if we changed our independent variable ? Because we see in the second graph above that this negative slope is even more accentuated when we take into account the proportion of the carbs consumed instead of their calorie count.
 
 ```{r}
 #GDP per capita - proportion
@@ -622,6 +627,8 @@ lm_gdp_pp_prop_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$pr
 
 kable(prettify(summary(lm_gdp_pp_prop_carbs)))
 ```
+
+The correlation between these 2 variables is way more important, we can even say that their correlation is moderately strong. And the parameter estimation when we fit a linear model is quite significant. Let's observe these relationships now within each cluster. According to our cluster plot, countries of cluster 1 and 3 (high GDP) consume a smaller proportion of carbs then those of cluster 2 (low GDP).
 
 ```{r}
 #cluster 1
@@ -648,7 +655,15 @@ lm_gdp_pp_prop_carbs_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countr
 kable(prettify(summary(lm_gdp_pp_prop_carbs_clust3)))
 ```
 
+Surprisingly, with these correlations we see that the previous logic is inversed within clusters. For richer countries like those in cluster 1 and 3 the link between GDP and carb consumption is positive within their respective clusters, and for less rich countries like in those in cluster 2, it is negative. The estimate for the model parameter for cluster 2 is even very significant.
+
+But overall, we cannot conclude that the link between the wealth of a country and its carb consumption is negative, as it is not strong enough.
+
+
 ### GDP - Fats
+
+For the last part of our 3rd research question, let's analyse the relationship of a country's GDP and its fat consumption. Once again when we take a look at the graph at the EDA section, at the left side of the graph, there seems to be a slight increase. But the calories consumed from fat is more or less stable for countries with an average GDP of around 500 billion dollars and more, just like for the carbs. What does the correlation coefficient tell us ?
+
 
 ```{r}
 #Average GDP - calories
