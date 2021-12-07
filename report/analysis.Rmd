@@ -334,18 +334,7 @@ lm_gdp_pp_cal_prot_animal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_c
 kable(prettify(summary(lm_gdp_pp_cal_prot_animal)))
 ```
 
-This time, the correlation is higher and the variable's estimate as a parameter is very significant ! Maybe the correlation can improve by considering proportion of calories instead of the calorie count. We can test with both the average GDP and GDP per capita of a country.
-
-```{r}
-#Average GDP - proportion --> take out ?
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_animal_prot)
-
-lm_gdp_prop_animal_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_animal_prot)
-
-kable(prettify(summary(lm_gdp_prop_animal_prot)))
-```
-
-These 2 variables are not correlated at all.
+This time, the correlation is higher and the variable's estimate as a parameter is very significant ! Maybe the correlation can improve by considering proportion of calories instead of the calorie count.
 
 ```{r}
 #GDP per capita - proportion
@@ -387,7 +376,7 @@ kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust3)))
 
 For each cluster, the correlation is positive and but still not so high, and the estimate of the parameter for cluster 2 is significant.
 
-In general, we cannot conclude that there is a correlation between the wealth of a country and its animal protein.
+In general, though it seems positive, we cannot conclude that there is a correlation between the wealth of a country and its animal protein.
 
 ### GDP - Plant protein
 
@@ -411,14 +400,6 @@ lm_gdp_pp_cal_prot_plant <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_ca
 kable(prettify(summary(lm_gdp_pp_cal_prot_plant)))
 ```
 
-```{r}
-#Average GDP - proportion
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_plant_prot)
-
-lm_gdp_prop_plant_prot <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_plant_prot)
-
-kable(prettify(summary(lm_gdp_prop_plant_prot)))
-```
 
 ```{r}
 #GDP per capita - proportion
@@ -474,14 +455,6 @@ lm_gdp_pp_cal_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal
 kable(prettify(summary(lm_gdp_pp_cal_carbs)))
 ```
 
-```{r}
-#Average GDP - proportion
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_carbs)
-
-lm_gdp_prop_carbs <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_carbs)
-
-kable(prettify(summary(lm_gdp_prop_carbs)))
-```
 
 ```{r}
 #GDP per capita - proportion
@@ -537,14 +510,6 @@ lm_gdp_pp_cal_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_f
 kable(prettify(summary(lm_gdp_pp_cal_fat)))
 ```
 
-```{r}
-#Average GDP - proportion
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_fat)
-
-lm_gdp_prop_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$proportion_fat)
-
-kable(prettify(summary(lm_gdp_prop_fat)))
-```
 
 ```{r}
 #GDP per capita - proportion
