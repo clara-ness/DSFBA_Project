@@ -9,7 +9,7 @@ source(here::here("scripts/setup.R"))
 * Competing approaches
 * Justifications
 
-### 1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
+## 1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
 
 This first question serves more as a control, since we learned during our research prior to our project that countries with higher GDPs tend to have lower diabetes rates. Indeed, we can observe that in the EDA. 
 
@@ -184,7 +184,7 @@ Clustering here doesn't necessarily help us answer the research question. We can
 However, the clusters defined above could help us answer our other research questions.
 
 
-### 2.Do European countries that have higher GDPs consume less calories ?
+## 2.Do European countries that have higher GDPs consume less calories ?
 
 As mentioned in the first point, countries with a higher GDP tend to have a lower diabetes rate, which could potentially be explained by the consumption of fewer calories.
 
@@ -251,9 +251,56 @@ The results indicate that even within the clusters, these variables are not exac
 When we look at our cluster plot, in terms of total calorie intake it is also the 3rd cluster, which contains the richest countries considering GDP per person, that consumes the most calories. One might therefore think that calorie consumption is not the main reason why high-GDP countries have lower diabetes rates.
 
 
-### 3.How do the macronutrients (animal protein/plant protein/carbohydrates/fat) consumed differ between richer and poorer countries ?
+## 3.How do the macronutrients (animal protein/plant protein/carbohydrates/fat) consumed differ between richer and poorer countries ?
 
 We observed during the EDA that richer countries seemed to consume more fat on average. Now we want to see if we can confirm this relationship, and observe if there isn't a correlation between the average GDP of a country and the consumption of other macronutrients too.
+
+Before analysing these relationships, let's introduce once again the plot of macronutrients 
+
+```{r}
+#adding proportions to the final table
+GDP_diabetes_cal <- mutate(GDP_diabetes_cal, proportion_animal_prot = cal_prot_animal/total_consumption, proportion_plant_prot = cal_prot_plant/total_consumption, proportion_carbs = cal_carbs/total_consumption, proportion_fat = cal_fat/total_consumption)
+```
+
+```{r}
+#with GDP per person + calories
+ggplot() + 
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = total_consumption), color = "orange") +
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_fat), color = "blue") +
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_carbs), color = "purple") +
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_animal), color = "red") +  
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_plant), color = "green") +
+  labs(x = "GDP per capita", y= "Calories")
+
+#with GDP per person + proportions
+ggplot() + 
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_fat), color = "blue") +
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_carbs), color = "purple") +
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_animal_prot), color = "red") +  
+  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_plant_prot), color = "green") +
+  labs(x = "GDP per capita", y= "Calories")
+```
+
+```{r}
+#clustering pt 2
+data_2 <- mutate(data_1, GDP_diabetes_cal[,12:15])
+
+set.seed(123)
+
+model_cluster_bis <- kmeans(data_2, centers = 3, nstart = 10)
+
+Data_cluster_bis <- data.frame(data_2, cluster = as.factor(model_cluster_bis$cluster))
+
+countries_cluster_1bis <- filter(Data_cluster_bis, cluster == "1")
+countries_cluster_2bis <- filter(Data_cluster_bis, cluster == "2") 
+countries_cluster_3bis <- filter(Data_cluster_bis, cluster == "3")
+
+res_kmeans_bis <- cluster_analysis(data_2, n=3, method = "kmeans",iterations = 20)
+
+predict(res_kmeans_bis)
+
+plot(res_kmeans_bis)
+```
 
 ```{r}
 ##############################################
@@ -279,9 +326,6 @@ lm_gdp_pp_cal_prot_animal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_c
 
 kable(prettify(summary(lm_gdp_pp_cal_prot_animal)))
 
-#adding proportions to the final table
-GDP_diabetes_cal <- mutate(GDP_diabetes_cal, proportion_animal_prot = cal_prot_animal/total_consumption, proportion_plant_prot = cal_prot_plant/total_consumption, proportion_carbs = cal_carbs/total_consumption, proportion_fat = cal_fat/total_consumption)
-
 #proportion animal protein
 cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$proportion_animal_prot)
 
@@ -300,6 +344,28 @@ cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_animal_prot)
 lm_gdp_pp_prop_animal_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_animal_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_animal_prot)))
+
+#cluster 1 - proportion animal protein
+cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_animal_prot)
+
+lm_gdp_pp_prop_animal_prot_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_animal_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust1)))
+
+#cluster 2 - proportion animal protein
+cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_animal_prot)
+
+lm_gdp_pp_prop_animal_prot_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_animal_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust2)))
+
+#cluster 3 - proportion animal protein
+cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_animal_prot)
+
+lm_gdp_pp_prop_animal_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_animal_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust3)))
+
 ```
 
 ```{r}
@@ -344,6 +410,28 @@ cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_plant_prot)
 lm_gdp_pp_prop_plant_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_plant_prot)
 
 kable(prettify(summary(lm_gdp_pp_prop_plant_prot)))
+
+#cluster 1 - proportion plant protein
+cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_plant_prot)
+
+lm_gdp_pp_prop_plant_prot_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_plant_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust1)))
+
+#cluster 2 - proportion plant protein
+cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_plant_prot)
+
+lm_gdp_pp_prop_plant_prot_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_plant_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust2)))
+
+#cluster 3 - proportion plant protein
+cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_plant_prot)
+
+lm_gdp_pp_prop_plant_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_plant_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust3)))
+
 ```
 
 ```{r}
@@ -388,6 +476,28 @@ cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_carbs)
 lm_gdp_pp_prop_carbs <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_carbs)
 
 kable(prettify(summary(lm_gdp_pp_prop_carbs)))
+
+#cluster 1 - proportion carbs
+cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_carbs)
+
+lm_gdp_pp_prop_carbs_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_carbs)
+
+kable(prettify(summary(lm_gdp_pp_prop_carbs_clust1)))
+
+#cluster 2 - proportion carbs
+cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_carbs)
+
+lm_gdp_pp_prop_carbs_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_carbs)
+
+kable(prettify(summary(lm_gdp_pp_prop_carbs_clust2)))
+
+#cluster 3 - proportion carbs
+cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_carbs)
+
+lm_gdp_pp_prop_carbs_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_carbs)
+
+kable(prettify(summary(lm_gdp_pp_prop_carbs_clust3)))
+
 ```
 
 ```{r}
@@ -432,67 +542,6 @@ cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_fat)
 lm_gdp_pp_prop_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_fat)
 
 kable(prettify(summary(lm_gdp_pp_prop_fat)))
-```
-
-The relationship between the average GDP of a country and the calories consumed from fat per person is the only macronutriment that is significant. For other macronutriments, there seems to be no correlation at all.
-
-Let's see if considering the GDP per person instead of the total makes a difference.
-
-
-**insert analysis here**
-
-Another way to answer this research question can be to see the relationship between the wealth of a country and the proportions of the total calories consumed dedicated to each macronutrient.
-
-With proportions, correlation is higher than with calorie count and linear regression parameters a bit more significant but the relationships are still not strong enough.
-
-**insert analysis here**
-
-```{r}
-#clustering pt 2
-data_2 <- mutate(data_1, GDP_diabetes_cal[,12:15])
-
-set.seed(123)
-
-model_cluster_bis <- kmeans(data_2, centers = 3, nstart = 10)
-
-Data_cluster_bis <- data.frame(data_2, cluster = as.factor(model_cluster_bis$cluster))
-
-countries_cluster_1bis <- filter(Data_cluster_bis, cluster == "1")
-countries_cluster_2bis <- filter(Data_cluster_bis, cluster == "2") 
-countries_cluster_3bis <- filter(Data_cluster_bis, cluster == "3")
-
-res_kmeans_bis <- cluster_analysis(data_2, n=3, method = "kmeans",iterations = 20)
-
-predict(res_kmeans_bis)
-
-plot(res_kmeans_bis)
-
-
-#correlations and linear regressions
-
-#cluster 1 - proportion animal protein
-cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_animal_prot)
-
-lm_gdp_pp_prop_animal_prot_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_animal_prot)
-
-kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust1)))
-
-
-#cluster 1 - proportion plant protein
-cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_plant_prot)
-
-lm_gdp_pp_prop_plant_prot_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_plant_prot)
-
-kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust1)))
-
-
-#cluster 1 - proportion carbs
-cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_carbs)
-
-lm_gdp_pp_prop_carbs_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_carbs)
-
-kable(prettify(summary(lm_gdp_pp_prop_carbs_clust1)))
-
 
 #cluster 1 - proportion fat
 cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_fat)
@@ -500,32 +549,6 @@ cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_fat
 lm_gdp_pp_prop_fat_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_fat)
 
 kable(prettify(summary(lm_gdp_pp_prop_fat_clust1)))
-```
-**analysis cluster 1**
-
-```{r}
-#cluster 2 - proportion animal protein
-cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_animal_prot)
-
-lm_gdp_pp_prop_animal_prot_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_animal_prot)
-
-kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust2)))
-
-
-#cluster 2 - proportion plant protein
-cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_plant_prot)
-
-lm_gdp_pp_prop_plant_prot_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_plant_prot)
-
-kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust2)))
-
-
-#cluster 2 - proportion carbs
-cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_carbs)
-
-lm_gdp_pp_prop_carbs_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_carbs)
-
-kable(prettify(summary(lm_gdp_pp_prop_carbs_clust2)))
 
 
 #cluster 2 - proportion fat
@@ -534,33 +557,6 @@ cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_fat
 lm_gdp_pp_prop_fat_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_fat)
 
 kable(prettify(summary(lm_gdp_pp_prop_fat_clust2)))
-```
-**analysis cluster 2**
-
-```{r}
-#cluster 3 - proportion animal protein
-cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_animal_prot)
-
-lm_gdp_pp_prop_animal_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_animal_prot)
-
-kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust3)))
-
-
-#cluster 3 - proportion plant protein
-cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_plant_prot)
-
-lm_gdp_pp_prop_plant_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_plant_prot)
-
-kable(prettify(summary(lm_gdp_pp_prop_plant_prot_clust3)))
-
-
-#cluster 3 - proportion carbs
-cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_carbs)
-
-lm_gdp_pp_prop_carbs_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_carbs)
-
-kable(prettify(summary(lm_gdp_pp_prop_carbs_clust3)))
-
 
 #cluster 3 - proportion fat
 cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_fat)
@@ -570,12 +566,20 @@ lm_gdp_pp_prop_fat_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countrie
 kable(prettify(summary(lm_gdp_pp_prop_fat_clust3)))
 ```
 
-**analysis cluster 3**
+Analysis points :
 
-Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans".
+- The relationship between the average GDP of a country and the calories consumed from fat per person is the only macronutriment that is significant. For other macronutriments, there seems to be no correlation at all.
+
+- Let's see if considering the GDP per person instead of the total makes a difference.
+
+- Another way to answer this research question can be to see the relationship between the wealth of a country and the proportions of the total calories consumed dedicated to each macronutrient.
+
+- With proportions, correlation is higher than with calorie count and linear regression parameters a bit more significant but the relationships are still not strong enough.
+
+- Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans".
 
 
-### 4.How do these differences in macronutrients relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
+## 4.How do these differences in macronutrients relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
 
 What we observed in the EDA seemed to not make sense as we were expecting a positive relationship between the total calories/calories consumed from fat and diabetes prevalence in a country. Let's see now concretely if there is any correlation between the calories consumed from different macronutrients and the diabetes rate.
 
