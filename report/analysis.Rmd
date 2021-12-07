@@ -23,7 +23,7 @@ c0 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabete
 rownames(c0) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
 
 kbl(c0,
-   caption = "**Corrolation with outliers",
+   caption = "**Correlation with outliers",
    align = c('cccccc')) %>%
    kable_classic( full_width = F, html_font = "Cambria") %>%
    kable_styling(position = "left", bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -74,7 +74,7 @@ c_out <- matrix(c(cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_di
 rownames(c_out) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
 
 kbl(c_out,
-   caption = "**Corrolation without outliers",
+   caption = "**Correlation without outliers",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -192,7 +192,7 @@ c1 <- matrix(c(cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_d
 rownames(c1) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
 
 kbl(c1,
-   caption = "**Corrolation for cluster 1",
+   caption = "**Correlation for cluster 1",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -232,7 +232,7 @@ c2 <- matrix(c(cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_d
 rownames(c2) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
 
 kbl(c2,
-   caption = "**Corrolation for cluster 2",
+   caption = "**Correlation for cluster 2",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -273,7 +273,7 @@ c3 <- matrix(c(cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_d
 rownames(c3) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
 
 kbl(c3,
-   caption = "**Corrolation for cluster 3",
+   caption = "**Correlation for cluster 3",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -326,7 +326,7 @@ c4 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption))
 rownames(c4) <- c("Between avg_gdp and total calories")
 
 kbl(c4,
-   caption = "**Corrolation",
+   caption = "**Correlation",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -525,7 +525,7 @@ In general, though it seems positive, we cannot conclude that there is a correla
 
 ### GDP - Plant protein
 
-Let's start with by analysing the relationship between a country's wealth and it's consumption of animal protein. We saw at the EDA section that there didn't seem to be a trend between these 2 variables, overall the calories consumed from animal protein is very stable regardless of the average GDP of a country. We can confirm this by checking the correlation and by trying to fit a linear regression. --> modify
+Now let's move on to the analysis of the relationship between a country's wealth and it's consumption of plant protein. We saw at the EDA section, again, that there didn't seem to be a trend between these 2 variables. The calories consumed from plant protein is very stable as we can see from the horizontal line, regardless of the average GDP of a country. To confirm this, we will check the correlation.
 
 ```{r}
 #Average GDP - calories
@@ -535,6 +535,8 @@ lm_gdp_cal_prot_plant <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot
 
 kable(prettify(summary(lm_gdp_cal_prot_plant)))
 ```
+
+As we can see, the correlation is very low
 
 ```{r}
 #GDP per capita - calories
