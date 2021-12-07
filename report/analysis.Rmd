@@ -674,6 +674,8 @@ lm_gdp_cal_fat <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_fat)
 kable(prettify(summary(lm_gdp_cal_fat)))
 ```
 
+From the get-go, the correlation is moderately high and positive. The estimation of the model parameter is also quite significant. Does taking the GDP per capita change our results ? In the first graph above, the fat consumption seems to very slightly increase when a country's GDP is higher. Let's check.
+
 ```{r}
 #GDP per capita - calories
 cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_fat)
@@ -683,6 +685,7 @@ lm_gdp_pp_cal_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_f
 kable(prettify(summary(lm_gdp_pp_cal_fat)))
 ```
 
+Our hypothesis was right. Not only did the correlation between the 2 variables increase, but the significance of the parameter estimation also improved. And how does switching the calorie count with the proportion of fat consumed per capita affect the correlation with the GDP per capita ? On the second graph above, we see that, just like for carbs, the positive slope becomes a bit more accentuated.
 
 ```{r}
 #GDP per capita - proportion
@@ -692,6 +695,8 @@ lm_gdp_pp_prop_fat <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$prop
 
 kable(prettify(summary(lm_gdp_pp_prop_fat)))
 ```
+
+This time, the correlation and the significance of the parameter goes down a little bit, even though not dramatically. Let's see once more what these relationships are like within each cluster. By looking at the cluster plot, we can hypothesize that wealthier countries of cluster 1 and 3 consume a bigger proportion of fat then those of cluster 2 that are less wealthy.
 
 ```{r}
 #cluster 1
@@ -718,9 +723,9 @@ lm_gdp_pp_prop_fat_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countrie
 kable(prettify(summary(lm_gdp_pp_prop_fat_clust3)))
 ```
 
-Analysis points :
+Just like for carbs, surprisingly, we see again that the previous logic is inversed within clusters by looking at these correlations. For high GDP countries like those in cluster 1 and 3 the link between GDP and fat consumption is negative within their respective clusters, and for low GDP countries like in those in cluster 2, it is positive. The estimate for the model parameter for cluster 2 is again quite significant. This suggests that among rich countries, the countries that are the most rich tend to consume less fat, and vice versa.
 
-- The relationship between the average GDP of a country and the calories consumed from fat per person is the only macronutriment that is significant. For other macronutriments, there seems to be no correlation at all.
+In general, even though it seems positive, we cannot confidently say that there is a definite link between the wealth of a country and its fat consumption.
 
 
 ## 4.How do these differences in macronutrients relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
