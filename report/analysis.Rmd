@@ -26,6 +26,7 @@ lm_gdp_diabetes_men <- lm(avg_gdp ~ prop_men_diabetes, data = GDP_diabetes_cal)
 
 tab_model(
   lm_gdp_diabetes_women, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Women diabetes"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -38,6 +39,7 @@ tab_model(
 ```{r}
 tab_model(
   lm_gdp_diabetes_men, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Men diabetes"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -53,8 +55,17 @@ However, once we exclude outliers, we see that the relationship is way more sign
 
 ```{r}
 #without outliers
-cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes)
-cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)
+
+c0 <- matrix(c(cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes), cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)))
+
+rownames(c0) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
+
+kbl(c0,
+   caption = "**Corrolation without outliers",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+
 
 lm_gdp_diabetes_women2 <- lm(avg_gdp ~ prop_women_diabetes, data = GDP_diabetes_cal2)
 
@@ -62,6 +73,7 @@ lm_gdp_diabetes_men2 <- lm(avg_gdp ~ prop_men_diabetes, data = GDP_diabetes_cal2
 
 tab_model(
   lm_gdp_diabetes_women2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Women diabetes </n> (without outliers"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -74,6 +86,7 @@ tab_model(
 ```{r}
 tab_model(
   lm_gdp_diabetes_men2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Men diabetes </n> (without outliers"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -93,8 +106,8 @@ rownames(data_1) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "F
 
 fviz_nbclust(data_1, kmeans, method = "wss") +
   geom_vline(xintercept = 3, linetype = 2) + # add line for better visualisation
-  labs(subtitle = "Elbow method") # add subtitle
-
+  labs(subtitle = "Elbow method")+ # add subtitle
+  scale_y_continuous(labels = scales::label_number_si())
 ```
 
 We therefore see from the graph above that the optimal number of clusters is 3. The allocation of countries according to their cluster is therefore as follows:
@@ -137,6 +150,8 @@ res_kmeans <- cluster_analysis(data_1, n=3, method = "kmeans",iterations = 20)
 predict(res_kmeans)
 
 plot(res_kmeans)
+
+
 ```
 
 In the graph above,
@@ -149,36 +164,124 @@ We can therefore see that diabetes is indeed lower in clusters which contain the
 
 ```{r}
 #cluster 1
-cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes)
-cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_men_diabetes)
 
-lm_gdp_diabetes_women_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_women_diabetes)
-lm_gdp_diabetes_men_clust1 <- lm(countries_cluster_1$avg_gdp ~ countries_cluster_1$prop_men_diabetes)
+c1 <- matrix(c(cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes), cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_men_diabetes)))
 
-kable(prettify(summary(lm_gdp_diabetes_women_clust1)))
-kable(prettify(summary(lm_gdp_diabetes_men_clust1)))
+rownames(c1) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
+
+kbl(c1,
+   caption = "**Corrolation for cluster 1",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
 
 
+lm_gdp_diabetes_women_clust1 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_1)
+lm_gdp_diabetes_men_clust1 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_1)
+
+tab_model(
+  lm_gdp_diabetes_women_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Women diabetes (cluster 1)"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+) 
+```
+<br><br>
+```{r}
+tab_model(
+  lm_gdp_diabetes_men_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Men diabetes (cluster 1)"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+) 
 #cluster 2
-cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_diabetes)
-cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_men_diabetes)
 
-lm_gdp_diabetes_women_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_women_diabetes)
-lm_gdp_diabetes_men_clust2 <- lm(countries_cluster_2$avg_gdp ~ countries_cluster_2$prop_men_diabetes)
+c2 <- matrix(c(cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_diabetes), cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_men_diabetes)))
 
-kable(prettify(summary(lm_gdp_diabetes_women_clust2)))
-kable(prettify(summary(lm_gdp_diabetes_men_clust2)))
+rownames(c2) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
 
+kbl(c2,
+   caption = "**Corrolation for cluster 2",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+
+
+lm_gdp_diabetes_women_clust2 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_2)
+lm_gdp_diabetes_men_clust2 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_2)
+
+tab_model(
+  lm_gdp_diabetes_women_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Women diabetes (cluster 2)"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+) 
+```
+<br><br>
+
+```{r}
+tab_model(
+  lm_gdp_diabetes_men_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Men diabetes (cluster 2)"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+) 
 
 #cluster 3
-cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_diabetes)
-cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_men_diabetes)
+c3 <- matrix(c(cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_diabetes), cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_men_diabetes)))
 
-lm_gdp_diabetes_women_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_women_diabetes)
-lm_gdp_diabetes_men_clust3 <- lm(countries_cluster_3$avg_gdp ~ countries_cluster_3$prop_men_diabetes)
+rownames(c3) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
 
-kable(prettify(summary(lm_gdp_diabetes_women_clust3)))
-kable(prettify(summary(lm_gdp_diabetes_men_clust3)))
+kbl(c3,
+   caption = "**Corrolation for cluster 3",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+
+
+lm_gdp_diabetes_women_clust3 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_3)
+lm_gdp_diabetes_men_clust3 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_3)
+
+tab_model(
+  lm_gdp_diabetes_women_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Women diabetes (cluster 3)"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+) 
+
+```
+<br><br>
+```{r}
+tab_model(
+  lm_gdp_diabetes_men_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Diabetes vs Men diabetes (cluster 3)"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+) 
 ```
 
 Clustering here doesn't necessarily help us answer the research question. We can confirm with the previous statistical test without outliers that overall, the GDP of a country and its diabetes rate are negatively correlated. 
