@@ -419,7 +419,7 @@ Neither the correlation between these two variables nor the linear regression is
 ggplot() + 
   geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = total_consumption), color = "orange") +
   geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$total_consumption), color = "orange", method = "lm") +
-  labs(x = "GDP per capita", y= "Calories")
+  labs(title = "Daily total calories vs GDP per capita", x = "GDP per capita", y= "Calories")
 ```
 
 The plot looks more or less the same as the one in the EDA section without the outliers. But is the relationship with this new variable statistically significant ?
@@ -487,7 +487,7 @@ ggplot() +
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_carbs), color = "purple") +
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_animal), color = "red") +  
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_plant), color = "green") +
-  labs(x = "GDP per capita", y= "Calories")
+  labs(title = "Caloric consumption vs GDP per capita", x = "GDP per capita", y= "Calories")
 
 #with GDP per person + proportions
 ggplot() + 
@@ -495,7 +495,7 @@ ggplot() +
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_carbs), color = "purple") +
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_animal_prot), color = "red") +  
   geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_plant_prot), color = "green") +
-  labs(x = "GDP per capita", y= "Proportion of calories")
+  labs(title = "Consumption in proportions vs GDP per capita", x = "GDP per capita", y= "Proportion of calories")
 ```
 
 It is also important to plot the clusters again to observe differences in the proportions of calories consumed.
@@ -939,21 +939,21 @@ lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Pie Chart of Consumption Pattern of Cluster 1")
+pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 1")
 
 slices <- c(cl2[17,5],cl2[17,6],cl2[17,7], cl2[17,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Pie Chart of Consumption Pattern of Cluster 2")
+pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 2")
 
 slices <- c(cl3[3,5],cl3[3,6],cl3[3,7], cl3[3,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Pie Chart of Consumption Pattern of Cluster 3")
+pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 3")
 
 ```
 
