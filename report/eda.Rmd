@@ -27,7 +27,7 @@ Now let's see if there is a relation between the GDP of a country and its diabet
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes),color = "blue") +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red") +
-  labs("Diabates vs Average GDP", x="Average GDP (in billion $)",y="Diabetes rate") +
+  labs(title = "Diabates vs Average GDP", x="Average GDP (in billion $)",y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red"))
 ```
 
