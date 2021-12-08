@@ -939,22 +939,23 @@ lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 1")
+pie1 <- pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 1")
 
 slices <- c(cl2[17,5],cl2[17,6],cl2[17,7], cl2[17,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 2")
+pie2 <- pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 2")
 
 slices <- c(cl3[3,5],cl3[3,6],cl3[3,7], cl3[3,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 3")
+pie3 <- pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 3")
 
+ggarrange(pie1, pie2, pie3, ncol = 3, nrow = 1)
 ```
 
 There is not much difference between the different patterns for the different clusters. However, it should be noted that carbs represent 53% of the diet of cluster 2 and that this food greatly influences the rate of diabetes, particularly among women.  Indeed, there is a 1% increase in diabetes for every 0.168 carbs consumed on average per capita with a significant p-value at 1%. The proportion of carbs should therefore be reduced to less than half of the total proportion to try to have a negative impact on the diabetes rate.
