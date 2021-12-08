@@ -115,7 +115,7 @@ In the EDA section, we grouped countries in 3 categories, according to the relat
 
 To determine the number of clusters we used the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
 
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+```{r, warning=FALSE}
 data_1 <- GDP_diabetes_cal[,-(1:2),drop=FALSE] #-> introduce the proportions later on ?
 rownames(data_1) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU","GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 
@@ -168,7 +168,7 @@ It is important to note that our 3rd cluster only contains 2 countries, and ther
 
 Now let's plot these clusters to see the differences between them.
 
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+```{r, warning=FALSE}
 res_kmeans <- cluster_analysis(data_1, n=3, method = "kmeans",iterations = 20)
 
 plot(res_kmeans)
@@ -253,7 +253,7 @@ tab_model(
 ) 
 ```
 <br><br>
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
 tab_model(
   lm_gdp_diabetes_men_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes vs Men diabetes (cluster 2)"),
@@ -277,7 +277,7 @@ kbl(c3,
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
 ```
 <br><br>
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+```{r, warning=FALSE}
 lm_gdp_diabetes_women_clust3 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_3)
 lm_gdp_diabetes_men_clust3 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_3)
 
@@ -294,7 +294,7 @@ tab_model(
 
 ```
 <br><br>
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+```{r, warning=FALSE}
 tab_model(
   lm_gdp_diabetes_men_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes vs Men diabetes (cluster 3)"),
@@ -306,75 +306,79 @@ tab_model(
   )
 ) 
 ```
+
 To go further, we decided to represent on a cluster map to see if there was a difference between the north and the south for example.
+
 ```{r}
 #EU_coord<- geojsonsf::geojson_sf('data/CNTR_RG_60M_2020_3035.geojson') # source of the geojson file #https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries
 
-#myCluster<-rbind.data.frame(countries_cluster_1, countries_cluster_2, countries_cluster_3)
+myCluster<-rbind.data.frame(countries_cluster_1, countries_cluster_2, countries_cluster_3)
 
-#EU_cluster <- c("AUT","BEL", "DNK", "FIN", "FRA", "DEU", "IRL", "ITA", "NLD", "SWE", "CHE", "BGR", "HRV", "CYP", "CZE", "EST", "GRC", "HUN", "LVA", "LTU", "MLT", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "LUX", "GBR")
-#CL_EU <- cbind(myCluster, EU_cluster)
+EU_cluster <- c("AUT","BEL", "DNK", "FIN", "FRA", "DEU", "IRL", "ITA", "NLD", "SWE", "CHE", "BGR", "HRV", "CYP", "CZE", "EST", "GRC", "HUN", "LVA", "LTU", "MLT", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "LUX", "GBR")
+CL_EU <- cbind(myCluster, EU_cluster)
 
-#get_eurostat_geospatial(resolution = 10, 
-#                        nuts_level = 0, 
-#                        year = 2016)
+get_eurostat_geospatial(resolution = 10, 
+                        nuts_level = 0, 
+                        year = 2016)
 
-#SHP_0 <- get_eurostat_geospatial(resolution = 10, 
-#                                 nuts_level = 0, 
-#                                 year = 2016)
+SHP_0 <- get_eurostat_geospatial(resolution = 10, 
+                                 nuts_level = 0, 
+                                 year = 2016)
 
+eu <- c("SHQ", "AUT", "BEL", "NLD", "POL", "PRT", "DNK", "DEU", "ELL", "BGR", "CHE", "CYP", "ROU", "SRB","CZE", "EST", "HUN", "HRV", "SVN", "SVK", "SWE", "ITA", "TUR", "FIN", "NOR", "IRL", "ISL", "LIE", "LTU", "LUX", "LVA", "MNE", "MLT", "FRA")
 
-#eu <- c("SHQ", "AUT", "BEL", "NLD", "POL", "PRT", "DNK", "DEU", "ELL", "BGR", "CHE", "CYP", "ROU", "SRB","CZE", "EST", "HUN", "HRV", "SVN", "SVK", "SWE", "ITA", "TUR", "FIN", "NOR", "IRL", "ISL", "LIE", "LTU", "LUX", "LVA", "MNE", "MLT", "FRA")
-#SHP_0<- cbind(SHP_0, eu)
-#SHP_0 <- SHP_0[-c(1, 9, 15, 17, 24, 26, 28, 29, 33, 34), ]
+SHP_0 <- SHP_0[-c(1, 9, 15, 17, 24, 26, 28, 29, 33, 34), ]
 
 #all_data_2 = merge(EU_coord, CL_EU, by.x = "ISO3_CODE", by.y = "EU_cluster")
 
-#nb_cluster <-as.numeric(levels(CL_EU$cluster))[CL_EU$cluster]
-#CL_EU <- cbind(CL_EU, nb_cluster)
+nb_cluster <-as.numeric(levels(CL_EU$cluster))[CL_EU$cluster]
+CL_EU <- cbind(CL_EU, nb_cluster)
 
-
-#leaflet(SHP_0) %>%
-#  setView(lng = 15, lat = 50, zoom = 4) %>% 
-#  addTiles() %>% 
-#  addPolygons(color = "black",
-#              weight = 1,
-#              fillOpacity = ifelse(  
-#                test = CL_EU$cluster == 1,  
-#                yes = 0.5,  
-#                no = 0  
-#              ),
-#              fillColor = "red")
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>%
+  addPolygons(color = "black",
+              weight = 1,
+              fillOpacity = ifelse(  
+                test = CL_EU$cluster == 1,  
+                yes = 0.5,  
+                no = 0  
+              ),
+              fillColor = "red")
 ```
 
 The first cluster is therefore located more in the centre and north of Europe.
+
 ```{r}
-#leaflet(SHP_0) %>%
-#setView(lng = 15, lat = 50, zoom = 4) %>% 
-#  addTiles() %>% 
-#  addPolygons(color = "black",
-#              weight = 1,
-#              fillOpacity = ifelse(  
-#                test = CL_EU$cluster == 2,  
-#                yes = 0.5,  
-#                no = 0  
-#              ),
-#              fillColor = "blue")
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+              weight = 1,
+              fillOpacity = ifelse(
+                test = CL_EU$cluster == 2,  
+                yes = 0.5,  
+                no = 0  
+              ),
+              fillColor = "blue")
 ```
-The second cluster would be located more to the southwest of Europe
+
+The second cluster would be located more to the southwest of Europe.
+
 ```{r}
-#leaflet(SHP_0) %>%
-#  setView(lng = 15, lat = 50, zoom = 4) %>% 
-#  addTiles() %>% 
-#  addPolygons(color = "black",
-#              weight = 1,
-#              fillOpacity = ifelse(  
-#                test = CL_EU$cluster == 3,  
-#                yes = 0.5,  
-#                no = 0  
-#              ),
-#              fillColor = "orange")
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+              weight = 1,
+              fillOpacity = ifelse(
+                test = CL_EU$cluster == 3,  
+                yes = 0.5,  
+                no = 0  
+              ),
+              fillColor = "orange")
 ```
+
 And the third cluster represents only two countries so it is hard to give it a region. 
 
 Clustering here doesn't necessarily help us answer the research question. We can confirm with the previous statistical test without outliers that overall, the GDP of a country and its diabetes rate are negatively correlated. 
@@ -481,26 +485,28 @@ With these new metrics introduced, we will plot these relationships again.
 
 ```{r}
 #with GDP per person + calories
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = total_consumption), color = "orange") +
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_fat), color = "blue") +
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_carbs), color = "purple") +
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_animal), color = "red") +  
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = cal_prot_plant), color = "green") +
-  labs(title = "Caloric consumption vs GDP per capita", x = "GDP per capita", y= "Calories")
+ggplot(data = GDP_diabetes_cal, aes(x = gdp_per_person)) + 
+  geom_line(aes(y = total_consumption, color = "total_consumption")) +
+  geom_line(aes(y = cal_fat, color = "cal_fat")) +
+  geom_line(aes(y = cal_carbs, color = "cal_carbs")) +
+  geom_line(aes(y = cal_prot_animal, color = "cal_prot_animal")) +  
+  geom_line(aes(y = cal_prot_plant, color = "cal_prot_plant")) +
+  labs(title = "Caloric consumption vs GDP per capita", x = "GDP per capita", y= "Calories") +
+  scale_color_manual("", breaks = c("total_consumption", "cal_carbs", "cal_fat", "cal_prot_animal", "cal_prot_plant"), values = c("orange", "blue", "purple", "red", "green" ))
 
 #with GDP per person + proportions
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_fat), color = "blue") +
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_carbs), color = "purple") +
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_animal_prot), color = "red") +  
-  geom_line(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = proportion_plant_prot), color = "green") +
-  labs(title = "Consumption in proportions vs GDP per capita", x = "GDP per capita", y= "Proportion of calories")
+ggplot(data = GDP_diabetes_cal, aes(x = gdp_per_person)) + 
+  geom_line(aes(y = proportion_fat, color = "proportion_fat")) +
+  geom_line(aes(y = proportion_carbs, color = "proportion_carbs")) +
+  geom_line(aes(y = proportion_animal_prot, color = "proportion_animal_prot")) +
+  geom_line(aes(y = proportion_plant_prot, color = "proportion_plant_prot")) +
+  labs(title = "Consumption in proportions vs GDP per capita", x = "GDP per capita", y= "Proportion of calories") +
+  scale_color_manual("", breaks = c("proportion_carbs", "proportion_fat", "proportion_animal_prot", "proportion_plant_prot"), values = c("blue", "purple", "red", "green" ))
 ```
 
 It is also important to plot the clusters again to observe differences in the proportions of calories consumed.
 
-```{r}
+```{r, warning=FALSE}
 #clustering pt 2
 data_2 <- mutate(data_1, GDP_diabetes_cal[,12:15])
 
@@ -912,6 +918,7 @@ kable(prettify(summary(lm_diabetes_women_prop_fat)))
 All macronutrients except protein are highly significant for women, which confirms our hypothesis that malnutrition has a greater impact on the rate of diabetes in women than in men. 
 
 We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rate for each cluster. To see the patterns of each cluster we will average each cluster. 
+
 ```{r}
 #means for each cluster
 countries_cluster_1 <- countries_cluster_1[,-10]
@@ -932,30 +939,31 @@ cl3 <- rbind(countries_cluster_3, cl3)
 row.names(cl3)[3] <- ("Means")
 kable(cl3[3,])
 ```
-As we see from the cluster averages, cluster 2 has the highest rate of diabetes followed by cluster 1 and finally the cluster 3 with the lowest rate of diabetes. 
+
+As we see from the cluster averages, cluster 2 has the highest rate of diabetes followed by cluster 1 and finally the cluster 3 with the lowest rate of diabetes.
+
 ```{r}
+
 slices <- c(cl1[12,5],cl1[12,6],cl1[12,7], cl1[12,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie1 <- pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 1")
+pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern : Cluster 1")
 
 slices <- c(cl2[17,5],cl2[17,6],cl2[17,7], cl2[17,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie2 <- pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 2")
+pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern : Cluster 2")
 
 slices <- c(cl3[3,5],cl3[3,6],cl3[3,7], cl3[3,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie3 <- pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern of countries in Cluster 3")
-
-ggarrange(pie1, pie2, pie3, ncol = 3, nrow = 1)
+pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern : Cluster 3")
 ```
 
 There is not much difference between the different patterns for the different clusters. However, it should be noted that carbs represent 53% of the diet of cluster 2 and that this food greatly influences the rate of diabetes, particularly among women.  Indeed, there is a 1% increase in diabetes for every 0.168 carbs consumed on average per capita with a significant p-value at 1%. The proportion of carbs should therefore be reduced to less than half of the total proportion to try to have a negative impact on the diabetes rate.

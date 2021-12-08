@@ -261,7 +261,7 @@ Diabetes_EU_men <- Diabetes_EU_men %>%
   dplyr::summarize(prop_men_diabetes = mean(prop_men_diabetes))
 
 kbl(Diabetes_EU_men,
-    caption = "**Table 3**: Diabetes men",
+    caption = "**Table 3**: Diabetes rates for men",
     col.names = c('Country Code', 'Diabetes rate'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
@@ -277,7 +277,7 @@ Diabetes_EU_women <- Diabetes_EU_women %>%
   dplyr::summarize(prop_women_diabetes = mean(prop_women_diabetes))
 
 kbl(Diabetes_EU_men,
-    caption = "**Table 4**: Diabetes women",
+    caption = "**Table 4**: Diabetes rates for women",
     col.names = c('Country Code', 'Diabetes rate'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%

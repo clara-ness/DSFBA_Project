@@ -151,14 +151,14 @@ There do not seem to be any trends in the graphs above and diets seem rather sta
 We then wanted to analyse the relation between a country's GDP and its individual consumption of each macronutrient as well as its total calorie consumption to see if there's a trend.(total calories = orange, fat = blue, carbohydrates = purple, animal protein = red, plant protein = green)
 
 ```{r}
-ggplot() + 
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = total_consumption), color = "orange") +
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_fat), color = "blue") +
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_carbs), color = "purple") +
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_animal), color = "red") +  
-  geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "green") +
+ggplot(data = GDP_diabetes_cal, aes(x = avg_gdp)) + 
+  geom_line(aes(y = total_consumption, color = "total_consumption")) +
+  geom_line(aes(y = cal_fat, color = "cal_fat")) +
+  geom_line(aes(y = cal_carbs, color = "cal_carbs")) +
+  geom_line(aes(y = cal_prot_animal, color = "cal_prot_animal")) +  
+  geom_line(aes(y = cal_prot_plant, color = "cal_prot_plant")) +
   labs(title = "Caloric consumption vs Average GDP", x = "Average GDP (in billion $)", y= "Calories") +
-  scale_color_manual(labels = c("Total", "Fat", "Carbs", "Animal protein", "Plant protein"), values = c("orange", "blue", "purple", "red", "green" ))
+  scale_color_manual("", breaks = c("total_consumption", "cal_carbs", "cal_fat", "cal_prot_animal", "cal_prot_plant"), values = c("orange", "blue", "purple", "red", "green" ))
 ```
 
 We see that the calorie consumption does not really change. We wanted a close up on the relation between the total calorie consumption with the GDP for each country to see if we can spot outliers again, so we created other plots.
@@ -279,7 +279,7 @@ x1 <- ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs total calories per day", x="Total calories per day", y="Diabetes prevalence") +
+  labs(title="Total", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
@@ -289,7 +289,7 @@ x2 <- ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs daily calories from animal protein", x="Total calories from animal protein per day", y="Diabetes prevalence") +
+  labs(title="Animal protein", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
@@ -299,7 +299,7 @@ x3 <- ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs daily calories from plant protein", x="Total calories from plant protein per day", y="Diabetes prevalence") +
+  labs(title="Plant protein", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
@@ -309,7 +309,7 @@ x4 <- ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs daily calories from carbohydrates", x="Total calories from carbohydrates per day", y="Diabetes prevalence") +
+  labs(title="Carbs", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
@@ -319,7 +319,7 @@ x5 <- ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs daily calories from fat", x="Total calories from fat per day", y="Diabetes prevalence") +
+  labs(title="Fat", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
@@ -340,7 +340,7 @@ x6 <- ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs total calories per day", x="Total calories per day", y="Diabetes prevalence") +
+  labs(title="Total", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
@@ -350,7 +350,7 @@ x7 <- ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs daily calories from animal protein", x="Total calories from animal protein per day", y="Diabetes prevalence") +
+  labs(title="Animal protein", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
@@ -360,7 +360,7 @@ x8 <- ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs daily calories from plant protein", x="Total calories from plant protein per day", y="Diabetes prevalence") +
+  labs(title="Plant protein", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
@@ -370,7 +370,7 @@ x9 <- ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs daily calories from carbohydrates", x="Total calories from carbohydrates per day", y="Diabetes prevalence") +
+  labs(title="Carbs", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
@@ -380,7 +380,7 @@ x10 <- ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes vs daily calories from fat", x="Total calories from fat per day", y="Diabetes prevalence") +
+  labs(title="Fat", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
