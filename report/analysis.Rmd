@@ -169,8 +169,6 @@ Now let's plot these clusters to see the differences between them.
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 res_kmeans <- cluster_analysis(data_1, n=3, method = "kmeans",iterations = 20)
 
-predict(res_kmeans)
-
 plot(res_kmeans)
 
 
@@ -517,8 +515,6 @@ countries_cluster_2bis <- filter(Data_cluster_bis, cluster == "2")
 countries_cluster_3bis <- filter(Data_cluster_bis, cluster == "3")
 
 res_kmeans_bis <- cluster_analysis(data_2, n=3, method = "kmeans",iterations = 20)
-
-predict(res_kmeans_bis)
 
 plot(res_kmeans_bis)
 ```
