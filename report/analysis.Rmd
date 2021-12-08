@@ -826,62 +826,75 @@ lm_gdp_cal_prot_animal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_pro
 kable(prettify(summary(lm_gdp_cal_prot_animal)))
 ```
 
-Even though the correlation is positive, it is not very high. By looking at the summary of the linear regression, we can also see that the parameter is not significant. But what if we took the GDP per capita instead of the average GDP of a country ? The graph above seems to show again that the consumption of this macronutrient is very stable regardless of the GDP per capita of a country.
+We will now look in more detail at the relationship of each macronutrient to diabetes, starting with animal protein.
+
+### Diabetes - Animal protein
+
 
 ```{r}
-#GDP per capita - calories
-cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_animal)
+#Average GDP - calories
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal)
 
-lm_gdp_pp_cal_prot_animal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_animal)
+lm_diabm_cal_prot_animal <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_prot_animal)
+lm_diabw_cal_prot_animal <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_prot_animal)
 
-kable(prettify(summary(lm_gdp_pp_cal_prot_animal)))
+kable(prettify(summary(lm_diabm_cal_prot_animal)))
+kable(prettify(summary(lm_diabw_cal_prot_animal)))
+
 ```
 
-This time, the correlation is higher and the variable's estimate as a parameter is very significant ! Maybe the correlation can improve by considering proportion of calories instead of the calorie count.
 
 ```{r}
-#GDP per capita - proportion
-cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_animal_prot)
+#Diabetes - proportion
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_animal_prot)
 
-lm_gdp_pp_prop_animal_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_animal_prot)
+lm_diabm_prop_animal_prot <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
+lm_diabw_prop_animal_prot <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
 
-kable(prettify(summary(lm_gdp_pp_prop_animal_prot)))
+kable(prettify(summary(lm_diabm_prop_animal_prot)))
+kable(prettify(summary(lm_diabw_prop_animal_prot)))
+
 ```
 
-Here, the correlation is slightly lower than with the calorie count and the parameter's estimate is a bit less significant but still quite solid. Now let's see if we can find this positive relationship and better explanations within our defined clusters.
 
-From our cluster plot above, we see that high GDP countries (clusters 1 and 3) tend to consume more calories of animal protein than low GDP countries, this is also the case for the proportions of calories consumed from animal protein. This follows what we have found so far. Are the correlations and linear regression in line with these observations ?
 
 ```{r}
 #cluster 1
-cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_animal_prot)
+cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_animal_prot)
+cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_animal_prot)
 
-lm_gdp_pp_prop_animal_prot_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_animal_prot)
+lm_diabm_prop_animal_prot_clust1 <- lm(countries_cluster_1bis$prop_men_diabetes ~ countries_cluster_1bis$proportion_animal_prot)
+lm_diabw_prop_animal_prot_clust1 <- lm(countries_cluster_1bis$prop_men_diabetes ~ countries_cluster_1bis$proportion_animal_prot)
 
-kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust1)))
+kable(prettify(summary(lm_diabm_prop_animal_prot_clust1)))
+kable(prettify(summary(lm_diabw_prop_animal_prot_clust1)))
 
 
 #cluster 2
-cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_animal_prot)
+cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_animal_prot)
+cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_animal_prot)
 
-lm_gdp_pp_prop_animal_prot_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_animal_prot)
+lm_diabm_prop_animal_prot_clust2 <- lm(countries_cluster_2bis$prop_men_diabetes ~ countries_cluster_2bis$proportion_animal_prot)
+lm_diabw_prop_animal_prot_clust2 <- lm(countries_cluster_2bis$prop_women_diabetes ~ countries_cluster_2bis$proportion_animal_prot)
 
-kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust2)))
+kable(prettify(summary(lm_diabm_prop_animal_prot_clust2)))
+kable(prettify(summary(lm_diabw_prop_animal_prot_clust2)))
 
 
 #cluster 3
-cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_animal_prot)
+cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_animal_prot)
+cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_animal_prot)
 
-lm_gdp_pp_prop_animal_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_animal_prot)
+lm_diabm_prop_animal_prot_clust3 <- lm(countries_cluster_3bis$prop_men_diabetes ~ countries_cluster_3bis$proportion_animal_prot)
+lm_diabw_prop_animal_prot_clust3 <- lm(countries_cluster_3bis$prop_women_diabetes ~ countries_cluster_3bis$proportion_animal_prot)
 
-kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust3)))
+kable(prettify(summary(lm_diabm_prop_animal_prot_clust3)))
+kable(prettify(summary(lm_diabw_prop_animal_prot_clust3)))
+
 ```
 
-For each cluster, the correlation is positive and but still not so strong, and the estimate of the parameter for cluster 2 is significant.
-
-In general, though it seems positive, we cannot conclude that there is a strong link between the wealth of a country and its animal protein consumption.
-
-We will now look in more detail at the relationship of each macronutrient to diabetes, starting with plant protein.
 
 ### Diabetes - Plant protein
 
@@ -917,6 +930,44 @@ kable(prettify(summary(lm_diabw_prop_plant_prot)))
 ```
 
 As expected the correlation are higher for both gender and the linear regression shows that the plant protein is highly significant for women.
+
+##### Change this!The cluster plot above indicates that in countries with higher GDPs like in cluster 1 and 3, the proportions of calories consumed from plant protein are lower than in countries with lower GDPs. Let's see if we can confirm these observations and see if these relationships are strong enough within each cluster.
+
+```{r}
+#cluster 1
+cor(countries_cluster_1bi$prop_men_diabetes, countries_cluster_1bis$proportion_plant_prot)
+cor(countries_cluster_1bi$prop_women_diabetes, countries_cluster_1bis$proportion_plant_prot)
+
+lm_diabm_prop_plant_prot_clust1 <- lm(countries_cluster_1bi$prop_men_diabetes ~ countries_cluster_1bis$proportion_plant_prot)
+lm_diabw_prop_plant_prot_clust1 <- lm(countries_cluster_1bi$prop_women_diabetes ~ countries_cluster_1bis$proportion_plant_prot)
+
+kable(prettify(summary(lm_diabm_prop_plant_prot_clust1)))
+kable(prettify(summary(lm_diabw_prop_plant_prot_clust1)))
+
+#cluster 2
+cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_plant_prot)
+cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_plant_prot)
+
+lm_diabm_prop_plant_prot_clust2 <- lm(countries_cluster_2bis$prop_men_diabetes ~ countries_cluster_2bis$proportion_plant_prot)
+lm_diabw_prop_plant_prot_clust2 <- lm(countries_cluster_2bis$prop_women_diabetes ~ countries_cluster_2bis$proportion_plant_prot)
+
+kable(prettify(summary(lm_diabm_prop_plant_prot_clust2)))
+kable(prettify(summary(lm_diabw_prop_plant_prot_clust2)))
+
+
+#cluster 3
+cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_plant_prot)
+cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_plant_prot)
+
+lm_diabm_prop_plant_prot_clust3 <- lm(countries_cluster_3bis$prop_men_diabetes ~ countries_cluster_3bis$proportion_plant_prot)
+lm_diabw_prop_plant_prot_clust3 <- lm(countries_cluster_3bis$prop_women_diabetes ~ countries_cluster_3bis$proportion_plant_prot)
+
+kable(prettify(summary(lm_diabm_prop_plant_prot_clust3)))
+kable(prettify(summary(lm_diabw_prop_plant_prot_clust3)))
+
+```
+#comment 
+
 
 ### Typical Diet by Clusters
 
