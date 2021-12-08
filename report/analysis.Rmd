@@ -309,6 +309,76 @@ tab_model(
 ) 
 ```
 
+To go further, we decided to represent on a cluster map to see if there was a difference between the north and the south for example.
+```{r}
+
+EU_coord<- geojsonsf::geojson_sf('data/CNTR_RG_60M_2020_3035.geojson') # source of the geojson file https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries
+
+myCluster<-rbind.data.frame(countries_cluster_1, countries_cluster_2, countries_cluster_3)
+
+EU_cluster <- c("AUT","BEL", "DNK", "FIN", "FRA", "DEU", "IRL", "ITA", "NLD", "SWE", "CHE", "BGR", "HRV", "CYP", "CZE", "EST", "GRC", "HUN", "LVA", "LTU", "MLT", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "LUX", "GBR")
+
+get_eurostat_geospatial(resolution = 10, 
+                        nuts_level = 0, 
+                        year = 2016)
+
+SHP_0 <- get_eurostat_geospatial(resolution = 10, 
+                                 nuts_level = 0, 
+                                 year = 2016)
+
+eu <- c("SHQ", "AUT", "BEL", "NLD", "POL", "PRT", "DNK", "DEU", "ELL", "BGR", "CHE", "CYP", "ROU", "SRB","CZE", "EST", "HUN", "HRV", "SVN", "SVK", "SWE", "ITA", "TUR", "FIN", "NOR", "IRL", "ISL", "LIE", "LTU", "LUX", "LVA", "MNE", "MLT", "FRA")
+
+SHP_0 <- SHP_0[-c(1, 9, 15, 17, 24, 26, 28, 29, 33, 34), ]
+SHP_0<- cbind(SHP_0, eu)
+CL_EU <- cbind(SHP_0, EU_cluster)
+
+all_data_2 = merge(EU_coord, CL_EU, by.x = "ISO3_CODE", by.y = "EU_cluster")
+nb_cluster <-as.numeric(levels(all_data_2$cluster))[all_data_2$cluster]
+all_data_2 <- cbind(all_data_2, nb_cluster)
+
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+              weight = 1,
+              fillOpacity = ifelse(  
+                test = all_data_2$cluster == 1,  
+                yes = 0.5,  
+                no = 0  
+              ),
+              fillColor = "red")
+```
+
+The first cluster is therefore located more in the centre and north of Europe.
+```{r}
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+              weight = 1,
+              fillOpacity = ifelse(  
+                test = all_data_2$cluster == 2,  
+                yes = 0.5,  
+                no = 0  
+              ),
+              fillColor = "blue")
+```
+The second cluster would be located more to the southwest of Europe
+```{r}
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+              weight = 1,
+              fillOpacity = ifelse(  
+                test = all_data_2$cluster == 3,  
+                yes = 0.5,  
+                no = 0  
+              ),
+              fillColor = "orange")
+```
+And the third cluster represents only two countries so it is hard to give it a region. 
+
 Clustering here doesn't necessarily help us answer the research question. We can confirm with the previous statistical test without outliers that overall, the GDP of a country and its diabetes rate are negatively correlated. 
 
 However, the clusters defined above could help us answer our other research questions.

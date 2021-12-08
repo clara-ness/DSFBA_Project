@@ -8,6 +8,7 @@
   "here", # for the project's organization
   "tidyverse", "lubridate","readr","dplyr", "readxl","data.table", # for wrangling
   "ggrepel", "gghighlight", "patchwork", "maps", "scales", "ggplot2", "plotly", "shiny","papeR", # for plotting
+  "leaflet", "eurostat", "sf", "geojsonsf", # for mapping
   "knitr", "kableExtra", "bookdown", "rmarkdown", "parameters", "see", "factoextra", "NbClust","sjPlot", "sjmisc", "sjlabelled" # for the report
 )
 purrr::walk(packages, library, character.only = TRUE)

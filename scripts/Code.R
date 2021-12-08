@@ -7,13 +7,6 @@ install.packages("leaflet")
 
 library(leaflet)
 
-#test
-m <- leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
-setView(Europe)
-m  # Print the map
-
 source(here::here("scripts/setup.R"))
 source(here::here("/report/data.Rmd"))
 #Map Europe
@@ -29,7 +22,14 @@ library(geojsonsf)
 
 EU_coord<- geojsonsf::geojson_sf('data/CNTR_RG_60M_2020_3035.geojson') # source of the geojson file https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries
 
-all_data = merge(EU_coord, myCluster, by.x = "ISO3_CODE", by.y = "row.names.data_1.")
+myCluster<-rbind.data.frame(countries_cluster_1, countries_cluster_2, countries_cluster_3)
+
+EU_cluster <- c("AUT","BEL", "DNK", "FIN", "FRA", "DEU", "IRL", "ITA", "NLD", "SWE", "CHE", "BGR", "HRV", "CYP", "CZE", "EST", "GRC", "HUN", "LVA", "LTU", "MLT", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "LUX", "GBR")
+
+#add column called 'new'
+CL_EU <- cbind(myCluster, EU_cluster)
+
+all_data = merge(EU_coord, CL_EU, by.x = "ISO3_CODE", by.y = "EU_cluster")
 
 st_write(all_data, "MapApp/geojson_manipulation/main.geojson")
 
@@ -45,6 +45,16 @@ SHP_0 <- get_eurostat_geospatial(resolution = 10,
                                  nuts_level = 0, 
                                  year = 2016)
 
+eu <- c("SHQ", "AUT", "BEL", "NLD", "POL", "PRT", "DNK", "DEU", "ELL", "BGR", "CHE", "CYP", "ROU", "SRB","CZE", "EST", "HUN", "HRV", "SVN", "SVK", "SWE", "ITA", "TUR", "FIN", "NOR", "IRL", "ISL", "LIE", "LTU", "LUX", "LVA", "MNE", "MLT", "FRA")
+
+SHP_0 <- SHP_0[-c(1, 9, 15, 17, 24, 26, 28, 29, 33, 34), ]
+SHP_0<- cbind(SHP_0, eu)
+CL_EU <- cbind(SHP_0, EU_cluster)
+
+all_data_2 = merge(EU_coord, CL_EU, by.x = "ISO3_CODE", by.y = "EU_cluster")
+nb_cluster <-as.numeric(levels(all_data_2$cluster))[all_data_2$cluster]
+all_data_2 <- cbind(all_data_2, nb_cluster)
+
 leaflet(SHP_0) %>%
   setView(lng = 15, lat = 50, zoom = 4) %>% 
   addTiles() %>% 
@@ -53,30 +63,85 @@ leaflet(SHP_0) %>%
               fillColor = "blue",
               fillOpacity = 0.2)
 
+#this one
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+              weight = 1,
+              fillOpacity = ifelse(  
+                test = all_data_2$cluster == 1,  
+                yes = 0.5,  
+                no = 0  
+              ),
+              fillColor = "red")
+  
+#addLayersControl(baseGroups = c("click", "hover"))
 
-L.geoJSON(geojsonFeature).addTo(map)
+
+leaflet(SHP_0) %>%
+  addTiles() %>%
+  addPolygons(data = all_data_2, all_data_2$cluster == 1,label = ~ CLUSTER1 group = "click") %>%
+  addPolygons(data = all_data_2, all_data_2$cluster == 2, label = ~ CLUSTER2, group = "hover") %>%
+  addLayersControl(baseGroups = c("click", "hover"))
+
+leaflet(all_data) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+              weight = 1,
+              fillOpacity = ifelse( 
+              test = all_data$cluster == 1,  
+              yes = 0.5,  
+              no = 0  
+                  ),
+              fillColor = "red") 
+
+
+leaflet(all_data) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+              weight = 1,
+              fillOpacity = ifelse( 
+                test = all_data$cluster == 1,  
+                yes = 1,  
+                no = 0  
+              ), ifelse(test = all_data$cluster == 2,  
+                        yes = 0.25,  
+                        no = 0  
+              ),
+              ifelse(test = all_data$cluster == 3,  
+                     yes = 1.25,  
+                     no = 0  
+              ),
+              fillColor = "red") 
+
+
+
+
+
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>%
+  addPolygons(data = all_data_2, 
+              fillColor = ~pal(nb_cluster), 
+              fillOpacity = 0.9, 
+              weight = 1) %>%
+  addLegend(pal = pal, values = all_data_2$nb_cluster, title = "Cluster")
+
+
+pal <- colorNumeric("PiYG", all_data_2$nb_cluster)
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  addTiles() %>%
+  addPolygons(data = all_data_2, 
+              fillColor = ~pal(gemoetry), 
+              fillOpacity = 1, 
+              weight = 1)
 
 
 #trying the other way 
-
-map_lad <- map %>%
-  leaflet::addPolygons(
-    data = all_data,  # EU polygon data from geojson
-    weight = 1,  # line thickness
-    opacity = 1,  # line transparency
-    color = "black",  # line colour
-    fillOpacity = ifelse(  # conditional fill opacity
-      test = all_data$st_areashape > 1E+09,  # if area is over this value
-      yes = 0.5,  # then make it half-opaque
-      no = 0  # otherwise make it entirely transparent
-    ),
-    fillColor = "red",
-    label = ~ISO3_CODE  # LAD name as a hover label
-  )
-
-map_lad
-
-pal <- colorNumeric("viridis", NULL)
 
 
 leaflet(all_data) %>%
