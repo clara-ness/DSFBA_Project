@@ -137,9 +137,11 @@ Data_cluster <- data.frame(data_1, cluster = as.factor(model_cluster$cluster))
 countries_cluster_1 <- filter(Data_cluster, cluster == "1")
 countries_cluster_2 <- filter(Data_cluster, cluster == "2") 
 countries_cluster_3 <- filter(Data_cluster, cluster == "3")
+```
 
+```{r}
 kbl(countries_cluster_1,
-    caption = "**Table**: Cluster 1",
+    caption = "**Table 6**: Cluster 1",
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -147,7 +149,7 @@ kbl(countries_cluster_1,
 <br>
 ```{r}
 kbl(countries_cluster_2,
-    caption = "**Table**: Cluster 2",
+    caption = "**Table 7**: Cluster 2",
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
@@ -155,7 +157,7 @@ kbl(countries_cluster_2,
 <br>
 ```{r}
 kbl(countries_cluster_3,
-    caption = "**Table**: Cluster 3",
+    caption = "**Table 8**: Cluster 3",
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
@@ -251,7 +253,6 @@ tab_model(
 ) 
 ```
 <br><br>
-
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 tab_model(
   lm_gdp_diabetes_men_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,

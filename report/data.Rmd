@@ -301,7 +301,7 @@ GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_cod
 GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
 
 kbl(GDP_diabetes_cal,
-    caption = "**Finale Dataset**: GDP, diabetes and calories",
+    caption = "**Table 5**: Joint table for GDP, diabetes and caloric consumption",
     col.names = c('Country Name','Country Code','Average GDP (in billion $)','GDP per person (in $)','Men Diabetes', 'Women Diabetes', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
