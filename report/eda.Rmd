@@ -155,7 +155,8 @@ ggplot() +
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_carbs), color = "purple") +
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_animal), color = "red") +  
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "green") +
-  labs(x = "Average GDP (in billion $)", y= "Calories")
+  labs(title = "Caloric consumption vs Average GDP", x = "Average GDP (in billion $)", y= "Calories") +
+  scale_color_manual(labels = c("total", "fat", "carbs", "animal protein", "plant protein"), values = c("orange", "blue", "purple", "red", "green" ))
 ```
 
 We see that the calorie consumption does not really change. We wanted a close up on the relation between the total calorie consumption with the GDP for each country to see if we can spot outliers again, so we created other plots.
@@ -168,7 +169,7 @@ ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$tota
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)+
  geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption), color = "red", method = "lm")+
-   labs( x = "Average GDP (in billion $)", y = "Calories")
+   labs(title = "Daily total calorie consumption vs Average GDP", x = "Average GDP (in billion $)", y = "Calories")
 ```
 
 We end up again with these 5 outliers that have a higher than average GDP so if we remove them, we obtain the following plots :
@@ -181,7 +182,7 @@ ggplot(GDP_diabetes_cal2, aes(x=GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$t
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)+
 geom_smooth(mapping = aes(x = GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption), color = "red", method = "lm")+
-   labs(x = "Average GDP (in billion $)", y = "Calories")
+   labs(title = "Daily total calories vs Average GDP (without outliers)", x = "Average GDP (in billion $)", y = "Calories")
 ```
 
 Now we can more easily state that there's a trend. It appears that the higher a country's GDP, the higher the total calories consumed, contrary to our hypothesis.
