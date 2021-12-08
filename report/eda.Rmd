@@ -27,7 +27,8 @@ Now let's see if there is a relation between the GDP of a country and its diabet
 ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes),color = "blue") +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red") +
-  labs(x="Average GDP (in billion $)",y="Diabetes rate")
+  labs("Diabates vs Average GDP", x="Average GDP (in billion $)",y="Diabetes rate") +
+  scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red"))
 ```
 
 We observe that apart of 5 outliers, our observations are mostly bunched up at the left of the graph. We decided to exclude these 5 observations, to see if we can observe a trend with the other countries. These outliers, as we can see on the graph before, are the countries that had a big increase of GDP in the time period of 2000-2013.
@@ -45,7 +46,8 @@ ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = avg_gdp, y = prop_men_diabetes), color = "blue", method = "lm") +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red") +
   geom_smooth(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red", method = "lm") +
-  labs(x="Average GDP (in billion $)",y="Diabetes rate")
+  labs(title = "Diabates vs Average GDP (without outliers)", x="Average GDP (in billion $)",y="Diabetes rate") +
+  scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red"))
 ```
 
 Without the outliers, we can see a bit more clearly. Indeed, it seems that the richer a country is, the lesser it has a high diabetes rate among its population.
@@ -156,7 +158,7 @@ ggplot() +
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_animal), color = "red") +  
   geom_line(data = GDP_diabetes_cal, aes(x = avg_gdp, y = cal_prot_plant), color = "green") +
   labs(title = "Caloric consumption vs Average GDP", x = "Average GDP (in billion $)", y= "Calories") +
-  scale_color_manual(labels = c("total", "fat", "carbs", "animal protein", "plant protein"), values = c("orange", "blue", "purple", "red", "green" ))
+  scale_color_manual(labels = c("Total", "Fat", "Carbs", "Animal protein", "Plant protein"), values = c("orange", "blue", "purple", "red", "green" ))
 ```
 
 We see that the calorie consumption does not really change. We wanted a close up on the relation between the total calorie consumption with the GDP for each country to see if we can spot outliers again, so we created other plots.
