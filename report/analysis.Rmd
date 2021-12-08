@@ -798,7 +798,7 @@ What we observed in the EDA seemed to not make sense as we were expecting a posi
 
 Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". --> where to add ?
 
-
+#FAUT ENLEVER CETTE PREMIERE PARTIE PARCE QUE LES PARAMETRES AVEC LES CALORIES SONT A 0 ?
 ```{r}
 #calories animal protein
 cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal)
@@ -852,6 +852,7 @@ lm_diabetes_women_cal_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabe
 kable(prettify(summary(lm_diabetes_men_cal_fat)))
 kable(prettify(summary(lm_diabetes_women_cal_fat)))
 ```
+#JUSQU'ICI SI ON ENLEVE
 
 Only animal protein and fat are significant for women which will further support the view that malnutrition has a greater impact on the rate of diabetes in women than in men. We will now take the proportions to get a better idea of the relationship of macronutrients to diabetes rates.
 
