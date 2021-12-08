@@ -7,3 +7,5 @@ source(here::here("scripts/setup.R"))
 * Take home message
 * Limitations
 * Future work?
+
+Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". --> where to add ?

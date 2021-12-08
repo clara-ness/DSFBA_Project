@@ -4,10 +4,6 @@
 source(here::here("scripts/setup.R"))
 ```
 
-* Answers to the research questions
-* Different methods considered
-* Competing approaches
-* Justifications
 
 ## 1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
 
@@ -804,66 +800,6 @@ In general, even though it seems positive, we cannot confidently say that there 
 
 What we observed in the EDA seemed to not make sense as we were expecting a positive relationship between the total calories/calories consumed from fat and diabetes prevalence in a country. Let's see now concretely if there is any correlation between the calories consumed from different macronutrients and the diabetes rate.
 
-Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". --> where to add ?
-
-#FAUT ENLEVER CETTE PREMIERE PARTIE PARCE QUE LES PARAMETRES AVEC LES CALORIES SONT A 0 ?
-```{r}
-#calories animal protein
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal)
-
-#calories plant protein
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_plant)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_plant)
-
-#calories carbs
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs)
-
-#calories fat
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)
-```
-
-The correlations are quite significant for fat calories, animal protein and also for plant protein. Nevertheless, carbs would not have a huge effect on the rate of diabetes. Furthermore, it is interesting to note that the correlation is always higher for women. Perhaps malnutrition raises the risk of diabetes in women more than in men? We will continue this analysis by running linear regressions. 
-
-```{r}
-#calories animal protein
-lm_diabetes_men_cal_prot_animal <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_prot_animal)
-lm_diabetes_women_cal_prot_animal <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_prot_animal)
-
-kable(prettify(summary(lm_diabetes_men_cal_prot_animal)))
-kable(prettify(summary(lm_diabetes_women_cal_prot_animal)))
-
-
-#calories plant protein
-lm_diabetes_men_cal_prot_plant <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_prot_plant)
-lm_diabetes_women_cal_prot_plant <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_prot_plant)
-
-kable(prettify(summary(lm_diabetes_men_cal_prot_plant)))
-kable(prettify(summary(lm_diabetes_women_cal_prot_plant)))
-
-
-#calories carbs
-lm_diabetes_men_cal_carbs <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_carbs)
-lm_diabetes_women_cal_carbs <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_carbs)
-
-
-kable(prettify(summary(lm_diabetes_men_cal_carbs)))
-kable(prettify(summary(lm_diabetes_women_cal_carbs)))
-
-
-#calories fat
-lm_diabetes_men_cal_fat <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_fat)
-lm_diabetes_women_cal_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_fat)
-
-kable(prettify(summary(lm_diabetes_men_cal_fat)))
-kable(prettify(summary(lm_diabetes_women_cal_fat)))
-```
-#JUSQU'ICI SI ON ENLEVE
-
-Only animal protein and fat are significant for women which will further support the view that malnutrition has a greater impact on the rate of diabetes in women than in men. We will now take the proportions to get a better idea of the relationship of macronutrients to diabetes rates.
-
 ```{r}
 #proportion animal protein
 cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot)
@@ -881,7 +817,108 @@ cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_carbs)
 cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat)
 cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)
 ```
+```{r}
+#Average GDP - calories
+cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)
 
+lm_gdp_cal_prot_animal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot_animal)
+
+kable(prettify(summary(lm_gdp_cal_prot_animal)))
+```
+
+Even though the correlation is positive, it is not very high. By looking at the summary of the linear regression, we can also see that the parameter is not significant. But what if we took the GDP per capita instead of the average GDP of a country ? The graph above seems to show again that the consumption of this macronutrient is very stable regardless of the GDP per capita of a country.
+
+```{r}
+#GDP per capita - calories
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_animal)
+
+lm_gdp_pp_cal_prot_animal <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$cal_prot_animal)
+
+kable(prettify(summary(lm_gdp_pp_cal_prot_animal)))
+```
+
+This time, the correlation is higher and the variable's estimate as a parameter is very significant ! Maybe the correlation can improve by considering proportion of calories instead of the calorie count.
+
+```{r}
+#GDP per capita - proportion
+cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_animal_prot)
+
+lm_gdp_pp_prop_animal_prot <- lm(GDP_diabetes_cal$gdp_per_person ~ GDP_diabetes_cal$proportion_animal_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_animal_prot)))
+```
+
+Here, the correlation is slightly lower than with the calorie count and the parameter's estimate is a bit less significant but still quite solid. Now let's see if we can find this positive relationship and better explanations within our defined clusters.
+
+From our cluster plot above, we see that high GDP countries (clusters 1 and 3) tend to consume more calories of animal protein than low GDP countries, this is also the case for the proportions of calories consumed from animal protein. This follows what we have found so far. Are the correlations and linear regression in line with these observations ?
+
+```{r}
+#cluster 1
+cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_animal_prot)
+
+lm_gdp_pp_prop_animal_prot_clust1 <- lm(countries_cluster_1bis$gdp_per_person ~ countries_cluster_1bis$proportion_animal_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust1)))
+
+
+#cluster 2
+cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_animal_prot)
+
+lm_gdp_pp_prop_animal_prot_clust2 <- lm(countries_cluster_2bis$gdp_per_person ~ countries_cluster_2bis$proportion_animal_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust2)))
+
+
+#cluster 3
+cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_animal_prot)
+
+lm_gdp_pp_prop_animal_prot_clust3 <- lm(countries_cluster_3bis$gdp_per_person ~ countries_cluster_3bis$proportion_animal_prot)
+
+kable(prettify(summary(lm_gdp_pp_prop_animal_prot_clust3)))
+```
+
+For each cluster, the correlation is positive and but still not so strong, and the estimate of the parameter for cluster 2 is significant.
+
+In general, though it seems positive, we cannot conclude that there is a strong link between the wealth of a country and its animal protein consumption.
+
+We will now look in more detail at the relationship of each macronutrient to diabetes, starting with plant protein.
+
+### Diabetes - Plant protein
+
+We saw at the EDA section, that there seemed to be a trend between these 2 variables. The calories consumed from plant protein is increasing as well as the diabtes. To confirm this, we will check the correlation.
+
+```{r}
+#Diabetes - calories
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_plant)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_plant)
+
+
+lm_diam_cal_prot_plant <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_prot_plant)
+lm_diaw_cal_prot_plant <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_prot_plant)
+
+kable(prettify(summary(lm_diam_cal_prot_plant)))
+kable(prettify(summary(lm_diaw_cal_prot_plant)))
+```
+
+As we can see, the correlation is very low and when we try to fit a linear model over these 2 variables, the parameter estimation is not significant at all and the parameters are equal to 0 for both.
+Can we find a better explanation by using the proportion of calories rather than the calorie count of the plant protein consumed ?
+
+```{r}
+#Diabetes - proportion
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_plant_prot)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_plant_prot)
+
+lm_diabm_prop_plant_prot <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_plant_prot)
+lm_diabw_prop_plant_prot <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_plant_prot)
+
+kable(prettify(summary(lm_diabm_prop_plant_prot)))
+kable(prettify(summary(lm_diabw_prop_plant_prot)))
+
+```
+
+As expected the correlation are higher for both gender and the linear regression shows that the plant protein is highly significant for women.
+
+### Typical Diet by Clusters
 
 ```{r}
 #proportion animal protein
@@ -915,7 +952,9 @@ lm_diabetes_women_prop_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diab
 kable(prettify(summary(lm_diabetes_men_prop_fat)))
 kable(prettify(summary(lm_diabetes_women_prop_fat)))
 ```
-All macronutrients except protein are highly significant for women, which confirms our hypothesis that malnutrition has a greater impact on the rate of diabetes in women than in men. 
+All macronutrients except protein are highly significant for women, therefore we make the assumption that malnutrition has a greater impact on the rate of diabetes in women than in men. 
+
+
 
 We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rate for each cluster. To see the patterns of each cluster we will average each cluster. 
 
