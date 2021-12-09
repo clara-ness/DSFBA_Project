@@ -844,7 +844,7 @@ We will now look in more detail at the relationship of each macronutrient with d
 
 ### Diabetes - Animal protein
 
-In the EDA, we observe a decreasing trend for the animal protein related to diabetes. We are going to verify this in the correlation.
+In the EDA, we observe a decreasing trend for the animal protein related to diabetes. The graph below with the proportions give us more or less the same result.
 
 ```{r}
 ggplot(data = GDP_diabetes_cal) +
@@ -857,6 +857,8 @@ ggplot(data = GDP_diabetes_cal) +
   scale_y_continuous(labels = scales::percent)
 ```
 
+At the beginning of this question we saw that the correlation between these 2 variables is negative, but not very strong. This can be confirmed with the results of the linear regression below too.
+
 ```{r}
 #Diabetes - proportion
 lm_diabm_prop_animal_prot <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
@@ -867,7 +869,7 @@ kable(prettify(summary(lm_diabw_prop_animal_prot)))
 
 ```
 
-The trend is verified here with a negative trend for both men women, we can also see that the relationship is stronger for women. The linear regression does not indicate any relation since the parameters are not significant. We will now see if there is a relationship between diabetes and animal protein for each cluster.
+So there is a negative trend for both men and women, but we also observe see that the effect is stronger for women. The linear regression does not indicate any relation since the parameters are not significant. Now let's observe the relationship between diabetes and animal protein within each cluster.
 
 ```{r}
 #cluster 1
@@ -903,12 +905,9 @@ kable(prettify(summary(lm_diabm_prop_animal_prot_clust3)))
 kable(prettify(summary(lm_diabw_prop_animal_prot_clust3)))
 
 ```
-For the first cluster, we would expect to have a positive relationship based on the cluster graph. However, both the correlations and the linear regressions indicate a relationship that is more negative. It is also important to take into account that the regressions are not siginificant and it is therefore hard to draw anything from them. 
+For the first and second cluster, we have a negative relationship which is in line with the cluster graph, even though the correlation is not strong. It is also important to take into account that the regressions are not siginificant and it is therefore hard to draw anything from them. 
 
-Regarding the second cluster, we should expect a negative relationship but it seems to be weak and negative.
-
-For the last cluster, the relationship seems to be more or less high and positive. It is also hard to conclude a relationship for cluster 3 because the regressions are not significant.
-
+Regarding the last cluster, we should expect a negative relationship but it seems to be positive.
 
 ### Diabetes - Plant protein
 
