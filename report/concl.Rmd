@@ -8,4 +8,14 @@ source(here::here("scripts/setup.R"))
 * Limitations
 * Future work?
 
-Oddly enough, it seems that a higher consumption of animal protein could be related to the rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". --> where to add ?
+Even though we tried using multiple methods and metrics like the correlation coefficient, trying to fit linear models and cluster analysis to answer our research questions, we couldn't exactly find a lot of meaningful relationships between our various variables.
+
+Oddly enough, it seems from our results that a higher consumption of animal protein could be related to a lower rate of diabetes, which would be counter-intuitive to M. Adeva-Andany's (2019) article "Dietary habits contribute to define the risk of type 2 diabetes in humans". But then again, our correlations were really not significant.
+
+All macronutrients except protein are highly significant for women, therefore we make the assumption that malnutrition has a greater impact on the rate of diabetes in women than in men.
+
+High GDP countries consume more fat, but have less diabetes and our results suggest that consuming more fat doesnt equal higher diabetes --> good fats, like good cholestrol ? look more into this
+
+Maybe the low diabetes rate in high GDP countries is not about diet but exercise and healthcare, and maybe the relationship is not linear. Also we consider only Europe where economies are not that different after all.
+
+Maybe our cluster number should have been 4, but then we would have the risk of having even smaller samples and less observations which are not good for statistical accuracy

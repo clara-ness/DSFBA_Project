@@ -1556,7 +1556,7 @@ ggplot(data = GDP_diabetes_cal) +
   scale_y_continuous(labels = scales::percent)
 ```
  
- We will now explore their relationship with diabetes by looking at the correlation.
+The correlation coefficients at the beginning of the question also showed us that there's a negative relationship : -0.303 and -0.621 respectively for diabetes rates in men and women, in regards to the proportion of fat consumed. Let's see what happens when we try to fit linear models.
 
 ```{r}
 #Diabetes - proportion
@@ -1567,8 +1567,8 @@ kable(prettify(summary(lm_diabm_prop_fat)))
 kable(prettify(summary(lm_diabw_prop_fat)))
 
 ```
--The correlation is negative for both genders and again the correlation is greater for women than for men. We are now going to see if we can see clearer with the proportions. 
-The correlation with the proportion is more or less the same. The fat is also highly significant for women even though it only adds a little increase to the diabetes rate. We are now going to see the relation with the cluster. 
+ 
+The parameter for fat is highly significant for women even though it only causes a little decrease to the diabetes rate. Are these results replicated in the clusters ? 
 
 ```{r}
 #cluster 1
@@ -1604,51 +1604,16 @@ kable(prettify(summary(lm_diabm_prop_fat_clust3)))
 kable(prettify(summary(lm_diabw_prop_fat_clust3)))
 
 ```
-For the first cluster, we expect to have a positive relationship but the correlations are very weak and it is hard to conclude anything.
-For the second cluster, we should have a rather negative relationship which is the case for women but not for men. 
-For the third cluster, we should have a rather positive relationship which is not the case for the correlations. Moreover, the regressions are not significant so we cannot conclude anything.
+
+By observing the cluster plot, we can say that there's a negative relationship between the proportion of fat consumed and diabetes prevalence within each cluster. In our results however that is not the case for the correlation with the diabetes rate in men for cluster 1 and 2, although they are weak. Otherwise, the results are in line with our expectations, but these are at most moderately strong relationships. Our regression results are also not very significant for every cluster.
+
+Here, even though they are not sufficiently solid enough, we are surprised by our results because fatty foods are not good for diabetes, and our data shows that consuming more fat is not necessarily related to lower diabetes.
 
 ### Typical Diet by Clusters
 
-We will now discuss for each cluster their diet patterns.
+But then what does the typical diet of countries in each cluster look like ? Are these overall compositions what explain the differences in diabetes rates ?
 
-```{r}
-#proportion animal protein
-lm_diabetes_men_prop_prot_animal <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
-lm_diabetes_women_prop_prot_animal <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
-
-kable(prettify(summary(lm_diabetes_men_prop_prot_animal)))
-kable(prettify(summary(lm_diabetes_women_prop_prot_animal)))
-
-
-#proportion plant protein
-lm_diabetes_men_prop_prot_plant <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_plant_prot)
-lm_diabetes_women_prop_prot_plant <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_plant_prot)
-
-kable(prettify(summary(lm_diabetes_men_prop_prot_plant)))
-kable(prettify(summary(lm_diabetes_women_prop_prot_plant)))
-
-
-#proportion carbs
-lm_diabetes_men_prop_carbs <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_carbs)
-lm_diabetes_women_prop_carbs <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_carbs)
-
-kable(prettify(summary(lm_diabetes_men_prop_carbs)))
-kable(prettify(summary(lm_diabetes_women_prop_carbs)))
-
-
-#proportion fat
-lm_diabetes_men_prop_fat <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_fat)
-lm_diabetes_women_prop_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_fat)
-
-kable(prettify(summary(lm_diabetes_men_prop_fat)))
-kable(prettify(summary(lm_diabetes_women_prop_fat)))
-```
-All macronutrients except protein are highly significant for women, therefore we make the assumption that malnutrition has a greater impact on the rate of diabetes in women than in men. 
-
-
-
-We are going to investigate this very issue of calorie consumption patterns that could be related to low diabetes rate for each cluster. To see the patterns of each cluster we will average each cluster. 
+We are going to investigate this very issue of calorie consumption patterns that could be related to the diabetes rate for each cluster. To see these patterns, we will take the average of every macronutrient in each cluster. 
 
 ```{r}
 #means for each cluster
@@ -1697,7 +1662,9 @@ lbls <- paste(lbls,"%",sep="") # ad % to labels
 pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern : Cluster 3")
 ```
 
-There is not much difference between the different patterns for the different clusters. However, it should be noted that carbs represent 53% of the diet of cluster 2 and that this food greatly influences the rate of diabetes, particularly among women.  Indeed, there is a 1% increase in diabetes for every 0.168 carbs consumed on average per capita with a significant p-value at 1%. The proportion of carbs should therefore be reduced to less than half of the total proportion to try to have a negative impact on the diabetes rate.
+There is not much difference between the diets of our different clusters. However, it should be noted that carbs represent 55% of the diet of cluster 2 and this food greatly influences the rate of diabetes, particularly among women.  Indeed, there is a 1% increase in diabetes rate in women for every 0.168 carbs consumed on average per capita with a significant p-value at 1%. The proportion of carbs should therefore be reduced to less than half of the total proportion to try to have a negative impact on the diabetes rate.
 
-Strangely enough, the proportion of fat is lower in cluster 1 (33%) which has the highest diabetes rate which is therefore counter intuitive. But this result is consistent with the negative correlations of fat with diabetes rate calculated above. It is therefore complicated to draw a conclusion regarding the proportion of fat to be consumed to reduce the diabetes rate. Our hypothesis is that even if cluster 1 consumes more fat, it is composed of rich countries that have more prevention measures and certainly better hospital infrastructure.
+Strangely enough, the proportion of fat is also lower in cluster 2 (33%) which is counter intuitive as its average diabetes rates are higher. But this result is consistent with the negative correlations of fat with diabetes rate calculated above. It is therefore complicated to draw a conclusion regarding the proportion of fat to be consumed to reduce the diabetes rate. Our hypothesis is that even if cluster 1 consumes more fat, it is composed of rich countries that have more prevention measures and certainly better hospital infrastructure.
+
+It looks like richer countries in Europe like those of clusters 1 and 3 tend to consume a bit more animal protein and fats, and less rich countries like those of cluster 2 tend to consume more carbs.
 
