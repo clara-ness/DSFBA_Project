@@ -907,11 +907,11 @@ kable(prettify(summary(lm_diabw_prop_animal_prot_clust3)))
 ```
 For the first and second cluster, we have a negative relationship which is in line with the cluster graph, even though the correlation is not strong. It is also important to take into account that the regressions are not siginificant and it is therefore hard to draw anything from them. 
 
-Regarding the last cluster, we should expect a negative relationship but it seems to be positive.
+Regarding the last cluster, we should expect a negative relationship but it seems to be positive. However, this correlation is very weak.
 
 ### Diabetes - Plant protein
 
-We saw at the EDA section, that there seemed to be a trend between these 2 variables. The calories consumed from plant protein is increasing as well as the diabetes. To confirm this, we will check the correlation.
+We saw at the EDA section, that there seemed to be a trend between these 2 variables. The calories consumed from plant protein seemed to increase the diabetes prevalence. As we can see in the graph below, it seems that with proportions, this slope is even more accentuated.
 
 ```{r}
 ggplot(data = GDP_diabetes_cal) +
@@ -924,6 +924,8 @@ ggplot(data = GDP_diabetes_cal) +
   scale_y_continuous(labels = scales::percent)
 ```
 
+We can check if this relationship is significant with a linear regression.
+
 ```{r}
 #Diabetes - proportion
 lm_diabm_prop_plant_prot <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_plant_prot)
@@ -934,10 +936,7 @@ kable(prettify(summary(lm_diabw_prop_plant_prot)))
 
 ```
 
--As we can see, the correlation is very low and when we try to fit a linear model over these 2 variables, the parameter estimation is not significant at all and the parameters are equal to 0 for both.
--Can we find a better explanation by using the proportion of calories rather than the calorie count of the plant protein consumed ?
-As expected the correlation are higher for both gender and the linear regression shows that the plant protein is highly significant for women. 
-We will now look at the relationship of the plant protein to each cluser.
+The parameter is very significant when trying to explain the diabetes rate in women. With correlations at 0.452 and 0.706 respectively, these relationships are also moderately strong. Is it also the case for the clusters ?
 
 ```{r}
 #cluster 1
@@ -972,15 +971,13 @@ kable(prettify(summary(lm_diabm_prop_plant_prot_clust3)))
 kable(prettify(summary(lm_diabw_prop_plant_prot_clust3)))
 
 ```
-For the first cluster, according to the cluster graphs, we would expect to see a rather negative relationship but the correlations show us a rather high correlation for men and even higher for women.
+For all of our clusters, according to the cluster graphs, we were expecting to see a positive relationship and our results mostly corresponded to those expectations. The correlations are quite strong for men and even higher for women in high GDP countries.
 
-The second cluster should show a positive relation but we can see that the correlation are positive for men and negative for women.
-
-Given the output for the third cluster, we cannot conclude anything.
+However in the second cluster, there is a negative correlation between the proportion of plant protein consumed and the diabetes prevalence in men, though not very strong.
 
 ### Diabetes - Carbohydrates
 
-In the EDA part, it seems that carbohydrates have a rather flat trend compared to diabetes. So we will see how they correlate.
+In the EDA, it seems that carbohydrates have a rather flat trend compared to diabetes. Our graph with proportions below however, shows us a positive slope.
 
 ```{r}
 ggplot(data = GDP_diabetes_cal) +
@@ -993,6 +990,8 @@ ggplot(data = GDP_diabetes_cal) +
   scale_y_continuous(labels = scales::percent)
 ```
 
+Indeed, the correlations between the proportion of carbs consumed and diabetes prevalence in men and women were positive, at 0.272 and 0.616 respectively. Let's see the results when we try to fit a linear model.
+
 ```{r}
 #Diabetes - proportion
 lm_diabm_prop_carbs <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_carbs)
@@ -1002,8 +1001,9 @@ kable(prettify(summary(lm_diabm_prop_carbs)))
 kable(prettify(summary(lm_diabw_prop_carbs)))
 
 ```
-- The correlation is quite small for the women and it is positive, whereas the men have also a small correlation but it is negative. We will now see if we can get more information from the proportions.
-The correlation is now higher for both genders and it should be noted that women even have a fairly high correlation (0.616).Moreover, the linear regression for women is significant, so increasing carbohydrates in women would increase their diabetes rate. 
+
+We see that the linear regression for women is very significant, so increasing carbohydrates in a women's diet would increase their diabetes rate. What do our clusters indicate ?
+
 ```{r}
 #cluster 1
 cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_carbs)
@@ -1038,14 +1038,13 @@ kable(prettify(summary(lm_diabm_prop_carbs_clust3)))
 kable(prettify(summary(lm_diabw_prop_carbs_clust3)))
 
 ```
-For the first cluster, one would expect a rather negative relationship but the correlation is weak and positive.
+For all of our clusters, we generally have positive correlations. This is what was expected by observing the cluster plot. Moreover, for the cluster 1 and 2 the correlations are negative in regards to diabetes prevalence in men. However these correlations are not strong at all, and as for our parameter estimations for the linear models we tried to fit over these variables, they are not significant.
 
-For the second cluster, one would expect to have a positive relationship which is the case for men but for women. 
-We cannot conclude anything unfortunately for the 3rd cluster even if we will expect to have a rather negative relationship. 
+Bur the positive trend between the consumption of carbs and diabetes prevalence is what makes the most sense to us so far, as foods that contain carbs like fast food etc tend to be bad for diabetes.
 
 ### Diabetes - Fats
 
-In the EDA part, the fats have a rather downward trend. We will now explore their relationship with diabetes by looking at the correlation.
+In the EDA part, the fats have a rather downward trend. Below, we have more or less the same graph with the proportions.
 
 ```{r}
 ggplot(data = GDP_diabetes_cal) +
@@ -1057,6 +1056,8 @@ ggplot(data = GDP_diabetes_cal) +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
+ 
+ We will now explore their relationship with diabetes by looking at the correlation.
 
 ```{r}
 #Diabetes - proportion
