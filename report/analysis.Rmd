@@ -798,7 +798,27 @@ In general, even though it seems positive, we cannot confidently say that there 
 
 ## 4.How do these differences in macronutrients relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
 
-What we observed in the EDA seemed to not make sense as we were expecting a positive relationship between the total calories/calories consumed from fat and diabetes prevalence in a country. Let's see now concretely if there is any correlation between the calories consumed from different macronutrients and the diabetes rate.
+What we observed in the EDA seemed to not make sense to us as we were expecting a positive relationship between the total calories/calories consumed from fat and diabetes prevalence in a country. Let's see now concretely if there is any correlation between the calories consumed from different macronutrients and the diabetes rate.
+
+```{r}
+#calories animal protein
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal)
+
+#calories plant protein
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_plant)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_plant)
+
+#calories carbs
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs)
+
+#calories fat
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)
+```
+
+But we also saw in the previous question that taking into account the proportions rather than the calorie count for the macronutrients gave us better results. Let's see if the correlation with diabetes prevalence improves too.
 
 ```{r}
 #proportion animal protein
@@ -818,30 +838,27 @@ cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat)
 cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)
 ```
 
-We will now look in more detail at the relationship of each macronutrient to diabetes, starting with animal protein.
+It does ! So to answer this question, we will rather work with the variables related to the proportions of the different macronutrients consumed than the exact calories consumed.
+
+We will now look in more detail at the relationship of each macronutrient with diabetes prevalence, starting with animal protein.
 
 ### Diabetes - Animal protein
 
-In the EDA, we observe a decreasing trend for the animal protein related to diabetes. We are going to verify this in the correlation. 
+In the EDA, we observe a decreasing trend for the animal protein related to diabetes. We are going to verify this in the correlation.
+
 ```{r}
-#Diabetes - calories
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal)
-
-lm_diabm_cal_prot_animal <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_prot_animal)
-lm_diabw_cal_prot_animal <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_prot_animal)
-
-kable(prettify(summary(lm_diabm_cal_prot_animal)))
-kable(prettify(summary(lm_diabw_cal_prot_animal)))
-
+ggplot(data = GDP_diabetes_cal) +
+  geom_point(mapping = aes(x = proportion_animal_prot, y = prop_men_diabetes, color = "blue")) +
+  geom_smooth(mapping = aes(x = proportion_animal_prot, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
+  geom_point(mapping = aes(x = proportion_animal_prot, y = prop_women_diabetes, color = "red")) +
+  geom_smooth(mapping = aes(x = proportion_animal_prot, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
+  labs(title="Diabetes rate vs Proportion of animal protein consumed", x="Proportion", y="Diabetes rate") +
+  scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
+  scale_y_continuous(labels = scales::percent)
 ```
-The trend is verify here with a negative trend for both men women, we can also see that the correlation is higher for women. The linear regression does not indicate any relation, so we will try to use the proportion of animal protein. 
 
 ```{r}
 #Diabetes - proportion
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_animal_prot)
-
 lm_diabm_prop_animal_prot <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
 lm_diabw_prop_animal_prot <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
 
@@ -849,7 +866,8 @@ kable(prettify(summary(lm_diabm_prop_animal_prot)))
 kable(prettify(summary(lm_diabw_prop_animal_prot)))
 
 ```
-The correlation is now higher for men. Linear regressions are not significant. We will now see if there is a relationship between diabetes and animal protein for each cluster.
+
+The trend is verified here with a negative trend for both men women, we can also see that the relationship is stronger for women. The linear regression does not indicate any relation since the parameters are not significant. We will now see if there is a relationship between diabetes and animal protein for each cluster.
 
 ```{r}
 #cluster 1
@@ -897,26 +915,18 @@ For the last cluster, the relationship seems to be more or less high and positiv
 We saw at the EDA section, that there seemed to be a trend between these 2 variables. The calories consumed from plant protein is increasing as well as the diabetes. To confirm this, we will check the correlation.
 
 ```{r}
-#Diabetes - calories
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_plant)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_plant)
-
-
-lm_diam_cal_prot_plant <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_prot_plant)
-lm_diaw_cal_prot_plant <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_prot_plant)
-
-kable(prettify(summary(lm_diam_cal_prot_plant)))
-kable(prettify(summary(lm_diaw_cal_prot_plant)))
+ggplot(data = GDP_diabetes_cal) +
+  geom_point(mapping = aes(x = proportion_plant_prot, y = prop_men_diabetes, color = "blue")) +
+  geom_smooth(mapping = aes(x = proportion_plant_prot, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
+  geom_point(mapping = aes(x = proportion_plant_prot, y = prop_women_diabetes, color = "red")) +
+  geom_smooth(mapping = aes(x = proportion_plant_prot, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
+  labs(title="Diabetes rate vs Proportion of plant protein consumed", x="Proportion", y="Diabetes rate") +
+  scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
+  scale_y_continuous(labels = scales::percent)
 ```
-
-As we can see, the correlation is very low and when we try to fit a linear model over these 2 variables, the parameter estimation is not significant at all and the parameters are equal to 0 for both.
-Can we find a better explanation by using the proportion of calories rather than the calorie count of the plant protein consumed ?
 
 ```{r}
 #Diabetes - proportion
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_plant_prot)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_plant_prot)
-
 lm_diabm_prop_plant_prot <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_plant_prot)
 lm_diabw_prop_plant_prot <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_plant_prot)
 
@@ -925,8 +935,11 @@ kable(prettify(summary(lm_diabw_prop_plant_prot)))
 
 ```
 
+-As we can see, the correlation is very low and when we try to fit a linear model over these 2 variables, the parameter estimation is not significant at all and the parameters are equal to 0 for both.
+-Can we find a better explanation by using the proportion of calories rather than the calorie count of the plant protein consumed ?
 As expected the correlation are higher for both gender and the linear regression shows that the plant protein is highly significant for women. 
 We will now look at the relationship of the plant protein to each cluser.
+
 ```{r}
 #cluster 1
 cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_plant_prot)
@@ -967,26 +980,22 @@ The second cluster should show a positive relation but we can see that the corre
 Given the output for the third cluster, we cannot conclude anything.
 
 ### Diabetes - Carbohydrates
-In the eda part, it seems that carbohydrates have a rather flat trend compared to diabetes. So we will see how they correlate.
+
+In the EDA part, it seems that carbohydrates have a rather flat trend compared to diabetes. So we will see how they correlate.
+
 ```{r}
-#Diabetes - calories
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs)
-
-lm_diabm_cal_carbs <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_carbs)
-lm_diabw_cal_carbs <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_carbs)
-
-kable(prettify(summary(lm_diabm_cal_carbs)))
-kable(prettify(summary(lm_diabm_cal_carbs)))
-
+ggplot(data = GDP_diabetes_cal) +
+  geom_point(mapping = aes(x = proportion_carbs, y = prop_men_diabetes, color = "blue")) +
+  geom_smooth(mapping = aes(x = proportion_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
+  geom_point(mapping = aes(x = proportion_carbs, y = prop_women_diabetes, color = "red")) +
+  geom_smooth(mapping = aes(x = proportion_carbs, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
+  labs(title="Diabetes rate vs Proportion of carbs consumed", x="Proportion", y="Diabetes rate") +
+  scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
+  scale_y_continuous(labels = scales::percent)
 ```
-The correlation is quite small for the women and it is positive, whereas the men have also a small correlation but it is negative. We will now see if we can get more information from the proportions.
 
 ```{r}
 #Diabetes - proportion
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_carbs)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_carbs)
-
 lm_diabm_prop_carbs <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_carbs)
 lm_diabw_prop_carbs <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_carbs)
 
@@ -994,6 +1003,7 @@ kable(prettify(summary(lm_diabm_prop_carbs)))
 kable(prettify(summary(lm_diabw_prop_carbs)))
 
 ```
+- The correlation is quite small for the women and it is positive, whereas the men have also a small correlation but it is negative. We will now see if we can get more information from the proportions.
 The correlation is now higher for both genders and it should be noted that women even have a fairly high correlation (0.616).Moreover, the linear regression for women is significant, so increasing carbohydrates in women would increase their diabetes rate. 
 ```{r}
 #cluster 1
@@ -1035,26 +1045,22 @@ For the second cluster, one would expect to have a positive relationship which i
 We cannot conclude anything unfortunately for the 3rd cluster even if we will expect to have a rather negative relationship. 
 
 ### Diabetes - Fats
+
 In the EDA part, the fats have a rather downward trend. We will now explore their relationship with diabetes by looking at the correlation.
 
 ```{r}
-#Diabetes - calories
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)
-
-lm_diabm_cal_fat <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_fat)
-lm_diabw_cal_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_fat)
-
-kable(prettify(summary(lm_diabm_cal_fat)))
-kable(prettify(summary(lm_diabw_cal_fat)))
-
+ggplot(data = GDP_diabetes_cal) +
+  geom_point(mapping = aes(x = proportion_fat, y = prop_men_diabetes, color = "blue")) +
+  geom_smooth(mapping = aes(x = proportion_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
+  geom_point(mapping = aes(x = proportion_fat, y = prop_women_diabetes, color = "red")) +
+  geom_smooth(mapping = aes(x = proportion_fat, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
+  labs(title="Diabetes rate vs Proportion of fat consumed", x="Proportion", y="Diabetes rate") +
+  scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
+  scale_y_continuous(labels = scales::percent)
 ```
-The correlation is negative for both genders and again the correlation is greater for women than for men. We are now going to see if we can see clearer with the proportions. 
+
 ```{r}
 #Diabetes - proportion
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)
-
 lm_diabm_prop_fat <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_fat)
 lm_diabw_prop_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_fat)
 
@@ -1062,6 +1068,7 @@ kable(prettify(summary(lm_diabm_prop_fat)))
 kable(prettify(summary(lm_diabw_prop_fat)))
 
 ```
+-The correlation is negative for both genders and again the correlation is greater for women than for men. We are now going to see if we can see clearer with the proportions. 
 The correlation with the proportion is more or less the same. The fat is also highly significant for women even though it only adds a little increase to the diabetes rate. We are now going to see the relation with the cluster. 
 
 ```{r}
@@ -1103,7 +1110,9 @@ For the second cluster, we should have a rather negative relationship which is t
 For the third cluster, we should have a rather positive relationship which is not the case for the correlations. Moreover, the regressions are not significant so we cannot conclude anything.
 
 ### Typical Diet by Clusters
-We will now discuss for each cluster their diet patterns. 
+
+We will now discuss for each cluster their diet patterns.
+
 ```{r}
 #proportion animal protein
 lm_diabetes_men_prop_prot_animal <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
