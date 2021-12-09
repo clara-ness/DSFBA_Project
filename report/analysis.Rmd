@@ -817,22 +817,14 @@ cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_carbs)
 cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat)
 cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)
 ```
-```{r}
-#Average GDP - calories
-cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)
-
-lm_gdp_cal_prot_animal <- lm(GDP_diabetes_cal$avg_gdp ~ GDP_diabetes_cal$cal_prot_animal)
-
-kable(prettify(summary(lm_gdp_cal_prot_animal)))
-```
 
 We will now look in more detail at the relationship of each macronutrient to diabetes, starting with animal protein.
 
 ### Diabetes - Animal protein
 
-
+In the EDA, we observe a decreasing trend for the animal protein related to diabetes. We are going to verify this in the correlation. 
 ```{r}
-#Average GDP - calories
+#Diabetes - calories
 cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal)
 cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal)
 
@@ -843,7 +835,7 @@ kable(prettify(summary(lm_diabm_cal_prot_animal)))
 kable(prettify(summary(lm_diabw_cal_prot_animal)))
 
 ```
-
+The trend is verify here with a negative trend for both men women, we can also see that the correlation is higher for women. The linear regression does not indicate any relation, so we will try to use the proportion of animal protein. 
 
 ```{r}
 #Diabetes - proportion
@@ -857,8 +849,7 @@ kable(prettify(summary(lm_diabm_prop_animal_prot)))
 kable(prettify(summary(lm_diabw_prop_animal_prot)))
 
 ```
-
-
+The correlation is now higher for men. Linear regressions are not significant. We will now see if there is a relationship between diabetes and animal protein for each cluster.
 
 ```{r}
 #cluster 1
@@ -894,11 +885,16 @@ kable(prettify(summary(lm_diabm_prop_animal_prot_clust3)))
 kable(prettify(summary(lm_diabw_prop_animal_prot_clust3)))
 
 ```
+For the first cluster, we would expect to have a positive relationship based on the cluster graph. However, both the correlations and the linear regressions indicate a relationship that is more negative. It is also important to take into account that the regressions are not siginificant and it is therefore hard to draw anything from them. 
+
+Regarding the second cluster, we should expect a negative relationship but it seems to be weak and negative.
+
+For the last cluster, the relationship seems to be more or less high and positive. It is also hard to conclude a relationship for cluster 3 because the regressions are not significant.
 
 
 ### Diabetes - Plant protein
 
-We saw at the EDA section, that there seemed to be a trend between these 2 variables. The calories consumed from plant protein is increasing as well as the diabtes. To confirm this, we will check the correlation.
+We saw at the EDA section, that there seemed to be a trend between these 2 variables. The calories consumed from plant protein is increasing as well as the diabetes. To confirm this, we will check the correlation.
 
 ```{r}
 #Diabetes - calories
@@ -929,17 +925,15 @@ kable(prettify(summary(lm_diabw_prop_plant_prot)))
 
 ```
 
-As expected the correlation are higher for both gender and the linear regression shows that the plant protein is highly significant for women.
-
-##### Change this!The cluster plot above indicates that in countries with higher GDPs like in cluster 1 and 3, the proportions of calories consumed from plant protein are lower than in countries with lower GDPs. Let's see if we can confirm these observations and see if these relationships are strong enough within each cluster.
-
+As expected the correlation are higher for both gender and the linear regression shows that the plant protein is highly significant for women. 
+We will now look at the relationship of the plant protein to each cluser.
 ```{r}
 #cluster 1
-cor(countries_cluster_1bi$prop_men_diabetes, countries_cluster_1bis$proportion_plant_prot)
-cor(countries_cluster_1bi$prop_women_diabetes, countries_cluster_1bis$proportion_plant_prot)
+cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_plant_prot)
+cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_plant_prot)
 
-lm_diabm_prop_plant_prot_clust1 <- lm(countries_cluster_1bi$prop_men_diabetes ~ countries_cluster_1bis$proportion_plant_prot)
-lm_diabw_prop_plant_prot_clust1 <- lm(countries_cluster_1bi$prop_women_diabetes ~ countries_cluster_1bis$proportion_plant_prot)
+lm_diabm_prop_plant_prot_clust1 <- lm(countries_cluster_1bis$prop_men_diabetes ~ countries_cluster_1bis$proportion_plant_prot)
+lm_diabw_prop_plant_prot_clust1 <- lm(countries_cluster_1bis$prop_women_diabetes ~ countries_cluster_1bis$proportion_plant_prot)
 
 kable(prettify(summary(lm_diabm_prop_plant_prot_clust1)))
 kable(prettify(summary(lm_diabw_prop_plant_prot_clust1)))
@@ -966,11 +960,150 @@ kable(prettify(summary(lm_diabm_prop_plant_prot_clust3)))
 kable(prettify(summary(lm_diabw_prop_plant_prot_clust3)))
 
 ```
-#comment 
+For the first cluster, according to the cluster graphs, we would expect to see a rather negative relationship but the correlations show us a rather high correlation for men and even higher for women.
 
+The second cluster should show a positive relation but we can see that the correlation are positive for men and negative for women.
+
+Given the output for the third cluster, we cannot conclude anything.
+
+### Diabetes - Carbohydrates
+In the eda part, it seems that carbohydrates have a rather flat trend compared to diabetes. So we will see how they correlate.
+```{r}
+#Diabetes - calories
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs)
+
+lm_diabm_cal_carbs <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_carbs)
+lm_diabw_cal_carbs <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_carbs)
+
+kable(prettify(summary(lm_diabm_cal_carbs)))
+kable(prettify(summary(lm_diabm_cal_carbs)))
+
+```
+The correlation is quite small for the women and it is positive, whereas the men have also a small correlation but it is negative. We will now see if we can get more information from the proportions.
+
+```{r}
+#Diabetes - proportion
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_carbs)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_carbs)
+
+lm_diabm_prop_carbs <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_carbs)
+lm_diabw_prop_carbs <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_carbs)
+
+kable(prettify(summary(lm_diabm_prop_carbs)))
+kable(prettify(summary(lm_diabw_prop_carbs)))
+
+```
+The correlation is now higher for both genders and it should be noted that women even have a fairly high correlation (0.616).Moreover, the linear regression for women is significant, so increasing carbohydrates in women would increase their diabetes rate. 
+```{r}
+#cluster 1
+cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_carbs)
+cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_carbs)
+
+lm_diabm_prop_carbs_clust1 <- lm(countries_cluster_1bis$prop_men_diabetes ~ countries_cluster_1bis$proportion_carbs)
+lm_diabw_prop_carbs_clust1 <- lm(countries_cluster_1bis$prop_women_diabetes ~ countries_cluster_1bis$proportion_carbs)
+
+kable(prettify(summary(lm_diabm_prop_carbs_clust1)))
+kable(prettify(summary(lm_diabw_prop_carbs_clust1)))
+
+
+#cluster 2
+cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_carbs)
+cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_carbs)
+
+lm_diabm_prop_carbs_clust2 <- lm(countries_cluster_2bis$prop_men_diabetes ~ countries_cluster_2bis$proportion_carbs)
+lm_diabw_prop_carbs_clust2 <- lm(countries_cluster_2bis$prop_women_diabetes ~ countries_cluster_2bis$proportion_carbs)
+
+kable(prettify(summary(lm_diabm_prop_carbs_clust2)))
+kable(prettify(summary(lm_diabw_prop_carbs_clust2)))
+
+
+#cluster 3
+cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_carbs)
+cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_carbs)
+
+lm_diabm_prop_carbs_clust3 <- lm(countries_cluster_3bis$prop_men_diabetes ~ countries_cluster_3bis$proportion_carbs)
+lm_diabw_prop_carbs_clust3 <- lm(countries_cluster_3bis$prop_women_diabetes ~ countries_cluster_3bis$proportion_carbs)
+
+kable(prettify(summary(lm_diabm_prop_carbs_clust3)))
+kable(prettify(summary(lm_diabw_prop_carbs_clust3)))
+
+```
+For the first cluster, one would expect a rather negative relationship but the correlation is weak and positive.
+
+For the second cluster, one would expect to have a positive relationship which is the case for men but for women. 
+We cannot conclude anything unfortunately for the 3rd cluster even if we will expect to have a rather negative relationship. 
+
+### Diabetes - Fats
+In the EDA part, the fats have a rather downward trend. We will now explore their relationship with diabetes by looking at the correlation.
+
+```{r}
+#Diabetes - calories
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)
+
+lm_diabm_cal_fat <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$cal_fat)
+lm_diabw_cal_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$cal_fat)
+
+kable(prettify(summary(lm_diabm_cal_fat)))
+kable(prettify(summary(lm_diabw_cal_fat)))
+
+```
+The correlation is negative for both genders and again the correlation is greater for women than for men. We are now going to see if we can see clearer with the proportions. 
+```{r}
+#Diabetes - proportion
+cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat)
+cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)
+
+lm_diabm_prop_fat <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_fat)
+lm_diabw_prop_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_fat)
+
+kable(prettify(summary(lm_diabm_prop_fat)))
+kable(prettify(summary(lm_diabw_prop_fat)))
+
+```
+The correlation with the proportion is more or less the same. The fat is also highly significant for women even though it only adds a little increase to the diabetes rate. We are now going to see the relation with the cluster. 
+
+```{r}
+#cluster 1
+cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_fat)
+cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_fat)
+
+lm_diabm_fat_clust1 <- lm(countries_cluster_1bis$prop_men_diabetes ~ countries_cluster_1bis$proportion_fat)
+lm_diabw_prop_fat_clust1 <- lm(countries_cluster_1bis$prop_women_diabetes ~ countries_cluster_1bis$proportion_fat)
+
+kable(prettify(summary(lm_diabm_fat_clust1)))
+kable(prettify(summary(lm_diabw_prop_fat_clust1)))
+
+
+#cluster 2
+cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_fat)
+cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_fat)
+
+lm_diabm_prop_fat_clust2 <- lm(countries_cluster_2bis$prop_men_diabetes ~ countries_cluster_2bis$proportion_fat)
+lm_diabw_prop_fat_clust2 <- lm(countries_cluster_2bis$prop_women_diabetes ~ countries_cluster_2bis$proportion_fat)
+
+kable(prettify(summary(lm_diabm_prop_fat_clust2)))
+kable(prettify(summary(lm_diabw_prop_fat_clust2)))
+
+
+#cluster 3
+cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_fat)
+cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_fat)
+
+lm_diabm_prop_fat_clust3 <- lm(countries_cluster_3bis$prop_men_diabetes ~ countries_cluster_3bis$proportion_fat)
+lm_diabw_prop_fat_clust3 <- lm(countries_cluster_3bis$prop_women_diabetes ~ countries_cluster_3bis$proportion_fat)
+
+kable(prettify(summary(lm_diabm_prop_fat_clust3)))
+kable(prettify(summary(lm_diabw_prop_fat_clust3)))
+
+```
+For the first cluster, we expect to have a positive relationship but the correlations are very weak and it is hard to conclude anything.
+For the second cluster, we should have a rather negative relationship which is the case for women but not for men. 
+For the third cluster, we should have a rather positive relationship which is not the case for the correlations. Moreover, the regressions are not significant so we cannot conclude anything.
 
 ### Typical Diet by Clusters
-
+We will now discuss for each cluster their diet patterns. 
 ```{r}
 #proportion animal protein
 lm_diabetes_men_prop_prot_animal <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
@@ -1059,3 +1192,4 @@ pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern :
 There is not much difference between the different patterns for the different clusters. However, it should be noted that carbs represent 53% of the diet of cluster 2 and that this food greatly influences the rate of diabetes, particularly among women.  Indeed, there is a 1% increase in diabetes for every 0.168 carbs consumed on average per capita with a significant p-value at 1%. The proportion of carbs should therefore be reduced to less than half of the total proportion to try to have a negative impact on the diabetes rate.
 
 Strangely enough, the proportion of fat is lower in cluster 1 (33%) which has the highest diabetes rate which is therefore counter intuitive. But this result is consistent with the negative correlations of fat with diabetes rate calculated above. It is therefore complicated to draw a conclusion regarding the proportion of fat to be consumed to reduce the diabetes rate. Our hypothesis is that even if cluster 1 consumes more fat, it is composed of rich countries that have more prevention measures and certainly better hospital infrastructure.
+
