@@ -16,10 +16,10 @@ It is important to note that, when we try to fit a linear model on these variabl
 
 c0 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes), cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)))
 
-rownames(c0) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
+rownames(c0) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c0,
-   caption = "**Correlation with outliers",
+   caption = "**Correlation (with outliers)",
    align = c('cccccc')) %>%
    kable_classic( full_width = T, html_font = "Cambria") %>%
    kable_styling(position = "left", bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -33,7 +33,7 @@ lm_gdp_diabetes_men <- lm(avg_gdp ~ prop_men_diabetes, data = GDP_diabetes_cal)
 
 tab_model(
   lm_gdp_diabetes_women, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Women diabetes"),
+  dv.labels = c("Average GDP vs Women diabetes rate"),
   CSS = list(
     css.width = '800px',
     css.centeralign = 'text-align: left;', 
@@ -46,7 +46,7 @@ tab_model(
 ```{r}
 tab_model(
   lm_gdp_diabetes_men, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Men diabetes"),
+  dv.labels = c("Average GDP vs Men diabetes rate"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -67,10 +67,10 @@ However, once we exclude outliers, we see that the relationship is way more sign
 
 c_out <- matrix(c(cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes), cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)))
 
-rownames(c_out) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
+rownames(c_out) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c_out,
-   caption = "**Correlation without outliers",
+   caption = "**Correlation (without outliers)",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -84,7 +84,7 @@ lm_gdp_diabetes_men2 <- lm(avg_gdp ~ prop_men_diabetes, data = GDP_diabetes_cal2
 
 tab_model(
   lm_gdp_diabetes_women2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Women diabetes </n> (without outliers"),
+  dv.labels = c("Average GDP vs Women diabetes rate </n> (without outliers"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -97,7 +97,7 @@ tab_model(
 ```{r}
 tab_model(
   lm_gdp_diabetes_men2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Men diabetes </n> (without outliers"),
+  dv.labels = c("Average GDP vs Men diabetes rate </n> (without outliers"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -184,7 +184,7 @@ We can therefore see that diabetes is indeed lower in clusters which contain the
 
 c1 <- matrix(c(cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes), cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_men_diabetes)))
 
-rownames(c1) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
+rownames(c1) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c1,
    caption = "**Correlation for cluster 1",
@@ -199,7 +199,7 @@ lm_gdp_diabetes_men_clust1 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_c
 
 tab_model(
   lm_gdp_diabetes_women_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Women diabetes (cluster 1)"),
+  dv.labels = c("Average GDP vs Women diabetes rate (cluster 1)"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -212,7 +212,7 @@ tab_model(
 ```{r}
 tab_model(
   lm_gdp_diabetes_men_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Men diabetes (cluster 1)"),
+  dv.labels = c("Average GDP vs Men diabetes rate (cluster 1)"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -224,7 +224,7 @@ tab_model(
 
 c2 <- matrix(c(cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_diabetes), cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_men_diabetes)))
 
-rownames(c2) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
+rownames(c2) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c2,
    caption = "**Correlation for cluster 2",
@@ -239,7 +239,7 @@ lm_gdp_diabetes_men_clust2 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_c
 
 tab_model(
   lm_gdp_diabetes_women_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Women diabetes (cluster 2)"),
+  dv.labels = c("Average GDP vs Women diabetes (cluster 2)"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -252,7 +252,7 @@ tab_model(
 ```{r}
 tab_model(
   lm_gdp_diabetes_men_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Men diabetes (cluster 2)"),
+  dv.labels = c("Average GDP vs Men diabetes (cluster 2)"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -264,7 +264,7 @@ tab_model(
 #cluster 3
 c3 <- matrix(c(cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_diabetes), cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_men_diabetes)))
 
-rownames(c3) <- c("Between avg_gdp and women diabetes", "Between avg_gdp and men diabetes")
+rownames(c3) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c3,
    caption = "**Correlation for cluster 3",
@@ -279,7 +279,7 @@ lm_gdp_diabetes_men_clust3 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_c
 
 tab_model(
   lm_gdp_diabetes_women_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Women diabetes (cluster 3)"),
+  dv.labels = c("Average GDP vs Women diabetes (cluster 3)"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -293,7 +293,7 @@ tab_model(
 ```{r, warning=FALSE}
 tab_model(
   lm_gdp_diabetes_men_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Diabetes vs Men diabetes (cluster 3)"),
+  dv.labels = c("Average GDP vs Men diabetes (cluster 3)"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -391,7 +391,7 @@ But is there a real correlation between these two variables ? Let's check :
 ```{r}
 c4 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption)))
 
-rownames(c4) <- c("Between avg_gdp and total calories")
+rownames(c4) <- c("Between average GDP and total calories")
 
 kbl(c4,
    caption = "**Correlation",
@@ -427,7 +427,7 @@ The plot looks more or less the same as the one in the EDA section without the o
 ```{r}
 c5 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$total_consumption)))
 
-rownames(c5) <- c("Between avg_gdp per person and total calories")
+rownames(c5) <- c("Between GDP per person and total calories")
 
 kbl(c5,
    caption = "**Correlation",
@@ -459,7 +459,7 @@ Next we can proceed with an analysis within clusters, with the ones defined in t
 
 c6 <- matrix(c(cor(countries_cluster_1$gdp_per_person, countries_cluster_1$total_consumption)))
 
-rownames(c6) <- c("Between avg_gdp per person and total calories")
+rownames(c6) <- c("Between GDP per person and total calories")
 
 kbl(c6,
    caption = "**Correlation for cluster 1",
@@ -484,7 +484,7 @@ tab_model(
 
 c7 <- matrix(c(cor(countries_cluster_2$gdp_per_person, countries_cluster_2$total_consumption)))
 
-rownames(c7) <- c("Between avg_gdp per person and total calories")
+rownames(c7) <- c("Between GDP per person and total calories")
 
 kbl(c7,
    caption = "**Correlation for cluster 2",
@@ -509,7 +509,7 @@ tab_model(
 
 c8 <- matrix(c(cor(countries_cluster_3$gdp_per_person, countries_cluster_3$total_consumption)))
 
-rownames(c8) <- c("Between avg_gdp per person and total calories")
+rownames(c8) <- c("Between GDP per person and total calories")
 
 kbl(c8,
    caption = "**Correlation for cluster 3",
