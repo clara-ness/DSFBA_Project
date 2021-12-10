@@ -1301,42 +1301,118 @@ What we observed in the EDA seemed to not make sense to us as we were expecting 
 
 ```{r}
 #calories animal protein
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal)
 
+c33 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal)))
+
+rownames(c33) <- c("Between diabetes rate for men and calories from animal protein","Between diabetes rate for women and calories from animal protein" )
+
+kbl(c33,
+   caption = "**Correlation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+```
+<br>
+```{r}
 #calories plant protein
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_plant)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_plant)
 
+c34 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_plant),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_plant)))
+
+rownames(c34) <- c("Between diabetes rate for men and calories from plant protein","Between diabetes rate for women and calories from plant protein" )
+
+kbl(c34,
+   caption = "**Correlation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+```
+<br>
+```{r}
 #calories carbs
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs)
 
+c35 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs)))
+
+rownames(c35) <- c("Between diabetes rate for men and calories from carbs","Between diabetes rate for women and calories from carbs" )
+
+kbl(c35,
+   caption = "**Correlation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+```
+<br>
+```{r}
 #calories fat
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)
+
+c36 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)))
+
+rownames(c36) <- c("Between diabetes rate for men and calories from fat","Between diabetes rate for women and calories from fat" )
+
+kbl(c36,
+   caption = "**Correlation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 ```
 
 But we also saw in the previous question that taking into account the proportions rather than the calorie count for the macronutrients gave us better results. Let's see if the correlation with diabetes prevalence improves too.
 
 ```{r}
-#proportion animal protein
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_animal_prot)
+#proportion calories animal protein
 
-#proportion plant protein
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_plant_prot)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_plant_prot)
+c37 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_animal_prot)))
 
-#proportion carbs
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_carbs)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_carbs)
+rownames(c37) <- c("Between diabetes rate for men and proportion of calories from animal protein","Between diabetes rate for women and proportion of calories from animal protein" )
 
-#proportion fat
-cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat)
-cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)
+kbl(c37,
+   caption = "**Correlation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 ```
+<br>
+```{r}
+#proportion calories plant protein
 
+c38 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_plant_prot),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_plant_prot)))
+
+rownames(c38) <- c("Between diabetes rate for men and proportion of calories from plant protein","Between diabetes rate for women and proportion of calories from plant protein" )
+
+kbl(c38,
+   caption = "**Correlation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+```
+<br>
+```{r}
+#proportion calories carbs
+
+c39 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_carbs),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_carbs)))
+
+rownames(c39) <- c("Between diabetes rate for men and proportion of calories from carbs","Between diabetes rate for women and proportion of calories from carbs" )
+
+kbl(c39,
+   caption = "**Correlation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+```
+<br>
+```{r}
+#proportion calories fat
+
+c40 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)))
+
+rownames(c40) <- c("Between diabetes rate for men and proportion of calories from fat","Between diabetes rate for women and proportion of calories from fat" )
+
+kbl(c40,
+   caption = "**Correlation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+```
+<br>
 It does ! So to answer this question, we will rather work with the variables related to the proportions of the different macronutrients consumed than the exact calories consumed.
 
 We will now look in more detail at the relationship of each macronutrient with diabetes prevalence, starting with animal protein.
@@ -1360,28 +1436,73 @@ At the beginning of this question we saw that the correlation between these 2 va
 
 ```{r}
 #Diabetes - proportion
-lm_diabm_prop_animal_prot <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
-lm_diabw_prop_animal_prot <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_animal_prot)
+lm_diabm_prop_animal_prot <- lm(prop_men_diabetes ~ proportion_animal_prot, data = GDP_diabetes_cal)
 
-kable(prettify(summary(lm_diabm_prop_animal_prot)))
-kable(prettify(summary(lm_diabw_prop_animal_prot)))
+tab_model(
+  lm_diabm_prop_animal_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between avg_gdp and calories from fat"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 
+lm_diabw_prop_animal_prot <- lm(prop_women_diabetes ~ proportion_animal_prot, data = GDP_diabetes_cal)
+
+tab_model(
+  lm_diabw_prop_animal_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between avg_gdp and calories from fat"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 ```
 
 So there is a negative trend for both men and women, but we also observe see that the effect is stronger for women. The linear regression does not indicate any relation since the parameters are not significant. Now let's observe the relationship between diabetes and animal protein within each cluster.
 
 ```{r}
 #cluster 1
-cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_animal_prot)
-cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_animal_prot)
 
-lm_diabm_prop_animal_prot_clust1 <- lm(countries_cluster_1bis$prop_men_diabetes ~ countries_cluster_1bis$proportion_animal_prot)
-lm_diabw_prop_animal_prot_clust1 <- lm(countries_cluster_1bis$prop_men_diabetes ~ countries_cluster_1bis$proportion_animal_prot)
+c50 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_animal_prot),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_animal_prot)))
 
-kable(prettify(summary(lm_diabm_prop_animal_prot_clust1)))
-kable(prettify(summary(lm_diabw_prop_animal_prot_clust1)))
+rownames(c50) <- c("Between men diabetes rate and calories from animal protein", "Between women diabetes rate and calories from animal protein")
 
+kbl(c50,
+   caption = "**Correlation",
+   align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
 
+lm_diabm_prop_animal_prot_clust1 <- lm(prop_men_diabetes ~ proportion_animal_prot, data = countries_cluster_1bis)
+
+tab_model(
+  lm_diabm_prop_animal_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between men diabetes rate and calories from animal protein"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
+
+lm_diabw_prop_animal_prot_clust1 <- lm(prop_women_diabetes ~ proportion_animal_prot, data = countries_cluster_1bis)
+
+tab_model(
+  lm_diabw_prop_animal_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between women diabetes rate and calories from animal protein"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 #cluster 2
 cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_animal_prot)
 cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_animal_prot)
@@ -1427,12 +1548,31 @@ We can check if this relationship is significant with a linear regression.
 
 ```{r}
 #Diabetes - proportion
-lm_diabm_prop_plant_prot <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_plant_prot)
-lm_diabw_prop_plant_prot <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_plant_prot)
+lm_diabm_prop_plant_prot <- lm(prop_men_diabetes ~ proportion_plant_prot, data = GDP_diabetes_cal)
 
-kable(prettify(summary(lm_diabm_prop_plant_prot)))
-kable(prettify(summary(lm_diabw_prop_plant_prot)))
+tab_model(
+  lm_diabm_prop_plant_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between avg_gdp and calories from plant protein"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 
+lm_diabw_prop_plant_prot <- lm(prop_women_diabetes ~ proportion_plant_prot, data = GDP_diabetes_cal)
+
+tab_model(
+  lm_diabw_prop_plant_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between avg_gdp and calories from plant protein"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 ```
 
 The parameter is very significant when trying to explain the diabetes rate in women. With correlations at 0.452 and 0.706 respectively, these relationships are also moderately strong. Is it also the case for the clusters ?
@@ -1493,12 +1633,31 @@ Indeed, the correlations between the proportion of carbs consumed and diabetes p
 
 ```{r}
 #Diabetes - proportion
-lm_diabm_prop_carbs <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_carbs)
-lm_diabw_prop_carbs <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_carbs)
+lm_diabm_prop_carbs <- lm(prop_men_diabetes ~ proportion_carbs, data = GDP_diabetes_cal)
 
-kable(prettify(summary(lm_diabm_prop_carbs)))
-kable(prettify(summary(lm_diabw_prop_carbs)))
+tab_model(
+  lm_diabm_prop_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between diabetes rate for men and calories from carbs"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 
+lm_diabw_prop_carbs <- lm(prop_women_diabetes ~ proportion_carbs, data = GDP_diabetes_cal)
+
+tab_model(
+  lm_diabw_prop_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between diabetes rate for women and calories from carbs"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 ```
 
 We see that the linear regression for women is very significant, so increasing carbohydrates in a women's diet would increase their diabetes rate. What do our clusters indicate ?
@@ -1560,12 +1719,31 @@ The correlation coefficients at the beginning of the question also showed us tha
 
 ```{r}
 #Diabetes - proportion
-lm_diabm_prop_fat <- lm(GDP_diabetes_cal$prop_men_diabetes ~ GDP_diabetes_cal$proportion_fat)
-lm_diabw_prop_fat <- lm(GDP_diabetes_cal$prop_women_diabetes ~ GDP_diabetes_cal$proportion_fat)
+lm_diabm_prop_fat <- lm(prop_men_diabetes ~ proportion_fat, data = GDP_diabetes_cal)
 
-kable(prettify(summary(lm_diabm_prop_fat)))
-kable(prettify(summary(lm_diabw_prop_fat)))
+tab_model(
+  lm_diabm_prop_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between diabetes rate for men and calories from fat"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 
+lm_diabw_prop_fat <- lm(prop_women_diabetes ~ proportion_fat, data = GDP_diabetes_cal)
+
+tab_model(
+  lm_diabw_prop_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  dv.labels = c("Between diabetes rate for women and calories from fat"),
+  CSS = list(
+    css.width = '500px',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;',  
+    css.summary = 'color: black;'
+  )
+)
 ```
  
 The parameter for fat is highly significant for women even though it only causes a little decrease to the diabetes rate. Are these results replicated in the clusters ? 
@@ -1619,42 +1797,43 @@ We are going to investigate this very issue of calorie consumption patterns that
 #means for each cluster
 countries_cluster_1 <- countries_cluster_1[,-10]
 cl1 <- summarize_all(countries_cluster_1, mean)
-cl1 <- rbind(countries_cluster_1, cl1)
-row.names(cl1)[12] <- ("Means")
-kable(cl1[12,])
 
 countries_cluster_2 <- countries_cluster_2[,-10]
 cl2 <- summarize_all(countries_cluster_2, mean)
-cl2 <- rbind(countries_cluster_2, cl2)
-row.names(cl2)[17] <- ("Means")
-kable(cl2[17,])
 
 countries_cluster_3 <- countries_cluster_3[,-10]
 cl3 <- summarize_all(countries_cluster_3, mean)
-cl3 <- rbind(countries_cluster_3, cl3)
-row.names(cl3)[3] <- ("Means")
-kable(cl3[3,])
+
+cl_all3 <- rbind(cl1, cl2, cl3)
+
+rownames(cl_all3) <- c("Cluster 1", "Cluster 2", "Cluster 3")
+
+kbl(cl_all3,
+    caption = "**Mean for each cluster**",
+    align = c('cccccc')) %>%
+   kable_classic(full_width = T, html_font = "Cambria") %>%
+   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
 ```
 
 As we see from the cluster averages, cluster 2 has the highest rate of diabetes followed by cluster 1 and finally the cluster 3 with the lowest rate of diabetes.
 
 ```{r}
 
-slices <- c(cl1[12,5],cl1[12,6],cl1[12,7], cl1[12,8] )
+slices <- c(cl1[1,5],cl1[1,6],cl1[1,7], cl1[1,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
 pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern : Cluster 1")
 
-slices <- c(cl2[17,5],cl2[17,6],cl2[17,7], cl2[17,8] )
+slices <- c(cl2[1,5],cl2[1,6],cl2[1,7], cl2[1,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels 
 pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern : Cluster 2")
 
-slices <- c(cl3[3,5],cl3[3,6],cl3[3,7], cl3[3,8] )
+slices <- c(cl3[1,5],cl3[1,6],cl3[1,7], cl3[1,8] )
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
