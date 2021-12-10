@@ -1440,7 +1440,7 @@ lm_diabm_prop_animal_prot <- lm(prop_men_diabetes ~ proportion_animal_prot, data
 
 tab_model(
   lm_diabm_prop_animal_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between avg_gdp and calories from fat"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1453,7 +1453,7 @@ lm_diabw_prop_animal_prot <- lm(prop_women_diabetes ~ proportion_animal_prot, da
 
 tab_model(
   lm_diabw_prop_animal_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between avg_gdp and calories from fat"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1470,7 +1470,7 @@ So there is a negative trend for both men and women, but we also observe see tha
 
 c50 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_animal_prot),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_animal_prot)))
 
-rownames(c50) <- c("Between men diabetes rate and calories from animal protein", "Between women diabetes rate and calories from animal protein")
+rownames(c50) <- c("Between men diabetes rate and proportion of calories from animal protein", "Between women diabetes rate and proportion of calories from animal protein")
 
 kbl(c50,
    caption = "**Correlation for cluster 1",
@@ -1482,7 +1482,7 @@ lm_diabm_prop_animal_prot_clust1 <- lm(prop_men_diabetes ~ proportion_animal_pro
 
 tab_model(
   lm_diabm_prop_animal_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from animal protein"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1495,7 +1495,7 @@ lm_diabw_prop_animal_prot_clust1 <- lm(prop_women_diabetes ~ proportion_animal_p
 
 tab_model(
   lm_diabw_prop_animal_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from animal protein"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1507,7 +1507,7 @@ tab_model(
 
 c51 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_animal_prot),cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_animal_prot)))
 
-rownames(c51) <- c("Between men diabetes rate and calories from animal protein", "Between women diabetes rate and calories from animal protein")
+rownames(c51) <- c("Between men diabetes rate and proportion of calories from animal protein", "Between women diabetes rate and proportion of calories from animal protein")
 
 kbl(c51,
    caption = "**Correlation for cluster 2",
@@ -1519,7 +1519,7 @@ lm_diabm_prop_animal_prot_clust2 <- lm(prop_men_diabetes ~ proportion_animal_pro
 
 tab_model(
   lm_diabm_prop_animal_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from animal protein"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1532,7 +1532,7 @@ lm_diabw_prop_animal_prot_clust2 <- lm(prop_women_diabetes ~ proportion_animal_p
 
 tab_model(
   lm_diabw_prop_animal_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from animal protein"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1545,7 +1545,7 @@ tab_model(
 
 c52 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_animal_prot),cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_animal_prot)))
 
-rownames(c52) <- c("Between men diabetes rate and calories from animal protein", "Between women diabetes rate and calories from animal protein")
+rownames(c52) <- c("Between men diabetes rate and proportion of calories from animal protein", "Between women diabetes rate and proportion of calories from animal protein")
 
 kbl(c52,
    caption = "**Correlation for cluster 3",
@@ -1557,7 +1557,7 @@ lm_diabm_prop_animal_prot_clust3 <- lm(prop_men_diabetes ~ proportion_animal_pro
 
 tab_model(
   lm_diabm_prop_animal_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from animal protein"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1570,7 +1570,7 @@ lm_diabw_prop_animal_prot_clust3 <- lm(prop_women_diabetes ~ proportion_animal_p
 
 tab_model(
   lm_diabw_prop_animal_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from animal protein"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1607,7 +1607,7 @@ lm_diabm_prop_plant_prot <- lm(prop_men_diabetes ~ proportion_plant_prot, data =
 
 tab_model(
   lm_diabm_prop_plant_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between avg_gdp and calories from plant protein"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1620,7 +1620,7 @@ lm_diabw_prop_plant_prot <- lm(prop_women_diabetes ~ proportion_plant_prot, data
 
 tab_model(
   lm_diabw_prop_plant_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between avg_gdp and calories from plant protein"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1637,7 +1637,7 @@ The parameter is very significant when trying to explain the diabetes rate in wo
 
 c53 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_plant_prot),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_plant_prot)))
 
-rownames(c53) <- c("Between men diabetes rate and calories from plant protein", "Between women diabetes rate and calories from plant protein")
+rownames(c53) <- c("Between men diabetes rate and proportion of calories from plant protein", "Between women diabetes rate and proportion of calories from plant protein")
 
 kbl(c53,
    caption = "**Correlation for cluster 1",
@@ -1649,7 +1649,7 @@ lm_diabm_prop_plant_prot_clust1 <- lm(prop_men_diabetes ~ proportion_plant_prot,
 
 tab_model(
   lm_diabm_prop_plant_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from plant protein"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1662,7 +1662,7 @@ lm_diabw_prop_plant_prot_clust1 <- lm(prop_women_diabetes ~ proportion_plant_pro
 
 tab_model(
   lm_diabw_prop_plant_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from plant protein"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1674,7 +1674,7 @@ tab_model(
 
 c54 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_plant_prot),cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_plant_prot)))
 
-rownames(c54) <- c("Between men diabetes rate and calories from plant protein", "Between women diabetes rate and calories from plant protein")
+rownames(c54) <- c("Between men diabetes rate and proportion of calories from plant protein", "Between women diabetes rate and proportion of calories from plant protein")
 
 kbl(c54,
    caption = "**Correlation for cluster 2",
@@ -1686,7 +1686,7 @@ lm_diabm_prop_plant_prot_clust2 <- lm(prop_men_diabetes ~ proportion_plant_prot,
 
 tab_model(
   lm_diabm_prop_plant_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from plant protein"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1699,7 +1699,7 @@ lm_diabw_prop_plant_prot_clust2 <- lm(prop_women_diabetes ~ proportion_plant_pro
 
 tab_model(
   lm_diabw_prop_plant_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from plant protein"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1712,7 +1712,7 @@ tab_model(
 
 c55 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_plant_prot),cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_plant_prot)))
 
-rownames(c55) <- c("Between men diabetes rate and calories from plant protein", "Between women diabetes rate and calories from plant protein")
+rownames(c55) <- c("Between men diabetes rate and proportion of calories from plant protein", "Between women diabetes rate and proportion of calories from plant protein")
 
 kbl(c55,
    caption = "**Correlation for cluster 3",
@@ -1724,7 +1724,7 @@ lm_diabm_prop_plant_prot_clust3 <- lm(prop_men_diabetes ~ proportion_plant_prot,
 
 tab_model(
   lm_diabm_prop_plant_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from plant protein"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1737,7 +1737,7 @@ lm_diabw_prop_plant_prot_clust3 <- lm(prop_women_diabetes ~ proportion_plant_pro
 
 tab_model(
   lm_diabw_prop_plant_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from plant protein"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1773,7 +1773,7 @@ lm_diabm_prop_carbs <- lm(prop_men_diabetes ~ proportion_carbs, data = GDP_diabe
 
 tab_model(
   lm_diabm_prop_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between diabetes rate for men and calories from carbs"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1786,7 +1786,7 @@ lm_diabw_prop_carbs <- lm(prop_women_diabetes ~ proportion_carbs, data = GDP_dia
 
 tab_model(
   lm_diabw_prop_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between diabetes rate for women and calories from carbs"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1803,7 +1803,7 @@ We see that the linear regression for women is very significant, so increasing c
 
 c56 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_carbs),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_carbs)))
 
-rownames(c56) <- c("Between men diabetes rate and calories from carbs", "Between women diabetes rate and calories from carbs")
+rownames(c56) <- c("Between men diabetes rate and proportion of calories from carbs", "Between women diabetes rate and proportion of calories from carbs")
 
 kbl(c56,
    caption = "**Correlation for cluster 1",
@@ -1815,7 +1815,7 @@ lm_diabm_prop_carbs_clust1 <- lm(prop_men_diabetes ~ proportion_carbs, data = co
 
 tab_model(
   lm_diabm_prop_carbs_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from carbs "),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1828,7 +1828,7 @@ lm_diabw_prop_carbs_clust1 <- lm(prop_women_diabetes ~ proportion_carbs, data = 
 
 tab_model(
   lm_diabw_prop_carbs_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from carbs"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1841,7 +1841,7 @@ tab_model(
 
 c57 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_carbs),cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_carbs)))
 
-rownames(c57) <- c("Between men diabetes rate and calories from carbs", "Between women diabetes rate and calories from carbs")
+rownames(c57) <- c("Between men diabetes rate and proportion of calories from carbs", "Between women diabetes rate and proportion of calories from carbs")
 
 kbl(c57,
    caption = "**Correlation for cluster 2",
@@ -1853,7 +1853,7 @@ lm_diabm_prop_carbs_clust2 <- lm(prop_men_diabetes ~ proportion_carbs, data = co
 
 tab_model(
   lm_diabm_prop_carbs_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from carbs"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1866,7 +1866,7 @@ lm_diabw_prop_carbs_clust2 <- lm(prop_women_diabetes ~ proportion_carbs, data = 
 
 tab_model(
   lm_diabw_prop_carbs_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from carbs"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1880,7 +1880,7 @@ tab_model(
 
 c58 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_carbs),cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_carbs)))
 
-rownames(c58) <- c("Between men diabetes rate and calories from carbs", "Between women diabetes rate and calories from carbs")
+rownames(c58) <- c("Between men diabetes rate and proportion of calories from carbs", "Between women diabetes rate and proportion of calories from carbs")
 
 kbl(c58,
    caption = "**Correlation for cluster 3",
@@ -1892,7 +1892,7 @@ lm_diabm_prop_carbs_clust3 <- lm(prop_men_diabetes ~ proportion_carbs, data = co
 
 tab_model(
   lm_diabm_prop_carbs_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from carbs"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1905,7 +1905,7 @@ lm_diabw_prop_carbs_clust3 <- lm(prop_women_diabetes ~ proportion_carbs, data = 
 
 tab_model(
   lm_diabw_prop_carbs_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from carbs"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1941,7 +1941,7 @@ lm_diabm_prop_fat <- lm(prop_men_diabetes ~ proportion_fat, data = GDP_diabetes_
 
 tab_model(
   lm_diabm_prop_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between diabetes rate for men and calories from fat"),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1954,7 +1954,7 @@ lm_diabw_prop_fat <- lm(prop_women_diabetes ~ proportion_fat, data = GDP_diabete
 
 tab_model(
   lm_diabw_prop_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between diabetes rate for women and calories from fat"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1971,7 +1971,7 @@ The parameter for fat is highly significant for women even though it only causes
 
 c59 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_fat),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_fat)))
 
-rownames(c59) <- c("Between men diabetes rate and calories from fat", "Between women diabetes rate and calories from fat")
+rownames(c59) <- c("Between men diabetes rate and proportion of calories from fat", "Between women diabetes rate and proportion of calories from fat")
 
 kbl(c59,
    caption = "**Correlation for cluster 1",
@@ -1983,7 +1983,7 @@ lm_diabm_fat_clust1 <- lm(prop_men_diabetes ~ proportion_fat, data = countries_c
 
 tab_model(
   lm_diabm_fat_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from fat "),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1996,7 +1996,7 @@ lm_diabw_fat_clust1 <- lm(prop_women_diabetes ~ proportion_fat, data = countries
 
 tab_model(
   lm_diabw_fat_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from fat"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -2008,7 +2008,7 @@ tab_model(
 
 c60 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_fat),cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_fat)))
 
-rownames(c60) <- c("Between men diabetes rate and calories from fat", "Between women diabetes rate and calories from fat")
+rownames(c60) <- c("Between men diabetes rate and proportion of calories from fat", "Between women diabetes rate and proportion of calories from fat")
 
 kbl(c60,
    caption = "**Correlation for cluster 2",
@@ -2020,7 +2020,7 @@ lm_diabm_fat_clust2 <- lm(prop_men_diabetes ~ proportion_fat, data = countries_c
 
 tab_model(
   lm_diabm_fat_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from fat "),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -2033,7 +2033,7 @@ lm_diabw_fat_clust2 <- lm(prop_women_diabetes ~ proportion_fat, data = countries
 
 tab_model(
   lm_diabw_fat_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from fat"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -2045,7 +2045,7 @@ tab_model(
 
 c61 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_fat),cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_fat)))
 
-rownames(c61) <- c("Between men diabetes rate and calories from fat", "Between women diabetes rate and calories from fat")
+rownames(c61) <- c("Between men diabetes rate and proportion of calories from fat", "Between women diabetes rate and proportion of calories from fat")
 
 kbl(c61,
    caption = "**Correlation for cluster 3",
@@ -2057,7 +2057,7 @@ lm_diabm_fat_clust3 <- lm(prop_men_diabetes ~ proportion_fat, data = countries_c
 
 tab_model(
   lm_diabm_fat_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between men diabetes rate and calories from fat "),
+  dv.labels = c("Diabetes rate for men vs proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -2070,7 +2070,7 @@ lm_diabw_fat_clust3 <- lm(prop_women_diabetes ~ proportion_fat, data = countries
 
 tab_model(
   lm_diabw_fat_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between women diabetes rate and calories from fat"),
+  dv.labels = c("Diabetes rate for women vs proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -2106,7 +2106,7 @@ cl_all3 <- rbind(cl1, cl2, cl3)
 rownames(cl_all3) <- c("Cluster 1", "Cluster 2", "Cluster 3")
 
 kbl(cl_all3,
-    caption = "**Mean for each cluster**",
+    caption = "**Table 9** : Means for each cluster",
     align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
