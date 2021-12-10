@@ -595,7 +595,7 @@ We will be referring to these graphs and this cluster plot in our analysis in th
 
 ### GDP - Animal protein
 
-Let's start with by analysing the relationship between a country's wealth and it's consumption of animal protein. We saw at the EDA section that there didn't seem to be a trend between these 2 variables, overall the calories consumed from animal protein is very stable regardless of the average GDP of a country. We can confirm this by checking the correlation and by trying to fit a linear regression.
+Let's start with by analysing the relationship between a country's wealth and its consumption of animal protein. We saw at the EDA section that there didn't seem to be a trend between these 2 variables, overall the calories consumed from animal protein is very stable regardless of the average GDP of a country. We can confirm this by checking the correlation and by trying to fit a linear regression.
 
 ```{r}
 #Average GDP - calories
@@ -863,7 +863,7 @@ tab_model(
 )
 ```
 
-The correlation improved immensely ! Now we can confirm that the relationship is rather negative, even though the correlation is rather moderate than strong. But now our parameter estimation as significant as possible. How does this translate to our clusters ?
+The correlation improved immensely ! Now we can confirm that the relationship is rather negative, even though the correlation is rather moderate than strong. But now our parameter estimation is as significant as possible. How does this translate to our clusters ?
 
 The cluster plot above indicates that in countries with higher GDPs like in cluster 1 and 3, the proportions of calories consumed from plant protein are lower than in countries with lower GDPs. Let's see if we can confirm these observations and see if these relationships are strong enough within each cluster.
 

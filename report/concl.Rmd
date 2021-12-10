@@ -4,9 +4,6 @@
 source(here::here("scripts/setup.R"))
 ```
 
-* Take home message
-* Limitations
-* Future work?
 
 Even though we tried using multiple methods and metrics like the correlation coefficient, trying to fit linear models and cluster analysis to answer our research questions, we couldn't exactly find a lot of meaningful relationships between our various variables.
 
@@ -14,8 +11,19 @@ Oddly enough, it seems from our results that a higher consumption of animal prot
 
 All macronutrients except protein are highly significant for women, therefore we make the assumption that malnutrition has a greater impact on the rate of diabetes in women than in men.
 
-High GDP countries consume more fat, but have less diabetes and our results suggest that consuming more fat doesnt equal higher diabetes --> good fats, like good cholestrol ? look more into this
+High GDP countries consume more fat, but have less diabetes and our results suggest that consuming more fat does not equal higher diabetes.One hypothesis we have found to explain this phenomenon may be that countries with a higher GDP do more diabetes prevention and have a better hospital infrastructure.  
 
-Maybe the low diabetes rate in high GDP countries is not about diet but exercise and healthcare, and maybe the relationship is not linear. Also we consider only Europe where economies are not that different after all.
+Another hypothesis is that the rate of diabetes is more related to the level of exercise and the level of medical care and prevention and that the relationship is maybe not linear. 
 
-Maybe our cluster number should have been 4, but then we would have the risk of having even smaller samples and less observations which are not good for statistical accuracy
+### Limitations
+
+One point that we may have missed was the fact that the economies of the European countries were not so different so myaybe our cluster number should have been 4, but then we would have the risk of having even smaller samples and less observations which are not good for statistical accuracy.
+
+Another limitation is that the linear regressions were not always significant and it was complicated to find the right relationship between the different variables. It is also possible that some macronutrients were not related to diabetes.
+
+
+### To go further 
+
+To go further, it would have been interesting to take other countries which are more varied to be able to make more clusters for example.  It would have been interesting to know more about the United States, for example, a country with a high GDP and a high rate of diabetes.
+
+Another interesting point would have been to know more about each country's medical expenditure on diabetes and what their means of prevention were and the budget allocated to them.
