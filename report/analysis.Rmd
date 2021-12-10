@@ -403,7 +403,7 @@ lm_gdp_total_cal <- lm(avg_gdp ~ total_consumption, data = GDP_diabetes_cal)
 
 tab_model(
   lm_gdp_total_cal, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("avg_gdp vs total consumption"),
+  dv.labels = c("Average GDP vs total consumption"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -439,7 +439,7 @@ lm_gdp_pp_total_cal <- lm(gdp_per_person ~ total_consumption, data = GDP_diabete
 
 tab_model(
   lm_gdp_pp_total_cal, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("avg_gdp per person vs total consumption"),
+  dv.labels = c("GDP per person vs total consumption"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -471,7 +471,7 @@ lm_gdp_total_cal_clust1 <- lm(gdp_per_person ~ total_consumption, data = countri
 
 tab_model(
   lm_gdp_total_cal_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("avg_gdp per person vs total consumption (cluster 1)"),
+  dv.labels = c("GDP per person vs total consumption (cluster 1)"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -496,7 +496,7 @@ lm_gdp_total_cal_clust2 <- lm(gdp_per_person ~ total_consumption, data = countri
 
 tab_model(
   lm_gdp_total_cal_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("avg_gdp per person vs total consumption (cluster 2)"),
+  dv.labels = c("GDP per person vs total consumption (cluster 2)"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -521,7 +521,7 @@ lm_gdp_total_cal_clust2 <- lm(gdp_per_person ~ total_consumption, data = countri
 
 tab_model(
   lm_gdp_total_cal_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("avg_gdp per person vs total consumption (cluster 3)"),
+  dv.labels = c("GDP per person vs total consumption (cluster 3)"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -602,7 +602,7 @@ Let's start with by analysing the relationship between a country's wealth and it
 
 c9 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)))
 
-rownames(c9) <- c("Between avg_gdp and calories from animal protein")
+rownames(c9) <- c("Between average GDP and calories from animal protein")
 
 kbl(c9,
    caption = "**Correlation",
@@ -614,7 +614,7 @@ lm_gdp_cal_prot_animal <- lm(avg_gdp ~ cal_prot_animal, data = GDP_diabetes_cal)
 
 tab_model(
   lm_gdp_cal_prot_animal, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("avg_gdp vs calories from animal protein"),
+  dv.labels = c("Average GDP vs calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -631,7 +631,7 @@ Even though the correlation is positive, it is not very high. By looking at the 
 
 c10 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_animal)))
 
-rownames(c10) <- c("Between gdp per person and calories from animal protein")
+rownames(c10) <- c("Between GDP per person and calories from animal protein")
 
 kbl(c10,
    caption = "**Correlation",
@@ -643,7 +643,7 @@ lm_gdp_pp_cal_prot_animal <- lm(gdp_per_person ~ cal_prot_animal, data = GDP_dia
 
 tab_model(
   lm_gdp_pp_cal_prot_animal, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and calories from animal protein"),
+  dv.labels = c("Between GDP per person and calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -660,7 +660,7 @@ This time, the correlation is higher and the variable's estimate as a parameter 
 
 c11 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_animal_prot)))
 
-rownames(c11) <- c("Between gdp per person and proportion of calories from animal protein")
+rownames(c11) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c11,
    caption = "**Correlation",
@@ -672,7 +672,7 @@ lm_gdp_pp_prop_animal_prot <- lm(gdp_per_person ~ proportion_animal_prot, data =
 
 tab_model(
   lm_gdp_pp_prop_animal_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from animal protein"),
+  dv.labels = c("Between GDP per person and proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -692,7 +692,7 @@ From our cluster plot above, we see that high GDP countries (clusters 1 and 3) t
 
 c12 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_animal_prot)))
 
-rownames(c12) <- c("Between gdp per person and proportion of calories from animal protein")
+rownames(c12) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c12,
    caption = "**Correlation for cluster 1",
@@ -704,7 +704,7 @@ lm_gdp_pp_prop_animal_prot_clust1 <- lm(gdp_per_person ~ proportion_animal_prot,
 
 tab_model(
   lm_gdp_pp_prop_animal_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from animal protein"),
+  dv.labels = c("Between GDP per person and proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -717,7 +717,7 @@ tab_model(
 
 c13 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_animal_prot)))
 
-rownames(c13) <- c("Between gdp per person and proportion of calories from animal protein")
+rownames(c13) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c13,
    caption = "**Correlation for cluster 2",
@@ -729,7 +729,7 @@ lm_gdp_pp_prop_animal_prot_clust2 <- lm(gdp_per_person ~ proportion_animal_prot,
 
 tab_model(
   lm_gdp_pp_prop_animal_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from animal protein"),
+  dv.labels = c("Between GDP per person and proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -742,7 +742,7 @@ tab_model(
 
 c14 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_animal_prot)))
 
-rownames(c14) <- c("Between gdp per person and proportion of calories from animal protein")
+rownames(c14) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c14,
    caption = "**Correlation for cluster 3",
@@ -754,7 +754,7 @@ lm_gdp_pp_prop_animal_prot_clust3 <- lm(gdp_per_person ~ proportion_animal_prot,
 
 tab_model(
   lm_gdp_pp_prop_animal_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from animal protein"),
+  dv.labels = c("Between GDP per person and proportion of calories from animal protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -777,7 +777,7 @@ Now let's move on to the analysis of the relationship between a country's wealth
 
 c15 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant)))
 
-rownames(c15) <- c("Between avg_gdp and calories from plant protein")
+rownames(c15) <- c("Between average GDP and calories from plant protein")
 
 kbl(c15,
    caption = "**Correlation",
@@ -789,7 +789,7 @@ lm_gdp_cal_prot_plant <- lm(avg_gdp ~ cal_prot_plant, data = GDP_diabetes_cal)
 
 tab_model(
   lm_gdp_cal_prot_plant, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between avg_gdp and calories from plant protein"),
+  dv.labels = c("Between average GDP and calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -807,7 +807,7 @@ As we can see, the correlation is very low and when we try to fit a linear model
 
 c16 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_plant)))
 
-rownames(c16) <- c("Between gdp per person and calories from plant protein")
+rownames(c16) <- c("Between GDP per person and calories from plant protein")
 
 kbl(c16,
    caption = "**Correlation",
@@ -819,7 +819,7 @@ lm_gdp_pp_cal_prot_plant <- lm(gdp_per_person ~ cal_prot_plant, data = GDP_diabe
 
 tab_model(
   lm_gdp_pp_cal_prot_plant, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and calories from plant protein"),
+  dv.labels = c("Between GDP per person and calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -841,7 +841,7 @@ kable(prettify(summary(lm_gdp_pp_prop_plant_prot)))
 ##
 c17 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_plant_prot)))
 
-rownames(c17) <- c("Between gdp per person and proportion of calories from plant protein")
+rownames(c17) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c17,
    caption = "**Correlation",
@@ -853,7 +853,7 @@ lm_gdp_pp_prop_plant_prot <- lm(gdp_per_person ~ proportion_plant_prot, data = G
 
 tab_model(
   lm_gdp_pp_prop_plant_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from plant protein"),
+  dv.labels = c("Between GDP per person and proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -872,7 +872,7 @@ The cluster plot above indicates that in countries with higher GDPs like in clus
 
 c18 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_plant_prot)))
 
-rownames(c18) <- c("Between gdp per person and proportion of calories from plant protein")
+rownames(c18) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c18,
    caption = "**Correlation for cluster 1",
@@ -884,7 +884,7 @@ lm_gdp_pp_prop_plant_prot_clust1 <- lm(gdp_per_person ~ proportion_plant_prot, d
 
 tab_model(
   lm_gdp_pp_prop_plant_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from plant protein"),
+  dv.labels = c("Between GDP per person and proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -897,7 +897,7 @@ tab_model(
 
 c19 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_plant_prot)))
 
-rownames(c19) <- c("Between gdp per person and proportion of calories from plant protein")
+rownames(c19) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c19,
    caption = "**Correlation for cluster 2",
@@ -909,7 +909,7 @@ lm_gdp_pp_prop_plant_prot_clust2 <- lm(gdp_per_person ~ proportion_plant_prot, d
 
 tab_model(
   lm_gdp_pp_prop_plant_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from plant protein"),
+  dv.labels = c("Between GDP per person and proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -921,7 +921,7 @@ tab_model(
 
 c20 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_plant_prot)))
 
-rownames(c20) <- c("Between gdp per person and proportion of calories from plant protein")
+rownames(c20) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c20,
    caption = "**Correlation for cluster 3",
@@ -933,7 +933,7 @@ lm_gdp_pp_prop_plant_prot_clust3 <- lm(gdp_per_person ~ proportion_plant_prot, d
 
 tab_model(
   lm_gdp_pp_prop_plant_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from plant protein"),
+  dv.labels = c("Between GDP per person and proportion of calories from plant protein"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -956,7 +956,7 @@ Next, we will be evaluating the relationship of a country's GDP and its carbohyd
 
 c21 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs)))
 
-rownames(c21) <- c("Between avg_gdp and calories from carbs")
+rownames(c21) <- c("Between average GDP and calories from carbs")
 
 kbl(c21,
    caption = "**Correlation",
@@ -968,7 +968,7 @@ lm_gdp_cal_carbs <- lm(avg_gdp ~ cal_carbs, data = GDP_diabetes_cal)
 
 tab_model(
   lm_gdp_cal_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between avg_gdp and calories from carbs"),
+  dv.labels = c("Between average GDP and calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -987,7 +987,7 @@ But what if we compared the 2 metrics at the same unit level like in the previou
 
 c22 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_carbs)))
 
-rownames(c22) <- c("Between gdp per person and calories from carbs")
+rownames(c22) <- c("Between GDP per person and calories from carbs")
 
 kbl(c22,
    caption = "**Correlation",
@@ -999,7 +999,7 @@ lm_gdp_pp_cal_carbs <- lm(gdp_per_person ~ cal_carbs, data = GDP_diabetes_cal)
 
 tab_model(
   lm_gdp_pp_cal_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and calories from carbs"),
+  dv.labels = c("Between GDP per person and calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1016,7 +1016,7 @@ Indeed, the correlation is higher now but it is still not strong enough. Our par
 
 c23 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_carbs)))
 
-rownames(c23) <- c("Between gdp per person and proportion of calories from carbs")
+rownames(c23) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c23,
    caption = "**Correlation",
@@ -1028,7 +1028,7 @@ lm_gdp_pp_prop_carbs <- lm(gdp_per_person ~ proportion_carbs, data = GDP_diabete
 
 tab_model(
   lm_gdp_pp_prop_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from carbs"),
+  dv.labels = c("Between GDP per person and proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1045,7 +1045,7 @@ The correlation between these 2 variables is way more important, we can even say
 
 c24 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_carbs)))
 
-rownames(c24) <- c("Between gdp per person and proportion of calories from carbs")
+rownames(c24) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c24,
    caption = "**Correlation for cluster 1",
@@ -1057,7 +1057,7 @@ lm_gdp_pp_prop_carbs_clust1 <- lm(gdp_per_person ~ proportion_carbs, data = coun
 
 tab_model(
   lm_gdp_pp_prop_carbs_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from carbs"),
+  dv.labels = c("Between GDP per person and proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1069,7 +1069,7 @@ tab_model(
 
 c25 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_carbs)))
 
-rownames(c25) <- c("Between gdp per person and proportion of calories from carbs")
+rownames(c25) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c25,
    caption = "**Correlation for cluster 2",
@@ -1081,7 +1081,7 @@ lm_gdp_pp_prop_carbs_clust2 <- lm(gdp_per_person ~ proportion_carbs, data = coun
 
 tab_model(
   lm_gdp_pp_prop_carbs_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from carbs"),
+  dv.labels = c("Between GDP per person and proportion of calories from carbs"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1094,7 +1094,7 @@ tab_model(
 
 c26 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_carbs)))
 
-rownames(c26) <- c("Between gdp per person and proportion of calories from carbs")
+rownames(c26) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c26,
    caption = "**Correlation for cluster 3",
@@ -1131,7 +1131,7 @@ For the last part of our 3rd research question, let's analyse the relationship o
 
 c27 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat)))
 
-rownames(c27) <- c("Between avg_gdp and calories from fat")
+rownames(c27) <- c("Between average GDP and calories from fat")
 
 kbl(c27,
    caption = "**Correlation",
@@ -1143,7 +1143,7 @@ lm_gdp_cal_fat <- lm(avg_gdp ~ cal_fat, data = GDP_diabetes_cal)
 
 tab_model(
   lm_gdp_cal_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between avg_gdp and calories from fat"),
+  dv.labels = c("Between average GDP and calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1160,7 +1160,7 @@ From the get-go, the correlation is moderately high and positive. The estimation
 
 c28 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_fat)))
 
-rownames(c28) <- c("Between gdp per person and calories from fat")
+rownames(c28) <- c("Between GDP per person and calories from fat")
 
 kbl(c28,
    caption = "**Correlation",
@@ -1172,7 +1172,7 @@ lm_gdp_pp_cal_fat <- lm(gdp_per_person ~ cal_fat, data = GDP_diabetes_cal)
 
 tab_model(
   lm_gdp_pp_cal_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and calories from fat"),
+  dv.labels = c("Between GDP per person and calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1189,7 +1189,7 @@ Our hypothesis was right. Not only did the correlation between the 2 variables i
 
 c29 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_fat)))
 
-rownames(c29) <- c("Between gdp per person and proportion of calories from fat")
+rownames(c29) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c29,
    caption = "**Correlation",
@@ -1201,7 +1201,7 @@ lm_gdp_pp_prop_fat <- lm(gdp_per_person ~ proportion_fat, data = GDP_diabetes_ca
 
 tab_model(
   lm_gdp_pp_prop_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from fat"),
+  dv.labels = c("Between GDP per person and proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1218,7 +1218,7 @@ This time, the correlation and the significance of the parameter goes down a lit
 
 c30 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_fat)))
 
-rownames(c30) <- c("Between gdp per person and proportion of calories from fat")
+rownames(c30) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c30,
    caption = "**Correlation for cluster 1",
@@ -1230,7 +1230,7 @@ lm_gdp_pp_prop_fat_clust1 <- lm(gdp_per_person ~ proportion_fat, data = countrie
 
 tab_model(
   lm_gdp_pp_prop_fat_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from fat"),
+  dv.labels = c("Between GDP per person and proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1243,7 +1243,7 @@ tab_model(
 
 c31 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_fat)))
 
-rownames(c31) <- c("Between gdp per person and proportion of calories from fat")
+rownames(c31) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c31,
    caption = "**Correlation for cluster 2",
@@ -1255,7 +1255,7 @@ lm_gdp_pp_prop_fat_clust2 <- lm(gdp_per_person ~ proportion_fat, data = countrie
 
 tab_model(
   lm_gdp_pp_prop_fat_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from fat"),
+  dv.labels = c("Between GDP per person and proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
@@ -1268,7 +1268,7 @@ tab_model(
 
 c32 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_fat)))
 
-rownames(c32) <- c("Between gdp per person and proportion of calories from fat")
+rownames(c32) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c32,
    caption = "**Correlation for cluster 3",
@@ -1280,7 +1280,7 @@ lm_gdp_pp_prop_fat_clust3 <- lm(gdp_per_person ~ proportion_fat, data = countrie
 
 tab_model(
   lm_gdp_pp_prop_fat_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
-  dv.labels = c("Between gdp per person and proportion of calories from fat"),
+  dv.labels = c("Between GDP per person and proportion of calories from fat"),
   CSS = list(
     css.width = '500px',
     css.centeralign = 'text-align: left;', 
