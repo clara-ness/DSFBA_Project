@@ -305,7 +305,7 @@ tab_model(
 
 To go further, we decided to represent on a cluster map to see if there was a difference between the north and the south for example.
 
-```{r, warning=FALSE}
+```{r, message=FALSE}
 #EU_coord<- geojsonsf::geojson_sf('data/CNTR_RG_60M_2020_3035.geojson') # source of the geojson file #https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries
 
 myCluster<-rbind.data.frame(countries_cluster_1, countries_cluster_2, countries_cluster_3)
@@ -329,7 +329,9 @@ SHP_0 <- SHP_0[-c(1, 9, 15, 17, 24, 26, 28, 29, 33, 34), ]
 
 nb_cluster <-as.numeric(levels(CL_EU$cluster))[CL_EU$cluster]
 CL_EU <- cbind(CL_EU, nb_cluster)
+```
 
+```{r}
 leaflet(SHP_0) %>%
   setView(lng = 15, lat = 50, zoom = 4) %>% 
   addTiles() %>%
