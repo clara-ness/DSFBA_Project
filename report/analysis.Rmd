@@ -1465,7 +1465,7 @@ tab_model(
 
 So there is a negative trend for both men and women, but we also observe see that the effect is stronger for women. The linear regression does not indicate any relation since the parameters are not significant. Now let's observe the relationship between diabetes and animal protein within each cluster.
 
-```{r}
+```{r, warning = FALSE}
 #cluster 1
 
 c50 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_animal_prot),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_animal_prot)))
@@ -1632,7 +1632,7 @@ tab_model(
 
 The parameter is very significant when trying to explain the diabetes rate in women. With correlations at 0.452 and 0.706 respectively, these relationships are also moderately strong. Is it also the case for the clusters ?
 
-```{r}
+```{r, warning = FALSE}
 #cluster 1
 
 c53 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_plant_prot),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_plant_prot)))
@@ -1798,7 +1798,7 @@ tab_model(
 
 We see that the linear regression for women is very significant, so increasing carbohydrates in a women's diet would increase their diabetes rate. What do our clusters indicate ?
 
-```{r}
+```{r, warning = FALSE}
 #cluster 1
 
 c56 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_carbs),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_carbs)))
@@ -1966,7 +1966,7 @@ tab_model(
  
 The parameter for fat is highly significant for women even though it only causes a little decrease to the diabetes rate. Are these results replicated in the clusters ? 
 
-```{r}
+```{r, warning = FALSE}
 #cluster 1
 
 c59 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_fat),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_fat)))
