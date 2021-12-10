@@ -1308,10 +1308,10 @@ c400 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_pro
 
 rownames(c400) <- c("Men","Women")
 
-colnames(c400) <- c("animal protein","plant protein","carbs","fat")
+colnames(c400) <- c("Animal protein","Plant protein","Carbs","Fat")
 
 kbl(c400,
-   caption = "**Correlation between diabetes rate and calories from ",
+   caption = "**Correlation between diabetes rate per sex and calories from ",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
@@ -1326,10 +1326,10 @@ c401 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proport
 
 rownames(c401) <- c("Men","Women")
 
-colnames(c401) <- c("animal protein","plant protein","carbs","fat")
+colnames(c401) <- c("Animal protein","Plant protein","Carbs","Fat")
 
 kbl(c401,
-   caption = "**Correlation between diabetes rate and proportion of calories from ",
+   caption = "**Correlation between diabetes rate per sex and proportion of calories from ",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))

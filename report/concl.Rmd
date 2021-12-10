@@ -4,6 +4,7 @@
 source(here::here("scripts/setup.R"))
 ```
 
+With this report, we tried to find out if there were any links between European countries' wealth, their diabetes rates and their food consumption. Our end goal was to find out if there was a typical diet that was attributed to a certain GDP level and therefore affected the population's diabetes, in order to provide an example for governments for when they have to make decisions on food supply in regards to public health.
 
 Even though we tried using multiple methods and metrics like the correlation coefficient, trying to fit linear models and cluster analysis to answer our research questions, we couldn't exactly find a lot of meaningful relationships between our various variables.
 
@@ -17,9 +18,9 @@ Another hypothesis is that the rate of diabetes is more related to the level of 
 
 ### Limitations
 
-One point that we may have missed was the fact that the economies of the European countries were not so different so myaybe our cluster number should have been 4, but then we would have the risk of having even smaller samples and less observations which are not good for statistical accuracy.
+One point that we may have missed was the fact that the economies of the European countries were not so different so maybe our cluster number should have been 4, but then we would have the risk of having even smaller samples and less observations which are not good for statistical accuracy.
 
-Another limitation is that the linear regressions were not always significant and it was complicated to find the right relationship between the different variables. It is also possible that some macronutrients were not related to diabetes.
+Another limitation is that the linear regressions were not always significant and it was complicated to find the right relationship between the different variables if there were any. It is also possible that some macronutrients were not related to diabetes.
 
 
 ### To go further 
