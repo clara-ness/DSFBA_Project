@@ -1302,56 +1302,16 @@ In general, even though it seems positive, we cannot confidently say that there 
 What we observed in the EDA seemed to not make sense to us as we were expecting a positive relationship between the total calories/calories consumed from fat and diabetes prevalence in a country. Let's see now concretely if there is any correlation between the calories consumed from different macronutrients and the diabetes rate.
 
 ```{r}
-#calories animal protein
+###Calories
 
-c33 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal)))
+c400 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal), cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_plant),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_plant),cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs),cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)), nrow = 2)
 
-rownames(c33) <- c("Between diabetes rate for men and calories from animal protein","Between diabetes rate for women and calories from animal protein" )
+rownames(c400) <- c("Men","Women")
 
-kbl(c33,
-   caption = "**Correlation",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-```
-<br>
-```{r}
-#calories plant protein
+colnames(c400) <- c("animal protein","plant protein","carbs","fat")
 
-c34 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_plant),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_plant)))
-
-rownames(c34) <- c("Between diabetes rate for men and calories from plant protein","Between diabetes rate for women and calories from plant protein" )
-
-kbl(c34,
-   caption = "**Correlation",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-```
-<br>
-```{r}
-#calories carbs
-
-c35 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs)))
-
-rownames(c35) <- c("Between diabetes rate for men and calories from carbs","Between diabetes rate for women and calories from carbs" )
-
-kbl(c35,
-   caption = "**Correlation",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-```
-<br>
-```{r}
-#calories fat
-
-c36 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)))
-
-rownames(c36) <- c("Between diabetes rate for men and calories from fat","Between diabetes rate for women and calories from fat" )
-
-kbl(c36,
-   caption = "**Correlation",
+kbl(c400,
+   caption = "**Correlation between diabetes rate and calories from ",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
@@ -1360,56 +1320,16 @@ kbl(c36,
 But we also saw in the previous question that taking into account the proportions rather than the calorie count for the macronutrients gave us better results. Let's see if the correlation with diabetes prevalence improves too.
 
 ```{r}
-#proportion calories animal protein
+###proportion
 
-c37 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_animal_prot)))
+c401 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_animal_prot), cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_plant_prot),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_plant_prot),cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_carbs),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_carbs),cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)), nrow = 2)
 
-rownames(c37) <- c("Between diabetes rate for men and proportion of calories from animal protein","Between diabetes rate for women and proportion of calories from animal protein" )
+rownames(c401) <- c("Men","Women")
 
-kbl(c37,
-   caption = "**Correlation",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-```
-<br>
-```{r}
-#proportion calories plant protein
+colnames(c401) <- c("animal protein","plant protein","carbs","fat")
 
-c38 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_plant_prot),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_plant_prot)))
-
-rownames(c38) <- c("Between diabetes rate for men and proportion of calories from plant protein","Between diabetes rate for women and proportion of calories from plant protein" )
-
-kbl(c38,
-   caption = "**Correlation",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-```
-<br>
-```{r}
-#proportion calories carbs
-
-c39 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_carbs),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_carbs)))
-
-rownames(c39) <- c("Between diabetes rate for men and proportion of calories from carbs","Between diabetes rate for women and proportion of calories from carbs" )
-
-kbl(c39,
-   caption = "**Correlation",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-```
-<br>
-```{r}
-#proportion calories fat
-
-c40 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)))
-
-rownames(c40) <- c("Between diabetes rate for men and proportion of calories from fat","Between diabetes rate for women and proportion of calories from fat" )
-
-kbl(c40,
-   caption = "**Correlation",
+kbl(c401,
+   caption = "**Correlation between diabetes rate and proportion of calories from ",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
