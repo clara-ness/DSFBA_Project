@@ -272,9 +272,12 @@ ggplot(data = CroatiaPlot, mapping = aes(x = year, y =prop_diabetes, color =sex)
 
 Finally, we want to plot the relation between the diabetes prevalence against the total calorie consumption as well as each type of macronutrient consumed.
 
+<div class = "row">
+  
+<div class = "col-md-6">
 ```{r}
 # Diabetes vs total calories
-x1 <- ggplot(data = GDP_diabetes_cal) +
+ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red")) +
@@ -282,9 +285,12 @@ x1 <- ggplot(data = GDP_diabetes_cal) +
   labs(title="Total", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
-
+```
+</div>
+<div class = "col-md-6">
+```{r}
 # Diabetes vs calories from animal protein
-x2 <- ggplot(data = GDP_diabetes_cal) +
+ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red")) +
@@ -292,9 +298,16 @@ x2 <- ggplot(data = GDP_diabetes_cal) +
   labs(title="Animal protein", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
+```
+</div>
+</div>
 
+<div class = "row">
+  
+<div class = "col-md-6">
+```{r}
 # Diabetes vs calories from plant protein
-x3 <- ggplot(data = GDP_diabetes_cal) +
+ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red")) +
@@ -302,9 +315,12 @@ x3 <- ggplot(data = GDP_diabetes_cal) +
   labs(title="Plant protein", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
-
+```
+</div>
+<div class = "col-md-6">
+```{r}
 # Diabetes vs calories from carbohydrates
-x4 <- ggplot(data = GDP_diabetes_cal) +
+ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red")) +
@@ -312,9 +328,16 @@ x4 <- ggplot(data = GDP_diabetes_cal) +
   labs(title="Carbs", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
+```
+</div>
+</div>
 
+<div class = "row">
+  
+<div class = "col-md-6">
+```{r}
 # Diabetes vs calories from fat
-x5 <- ggplot(data = GDP_diabetes_cal) +
+ggplot(data = GDP_diabetes_cal) +
   geom_point(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red")) +
@@ -322,9 +345,9 @@ x5 <- ggplot(data = GDP_diabetes_cal) +
   labs(title="Fat", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
-
-ggarrange(x1, x2, x3, x4, x5, ncol = 2, nrow = 3)
 ```
+</div>
+</div>
 
 We can see a negative trend for the total consumption, the calories from animal protein and the calories from fat. We can observe a positive trend against calories from plant protein. For protein from carbohydrates, we can see a slighty positive trend for women.
 
@@ -333,9 +356,12 @@ We can see a negative trend for the total consumption, the calories from animal 
 
 Now, since they affected our plots that included the GDP variable so much, we want to see if we have different trends when we remove our 5 outliers. 
 
+<div class = "row">
+  
+<div class = "col-md-6">
 ```{r}
 # Diabetes vs total calories
-x6 <- ggplot(data = GDP_diabetes_cal2) +
+ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red")) +
@@ -343,9 +369,12 @@ x6 <- ggplot(data = GDP_diabetes_cal2) +
   labs(title="Total", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
-
+```
+</div>
+<div class = "col-md-6">
+```{r}
 # Diabetes vs calories from animal protein
-x7 <- ggplot(data = GDP_diabetes_cal2) +
+ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red")) +
@@ -353,9 +382,16 @@ x7 <- ggplot(data = GDP_diabetes_cal2) +
   labs(title="Animal protein", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
+```
+</div>
+</div>
 
+<div class = "row">
+  
+<div class = "col-md-6">
+```{r}
 # Diabetes vs calories from plant protein
-x8 <- ggplot(data = GDP_diabetes_cal2) +
+ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red")) +
@@ -363,9 +399,12 @@ x8 <- ggplot(data = GDP_diabetes_cal2) +
   labs(title="Plant protein", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
-
+```
+</div>
+<div class = "col-md-6">
+```{r}
 # Diabetes vs calories from carbohydrates
-x9 <- ggplot(data = GDP_diabetes_cal2) +
+ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red")) +
@@ -373,9 +412,16 @@ x9 <- ggplot(data = GDP_diabetes_cal2) +
   labs(title="Carbs", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
+```
+</div>
+</div>
 
+<div class = "row">
+  
+<div class = "col-md-6">
+```{r}
 # Diabetes vs calories from fat
-x10 <- ggplot(data = GDP_diabetes_cal2) +
+ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red")) +
@@ -384,7 +430,9 @@ x10 <- ggplot(data = GDP_diabetes_cal2) +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 
-ggarrange(x6, x7, x8, x9, x10, ncol = 2, nrow = 3)
+#ggarrange(x6, x7, x8, x9, x10, ncol = 2, nrow = 3)
 ```
+</div>
+</div>
 
 Without our 5 outliers, we observe not much change in the trend of each type of calories consumed apart for carbohydrates where the trend changes for men and become slightly positive.
