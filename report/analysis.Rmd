@@ -187,15 +187,7 @@ myCluster<-rbind.data.frame(countries_cluster_1, countries_cluster_2, countries_
 
 EU_cluster <- c("AUT","BEL", "DNK", "FIN", "FRA", "DEU", "IRL", "ITA", "NLD", "SWE", "CHE", "BGR", "HRV", "CYP", "CZE", "EST", "GRC", "HUN", "LVA", "LTU", "MLT", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "LUX", "GBR")
 CL_EU <- cbind(myCluster, EU_cluster)
-```
 
-```{r, warning=FALSE, echo=FALSE}
-#get_eurostat_geospatial(resolution = 10, 
-#                        nuts_level = 0, 
-#                        year = 2016)
-```
-
-```{r, warning=FALSE}
 SHP_0 <- get_eurostat_geospatial(resolution = 10, 
                                  nuts_level = 0, 
                                  year = 2016)
