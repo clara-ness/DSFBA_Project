@@ -50,43 +50,43 @@ For the project's organization:
 
 For wrangling:
 * [Tidyverse](https://www.tidyverse.org/) that include the following pacakges:
-  * [ggplot2] (https://ggplot2.tidyverse.org/index.html)  
+  * [ggplot2](https://ggplot2.tidyverse.org/)
   * [dplyr](https://dplyr.tidyverse.org/) 
   * [tidyr](https://tidyr.tidyverse.org/) 
   * [readr](https://readr.tidyverse.org/) 
-  * [lubridate] (https://lubridate.tidyverse.org/) 
-  * [readyl] (https://readxl.tidyverse.org/) 
-* [data.table] (https://rstudio.github.io/DT/)
+  * [lubridate](https://lubridate.tidyverse.org/) 
+  * [readyl](https://readxl.tidyverse.org/) 
+* [data.table](https://rstudio.github.io/DT/)
 
 For plotting: 
-* [ggrepel] (https://github.com/slowkow/ggrepel)
-* [gghighlight] (https://cran.r-project.org/web/packages/gghighlight/vignettes/gghighlight.html)
-* [patchwork] (https://cran.r-project.org/web/packages/patchwork/index.html)
-* [maps] (https://cran.r-project.org/web/packages/maps/index.html)
-* [scales] (https://scales.r-lib.org/)
-* [plotly] (https://plotly.com/)
-* [papeR] (https://cran.r-project.org/web/packages/papeR/vignettes/papeR_introduction.html)
-* [ggubr] (https://cran.r-project.org/web/packages/ggpubr/index.html)
+* [ggrepel](https://github.com/slowkow/ggrepel)
+* [gghighlight](https://cran.r-project.org/web/packages/gghighlight/vignettes/gghighlight.html)
+* [patchwork](https://cran.r-project.org/web/packages/patchwork/index.html)
+* [maps](https://cran.r-project.org/web/packages/maps/index.html)
+* [scales](https://scales.r-lib.org/)
+* [plotly](https://plotly.com/)
+* [papeR](https://cran.r-project.org/web/packages/papeR/vignettes/papeR_introduction.html)
+* [ggubr](https://cran.r-project.org/web/packages/ggpubr/index.html)
 
 For mapping: 
 * [Leaflet](https://rstudio.github.io/leaflet/)
-* [eurostat] (https://cran.r-project.org/web/packages/eurostat/index.html)
-* [sf] (https://cran.r-project.org/web/packages/sf/index.html)
-* [geojsonsf] (https://cran.r-project.org/web/packages/geojsonR/vignettes/the_geojsonR_package.html)
+* [eurostat](https://cran.r-project.org/web/packages/eurostat/index.html)
+* [sf](https://cran.r-project.org/web/packages/sf/index.html)
+* [geojsonsf](https://cran.r-project.org/web/packages/geojsonR/vignettes/the_geojsonR_package.html)
 
 For the report: 
 
-* [knitr] (https://cran.r-project.org/web/packages/knitr/index.html)
-* [kableExtra] (https://cran.r-project.org/web/packages/kableExtra/index.html)
-* [bookdown] (https://bookdown.org/)
-* [rmardown] (https://rmarkdown.rstudio.com/)
-* [parameters] (https://rmarkdown.rstudio.com/lesson-6.html)
-* [see] (https://cran.r-project.org/web/packages/see/index.html)
-* [factoextra] (https://cran.r-project.org/web/packages/factoextra/index.html)
-* [NbClust] (https://www.rdocumentation.org/packages/NbClust/versions/3.0/topics/NbClust)
-* [sjPlot] (https://cran.r-project.org/web/packages/sjPlot/index.html)
-* [sjmisc] (https://cran.r-project.org/web/packages/sjmisc/index.html)
-* [sjlabelled] (https://cran.r-project.org/web/packages/sjlabelled/index.html)
+* [knitr](https://cran.r-project.org/web/packages/knitr/index.html)
+* [kableExtra](https://cran.r-project.org/web/packages/kableExtra/index.html)
+* [bookdown](https://bookdown.org/)
+* [rmardown](https://rmarkdown.rstudio.com/)
+* [parameters](https://rmarkdown.rstudio.com/lesson-6.html)
+* [see](https://cran.r-project.org/web/packages/see/index.html)
+* [factoextra](https://cran.r-project.org/web/packages/factoextra/index.html)
+* [NbClust](https://www.rdocumentation.org/packages/NbClust/versions/3.0/topics/NbClust)
+* [sjPlot](https://cran.r-project.org/web/packages/sjPlot/index.html)
+* [sjmisc](https://cran.r-project.org/web/packages/sjmisc/index.html)
+* [sjlabelled](https://cran.r-project.org/web/packages/sjlabelled/index.html)
                                    
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -125,10 +125,10 @@ When you arrive on the report, you only need to knit the [report.Rmd] in order t
 ## Data Used
 
 The following websites were used : 
-1. [Our World in Data] (https://ourworldindata.org/diet-compositions)
-2. [World Bank] (https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2020&locations=EU&start=1966&view=chart)
-3. [Diabetes] (https://www.ncdrisc.org/data-downloads-diabetes.html)
-4. [Population] (https://data.worldbank.org/indicator/SP.POP.TOTL)
+1. [Our World in Data](https://ourworldindata.org/diet-compositions)
+2. [World Bank](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2020&locations=EU&start=1966&view=chart)
+3. [Diabetes](https://www.ncdrisc.org/data-downloads-diabetes.html)
+4. [Population](https://data.worldbank.org/indicator/SP.POP.TOTL)
 
 <!-- CONTRIBUTING -->
 ## Contributing
