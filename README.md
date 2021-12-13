@@ -1,4 +1,4 @@
-# DSFBA_Project
+# European countries, their dietary habits and diabetes prevalence
 <p align="center">
     Welcome to our report !
     <br />
@@ -153,4 +153,5 @@ If you have any question feel free to contact us in wrtting an issue in this rep
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-*  Professor Thibault Vatter, Assistant Emma Maury, Assistant Luca Giacobi, Assistant Daniel Szenesfor their knowledge shared with us.                      
+*  Professor Thibault Vatter, Assistant Emma Maury, Assistant Luca Giacobi, Assistant Daniel Szenesfor their knowledge shared with us.  
+*  The team: Alesya Alpbaz,Clara Nessi and Fabien Calderini                   
