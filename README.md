@@ -149,7 +149,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
                                    
-If you have any question feel free to contact us in writting an issue in this repository. 
+If you have any question feel free to contact us in writing an issue in this repository. 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
