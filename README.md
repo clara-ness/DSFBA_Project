@@ -50,7 +50,7 @@ For the project's organization:
 
 For wrangling:
 * [Tidyverse](https://www.tidyverse.org/) that include the following pacakges:
-  * [ggplot2] (https://ggplot2.tidyverse.org/) 
+  * [ggplot2] (https://ggplot2.tidyverse.org/index.html)  
   * [dplyr](https://dplyr.tidyverse.org/) 
   * [tidyr](https://tidyr.tidyverse.org/) 
   * [readr](https://readr.tidyverse.org/) 
