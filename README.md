@@ -1,7 +1,7 @@
 # European countries, their dietary habits and diabetes prevalence
 <p align="center">
      <img src="https://github.com/clara-ness/DSFBA_Project/blob/main/Image.png"/>
-
+  <br />
     Welcome to our report !
     <br />
     <a href="https://github.com/clara-ness/DSFBA_Project/edit/main/README.md"><strong>Explore the report »</strong></a>
