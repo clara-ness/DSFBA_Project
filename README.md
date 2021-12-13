@@ -43,8 +43,6 @@ During the last 2 years, COVID-19 has been a main focus of the news. Though arou
 
 ## Built With
 
-The report was built in several parts, each dealing with a part of the data science course.
-
 For the project's organization:
 * [Here](https://www.rdocumentation.org/packages/here/versions/1.0.1/topics/here)
 
@@ -107,9 +105,6 @@ The project can either be run locally or find online going to this website [webs
                                    
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-The report is built in several parts, each dealing with a part of the data science course: 
-
 
 The project consists of three folders: 
 
