@@ -42,6 +42,7 @@
 During the last 2 years, COVID-19 has been a main focus of the news. Though around 3% of the world population had COVID-19, diabetes can be considered as an even bigger health problem. Indeed, according to the International Diabetes Foundations (IDF), in 2019, 463 million adults were living with diabetes (around 6-7% of the world population) and this number is forecasted to rise to 700 million by 2050. Furthermore, 90% of cases of diabetes are of type 2, which means it results mainly from bad habits and not genetics. However both types of diabetes can be treated and/or prevented with a healthier diet and more physical activity. Additionally, according to the WHO, low income countries are more susceptible to having higher diabetes prevalence. Living in Europe, we observed that diabetes rates differ a lot from one country to another, so we wanted to find out if these rates were indeed linked to a country’s income, and if the nutritious composition of richer states’ population’s diet is also affected by this income difference and if yes, how it is affected. 
 
 ## Built With
+The report has been created through different packages. 
 
 For the project's organization:
 * [Here](https://www.rdocumentation.org/packages/here/versions/1.0.1/topics/here)
@@ -73,7 +74,6 @@ For mapping:
 * [geojsonsf](https://cran.r-project.org/web/packages/geojsonR/vignettes/the_geojsonR_package.html)
 
 For the report: 
-
 * [knitr](https://cran.r-project.org/web/packages/knitr/index.html)
 * [kableExtra](https://cran.r-project.org/web/packages/kableExtra/index.html)
 * [bookdown](https://bookdown.org/)
@@ -91,7 +91,7 @@ For the report:
 
 ### Prerequisites
 
-The project can either be run locally or find online going to this website [website](https://www.iamawesome.com).
+The project can either be run locally or find online going to this [website](https://www.iamawesome.com).
 
 ### Installation
 
