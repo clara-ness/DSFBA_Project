@@ -112,7 +112,7 @@ The project consists of three folders:
 
 1) The [scripts](scripts/setup.R) folder with the file [setup.R] where all the packages are installed and load.
 
-2) The [data](data/) is the folder where all our data is stored.
+2) The [data](data/) folder where all our data is stored.
                                    
 3) The [report](report/) folder, which contains all the parts of our report each stored in a different markdown files.
                                   
@@ -150,5 +150,5 @@ If you have any question feel free to contact us in writing an issue in this rep
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-*  Professor Thibault Vatter, Assistant Emma Maury, Assistant Luca Giacobi, Assistant Daniel Szenes for their knowledge shared with us.  
+*  Professor Thibault Vatter as well as Teaching Assistants Emma Maury, Luca Giacobi and Daniel Szenes for their knowledge shared with us.  
 *  The team: Alesya Alpbaz, Clara Nessi and Fabien Calderini                   
