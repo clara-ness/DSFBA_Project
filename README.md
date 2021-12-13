@@ -28,7 +28,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#visualisation">Visualisation</a></li>
+    <li><a href="#visualisation ">Visualisation </a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -103,8 +103,8 @@ The project can either be run locally or find online going to this [website](htt
 3. Open the repo
 4. Go to the report files and knit the report.Rmd
                                    
-<!-- USAGE EXAMPLES -->
-## How to visualise the report
+<!-- VISUALISATION -->
+## Visualisation
 
 The project consists of three folders: 
 
@@ -112,10 +112,10 @@ The project consists of three folders:
 
 2) The [data](data/) is the folder where all our data is stored.
                                    
-3) The [report](report/) folder, which contains all the parts of our report each stored in a different markdown files in the folder [report]
+3) The [report](report/) folder, which contains all the parts of our report each stored in a different markdown files.
                                   
                                    
-When you arrive on the report, you only need to knit the [report.Rmd] in order to have all the report. All the folders and files are linked thanks to our packages [here].
+When you arrive on the report, you only need to knit the [report.Rmd] in order to have all the report. All the folders and files are linked thanks to our package [Here](https://www.rdocumentation.org/packages/here/versions/1.0.1/topics/here).
 <!-- DATA USED -->
 ## Data Used
 
