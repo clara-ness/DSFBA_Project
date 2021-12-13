@@ -2,7 +2,7 @@
 <p align="center">
     Welcome to our report !
     <br />
-    <a href="https://github.com/clara-ness/DSFBA_Project/edit/main/README.md"><strong>Explore the project »</strong></a>
+    <a href="https://github.com/clara-ness/DSFBA_Project/edit/main/README.md"><strong>Explore the report »</strong></a>
     <br />
     <br />
     <a href="https://github.com/clara-ness/DSFBA_Project/issues">Report Bug</a>
@@ -36,8 +36,8 @@
   </ol>
 </details>
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+<!-- ABOUT THE REPORT -->
+## About The Report
 
 During the last 2 years, COVID-19 has been a main focus of the news. Though around 3% of the world population had COVID-19, diabetes can be considered as an even bigger health problem. Indeed, according to the International Diabetes Foundations (IDF), in 2019, 463 million adults were living with diabetes (around 6-7% of the world population) and this number is forecasted to rise to 700 million by 2050. Furthermore, 90% of cases of diabetes are of type 2, which means it results mainly from bad habits and not genetics. However both types of diabetes can be treated and/or prevented with a healthier diet and more physical activity. Additionally, according to the WHO, low income countries are more susceptible to having higher diabetes prevalence. Living in Europe, we observed that diabetes rates differ a lot from one country to another, so we wanted to find out if these rates were indeed linked to a country’s income, and if the nutritious composition of richer states’ population’s diet is also affected by this income difference and if yes, how it is affected. 
 
