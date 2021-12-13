@@ -28,7 +28,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#visualisation">Visualisation</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -104,15 +104,15 @@ The project can either be run locally or find online going to this [website](htt
 4. Go to the report files and knit the report.Rmd
                                    
 <!-- USAGE EXAMPLES -->
-## Usage
+## How to visualise the report
 
 The project consists of three folders: 
 
 1) The [scripts](scripts/setup.R) folder with the file [setup.R] where all the packages are installed and load.
 
-2) The [data](data/), which is the folder where all our data is stored.
+2) The [data](data/) is the folder where all our data is stored.
                                    
-3) The [report](report/report.Rmd) file, which contains all the parts of our report each stored in a different markdown files in the folder [report]
+3) The [report](report/) folder, which contains all the parts of our report each stored in a different markdown files in the folder [report]
                                   
                                    
 When you arrive on the report, you only need to knit the [report.Rmd] in order to have all the report. All the folders and files are linked thanks to our packages [here].
