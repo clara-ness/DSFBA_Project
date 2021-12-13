@@ -171,7 +171,7 @@ ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$tota
     nudge_x = 0.25, nudge_y = 0.25, 
     check_overlap = T)+
  geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption), color = "red", method = "lm")+
-   labs(title = "Daily total calorie consumption vs Average GDP", x = "Average GDP (in billion $)", y = "Calories")
+   labs(title = "Daily total calories vs Average GDP", x = "Average GDP (in billion $)", y = "Calories")
 ```
 
 We end up again with these 5 outliers that have a higher than average GDP so if we remove them, we obtain the following plots :
@@ -429,8 +429,6 @@ ggplot(data = GDP_diabetes_cal2) +
   labs(title="Fat", x="Calories", y="Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
-
-#ggarrange(x6, x7, x8, x9, x10, ncol = 2, nrow = 3)
 ```
 </div>
 </div>

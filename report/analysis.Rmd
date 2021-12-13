@@ -11,6 +11,7 @@ This first question serves more as a control, since we learned during our resear
 
 It is important to note that, when we try to fit a linear model on these variables and observe correlations over all observations, we see that these relationships are not significant at all.
 
+
 ```{r}
 #with outliers
 
@@ -19,7 +20,7 @@ c0 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabete
 rownames(c0) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c0,
-   caption = "**Correlation (with outliers)",
+   caption = "**Correlation (with outliers)**",
    align = c('cccccc')) %>%
    kable_classic( full_width = T, html_font = "Cambria") %>%
    kable_styling(position = "left", bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -68,6 +69,7 @@ tab_model(
 
 However, once we exclude outliers, we see that the relationship is way more significant !
 
+
 ```{r}
 #without outliers
 
@@ -76,7 +78,7 @@ c_out <- matrix(c(cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_di
 rownames(c_out) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c_out,
-   caption = "**Correlation (without outliers)",
+   caption = "**Correlation (without outliers)**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -267,6 +269,7 @@ In the graph above,
 
 We can therefore see that diabetes is indeed lower in clusters which contain the countries with higher GPDs. Let's see if this relationship is significant within each cluster :
 
+
 ```{r}
 #cluster 1
 
@@ -275,7 +278,7 @@ c1 <- matrix(c(cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_d
 rownames(c1) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c1,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -328,7 +331,7 @@ c2 <- matrix(c(cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_d
 rownames(c2) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c2,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -377,7 +380,7 @@ c3 <- matrix(c(cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_d
 rownames(c3) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c3,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -436,7 +439,7 @@ c4 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption))
 rownames(c4) <- c("Between average GDP and total calories")
 
 kbl(c4,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -472,7 +475,7 @@ c5 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$total_consum
 rownames(c5) <- c("Between GDP per person and total calories")
 
 kbl(c5,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -504,7 +507,7 @@ c6 <- matrix(c(cor(countries_cluster_1$gdp_per_person, countries_cluster_1$total
 rownames(c6) <- c("Between GDP per person and total calories")
 
 kbl(c6,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -529,7 +532,7 @@ c7 <- matrix(c(cor(countries_cluster_2$gdp_per_person, countries_cluster_2$total
 rownames(c7) <- c("Between GDP per person and total calories")
 
 kbl(c7,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -554,7 +557,7 @@ c8 <- matrix(c(cor(countries_cluster_3$gdp_per_person, countries_cluster_3$total
 rownames(c8) <- c("Between GDP per person and total calories")
 
 kbl(c8,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -647,7 +650,7 @@ c9 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)))
 rownames(c9) <- c("Between average GDP and calories from animal protein")
 
 kbl(c9,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -676,7 +679,7 @@ c10 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_an
 rownames(c10) <- c("Between GDP per person and calories from animal protein")
 
 kbl(c10,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -705,7 +708,7 @@ c11 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_
 rownames(c11) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c11,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -737,7 +740,7 @@ c12 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bi
 rownames(c12) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c12,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -762,7 +765,7 @@ c13 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bi
 rownames(c13) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c13,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -787,7 +790,7 @@ c14 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bi
 rownames(c14) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c14,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -822,7 +825,7 @@ c15 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant)))
 rownames(c15) <- c("Between average GDP and calories from plant protein")
 
 kbl(c15,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -852,7 +855,7 @@ c16 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_pl
 rownames(c16) <- c("Between GDP per person and calories from plant protein")
 
 kbl(c16,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -881,7 +884,7 @@ c17 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_
 rownames(c17) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c17,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -912,7 +915,7 @@ c18 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bi
 rownames(c18) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c18,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -937,7 +940,7 @@ c19 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bi
 rownames(c19) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c19,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -961,7 +964,7 @@ c20 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bi
 rownames(c20) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c20,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -996,7 +999,7 @@ c21 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs)))
 rownames(c21) <- c("Between average GDP and calories from carbs")
 
 kbl(c21,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1027,7 +1030,7 @@ c22 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_carbs))
 rownames(c22) <- c("Between GDP per person and calories from carbs")
 
 kbl(c22,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1056,7 +1059,7 @@ c23 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_
 rownames(c23) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c23,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1085,7 +1088,7 @@ c24 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bi
 rownames(c24) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c24,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1109,7 +1112,7 @@ c25 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bi
 rownames(c25) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c25,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1134,7 +1137,7 @@ c26 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bi
 rownames(c26) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c26,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1171,7 +1174,7 @@ c27 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat)))
 rownames(c27) <- c("Between average GDP and calories from fat")
 
 kbl(c27,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1200,7 +1203,7 @@ c28 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_fat)))
 rownames(c28) <- c("Between GDP per person and calories from fat")
 
 kbl(c28,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1229,7 +1232,7 @@ c29 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_
 rownames(c29) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c29,
-   caption = "**Correlation",
+   caption = "**Correlation**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1258,7 +1261,7 @@ c30 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bi
 rownames(c30) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c30,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1283,7 +1286,7 @@ c31 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bi
 rownames(c31) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c31,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1308,7 +1311,7 @@ c32 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bi
 rownames(c32) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c32,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1346,7 +1349,7 @@ rownames(c400) <- c("Men","Women")
 colnames(c400) <- c("Animal protein","Plant protein","Carbs","Fat")
 
 kbl(c400,
-   caption = "**Correlation between diabetes rate per sex and calories from ",
+   caption = "**Correlation between diabetes rate per sex and calories from**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
@@ -1364,7 +1367,7 @@ rownames(c401) <- c("Men","Women")
 colnames(c401) <- c("Animal protein","Plant protein","Carbs","Fat")
 
 kbl(c401,
-   caption = "**Correlation between diabetes rate per sex and proportion of calories from ",
+   caption = "**Correlation between diabetes rate per sex and proportion of calories from**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
@@ -1438,7 +1441,7 @@ c50 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_
 rownames(c50) <- c("Between men diabetes rate and proportion of calories from animal protein", "Between women diabetes rate and proportion of calories from animal protein")
 
 kbl(c50,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1487,7 +1490,7 @@ c51 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_
 rownames(c51) <- c("Between men diabetes rate and proportion of calories from animal protein", "Between women diabetes rate and proportion of calories from animal protein")
 
 kbl(c51,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1536,7 +1539,7 @@ c52 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_
 rownames(c52) <- c("Between men diabetes rate and proportion of calories from animal protein", "Between women diabetes rate and proportion of calories from animal protein")
 
 kbl(c52,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
@@ -1648,7 +1651,7 @@ c53 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_
 rownames(c53) <- c("Between men diabetes rate and proportion of calories from plant protein", "Between women diabetes rate and proportion of calories from plant protein")
 
 kbl(c53,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
@@ -1698,7 +1701,7 @@ c54 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_
 rownames(c54) <- c("Between men diabetes rate and proportion of calories from plant protein", "Between women diabetes rate and proportion of calories from plant protein")
 
 kbl(c54,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1747,7 +1750,7 @@ c55 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_
 rownames(c55) <- c("Between men diabetes rate and proportion of calories from plant protein", "Between women diabetes rate and proportion of calories from plant protein")
 
 kbl(c55,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1858,7 +1861,7 @@ c56 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_
 rownames(c56) <- c("Between men diabetes rate and proportion of calories from carbs", "Between women diabetes rate and proportion of calories from carbs")
 
 kbl(c56,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1908,7 +1911,7 @@ c57 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_
 rownames(c57) <- c("Between men diabetes rate and proportion of calories from carbs", "Between women diabetes rate and proportion of calories from carbs")
 
 kbl(c57,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -1958,7 +1961,7 @@ c58 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_
 rownames(c58) <- c("Between men diabetes rate and proportion of calories from carbs", "Between women diabetes rate and proportion of calories from carbs")
 
 kbl(c58,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -2070,7 +2073,7 @@ c59 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_
 rownames(c59) <- c("Between men diabetes rate and proportion of calories from fat", "Between women diabetes rate and proportion of calories from fat")
 
 kbl(c59,
-   caption = "**Correlation for cluster 1",
+   caption = "**Correlation for cluster 1**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -2120,7 +2123,7 @@ c60 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_
 rownames(c60) <- c("Between men diabetes rate and proportion of calories from fat", "Between women diabetes rate and proportion of calories from fat")
 
 kbl(c60,
-   caption = "**Correlation for cluster 2",
+   caption = "**Correlation for cluster 2**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
@@ -2170,7 +2173,7 @@ c61 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_
 rownames(c61) <- c("Between men diabetes rate and proportion of calories from fat", "Between women diabetes rate and proportion of calories from fat")
 
 kbl(c61,
-   caption = "**Correlation for cluster 3",
+   caption = "**Correlation for cluster 3**",
    align = c('cccccc')) %>%
    kable_classic(full_width = T, html_font = "Cambria") %>%
    kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
