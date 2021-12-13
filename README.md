@@ -55,7 +55,7 @@ For wrangling:
   * [tidyr](https://tidyr.tidyverse.org/) 
   * [readr](https://readr.tidyverse.org/) 
   * [lubridate] (https://lubridate.tidyverse.org/) 
-  *[readyl] (https://readxl.tidyverse.org/) 
+  * [readyl] (https://readxl.tidyverse.org/) 
 * [data.table] (https://rstudio.github.io/DT/)
 
 For plotting: 
