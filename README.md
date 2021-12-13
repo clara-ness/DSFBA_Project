@@ -154,4 +154,4 @@ If you have any question feel free to contact us in wrtting an issue in this rep
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 *  Professor Thibault Vatter, Assistant Emma Maury, Assistant Luca Giacobi, Assistant Daniel Szenesfor their knowledge shared with us.  
-*  The team: Alesya Alpbaz,Clara Nessi and Fabien Calderini                   
+*  The team: Alesya Alpbaz, Clara Nessi and Fabien Calderini                   
