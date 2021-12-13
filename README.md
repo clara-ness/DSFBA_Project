@@ -2,7 +2,7 @@
 <p align="center">
     Welcome to our report !
     <br />
-    <a href="https://github.com/clara-ness/DSFBA_Project/edit/main/README.md"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/clara-ness/DSFBA_Project/edit/main/README.md"><strong>Explore the project »</strong></a>
     <br />
     <br />
     <a href="https://github.com/clara-ness/DSFBA_Project/issues">Report Bug</a>
@@ -93,7 +93,7 @@ For the report:
 
 ### Prerequisites
 
-The project can either be run locally or find online going to this website [website](https://www.iamawesome.com)
+The project can either be run locally or find online going to this website [website](https://www.iamawesome.com).
 
 ### Installation
 
