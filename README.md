@@ -49,7 +49,7 @@ For the project's organization:
 * [Here](https://www.rdocumentation.org/packages/here/versions/1.0.1/topics/here)
 
 For wrangling:
-* [Tidyverse](https://www.tidyverse.org/) that include the following pacakges:
+* [Tidyverse](https://www.tidyverse.org/) that include the following packages:
   * [ggplot2](https://ggplot2.tidyverse.org/)
   * [dplyr](https://dplyr.tidyverse.org/) 
   * [tidyr](https://tidyr.tidyverse.org/) 
@@ -117,10 +117,10 @@ The project consists of three folders:
 
 2) The [data](data/), which is the folder where all our data is stored.
                                    
-3) The [report](report/report.Rmd) file, which contains all our part of our report each stored in a differennt markdowns files in the folder [report]
+3) The [report](report/report.Rmd) file, which contains all the parts of our report each stored in a different markdown files in the folder [report]
                                   
                                    
-When you arrive on the report, you only need to knit the [report.Rmd] in order to have all the report. All the folders and files are linked thanks to our pacakes [here].
+When you arrive on the report, you only need to knit the [report.Rmd] in order to have all the report. All the folders and files are linked thanks to our packages [here].
 <!-- DATA USED -->
 ## Data Used
 
@@ -149,9 +149,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
                                    
-If you have any question feel free to contact us in wrtting an issue in this repository. 
+If you have any question feel free to contact us in writing an issue in this repository. 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-*  Professor Thibault Vatter, Assistant Emma Maury, Assistant Luca Giacobi, Assistant Daniel Szenesfor their knowledge shared with us.  
+*  Professor Thibault Vatter, Assistant Emma Maury, Assistant Luca Giacobi, Assistant Daniel Szenes for their knowledge shared with us.  
 *  The team: Alesya Alpbaz, Clara Nessi and Fabien Calderini                   
