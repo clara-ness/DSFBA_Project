@@ -41,7 +41,7 @@
 <!-- ABOUT THE REPORT -->
 ## About The Report
 
-During the last 2 years, COVID-19 has been a main focus of the news. Though around 3% of the world population had COVID-19, diabetes can be considered as an even bigger health problem. Indeed, according to the International Diabetes Foundations (IDF), in 2019, 463 million adults were living with diabetes (around 6-7% of the world population) and this number is forecasted to rise to 700 million by 2050. Furthermore, 90% of cases of diabetes are of type 2, which means it results mainly from bad habits and not genetics. However both types of diabetes can be treated and/or prevented with a healthier diet and more physical activity. Additionally, according to the WHO, low income countries are more susceptible to having higher diabetes prevalence. Living in Europe, we observed that diabetes rates differ a lot from one country to another, so we wanted to find out if these rates were indeed linked to a country’s income, and if the nutritious composition of richer states’ population’s diet is also affected by this income difference and if yes, how it is affected. 
+During the last 2 years, COVID-19 has been a main focus of the news. Though around 3% of the world population had COVID-19, diabetes can be considered as an even bigger health problem. Indeed, according to the International Diabetes Foundations (IDF), in 2019, 463 million adults were living with diabetes (around 6-7% of the world population) and this number is forecasted to rise to 700 million by 2050. Furthermore, 90% of cases of diabetes are of type 2, which means it results mainly from bad habits and not genetics. However both types of diabetes can be treated and/or prevented with a healthier diet and more physical activity. Additionally, according to the WHO, low income countries are more susceptible to having higher diabetes prevalence. Living in Europe, we observed that diabetes rates differ from one country to another, so we wanted to find out if these rates were indeed linked to a country’s income, and if the nutritious composition of richer states’ population’s diet is also affected by this income difference and if yes, how it is affected. 
 
 ## Built With
 The report has been created through different packages. 
@@ -67,7 +67,7 @@ For plotting:
 * [scales](https://scales.r-lib.org/)
 * [plotly](https://plotly.com/)
 * [papeR](https://cran.r-project.org/web/packages/papeR/vignettes/papeR_introduction.html)
-* [ggubr](https://cran.r-project.org/web/packages/ggpubr/index.html)
+* [ggpubr](https://cran.r-project.org/web/packages/ggpubr/index.html)
 
 For mapping: 
 * [Leaflet](https://rstudio.github.io/leaflet/)
@@ -121,11 +121,11 @@ When you arrive on the report, you only need to knit the [report.Rmd] in order t
 <!-- DATA USED -->
 ## Data Used
 
-The following websites were used : 
-1. [Our World in Data](https://ourworldindata.org/diet-compositions)
-2. [World Bank](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2020&locations=EU&start=1966&view=chart)
-3. [Diabetes](https://www.ncdrisc.org/data-downloads-diabetes.html)
-4. [Population](https://data.worldbank.org/indicator/SP.POP.TOTL)
+The following websites were used to export data: 
+1. [Our World in Data (kcal)](https://ourworldindata.org/diet-compositions)
+2. [World Bank (GDP)](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2020&locations=EU&start=1966&view=chart)
+4. [World Bank (population)](https://data.worldbank.org/indicator/SP.POP.TOTL)
+3. [NCD Risk Factor Collaboration (diabetes)](https://www.ncdrisc.org/data-downloads-diabetes.html)
 
 <!-- CONTRIBUTING -->
 ## Contributing
