@@ -148,7 +148,7 @@ There do not seem to be any trends in the graphs above and diets seem rather sta
 
 ## Plotting GDP against calories consumed
 
-We then wanted to analyse the relation between a country's GDP and its individual consumption of each macronutrient as well as its total calorie consumption to see if there's a trend.(total calories = orange, fat = blue, carbohydrates = purple, animal protein = red, plant protein = green)
+We then wanted to analyse the relation between a country's GDP and its individual consumption of each macronutrient as well as its total calorie consumption to see if there's a trend.
 
 ```{r}
 ggplot(data = GDP_diabetes_cal, aes(x = avg_gdp)) + 
