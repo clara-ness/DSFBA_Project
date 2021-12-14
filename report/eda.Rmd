@@ -55,47 +55,7 @@ Without the outliers, we can see a bit more clearly. Indeed, it seems that the r
 
 ## Evolution of the consumption of macronutrients in calories per country
 
-For the second table, we tried to see again if there was a trend in the consumption of different macro-nutrients in the 2000s for each country in our sample.
-
-```{r}
-
-# Trying to put a button to display all the countires graphs
-# Plotting the evolution of the macronutrients consumption over the years for each country
-# cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
-
-# for (i in 1:nrow(cal_unique)) { # Loop for each entity
-# tmp <- cal_unique$Entity[i]     # Getting the entity name i
-
-# Taking subset of data table for the chosen entity i
-# tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))","Calories #from plant protein (FAO (2017))","Calories from fat (FAO (2017))","Calories from carbohydrates (FAO (2017))"))
-
-# Melting the data by years (i.e. getting each value for the different rows for each year)
-# tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
-
-# Print plot
-# print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
-#  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
-#       y = "Calories", x = "Year"))
-# }
-
-# library(shiny)
-# ui <- tagList(
-#    tags$head(
-#        tags$title("HTML Button Test")
-#    ),
-#    tags$main(
-#        tags$h1("HTML Button Test"),
-#        tags$p("Click the button."),
-#        tags$button(
-#            id = "btn",
-#            class = "shiny-bound-input action-button",
-#            "My Button"
-#        )
-#    )
-# )
-```
-
-In different countries, there is one difference that stands out and that seems to be related to wealth. Indeed, countries with a higher GDP like Austria consume on average more fat as can be seen on this graph:
+For the second table, we tried to see again if there was a trend in the consumption of different macro-nutrients in the 2000s for each country in our sample. We observed that in different countries, there is one difference that stands out and that seems to be related to wealth. Indeed, countries with a higher GDP like Austria consume on average more fat as can be seen on this graph:
 
 ```{r}
 # Plotting for Austria

@@ -203,8 +203,7 @@ SHP_0 <- get_eurostat_geospatial(
   year = 2016
 )
 
-# eu <- c("SHQ", "AUT", "BEL", "NLD", "POL", "PRT", "DNK", "DEU", "ELL", "BGR", "CHE", "CYP", "ROU", "SRB", "CZE", "EST", "HUN", "HRV", "SVN", "SVK", "SWE", "ITA", "TUR", "FIN", "NOR", "IRL", "ISL", "LIE", "LTU", "LUX", "LVA", "MNE", "MLT", "FRA")
-# Parsing correction
+
 SHP_0 <- SHP_0[-c(1, 15, 24, 26, 28, 29, 33, 34), ]
 
 nb_cluster <- as.numeric(levels(CL_EU$cluster))[CL_EU$cluster]
