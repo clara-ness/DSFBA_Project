@@ -189,12 +189,12 @@ kbl(countries_cluster_3,
 It is important to note that our 3rd cluster only contains 2 countries, and therefore when we analyse correlation and linear regression parameters, we will be mainly considering the overall nature of the relationships. (positive or negative link?)
 
 To go further, we decided to represent on a cluster map to see if there was a difference between the north and the south for example.
-
+<br>
 ```{r, warning=FALSE}
 
 myCluster <- rbind.data.frame(countries_cluster_1, countries_cluster_2, countries_cluster_3)
 
-EU_cluster <- c("AUT", "BEL", "DNK", "FIN", "FRA", "DEU", "IRL", "ITA", "NLD", "SWE", "CHE", "BGR", "HRV", "CYP", "CZE", "EST", "GRC", "HUN", "LVA", "LTU", "MLT", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "LUX", "GBR")
+EU_cluster <- c("AT", "BE", "DK", "FI", "FR", "DE", "IE", "IT", "NL", "SE", "CH", "BG", "HR", "CY", "CZ", "EE", "EL", "HU", "LV", "LT", "MT", "PL", "PT", "RO", "SK", "SI", "ES", "LU", "UK")
 CL_EU <- cbind(myCluster, EU_cluster)
 
 SHP_0 <- get_eurostat_geospatial(
@@ -203,12 +203,23 @@ SHP_0 <- get_eurostat_geospatial(
   year = 2016
 )
 
-eu <- c("SHQ", "AUT", "BEL", "NLD", "POL", "PRT", "DNK", "DEU", "ELL", "BGR", "CHE", "CYP", "ROU", "SRB", "CZE", "EST", "HUN", "HRV", "SVN", "SVK", "SWE", "ITA", "TUR", "FIN", "NOR", "IRL", "ISL", "LIE", "LTU", "LUX", "LVA", "MNE", "MLT", "FRA")
-
-SHP_0 <- SHP_0[-c(1, 9, 15, 17, 24, 26, 28, 29, 33, 34), ]
+# eu <- c("SHQ", "AUT", "BEL", "NLD", "POL", "PRT", "DNK", "DEU", "ELL", "BGR", "CHE", "CYP", "ROU", "SRB", "CZE", "EST", "HUN", "HRV", "SVN", "SVK", "SWE", "ITA", "TUR", "FIN", "NOR", "IRL", "ISL", "LIE", "LTU", "LUX", "LVA", "MNE", "MLT", "FRA")
+# Parsing correction
+SHP_0 <- SHP_0[-c(1, 15, 24, 26, 28, 29, 33, 34), ]
 
 nb_cluster <- as.numeric(levels(CL_EU$cluster))[CL_EU$cluster]
 CL_EU <- cbind(CL_EU, nb_cluster)
+# Color for each cluster
+for (i in 1:29) {
+  if (CL_EU$nb_cluster[i] == 1) {
+    CL_EU$col[i]=c('red')
+  } else if (CL_EU$nb_cluster[i] == 2) {
+    CL_EU$col[i]=c('blue')
+  } else {
+    CL_EU$col[i]=c('green')
+  }
+}
+CL_EU <- CL_EU[match(SHP_0$FID,CL_EU$EU_cluster),]
 ```
 
 ```{r, warning=FALSE}
@@ -217,66 +228,19 @@ leaflet(SHP_0) %>%
   addTiles() %>%
   addPolygons(
     color = "black",
-    weight = 1,
-    fillOpacity = ifelse(
-      test = CL_EU$nb_cluster == 1,
-      yes = 1,
-      no = 0
-    ),
-    fillColor = "red"
-  )
+    weight = .5,
+    fillOpacity = .5,
+    fillColor = CL_EU$col,) %>%
+  addLegend("bottomright", 
+  colors = c("red","blue","green"),
+  labels = c("1","2","3"),
+  title= "Cluster number",
+  opacity = .6)
 ```
+We can therefore see that the first cluster is more located in the north and center of Europe while the second cluster is more towards the extremities of Europe (West and East).
 
-The first cluster is therefore located more in the centre and north of Europe.
-
-```{r, warning=FALSE}
-leaflet(SHP_0) %>%
-  setView(lng = 15, lat = 50, zoom = 4) %>%
-  addTiles() %>%
-  addPolygons(
-    color = "black",
-    weight = 1,
-    fillOpacity = ifelse(
-      test = CL_EU$nb_cluster == 2,
-      yes = 1,
-      no = 0
-    ),
-    fillColor = "blue"
-  )
-```
-
-The second cluster would be located more to the southwest of Europe.
-
-```{r, warning=FALSE}
-leaflet(SHP_0) %>%
-  setView(lng = 15, lat = 50, zoom = 4) %>%
-  addTiles() %>%
-  addPolygons(
-    color = "black",
-    weight = 1,
-    fillOpacity = ifelse(
-      test = CL_EU$nb_cluster == 3,
-      yes = 1,
-      no = 0
-    ),
-    fillColor = "orange"
-  )
-
-binpal <- colorBin("Blues", CL_EU$nb_cluster, 3, pretty = FALSE)
-
-leaflet(SHP_0) %>%
-  setView(lng = 15, lat = 50, zoom = 4) %>%
-  addTiles() %>%
-  addPolygons(
-    stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
-    color = ~ binpal(nb_cluster)
-  )
-```
-
-And the third cluster represents only two countries so it is hard to give it a region. 
-
-Now let's plot these clusters to see the differences between them.
-
+We then plot the cluster with the different variables to see their characteristics. 
+<br><br>
 ```{r, warning=FALSE}
 res_kmeans <- cluster_analysis(data_1, n = 3, method = "kmeans", iterations = 20)
 
