@@ -13,17 +13,18 @@ It is important to note that, when we try to fit a linear model on these variabl
 
 
 ```{r}
-#with outliers
+# with outliers
 
 c0 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_women_diabetes), cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$prop_men_diabetes)))
 
 rownames(c0) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c0,
-   caption = "**Correlation (with outliers)**",
-   align = c('cccccc')) %>%
-   kable_classic( full_width = T, html_font = "Cambria") %>%
-   kable_styling(position = "left", bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation (with outliers)**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(position = "left", bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br><br>
 
@@ -31,37 +32,38 @@ kbl(c0,
   
 <div class = "col-md-6">
 ```{r}
-#graph on the left
+# graph on the left
 lm_gdp_diabetes_women <- lm(avg_gdp ~ prop_women_diabetes, data = GDP_diabetes_cal)
 
 lm_gdp_diabetes_men <- lm(avg_gdp ~ prop_men_diabetes, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_diabetes_women, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_women,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Women diabetes rate"),
   CSS = list(
-    css.width = '800px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "800px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
-)  
+)
 ```
 </div>
 <div class = "col-md-6">
 ```{r}
-#graph on the right
+# graph on the right
 tab_model(
-  lm_gdp_diabetes_men, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_men,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Men diabetes rate"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
-
 ```
 </div>
 </div>
@@ -71,17 +73,18 @@ However, once we exclude outliers, we see that the relationship is way more sign
 
 
 ```{r}
-#without outliers
+# without outliers
 
 c_out <- matrix(c(cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_women_diabetes), cor(GDP_diabetes_cal2$avg_gdp, GDP_diabetes_cal2$prop_men_diabetes)))
 
 rownames(c_out) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c_out,
-   caption = "**Correlation (without outliers)**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation (without outliers)**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br><br>
 ```{r}
@@ -96,28 +99,30 @@ lm_gdp_diabetes_men2 <- lm(avg_gdp ~ prop_men_diabetes, data = GDP_diabetes_cal2
 <div class = "col-md-6">
 ```{r}
 tab_model(
-  lm_gdp_diabetes_women2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_women2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Women diabetes rate </n> (without outliers"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
-)  
+)
 ```
 </div>
 
 <div class = "col-md-6">
 ```{r}
 tab_model(
-  lm_gdp_diabetes_men2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_men2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Men diabetes rate </n> (without outliers"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -130,12 +135,12 @@ In the EDA section, we grouped countries in 3 categories, according to the relat
 To determine the number of clusters we used the elbow method. This method examines the percentage of variance explained as a function of the number of clusters. It is based on the idea that a number of clusters should be chosen such that the addition of another cluster does not allow for a better modeling of the data. The percentage of variance explained by the clusters is plotted against the number of clusters.
 
 ```{r, warning=FALSE}
-data_1 <- GDP_diabetes_cal[,-(1:2),drop=FALSE] #-> introduce the proportions later on ?
-rownames(data_1) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU","GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
+data_1 <- GDP_diabetes_cal[, -(1:2), drop = FALSE] #-> introduce the proportions later on ?
+rownames(data_1) <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
 
 fviz_nbclust(data_1, kmeans, method = "wss") +
   geom_vline(xintercept = 3, linetype = 2) + # add line for better visualisation
-  labs(subtitle = "Elbow method")+ # add subtitle
+  labs(subtitle = "Elbow method") + # add subtitle
   scale_y_continuous(labels = scales::label_number_si())
 ```
 
@@ -149,32 +154,35 @@ model_cluster <- kmeans(data_1, centers = 3, nstart = 10)
 Data_cluster <- data.frame(data_1, cluster = as.factor(model_cluster$cluster))
 
 countries_cluster_1 <- filter(Data_cluster, cluster == "1")
-countries_cluster_2 <- filter(Data_cluster, cluster == "2") 
+countries_cluster_2 <- filter(Data_cluster, cluster == "2")
 countries_cluster_3 <- filter(Data_cluster, cluster == "3")
 ```
 
 ```{r}
 kbl(countries_cluster_1,
-    caption = "**Table 6**: Cluster 1",
-    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Table 6**: Cluster 1",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 ```{r}
 kbl(countries_cluster_2,
-    caption = "**Table 7**: Cluster 2",
-    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  caption = "**Table 7**: Cluster 2",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 ```{r}
 kbl(countries_cluster_3,
-    caption = "**Table 8**: Cluster 3",
-    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  caption = "**Table 8**: Cluster 3",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 
@@ -184,76 +192,85 @@ To go further, we decided to represent on a cluster map to see if there was a di
 
 ```{r, warning=FALSE}
 
-myCluster<-rbind.data.frame(countries_cluster_1, countries_cluster_2, countries_cluster_3)
+myCluster <- rbind.data.frame(countries_cluster_1, countries_cluster_2, countries_cluster_3)
 
-EU_cluster <- c("AUT","BEL", "DNK", "FIN", "FRA", "DEU", "IRL", "ITA", "NLD", "SWE", "CHE", "BGR", "HRV", "CYP", "CZE", "EST", "GRC", "HUN", "LVA", "LTU", "MLT", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "LUX", "GBR")
+EU_cluster <- c("AUT", "BEL", "DNK", "FIN", "FRA", "DEU", "IRL", "ITA", "NLD", "SWE", "CHE", "BGR", "HRV", "CYP", "CZE", "EST", "GRC", "HUN", "LVA", "LTU", "MLT", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "LUX", "GBR")
 CL_EU <- cbind(myCluster, EU_cluster)
 
-SHP_0 <- get_eurostat_geospatial(resolution = 10, 
-                                 nuts_level = 0, 
-                                 year = 2016)
+SHP_0 <- get_eurostat_geospatial(
+  resolution = 10,
+  nuts_level = 0,
+  year = 2016
+)
 
-eu <- c("SHQ", "AUT", "BEL", "NLD", "POL", "PRT", "DNK", "DEU", "ELL", "BGR", "CHE", "CYP", "ROU", "SRB","CZE", "EST", "HUN", "HRV", "SVN", "SVK", "SWE", "ITA", "TUR", "FIN", "NOR", "IRL", "ISL", "LIE", "LTU", "LUX", "LVA", "MNE", "MLT", "FRA")
+eu <- c("SHQ", "AUT", "BEL", "NLD", "POL", "PRT", "DNK", "DEU", "ELL", "BGR", "CHE", "CYP", "ROU", "SRB", "CZE", "EST", "HUN", "HRV", "SVN", "SVK", "SWE", "ITA", "TUR", "FIN", "NOR", "IRL", "ISL", "LIE", "LTU", "LUX", "LVA", "MNE", "MLT", "FRA")
 
 SHP_0 <- SHP_0[-c(1, 9, 15, 17, 24, 26, 28, 29, 33, 34), ]
 
-nb_cluster <-as.numeric(levels(CL_EU$cluster))[CL_EU$cluster]
+nb_cluster <- as.numeric(levels(CL_EU$cluster))[CL_EU$cluster]
 CL_EU <- cbind(CL_EU, nb_cluster)
 ```
 
 ```{r, warning=FALSE}
 leaflet(SHP_0) %>%
-  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  setView(lng = 15, lat = 50, zoom = 4) %>%
   addTiles() %>%
-  addPolygons(color = "black",
-              weight = 1,
-              fillOpacity = ifelse(  
-                test = CL_EU$nb_cluster == 1,  
-                yes = 1,  
-                no = 0  
-              ),
-              fillColor = "red")
+  addPolygons(
+    color = "black",
+    weight = 1,
+    fillOpacity = ifelse(
+      test = CL_EU$nb_cluster == 1,
+      yes = 1,
+      no = 0
+    ),
+    fillColor = "red"
+  )
 ```
 
 The first cluster is therefore located more in the centre and north of Europe.
 
 ```{r, warning=FALSE}
 leaflet(SHP_0) %>%
-  setView(lng = 15, lat = 50, zoom = 4) %>% 
-  addTiles() %>% 
-  addPolygons(color = "black",
-              weight = 1,
-              fillOpacity = ifelse(
-                test = CL_EU$nb_cluster == 2,  
-                yes = 1,  
-                no = 0  
-              ),
-              fillColor = "blue")
+  setView(lng = 15, lat = 50, zoom = 4) %>%
+  addTiles() %>%
+  addPolygons(
+    color = "black",
+    weight = 1,
+    fillOpacity = ifelse(
+      test = CL_EU$nb_cluster == 2,
+      yes = 1,
+      no = 0
+    ),
+    fillColor = "blue"
+  )
 ```
 
 The second cluster would be located more to the southwest of Europe.
 
 ```{r, warning=FALSE}
 leaflet(SHP_0) %>%
-  setView(lng = 15, lat = 50, zoom = 4) %>% 
-  addTiles() %>% 
-  addPolygons(color = "black",
-              weight = 1,
-              fillOpacity = ifelse(
-                test = CL_EU$nb_cluster == 3,  
-                yes = 1,  
-                no = 0  
-              ),
-              fillColor = "orange")
+  setView(lng = 15, lat = 50, zoom = 4) %>%
+  addTiles() %>%
+  addPolygons(
+    color = "black",
+    weight = 1,
+    fillOpacity = ifelse(
+      test = CL_EU$nb_cluster == 3,
+      yes = 1,
+      no = 0
+    ),
+    fillColor = "orange"
+  )
 
 binpal <- colorBin("Blues", CL_EU$nb_cluster, 3, pretty = FALSE)
 
 leaflet(SHP_0) %>%
-  setView(lng = 15, lat = 50, zoom = 4) %>% 
+  setView(lng = 15, lat = 50, zoom = 4) %>%
   addTiles() %>%
-  addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
-    color = ~binpal(nb_cluster))
-
+  addPolygons(
+    stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
+    color = ~ binpal(nb_cluster)
+  )
 ```
 
 And the third cluster represents only two countries so it is hard to give it a region. 
@@ -261,10 +278,9 @@ And the third cluster represents only two countries so it is hard to give it a r
 Now let's plot these clusters to see the differences between them.
 
 ```{r, warning=FALSE}
-res_kmeans <- cluster_analysis(data_1, n=3, method = "kmeans",iterations = 20)
+res_kmeans <- cluster_analysis(data_1, n = 3, method = "kmeans", iterations = 20)
 
 plot(res_kmeans)
-
 ```
 
 In the graph above,
@@ -277,23 +293,23 @@ We can therefore see that diabetes is indeed lower in clusters which contain the
 
 
 ```{r}
-#cluster 1
+# cluster 1
 
 c1 <- matrix(c(cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_women_diabetes), cor(countries_cluster_1$avg_gdp, countries_cluster_1$prop_men_diabetes)))
 
 rownames(c1) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c1,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br><br>
 ```{r}
 lm_gdp_diabetes_women_clust1 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_1)
 lm_gdp_diabetes_men_clust1 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_1)
-
 ```
 
 <div class = "row">
@@ -301,46 +317,49 @@ lm_gdp_diabetes_men_clust1 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_c
 <div class = "col-md-6">
 ```{r}
 tab_model(
-  lm_gdp_diabetes_women_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_women_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Women diabetes rate (cluster 1)"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
-) 
+)
 ```
 </div>
 <div class = "col-md-6">
 ```{r}
 tab_model(
-  lm_gdp_diabetes_men_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_men_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Men diabetes rate (cluster 1)"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
-) 
+)
 ```
 </div>
 </div>
 <br>
 ```{r}
 
-#cluster 2
+# cluster 2
 
 c2 <- matrix(c(cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_women_diabetes), cor(countries_cluster_2$avg_gdp, countries_cluster_2$prop_men_diabetes)))
 
 rownames(c2) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c2,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br><br>
 ```{r}
@@ -352,44 +371,47 @@ lm_gdp_diabetes_men_clust2 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_c
 <div class = "col-md-6">
 ```{r}
 tab_model(
-  lm_gdp_diabetes_women_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_women_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Women diabetes (cluster 2)"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
-) 
+)
 ```
 </div>
 <div class = "col-md-6">
 ```{r}
 tab_model(
-  lm_gdp_diabetes_men_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_men_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Men diabetes (cluster 2)"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
-) 
+)
 ```
 </div>
 </div>
 <br>
 ```{r}
-#cluster 3
+# cluster 3
 c3 <- matrix(c(cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_women_diabetes), cor(countries_cluster_3$avg_gdp, countries_cluster_3$prop_men_diabetes)))
 
 rownames(c3) <- c("Between average GDP and women diabetes rate", "Between average GDP and men diabetes rate")
 
 kbl(c3,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br><br>
 <div class = "row">
@@ -399,15 +421,16 @@ kbl(c3,
 lm_gdp_diabetes_women_clust3 <- lm(avg_gdp ~ prop_women_diabetes, data = countries_cluster_3)
 
 tab_model(
-  lm_gdp_diabetes_women_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_women_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Women diabetes (cluster 3)"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
-) 
+)
 ```
 </div>
 <div class = "col-md-6">
@@ -415,15 +438,16 @@ tab_model(
 lm_gdp_diabetes_men_clust3 <- lm(avg_gdp ~ prop_men_diabetes, data = countries_cluster_3)
 
 tab_model(
-  lm_gdp_diabetes_men_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_diabetes_men_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs Men diabetes (cluster 3)"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
-) 
+)
 ```
 </div>
 </div>
@@ -440,26 +464,28 @@ As mentioned in the first point, countries with a higher GDP tend to have a lowe
 But is there a real correlation between these two variables ? Let's check :
 
 ```{r}
-c4 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$total_consumption)))
+c4 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$total_consumption)))
 
 rownames(c4) <- c("Between average GDP and total calories")
 
 kbl(c4,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_total_cal <- lm(avg_gdp ~ total_consumption, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_total_cal, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_total_cal,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs total consumption"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -467,38 +493,39 @@ tab_model(
 Neither the correlation between these two variables nor the linear regression is significant. However, it would be interesting to look further. First, we can see if using the GDP per person instead of the total average makes a difference.
 
 ```{r}
-ggplot() + 
+ggplot() +
   geom_point(data = GDP_diabetes_cal, aes(x = gdp_per_person, y = total_consumption), color = "orange") +
-  geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y=GDP_diabetes_cal$total_consumption), color = "orange", method = "lm") +
-  labs(title = "Daily total calories vs GDP per capita", x = "GDP per capita", y= "Calories")
+  geom_smooth(mapping = aes(x = GDP_diabetes_cal$gdp_per_person, y = GDP_diabetes_cal$total_consumption), color = "orange", method = "lm") +
+  labs(title = "Daily total calories vs GDP per capita", x = "GDP per capita", y = "Calories")
 ```
 
 The plot looks more or less the same as the one in the EDA section without the outliers. But is the relationship with this new variable statistically significant ?
 
 ```{r}
-c5 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$total_consumption)))
+c5 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person, GDP_diabetes_cal$total_consumption)))
 
 rownames(c5) <- c("Between GDP per person and total calories")
 
 kbl(c5,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_total_cal <- lm(gdp_per_person ~ total_consumption, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_pp_total_cal, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_total_cal,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("GDP per person vs total consumption"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
-
 ```
 
 We see that the correlation with the variable `gdp_per_person`is higher now and the significance of the parameter in the regression, even though not high enough, increased.
@@ -506,78 +533,84 @@ We see that the correlation with the variable `gdp_per_person`is higher now and 
 Next we can proceed with an analysis within clusters, with the ones defined in the first question.
 
 ```{r, warning=FALSE}
-#cluster 1
+# cluster 1
 
 c6 <- matrix(c(cor(countries_cluster_1$gdp_per_person, countries_cluster_1$total_consumption)))
 
 rownames(c6) <- c("Between GDP per person and total calories")
 
 kbl(c6,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_total_cal_clust1 <- lm(gdp_per_person ~ total_consumption, data = countries_cluster_1)
 
 tab_model(
-  lm_gdp_total_cal_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_total_cal_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("GDP per person vs total consumption (cluster 1)"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 
-#cluster 2
+# cluster 2
 
 c7 <- matrix(c(cor(countries_cluster_2$gdp_per_person, countries_cluster_2$total_consumption)))
 
 rownames(c7) <- c("Between GDP per person and total calories")
 
 kbl(c7,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_total_cal_clust2 <- lm(gdp_per_person ~ total_consumption, data = countries_cluster_2)
 
 tab_model(
-  lm_gdp_total_cal_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_total_cal_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("GDP per person vs total consumption (cluster 2)"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 
-#cluster 3
+# cluster 3
 
 c8 <- matrix(c(cor(countries_cluster_3$gdp_per_person, countries_cluster_3$total_consumption)))
 
 rownames(c8) <- c("Between GDP per person and total calories")
 
 kbl(c8,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_total_cal_clust2 <- lm(gdp_per_person ~ total_consumption, data = countries_cluster_3)
 
 tab_model(
-  lm_gdp_total_cal_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_total_cal_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("GDP per person vs total consumption (cluster 3)"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -594,38 +627,38 @@ We observed during the EDA that richer countries seemed to consume more fat on a
 Since the units of the variables "calories consumed from animal protein/plant protein/carbs/fat" are on a per capita basis, we think that including the GDP per capita in this part of the analysis could improve results. Additionally, we thought that another way of answering this research question could be to include the proportions of the calories consumed from different macronutrients on the total calories and see if it affects our analysis. 
 
 ```{r}
-#adding proportions to the final table
-GDP_diabetes_cal <- mutate(GDP_diabetes_cal, proportion_animal_prot = cal_prot_animal/total_consumption, proportion_plant_prot = cal_prot_plant/total_consumption, proportion_carbs = cal_carbs/total_consumption, proportion_fat = cal_fat/total_consumption)
+# adding proportions to the final table
+GDP_diabetes_cal <- mutate(GDP_diabetes_cal, proportion_animal_prot = cal_prot_animal / total_consumption, proportion_plant_prot = cal_prot_plant / total_consumption, proportion_carbs = cal_carbs / total_consumption, proportion_fat = cal_fat / total_consumption)
 ```
 
 With these new metrics introduced, we will plot these relationships again.
 
 ```{r}
-#with GDP per person + calories
-ggplot(data = GDP_diabetes_cal, aes(x = gdp_per_person)) + 
+# with GDP per person + calories
+ggplot(data = GDP_diabetes_cal, aes(x = gdp_per_person)) +
   geom_line(aes(y = total_consumption, color = "total_consumption")) +
   geom_line(aes(y = cal_fat, color = "cal_fat")) +
   geom_line(aes(y = cal_carbs, color = "cal_carbs")) +
-  geom_line(aes(y = cal_prot_animal, color = "cal_prot_animal")) +  
+  geom_line(aes(y = cal_prot_animal, color = "cal_prot_animal")) +
   geom_line(aes(y = cal_prot_plant, color = "cal_prot_plant")) +
-  labs(title = "Caloric consumption vs GDP per capita", x = "GDP per capita", y= "Calories") +
-  scale_color_manual("", breaks = c("total_consumption", "cal_carbs", "cal_fat", "cal_prot_animal", "cal_prot_plant"), values = c("orange", "blue", "purple", "red", "green" ))
+  labs(title = "Caloric consumption vs GDP per capita", x = "GDP per capita", y = "Calories") +
+  scale_color_manual("", breaks = c("total_consumption", "cal_carbs", "cal_fat", "cal_prot_animal", "cal_prot_plant"), values = c("orange", "blue", "purple", "red", "green"))
 
-#with GDP per person + proportions
-ggplot(data = GDP_diabetes_cal, aes(x = gdp_per_person)) + 
+# with GDP per person + proportions
+ggplot(data = GDP_diabetes_cal, aes(x = gdp_per_person)) +
   geom_line(aes(y = proportion_fat, color = "proportion_fat")) +
   geom_line(aes(y = proportion_carbs, color = "proportion_carbs")) +
   geom_line(aes(y = proportion_animal_prot, color = "proportion_animal_prot")) +
   geom_line(aes(y = proportion_plant_prot, color = "proportion_plant_prot")) +
-  labs(title = "Consumption in proportions vs GDP per capita", x = "GDP per capita", y= "Proportion of calories") +
-  scale_color_manual("", breaks = c("proportion_carbs", "proportion_fat", "proportion_animal_prot", "proportion_plant_prot"), values = c("blue", "purple", "red", "green" ))
+  labs(title = "Consumption in proportions vs GDP per capita", x = "GDP per capita", y = "Proportion of calories") +
+  scale_color_manual("", breaks = c("proportion_carbs", "proportion_fat", "proportion_animal_prot", "proportion_plant_prot"), values = c("blue", "purple", "red", "green"))
 ```
 
 It is also important to plot the clusters again to observe differences in the proportions of calories consumed.
 
 ```{r, warning=FALSE}
-#clustering pt 2
-data_2 <- mutate(data_1, GDP_diabetes_cal[,12:15])
+# clustering pt 2
+data_2 <- mutate(data_1, GDP_diabetes_cal[, 12:15])
 
 set.seed(123)
 
@@ -634,10 +667,10 @@ model_cluster_bis <- kmeans(data_2, centers = 3, nstart = 10)
 Data_cluster_bis <- data.frame(data_2, cluster = as.factor(model_cluster_bis$cluster))
 
 countries_cluster_1bis <- filter(Data_cluster_bis, cluster == "1")
-countries_cluster_2bis <- filter(Data_cluster_bis, cluster == "2") 
+countries_cluster_2bis <- filter(Data_cluster_bis, cluster == "2")
 countries_cluster_3bis <- filter(Data_cluster_bis, cluster == "3")
 
-res_kmeans_bis <- cluster_analysis(data_2, n=3, method = "kmeans",iterations = 20)
+res_kmeans_bis <- cluster_analysis(data_2, n = 3, method = "kmeans", iterations = 20)
 
 plot(res_kmeans_bis)
 ```
@@ -649,28 +682,30 @@ We will be referring to these graphs and this cluster plot in our analysis in th
 Let's start with by analysing the relationship between a country's wealth and its consumption of animal protein. We saw at the EDA section that there didn't seem to be a trend between these 2 variables, overall the calories consumed from animal protein is very stable regardless of the average GDP of a country. We can confirm this by checking the correlation and by trying to fit a linear regression.
 
 ```{r}
-#Average GDP - calories
+# Average GDP - calories
 
-c9 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_animal)))
+c9 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_prot_animal)))
 
 rownames(c9) <- c("Between average GDP and calories from animal protein")
 
 kbl(c9,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_cal_prot_animal <- lm(avg_gdp ~ cal_prot_animal, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_cal_prot_animal, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_cal_prot_animal,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Average GDP vs calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -678,28 +713,30 @@ tab_model(
 Even though the correlation is positive, it is not very high. By looking at the summary of the linear regression, we can also see that the parameter is not significant. But what if we took the GDP per capita instead of the average GDP of a country ? The graph above seems to show again that the consumption of this macronutrient is very stable regardless of the GDP per capita of a country.
 
 ```{r}
-#GDP per capita - calories
+# GDP per capita - calories
 
-c10 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_animal)))
+c10 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person, GDP_diabetes_cal$cal_prot_animal)))
 
 rownames(c10) <- c("Between GDP per person and calories from animal protein")
 
 kbl(c10,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_cal_prot_animal <- lm(gdp_per_person ~ cal_prot_animal, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_pp_cal_prot_animal, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_cal_prot_animal,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -707,31 +744,32 @@ tab_model(
 This time, the correlation is higher and the variable's estimate as a parameter is very significant ! Maybe the correlation can improve by considering proportion of calories instead of the calorie count.
 
 ```{r}
-#GDP per capita - proportion
+# GDP per capita - proportion
 
-c11 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_animal_prot)))
+c11 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person, GDP_diabetes_cal$proportion_animal_prot)))
 
 rownames(c11) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c11,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_animal_prot <- lm(gdp_per_person ~ proportion_animal_prot, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_pp_prop_animal_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_animal_prot,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
-
 ```
 
 Here, the correlation is slightly lower than with the calorie count and the parameter's estimate is a bit less significant but still quite solid. Now let's see if we can find this positive relationship and better explanations within our defined clusters.
@@ -739,78 +777,84 @@ Here, the correlation is slightly lower than with the calorie count and the para
 From our cluster plot above, we see that high GDP countries (clusters 1 and 3) tend to consume more calories of animal protein than low GDP countries, this is also the case for the proportions of calories consumed from animal protein. This follows what we have found so far. Are the correlations and linear regression in line with these observations ?
 
 ```{r, warning=FALSE}
-#cluster 1
+# cluster 1
 
 c12 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_animal_prot)))
 
 rownames(c12) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c12,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_animal_prot_clust1 <- lm(gdp_per_person ~ proportion_animal_prot, data = countries_cluster_1bis)
 
 tab_model(
-  lm_gdp_pp_prop_animal_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_animal_prot_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 
-#cluster 2
+# cluster 2
 
 c13 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_animal_prot)))
 
 rownames(c13) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c13,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_animal_prot_clust2 <- lm(gdp_per_person ~ proportion_animal_prot, data = countries_cluster_2bis)
 
 tab_model(
-  lm_gdp_pp_prop_animal_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_animal_prot_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 
-#cluster 3
+# cluster 3
 
 c14 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_animal_prot)))
 
 rownames(c14) <- c("Between GDP per person and proportion of calories from animal protein")
 
 kbl(c14,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_animal_prot_clust3 <- lm(gdp_per_person ~ proportion_animal_prot, data = countries_cluster_3bis)
 
 tab_model(
-  lm_gdp_pp_prop_animal_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_animal_prot_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -824,58 +868,61 @@ In general, though it seems positive, we cannot conclude that there is a strong 
 Now let's move on to the analysis of the relationship between a country's wealth and it's consumption of plant protein. We saw at the EDA section, again, that there didn't seem to be a trend between these 2 variables. The calories consumed from plant protein is very stable as we can see from the horizontal line, regardless of the average GDP of a country. To confirm this, we will check the correlation.
 
 ```{r}
-#Average GDP - calories
+# Average GDP - calories
 
-c15 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_prot_plant)))
+c15 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_prot_plant)))
 
 rownames(c15) <- c("Between average GDP and calories from plant protein")
 
 kbl(c15,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_cal_prot_plant <- lm(avg_gdp ~ cal_prot_plant, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_cal_prot_plant, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_cal_prot_plant,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between average GDP and calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
-
 ```
 
 As we can see, the correlation is very low and when we try to fit a linear model over these 2 variables, the parameter estimation is not significant at all. Let's see if taking the GDP per capita makes a difference. In the graph above, the consumption of this macronutrient is very stable too.
 
 ```{r}
-#GDP per capita - calories
+# GDP per capita - calories
 
-c16 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_prot_plant)))
+c16 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person, GDP_diabetes_cal$cal_prot_plant)))
 
 rownames(c16) <- c("Between GDP per person and calories from plant protein")
 
 kbl(c16,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_cal_prot_plant <- lm(gdp_per_person ~ cal_prot_plant, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_pp_cal_prot_plant, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_cal_prot_plant,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -883,28 +930,30 @@ tab_model(
 The correlation improves when we consider the GDP per capita instead of the average. We also see that the relationship between the 2 variables is rather negative. However the parameter estimation is still not significant enough, even though it improved. Can we find a better explanation by using the proportion of calories rather than the calorie count of the plant protein consumed ?
 
 ```{r}
-#GDP per capita - proportion
+# GDP per capita - proportion
 
-c17 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_plant_prot)))
+c17 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person, GDP_diabetes_cal$proportion_plant_prot)))
 
 rownames(c17) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c17,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_plant_prot <- lm(gdp_per_person ~ proportion_plant_prot, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_pp_prop_plant_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_plant_prot,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -914,77 +963,83 @@ The correlation improved immensely ! Now we can confirm that the relationship is
 The cluster plot above indicates that in countries with higher GDPs like in cluster 1 and 3, the proportions of calories consumed from plant protein are lower than in countries with lower GDPs. Let's see if we can confirm these observations and see if these relationships are strong enough within each cluster.
 
 ```{r, warning = FALSE}
-#cluster 1
+# cluster 1
 
 c18 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_plant_prot)))
 
 rownames(c18) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c18,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_plant_prot_clust1 <- lm(gdp_per_person ~ proportion_plant_prot, data = countries_cluster_1bis)
 
 tab_model(
-  lm_gdp_pp_prop_plant_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_plant_prot_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 
-#cluster 2
+# cluster 2
 
 c19 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_plant_prot)))
 
 rownames(c19) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c19,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_plant_prot_clust2 <- lm(gdp_per_person ~ proportion_plant_prot, data = countries_cluster_2bis)
 
 tab_model(
-  lm_gdp_pp_prop_plant_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_plant_prot_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
-#cluster 3
+# cluster 3
 
 c20 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_plant_prot)))
 
 rownames(c20) <- c("Between GDP per person and proportion of calories from plant protein")
 
 kbl(c20,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_plant_prot_clust3 <- lm(gdp_per_person ~ proportion_plant_prot, data = countries_cluster_3bis)
 
 tab_model(
-  lm_gdp_pp_prop_plant_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_plant_prot_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -998,28 +1053,30 @@ Therefore, we cannot conclude that there is a significant link between the wealt
 Next, we will be evaluating the relationship of a country's GDP and its carbohydrate consumption. In the EDA graph, there isn't really trend in general between these 2 variables. The calories consumed from carbs is more or less stable for countries with an average GDP of around 500 billion dollars and more. Let's check the correlation.
 
 ```{r}
-#Average GDP - calories
+# Average GDP - calories
 
-c21 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_carbs)))
+c21 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_carbs)))
 
 rownames(c21) <- c("Between average GDP and calories from carbs")
 
 kbl(c21,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_cal_carbs <- lm(avg_gdp ~ cal_carbs, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_cal_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_cal_carbs,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between average GDP and calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1029,28 +1086,30 @@ The correlation is negative and very low. This could maybe be explained by the f
 But what if we compared the 2 metrics at the same unit level like in the previous 2 sections ? Our graph above indicates that there may be a slight decrease of the caloric intake of carbs per capita the more a country's GDP per capita is higher. Let's see if this is true.
 
 ```{r}
-#GDP per capita - calories
+# GDP per capita - calories
 
-c22 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_carbs)))
+c22 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person, GDP_diabetes_cal$cal_carbs)))
 
 rownames(c22) <- c("Between GDP per person and calories from carbs")
 
 kbl(c22,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_cal_carbs <- lm(gdp_per_person ~ cal_carbs, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_pp_cal_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_cal_carbs,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1058,28 +1117,30 @@ tab_model(
 Indeed, the correlation is higher now but it is still not strong enough. Our parameter is once again not significant to explain this new dependent variable either. But what if we changed our independent variable ? Because we see in the second graph above that this negative slope is even more accentuated when we take into account the proportion of the carbs consumed instead of their calorie count.
 
 ```{r}
-#GDP per capita - proportion
+# GDP per capita - proportion
 
-c23 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_carbs)))
+c23 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person, GDP_diabetes_cal$proportion_carbs)))
 
 rownames(c23) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c23,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_carbs <- lm(gdp_per_person ~ proportion_carbs, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_pp_prop_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_carbs,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1087,77 +1148,83 @@ tab_model(
 The correlation between these 2 variables is way more important, we can even say that their correlation is moderately strong. And the parameter estimation when we fit a linear model is quite significant. Let's observe these relationships now within each cluster. According to our cluster plot, countries of cluster 1 and 3 (high GDP) consume a smaller proportion of carbs then those of cluster 2 (low GDP).
 
 ```{r, warning = FALSE}
-#cluster 1
+# cluster 1
 
 c24 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_carbs)))
 
 rownames(c24) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c24,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_carbs_clust1 <- lm(gdp_per_person ~ proportion_carbs, data = countries_cluster_1bis)
 
 tab_model(
-  lm_gdp_pp_prop_carbs_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_carbs_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
-#cluster 2
+# cluster 2
 
 c25 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_carbs)))
 
 rownames(c25) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c25,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_carbs_clust2 <- lm(gdp_per_person ~ proportion_carbs, data = countries_cluster_2bis)
 
 tab_model(
-  lm_gdp_pp_prop_carbs_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_carbs_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 
-#cluster 3
+# cluster 3
 
 c26 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_carbs)))
 
 rownames(c26) <- c("Between GDP per person and proportion of calories from carbs")
 
 kbl(c26,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_carbs_clust3 <- lm(gdp_per_person ~ proportion_carbs, data = countries_cluster_3bis)
 
 tab_model(
-  lm_gdp_pp_prop_carbs_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_carbs_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between gdp per person and proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1173,28 +1240,30 @@ For the last part of our 3rd research question, let's analyse the relationship o
 
 
 ```{r}
-#Average GDP - calories
+# Average GDP - calories
 
-c27 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp,GDP_diabetes_cal$cal_fat)))
+c27 <- matrix(c(cor(GDP_diabetes_cal$avg_gdp, GDP_diabetes_cal$cal_fat)))
 
 rownames(c27) <- c("Between average GDP and calories from fat")
 
 kbl(c27,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_cal_fat <- lm(avg_gdp ~ cal_fat, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_cal_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_cal_fat,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between average GDP and calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1202,28 +1271,30 @@ tab_model(
 From the get-go, the correlation is moderately high and positive. The estimation of the model parameter is also quite significant. Does taking the GDP per capita change our results ? In the first graph above, the fat consumption seems to very slightly increase when a country's GDP is higher. Let's check.
 
 ```{r}
-#GDP per capita - calories
+# GDP per capita - calories
 
-c28 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$cal_fat)))
+c28 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person, GDP_diabetes_cal$cal_fat)))
 
 rownames(c28) <- c("Between GDP per person and calories from fat")
 
 kbl(c28,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_cal_fat <- lm(gdp_per_person ~ cal_fat, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_pp_cal_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_cal_fat,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1231,28 +1302,30 @@ tab_model(
 Our hypothesis was right. Not only did the correlation between the 2 variables increase, but the significance of the parameter estimation also improved. And how does switching the calorie count with the proportion of fat consumed per capita affect the correlation with the GDP per capita ? On the second graph above, we see that, just like for carbs, the positive slope becomes a bit more accentuated.
 
 ```{r}
-#GDP per capita - proportion
+# GDP per capita - proportion
 
-c29 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person,GDP_diabetes_cal$proportion_fat)))
+c29 <- matrix(c(cor(GDP_diabetes_cal$gdp_per_person, GDP_diabetes_cal$proportion_fat)))
 
 rownames(c29) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c29,
-   caption = "**Correlation**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_fat <- lm(gdp_per_person ~ proportion_fat, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_gdp_pp_prop_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_fat,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1260,78 +1333,84 @@ tab_model(
 This time, the correlation and the significance of the parameter goes down a little bit, even though not dramatically. Let's see once more what these relationships are like within each cluster. By looking at the cluster plot, we can hypothesize that wealthier countries of cluster 1 and 3 consume a bigger proportion of fat then those of cluster 2 that are less wealthy.
 
 ```{r, warning = FALSE}
-#cluster 1
+# cluster 1
 
 c30 <- matrix(c(cor(countries_cluster_1bis$gdp_per_person, countries_cluster_1bis$proportion_fat)))
 
 rownames(c30) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c30,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_fat_clust1 <- lm(gdp_per_person ~ proportion_fat, data = countries_cluster_1bis)
 
 tab_model(
-  lm_gdp_pp_prop_fat_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_fat_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 
-#cluster 2
+# cluster 2
 
 c31 <- matrix(c(cor(countries_cluster_2bis$gdp_per_person, countries_cluster_2bis$proportion_fat)))
 
 rownames(c31) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c31,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_fat_clust2 <- lm(gdp_per_person ~ proportion_fat, data = countries_cluster_2bis)
 
 tab_model(
-  lm_gdp_pp_prop_fat_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_fat_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 
-#cluster 3
+# cluster 3
 
 c32 <- matrix(c(cor(countries_cluster_3bis$gdp_per_person, countries_cluster_3bis$proportion_fat)))
 
 rownames(c32) <- c("Between GDP per person and proportion of calories from fat")
 
 kbl(c32,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 lm_gdp_pp_prop_fat_clust3 <- lm(gdp_per_person ~ proportion_fat, data = countries_cluster_3bis)
 
 tab_model(
-  lm_gdp_pp_prop_fat_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_gdp_pp_prop_fat_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Between GDP per person and proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1346,37 +1425,39 @@ In general, even though it seems positive, we cannot confidently say that there 
 What we observed in the EDA seemed to not make sense to us as we were expecting a positive relationship between the total calories/calories consumed from fat and diabetes prevalence in a country. Let's see now concretely if there is any correlation between the calories consumed from different macronutrients and the diabetes rate.
 
 ```{r}
-###Calories
+### Calories
 
-c400 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_animal),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_animal), cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_prot_plant),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_prot_plant),cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_carbs),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_carbs),cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$cal_fat),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$cal_fat)), nrow = 2)
+c400 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes, GDP_diabetes_cal$cal_prot_animal), cor(GDP_diabetes_cal$prop_women_diabetes, GDP_diabetes_cal$cal_prot_animal), cor(GDP_diabetes_cal$prop_men_diabetes, GDP_diabetes_cal$cal_prot_plant), cor(GDP_diabetes_cal$prop_women_diabetes, GDP_diabetes_cal$cal_prot_plant), cor(GDP_diabetes_cal$prop_men_diabetes, GDP_diabetes_cal$cal_carbs), cor(GDP_diabetes_cal$prop_women_diabetes, GDP_diabetes_cal$cal_carbs), cor(GDP_diabetes_cal$prop_men_diabetes, GDP_diabetes_cal$cal_fat), cor(GDP_diabetes_cal$prop_women_diabetes, GDP_diabetes_cal$cal_fat)), nrow = 2)
 
-rownames(c400) <- c("Men","Women")
+rownames(c400) <- c("Men", "Women")
 
-colnames(c400) <- c("Animal protein","Plant protein","Carbs","Fat")
+colnames(c400) <- c("Animal protein", "Plant protein", "Carbs", "Fat")
 
 kbl(c400,
-   caption = "**Correlation between diabetes rate per sex and calories from**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  caption = "**Correlation between diabetes rate per sex and calories from**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 But we also saw in the previous question that taking into account the proportions rather than the calorie count for the macronutrients gave us better results. Let's see if the correlation with diabetes prevalence improves too.
 
 ```{r}
-###proportion
+### proportion
 
-c401 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_animal_prot),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_animal_prot), cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_plant_prot),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_plant_prot),cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_carbs),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_carbs),cor(GDP_diabetes_cal$prop_men_diabetes,GDP_diabetes_cal$proportion_fat),cor(GDP_diabetes_cal$prop_women_diabetes,GDP_diabetes_cal$proportion_fat)), nrow = 2)
+c401 <- matrix(c(cor(GDP_diabetes_cal$prop_men_diabetes, GDP_diabetes_cal$proportion_animal_prot), cor(GDP_diabetes_cal$prop_women_diabetes, GDP_diabetes_cal$proportion_animal_prot), cor(GDP_diabetes_cal$prop_men_diabetes, GDP_diabetes_cal$proportion_plant_prot), cor(GDP_diabetes_cal$prop_women_diabetes, GDP_diabetes_cal$proportion_plant_prot), cor(GDP_diabetes_cal$prop_men_diabetes, GDP_diabetes_cal$proportion_carbs), cor(GDP_diabetes_cal$prop_women_diabetes, GDP_diabetes_cal$proportion_carbs), cor(GDP_diabetes_cal$prop_men_diabetes, GDP_diabetes_cal$proportion_fat), cor(GDP_diabetes_cal$prop_women_diabetes, GDP_diabetes_cal$proportion_fat)), nrow = 2)
 
-rownames(c401) <- c("Men","Women")
+rownames(c401) <- c("Men", "Women")
 
-colnames(c401) <- c("Animal protein","Plant protein","Carbs","Fat")
+colnames(c401) <- c("Animal protein", "Plant protein", "Carbs", "Fat")
 
 kbl(c401,
-   caption = "**Correlation between diabetes rate per sex and proportion of calories from**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  caption = "**Correlation between diabetes rate per sex and proportion of calories from**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 It does ! So to answer this question, we will rather work with the variables related to the proportions of the different macronutrients consumed than the exact calories consumed.
@@ -1393,7 +1474,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = proportion_animal_prot, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = proportion_animal_prot, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = proportion_animal_prot, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes rate vs Proportion of animal protein consumed", x="Proportion", y="Diabetes rate") +
+  labs(title = "Diabetes rate vs Proportion of animal protein consumed", x = "Proportion", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -1404,17 +1485,18 @@ At the beginning of this question we saw that the correlation between these 2 va
   
 <div class = "col-md-6">
 ```{r}
-#Diabetes - proportion
+# Diabetes - proportion
 lm_diabm_prop_animal_prot <- lm(prop_men_diabetes ~ proportion_animal_prot, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_diabm_prop_animal_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_animal_prot,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1424,13 +1506,14 @@ tab_model(
 lm_diabw_prop_animal_prot <- lm(prop_women_diabetes ~ proportion_animal_prot, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_diabw_prop_animal_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_animal_prot,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1440,17 +1523,18 @@ tab_model(
 So there is a negative trend for both men and women, but we also observe see that the effect is stronger for women. The linear regression does not indicate any relation since the parameters are not significant. Now let's observe the relationship between diabetes and animal protein within each cluster.
 
 ```{r, warning = FALSE}
-#cluster 1
+# cluster 1
 
-c50 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_animal_prot),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_animal_prot)))
+c50 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_animal_prot), cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_animal_prot)))
 
 rownames(c50) <- c("Between men diabetes rate and proportion of calories from animal protein", "Between women diabetes rate and proportion of calories from animal protein")
 
 kbl(c50,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 <div class = "row">
@@ -1460,13 +1544,14 @@ kbl(c50,
 lm_diabm_prop_animal_prot_clust1 <- lm(prop_men_diabetes ~ proportion_animal_prot, data = countries_cluster_1bis)
 
 tab_model(
-  lm_diabm_prop_animal_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_animal_prot_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1476,30 +1561,32 @@ tab_model(
 lm_diabw_prop_animal_prot_clust1 <- lm(prop_women_diabetes ~ proportion_animal_prot, data = countries_cluster_1bis)
 
 tab_model(
-  lm_diabw_prop_animal_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_animal_prot_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
 </div>
 </div>
 ```{r}
-#cluster 2
+# cluster 2
 
-c51 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_animal_prot),cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_animal_prot)))
+c51 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_animal_prot), cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_animal_prot)))
 
 rownames(c51) <- c("Between men diabetes rate and proportion of calories from animal protein", "Between women diabetes rate and proportion of calories from animal protein")
 
 kbl(c51,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -1509,13 +1596,14 @@ kbl(c51,
 lm_diabm_prop_animal_prot_clust2 <- lm(prop_men_diabetes ~ proportion_animal_prot, data = countries_cluster_2bis)
 
 tab_model(
-  lm_diabm_prop_animal_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_animal_prot_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1525,30 +1613,32 @@ tab_model(
 lm_diabw_prop_animal_prot_clust2 <- lm(prop_women_diabetes ~ proportion_animal_prot, data = countries_cluster_2bis)
 
 tab_model(
-  lm_diabw_prop_animal_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_animal_prot_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
 </div>
 </div>
 ```{r}
-#cluster 3
+# cluster 3
 
-c52 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_animal_prot),cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_animal_prot)))
+c52 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_animal_prot), cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_animal_prot)))
 
 rownames(c52) <- c("Between men diabetes rate and proportion of calories from animal protein", "Between women diabetes rate and proportion of calories from animal protein")
 
 kbl(c52,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -1558,13 +1648,14 @@ kbl(c52,
 lm_diabm_prop_animal_prot_clust3 <- lm(prop_men_diabetes ~ proportion_animal_prot, data = countries_cluster_3bis)
 
 tab_model(
-  lm_diabm_prop_animal_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_animal_prot_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1574,13 +1665,14 @@ tab_model(
 lm_diabw_prop_animal_prot_clust3 <- lm(prop_women_diabetes ~ proportion_animal_prot, data = countries_cluster_3bis)
 
 tab_model(
-  lm_diabw_prop_animal_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_animal_prot_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from animal protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1601,7 +1693,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = proportion_plant_prot, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = proportion_plant_prot, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = proportion_plant_prot, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes rate vs Proportion of plant protein consumed", x="Proportion", y="Diabetes rate") +
+  labs(title = "Diabetes rate vs Proportion of plant protein consumed", x = "Proportion", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -1612,21 +1704,20 @@ We can check if this relationship is significant with a linear regression.
   
 <div class = "col-md-6">
 ```{r}
-#Diabetes - proportion
+# Diabetes - proportion
 lm_diabm_prop_plant_prot <- lm(prop_men_diabetes ~ proportion_plant_prot, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_diabm_prop_plant_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_plant_prot,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
-
-
 ```
 </div>
 <div class = "col-md-6">
@@ -1634,13 +1725,14 @@ tab_model(
 lm_diabw_prop_plant_prot <- lm(prop_women_diabetes ~ proportion_plant_prot, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_diabw_prop_plant_prot, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_plant_prot,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1650,17 +1742,18 @@ tab_model(
 The parameter is very significant when trying to explain the diabetes rate in women. With correlations at 0.452 and 0.706 respectively, these relationships are also moderately strong. Is it also the case for the clusters ?
 
 ```{r, warning = FALSE}
-#cluster 1
+# cluster 1
 
-c53 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_plant_prot),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_plant_prot)))
+c53 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_plant_prot), cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_plant_prot)))
 
 rownames(c53) <- c("Between men diabetes rate and proportion of calories from plant protein", "Between women diabetes rate and proportion of calories from plant protein")
 
 kbl(c53,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -1670,13 +1763,14 @@ kbl(c53,
 lm_diabm_prop_plant_prot_clust1 <- lm(prop_men_diabetes ~ proportion_plant_prot, data = countries_cluster_1bis)
 
 tab_model(
-  lm_diabm_prop_plant_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_plant_prot_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1687,30 +1781,32 @@ tab_model(
 lm_diabw_prop_plant_prot_clust1 <- lm(prop_women_diabetes ~ proportion_plant_prot, data = countries_cluster_1bis)
 
 tab_model(
-  lm_diabw_prop_plant_prot_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_plant_prot_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
 </div>
 </div>
 ```{r}
-#cluster 2
+# cluster 2
 
-c54 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_plant_prot),cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_plant_prot)))
+c54 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_plant_prot), cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_plant_prot)))
 
 rownames(c54) <- c("Between men diabetes rate and proportion of calories from plant protein", "Between women diabetes rate and proportion of calories from plant protein")
 
 kbl(c54,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -1720,13 +1816,14 @@ kbl(c54,
 lm_diabm_prop_plant_prot_clust2 <- lm(prop_men_diabetes ~ proportion_plant_prot, data = countries_cluster_2bis)
 
 tab_model(
-  lm_diabm_prop_plant_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_plant_prot_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1736,30 +1833,32 @@ tab_model(
 lm_diabw_prop_plant_prot_clust2 <- lm(prop_women_diabetes ~ proportion_plant_prot, data = countries_cluster_2bis)
 
 tab_model(
-  lm_diabw_prop_plant_prot_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_plant_prot_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
 </div>
 </div>
 ```{r}
-#cluster 3
+# cluster 3
 
-c55 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_plant_prot),cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_plant_prot)))
+c55 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_plant_prot), cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_plant_prot)))
 
 rownames(c55) <- c("Between men diabetes rate and proportion of calories from plant protein", "Between women diabetes rate and proportion of calories from plant protein")
 
 kbl(c55,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -1769,13 +1868,14 @@ kbl(c55,
 lm_diabm_prop_plant_prot_clust3 <- lm(prop_men_diabetes ~ proportion_plant_prot, data = countries_cluster_3bis)
 
 tab_model(
-  lm_diabm_prop_plant_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_plant_prot_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1785,13 +1885,14 @@ tab_model(
 lm_diabw_prop_plant_prot_clust3 <- lm(prop_women_diabetes ~ proportion_plant_prot, data = countries_cluster_3bis)
 
 tab_model(
-  lm_diabw_prop_plant_prot_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_plant_prot_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from plant protein"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1812,7 +1913,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = proportion_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = proportion_carbs, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = proportion_carbs, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes rate vs Proportion of carbs consumed", x="Proportion", y="Diabetes rate") +
+  labs(title = "Diabetes rate vs Proportion of carbs consumed", x = "Proportion", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -1823,17 +1924,18 @@ Indeed, the correlations between the proportion of carbs consumed and diabetes p
   
 <div class = "col-md-6">
 ```{r}
-#Diabetes - proportion
+# Diabetes - proportion
 lm_diabm_prop_carbs <- lm(prop_men_diabetes ~ proportion_carbs, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_diabm_prop_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_carbs,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1844,13 +1946,14 @@ tab_model(
 lm_diabw_prop_carbs <- lm(prop_women_diabetes ~ proportion_carbs, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_diabw_prop_carbs, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_carbs,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1860,17 +1963,18 @@ tab_model(
 We see that the linear regression for women is very significant, so increasing carbohydrates in a women's diet would increase their diabetes rate. What do our clusters indicate ?
 
 ```{r, warning = FALSE}
-#cluster 1
+# cluster 1
 
-c56 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_carbs),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_carbs)))
+c56 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_carbs), cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_carbs)))
 
 rownames(c56) <- c("Between men diabetes rate and proportion of calories from carbs", "Between women diabetes rate and proportion of calories from carbs")
 
 kbl(c56,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -1880,13 +1984,14 @@ kbl(c56,
 lm_diabm_prop_carbs_clust1 <- lm(prop_men_diabetes ~ proportion_carbs, data = countries_cluster_1bis)
 
 tab_model(
-  lm_diabm_prop_carbs_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_carbs_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1897,30 +2002,32 @@ tab_model(
 lm_diabw_prop_carbs_clust1 <- lm(prop_women_diabetes ~ proportion_carbs, data = countries_cluster_1bis)
 
 tab_model(
-  lm_diabw_prop_carbs_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_carbs_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
 </div> 
 </div>
 ```{r}
-#cluster 2
+# cluster 2
 
-c57 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_carbs),cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_carbs)))
+c57 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_carbs), cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_carbs)))
 
 rownames(c57) <- c("Between men diabetes rate and proportion of calories from carbs", "Between women diabetes rate and proportion of calories from carbs")
 
 kbl(c57,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -1930,13 +2037,14 @@ kbl(c57,
 lm_diabm_prop_carbs_clust2 <- lm(prop_men_diabetes ~ proportion_carbs, data = countries_cluster_2bis)
 
 tab_model(
-  lm_diabm_prop_carbs_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_carbs_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1947,30 +2055,32 @@ tab_model(
 lm_diabw_prop_carbs_clust2 <- lm(prop_women_diabetes ~ proportion_carbs, data = countries_cluster_2bis)
 
 tab_model(
-  lm_diabw_prop_carbs_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_carbs_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
 </div>
 </div>
 ```{r}
-#cluster 3
+# cluster 3
 
-c58 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_carbs),cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_carbs)))
+c58 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_carbs), cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_carbs)))
 
 rownames(c58) <- c("Between men diabetes rate and proportion of calories from carbs", "Between women diabetes rate and proportion of calories from carbs")
 
 kbl(c58,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -1980,13 +2090,14 @@ kbl(c58,
 lm_diabm_prop_carbs_clust3 <- lm(prop_men_diabetes ~ proportion_carbs, data = countries_cluster_3bis)
 
 tab_model(
-  lm_diabm_prop_carbs_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_carbs_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -1997,13 +2108,14 @@ tab_model(
 lm_diabw_prop_carbs_clust3 <- lm(prop_women_diabetes ~ proportion_carbs, data = countries_cluster_3bis)
 
 tab_model(
-  lm_diabw_prop_carbs_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_carbs_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from carbs"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -2024,7 +2136,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = proportion_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = proportion_fat, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = proportion_fat, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Diabetes rate vs Proportion of fat consumed", x="Proportion", y="Diabetes rate") +
+  labs(title = "Diabetes rate vs Proportion of fat consumed", x = "Proportion", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -2035,17 +2147,18 @@ The correlation coefficients at the beginning of the question also showed us tha
   
 <div class = "col-md-6">
 ```{r}
-#Diabetes - proportion
+# Diabetes - proportion
 lm_diabm_prop_fat <- lm(prop_men_diabetes ~ proportion_fat, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_diabm_prop_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_prop_fat,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -2056,13 +2169,14 @@ tab_model(
 lm_diabw_prop_fat <- lm(prop_women_diabetes ~ proportion_fat, data = GDP_diabetes_cal)
 
 tab_model(
-  lm_diabw_prop_fat, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_prop_fat,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -2072,17 +2186,18 @@ tab_model(
 The parameter for fat is highly significant for women even though it only causes a little decrease to the diabetes rate. Are these results replicated in the clusters ? 
 
 ```{r, warning = FALSE}
-#cluster 1
+# cluster 1
 
-c59 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_fat),cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_fat)))
+c59 <- matrix(c(cor(countries_cluster_1bis$prop_men_diabetes, countries_cluster_1bis$proportion_fat), cor(countries_cluster_1bis$prop_women_diabetes, countries_cluster_1bis$proportion_fat)))
 
 rownames(c59) <- c("Between men diabetes rate and proportion of calories from fat", "Between women diabetes rate and proportion of calories from fat")
 
 kbl(c59,
-   caption = "**Correlation for cluster 1**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 1**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -2092,13 +2207,14 @@ kbl(c59,
 lm_diabm_fat_clust1 <- lm(prop_men_diabetes ~ proportion_fat, data = countries_cluster_1bis)
 
 tab_model(
-  lm_diabm_fat_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_fat_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -2109,30 +2225,32 @@ tab_model(
 lm_diabw_fat_clust1 <- lm(prop_women_diabetes ~ proportion_fat, data = countries_cluster_1bis)
 
 tab_model(
-  lm_diabw_fat_clust1, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_fat_clust1,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
 </div>
 </div>
 ```{r}
-#cluster 2
+# cluster 2
 
-c60 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_fat),cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_fat)))
+c60 <- matrix(c(cor(countries_cluster_2bis$prop_men_diabetes, countries_cluster_2bis$proportion_fat), cor(countries_cluster_2bis$prop_women_diabetes, countries_cluster_2bis$proportion_fat)))
 
 rownames(c60) <- c("Between men diabetes rate and proportion of calories from fat", "Between women diabetes rate and proportion of calories from fat")
 
 kbl(c60,
-   caption = "**Correlation for cluster 2**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 2**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -2142,13 +2260,14 @@ kbl(c60,
 lm_diabm_fat_clust2 <- lm(prop_men_diabetes ~ proportion_fat, data = countries_cluster_2bis)
 
 tab_model(
-  lm_diabm_fat_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_fat_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -2159,30 +2278,32 @@ tab_model(
 lm_diabw_fat_clust2 <- lm(prop_women_diabetes ~ proportion_fat, data = countries_cluster_2bis)
 
 tab_model(
-  lm_diabw_fat_clust2, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_fat_clust2,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
 </div>
 </div>
 ```{r, warning = FALSE}
-#cluster 3
+# cluster 3
 
-c61 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_fat),cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_fat)))
+c61 <- matrix(c(cor(countries_cluster_3bis$prop_men_diabetes, countries_cluster_3bis$proportion_fat), cor(countries_cluster_3bis$prop_women_diabetes, countries_cluster_3bis$proportion_fat)))
 
 rownames(c61) <- c("Between men diabetes rate and proportion of calories from fat", "Between women diabetes rate and proportion of calories from fat")
 
 kbl(c61,
-   caption = "**Correlation for cluster 3**",
-   align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Correlation for cluster 3**",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 <br>
 <div class = "row">
@@ -2192,13 +2313,14 @@ kbl(c61,
 lm_diabm_fat_clust3 <- lm(prop_men_diabetes ~ proportion_fat, data = countries_cluster_3bis)
 
 tab_model(
-  lm_diabm_fat_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabm_fat_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for men vs proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -2209,13 +2331,14 @@ tab_model(
 lm_diabw_fat_clust3 <- lm(prop_women_diabetes ~ proportion_fat, data = countries_cluster_3bis)
 
 tab_model(
-  lm_diabw_fat_clust3, show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
+  lm_diabw_fat_clust3,
+  show.ci = FALSE, show.stat = TRUE, show.se = TRUE,
   dv.labels = c("Diabetes rate for women vs proportion of calories from fat"),
   CSS = list(
-    css.width = '500px',
-    css.centeralign = 'text-align: left;', 
-    css.firsttablecol = 'font-weight: bold;',  
-    css.summary = 'color: black;'
+    css.width = "500px",
+    css.centeralign = "text-align: left;",
+    css.firsttablecol = "font-weight: bold;",
+    css.summary = "color: black;"
   )
 )
 ```
@@ -2233,14 +2356,14 @@ But then what does the typical diet of countries in each cluster look like ? Are
 We are going to investigate this very issue of calorie consumption patterns that could be related to the diabetes rate for each cluster. To see these patterns, we will take the average of every macronutrient in each cluster. 
 
 ```{r}
-#means for each cluster
-countries_cluster_1 <- countries_cluster_1[,-10]
+# means for each cluster
+countries_cluster_1 <- countries_cluster_1[, -10]
 cl1 <- summarize_all(countries_cluster_1, mean)
 
-countries_cluster_2 <- countries_cluster_2[,-10]
+countries_cluster_2 <- countries_cluster_2[, -10]
 cl2 <- summarize_all(countries_cluster_2, mean)
 
-countries_cluster_3 <- countries_cluster_3[,-10]
+countries_cluster_3 <- countries_cluster_3[, -10]
 cl3 <- summarize_all(countries_cluster_3, mean)
 
 cl_all3 <- rbind(cl1, cl2, cl3)
@@ -2248,10 +2371,11 @@ cl_all3 <- rbind(cl1, cl2, cl3)
 rownames(cl_all3) <- c("Cluster 1", "Cluster 2", "Cluster 3")
 
 kbl(cl_all3,
-    caption = "**Table 9** : Means for each cluster",
-    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Table 9** : Means for each cluster",
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 As we see from the cluster averages, cluster 2 has the highest rate of diabetes followed by cluster 1 and finally the cluster 3 with the lowest rate of diabetes.
@@ -2261,23 +2385,23 @@ As we see from the cluster averages, cluster 2 has the highest rate of diabetes 
 <div class = "col-md-6">
 ```{r}
 
-slices <- c(cl1[1,5],cl1[1,6],cl1[1,7], cl1[1,8] )
+slices <- c(cl1[1, 5], cl1[1, 6], cl1[1, 7], cl1[1, 8])
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
-pct <- round(slices/sum(slices)*100)
+pct <- round(slices / sum(slices) * 100)
 lbls <- paste(lbls, pct) # add percents to labels
-lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern : Cluster 1")
+lbls <- paste(lbls, "%", sep = "") # ad % to labels
+pie(slices, labels = lbls, col = rainbow(length(lbls)), main = "Consumption Pattern : Cluster 1")
 ```
 </div>
   
 <div class = "col-md-6">
 ```{r}
-slices <- c(cl2[1,5],cl2[1,6],cl2[1,7], cl2[1,8] )
+slices <- c(cl2[1, 5], cl2[1, 6], cl2[1, 7], cl2[1, 8])
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
-pct <- round(slices/sum(slices)*100)
+pct <- round(slices / sum(slices) * 100)
 lbls <- paste(lbls, pct) # add percents to labels
-lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern : Cluster 2")
+lbls <- paste(lbls, "%", sep = "") # ad % to labels
+pie(slices, labels = lbls, col = rainbow(length(lbls)), main = "Consumption Pattern : Cluster 2")
 ```
 </div>
 </div>
@@ -2287,12 +2411,12 @@ pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern :
 </div>
 <div class = "col-md-6">
 ```{r}
-slices <- c(cl3[1,5],cl3[1,6],cl3[1,7], cl3[1,8] )
+slices <- c(cl3[1, 5], cl3[1, 6], cl3[1, 7], cl3[1, 8])
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
-pct <- round(slices/sum(slices)*100)
+pct <- round(slices / sum(slices) * 100)
 lbls <- paste(lbls, pct) # add percents to labels
-lbls <- paste(lbls,"%",sep="") # ad % to labels 
-pie(slices, labels = lbls,col=rainbow(length(lbls)), main="Consumption Pattern : Cluster 3")
+lbls <- paste(lbls, "%", sep = "") # ad % to labels
+pie(slices, labels = lbls, col = rainbow(length(lbls)), main = "Consumption Pattern : Cluster 3")
 ```
 </div>
 </div>
@@ -2302,4 +2426,3 @@ There is not much difference between the diets of our different clusters. Howeve
 Strangely enough, the proportion of fat is also lower in cluster 2 (33%) which is counter intuitive as its average diabetes rates are higher. But this result is consistent with the negative correlations of fat with diabetes rate calculated above. It is therefore complicated to draw a conclusion regarding the proportion of fat to be consumed to reduce the diabetes rate. Our hypothesis is that even if cluster 1 consumes more fat, it is composed of rich countries that have more prevention measures and certainly better hospital infrastructure.
 
 It looks like richer countries in Europe like those of clusters 1 and 3 tend to consume a bit more animal protein and fats, and less rich countries like those of cluster 2 tend to consume more carbs.
-

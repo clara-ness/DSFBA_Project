@@ -12,8 +12,8 @@ First, even though we will be taking the means of the variables with which we ar
 ```{r}
 ggplot(data = GDP) +
   geom_point(mapping = aes(x = year, y = avg_gdp)) +
-  facet_wrap(~ country_name, nrow = 4) +
-  labs(x="Year",y="GDP (in billion $)")
+  facet_wrap(~country_name, nrow = 4) +
+  labs(x = "Year", y = "GDP (in billion $)")
 ```
 
 We can see that the GDP of France, Germany, Italy, Spain and the United Kingdom had a significant increase between 2000 and 2008.
@@ -25,9 +25,9 @@ Now let's see if there is a relation between the GDP of a country and its diabet
 
 ```{r}
 ggplot(data = GDP_diabetes_cal) +
-  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes,color = "blue")) +
+  geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red")) +
-  labs(title = "Diabetes vs Average GDP", x="Average GDP (in billion $)",y="Diabetes rate") +
+  labs(title = "Diabetes vs Average GDP", x = "Average GDP (in billion $)", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red"))
 ```
 
@@ -35,18 +35,18 @@ We observe that apart of 5 outliers, our observations are mostly bunched up at t
 
 ```{r}
 GDP_no_outlier <- arrange(GDP_summarized, desc(GDP_summarized$avg_gdp))
-GDP_no_outlier <- GDP_no_outlier[-c(1:5),]
+GDP_no_outlier <- GDP_no_outlier[-c(1:5), ]
 
-GDP_diabetes_cal2 <- left_join(GDP_no_outlier,Diabetes_EU_men, by="country_code")
-GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Diabetes_EU_women, by="country_code")
-GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2,Caloric_consumption, by="country_code")
+GDP_diabetes_cal2 <- left_join(GDP_no_outlier, Diabetes_EU_men, by = "country_code")
+GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2, Diabetes_EU_women, by = "country_code")
+GDP_diabetes_cal2 <- left_join(GDP_diabetes_cal2, Caloric_consumption, by = "country_code")
 
 ggplot(data = GDP_diabetes_cal2) +
   geom_point(mapping = aes(x = avg_gdp, y = prop_men_diabetes, color = "blue")) +
   geom_smooth(mapping = aes(x = avg_gdp, y = prop_men_diabetes), color = "blue", method = "lm") +
   geom_point(mapping = aes(x = avg_gdp, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = avg_gdp, y = prop_women_diabetes), color = "red", method = "lm") +
-  labs(title = "Diabetes vs Average GDP (without outliers)", x="Average GDP (in billion $)",y="Diabetes rate") +
+  labs(title = "Diabetes vs Average GDP (without outliers)", x = "Average GDP (in billion $)", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red"))
 ```
 
@@ -59,27 +59,27 @@ For the second table, we tried to see again if there was a trend in the consumpt
 
 ```{r}
 
-#Trying to put a button to display all the countires graphs
+# Trying to put a button to display all the countires graphs
 # Plotting the evolution of the macronutrients consumption over the years for each country
-#cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
+# cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
 
-#for (i in 1:nrow(cal_unique)) { # Loop for each entity 
-#tmp <- cal_unique$Entity[i]     # Getting the entity name i
+# for (i in 1:nrow(cal_unique)) { # Loop for each entity
+# tmp <- cal_unique$Entity[i]     # Getting the entity name i
 
-# Taking subset of data table for the chosen entity i 
-#tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))","Calories #from plant protein (FAO (2017))","Calories from fat (FAO (2017))","Calories from carbohydrates (FAO (2017))"))
+# Taking subset of data table for the chosen entity i
+# tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))","Calories #from plant protein (FAO (2017))","Calories from fat (FAO (2017))","Calories from carbohydrates (FAO (2017))"))
 
-# Melting the data by years (i.e. getting each value for the different rows for each year) 
-#tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
+# Melting the data by years (i.e. getting each value for the different rows for each year)
+# tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
 
 # Print plot
-#print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
+# print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +
 #  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
 #       y = "Calories", x = "Year"))
-#}
+# }
 
-#library(shiny)
-#ui <- tagList(
+# library(shiny)
+# ui <- tagList(
 #    tags$head(
 #        tags$title("HTML Button Test")
 #    ),
@@ -90,55 +90,62 @@ For the second table, we tried to see again if there was a trend in the consumpt
 #            id = "btn",
 #            class = "shiny-bound-input action-button",
 #            "My Button"
-#        ) 
+#        )
 #    )
-#)
-
+# )
 ```
 
 In different countries, there is one difference that stands out and that seems to be related to wealth. Indeed, countries with a higher GDP like Austria consume on average more fat as can be seen on this graph:
 
 ```{r}
-#Plotting for Austria
-cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
+# Plotting for Austria
+cal_unique <- unique(daily_caloric, by = c("Entity")) # Sorting table by entity (unique)
 
-for (i in 1) { # Loop for each entity 
-tmp <- cal_unique$Entity[i]     # Getting the entity name i
+for (i in 1) { # Loop for each entity
+  tmp <- cal_unique$Entity[i] # Getting the entity name i
 
-# Taking subset of data table for the chosen entity i 
-tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))","Calories from plant protein (FAO (2017))","Calories from fat (FAO (2017))","Calories from carbohydrates (FAO (2017))"))
+  # Taking subset of data table for the chosen entity i
+  tmp <- subset(daily_caloric, Entity == tmp, select = c("Year", "Calories from animal protein (FAO (2017))", "Calories from plant protein (FAO (2017))", "Calories from fat (FAO (2017))", "Calories from carbohydrates (FAO (2017))"))
 
-# Melting the data by years (i.e. getting each value for the different rows for each year) 
-tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
+  # Melting the data by years (i.e. getting each value for the different rows for each year)
+  tmp <- melt(tmp, id.vars = "Year", variable.name = "Series")
 
-# Print plot
+  # Print plot
 
-print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) +ylim(0,2000) +
-  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
-       y = "Calories", x = "Year"))
+  print(ggplot(tmp, aes(Year, value)) +
+    geom_line(aes(colour = Series), size = 2) +
+    ylim(0, 2000) +
+    labs(
+      title = paste("Caloric consumption per year", cal_unique$Entity[i]),
+      y = "Calories", x = "Year"
+    ))
 }
 ```
 
 Whereas, countries with a lower GDP like Bulgaria have a lower fat consumption, as seen below:
 
 ```{r}
-#Plotting for Bulgaria 
-cal_unique <- unique(daily_caloric, by =c('Entity')) # Sorting table by entity (unique)
+# Plotting for Bulgaria
+cal_unique <- unique(daily_caloric, by = c("Entity")) # Sorting table by entity (unique)
 
-for (i in 3) { # Loop for each entity 
-tmp <- cal_unique$Entity[i]     # Getting the entity name i
+for (i in 3) { # Loop for each entity
+  tmp <- cal_unique$Entity[i] # Getting the entity name i
 
-# Taking subset of data table for the chosen entity i 
-tmp <- subset(daily_caloric,Entity == tmp, select = c("Year","Calories from animal protein (FAO (2017))","Calories from plant protein (FAO (2017))","Calories from fat (FAO (2017))","Calories from carbohydrates (FAO (2017))"))
+  # Taking subset of data table for the chosen entity i
+  tmp <- subset(daily_caloric, Entity == tmp, select = c("Year", "Calories from animal protein (FAO (2017))", "Calories from plant protein (FAO (2017))", "Calories from fat (FAO (2017))", "Calories from carbohydrates (FAO (2017))"))
 
-# Melting the data by years (i.e. getting each value for the different rows for each year) 
-tmp <- melt(tmp ,  id.vars = 'Year', variable.name = 'Series')
+  # Melting the data by years (i.e. getting each value for the different rows for each year)
+  tmp <- melt(tmp, id.vars = "Year", variable.name = "Series")
 
-# Print plot
+  # Print plot
 
-print(ggplot(tmp, aes(Year,value)) + geom_line(aes(colour = Series),size = 2) + ylim(0,2000) +
-  labs(title = paste("Caloric consumption per year",cal_unique$Entity[i]),
-       y = "Calories", x = "Year"))
+  print(ggplot(tmp, aes(Year, value)) +
+    geom_line(aes(colour = Series), size = 2) +
+    ylim(0, 2000) +
+    labs(
+      title = paste("Caloric consumption per year", cal_unique$Entity[i]),
+      y = "Calories", x = "Year"
+    ))
 }
 ```
 
@@ -151,40 +158,42 @@ There do not seem to be any trends in the graphs above and diets seem rather sta
 We then wanted to analyse the relation between a country's GDP and its individual consumption of each macronutrient as well as its total calorie consumption to see if there's a trend.
 
 ```{r}
-ggplot(data = GDP_diabetes_cal, aes(x = avg_gdp)) + 
+ggplot(data = GDP_diabetes_cal, aes(x = avg_gdp)) +
   geom_line(aes(y = total_consumption, color = "total_consumption")) +
   geom_line(aes(y = cal_fat, color = "cal_fat")) +
   geom_line(aes(y = cal_carbs, color = "cal_carbs")) +
-  geom_line(aes(y = cal_prot_animal, color = "cal_prot_animal")) +  
+  geom_line(aes(y = cal_prot_animal, color = "cal_prot_animal")) +
   geom_line(aes(y = cal_prot_plant, color = "cal_prot_plant")) +
-  labs(title = "Caloric consumption vs Average GDP", x = "Average GDP (in billion $)", y= "Calories") +
-  scale_color_manual("", breaks = c("total_consumption", "cal_carbs", "cal_fat", "cal_prot_animal", "cal_prot_plant"), values = c("orange", "blue", "purple", "red", "green" ))
+  labs(title = "Caloric consumption vs Average GDP", x = "Average GDP (in billion $)", y = "Calories") +
+  scale_color_manual("", breaks = c("total_consumption", "cal_carbs", "cal_fat", "cal_prot_animal", "cal_prot_plant"), values = c("orange", "blue", "purple", "red", "green"))
 ```
 
 We see that the calorie consumption does not really change. We wanted a close up on the relation between the total calorie consumption with the GDP for each country to see if we can spot outliers again, so we created other plots.
 
 ```{r}
-ggplot(GDP_diabetes_cal, aes(x=GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption)) +
+ggplot(GDP_diabetes_cal, aes(x = GDP_diabetes_cal$avg_gdp, y = GDP_diabetes_cal$total_consumption)) +
   geom_point() + # Show dots
   geom_text(
-   label= (GDP_diabetes_cal$country_code),  
-    nudge_x = 0.25, nudge_y = 0.25, 
-    check_overlap = T)+
- geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y=GDP_diabetes_cal$total_consumption), color = "red", method = "lm")+
-   labs(title = "Daily total calories vs Average GDP", x = "Average GDP (in billion $)", y = "Calories")
+    label = (GDP_diabetes_cal$country_code),
+    nudge_x = 0.25, nudge_y = 0.25,
+    check_overlap = T
+  ) +
+  geom_smooth(mapping = aes(x = GDP_diabetes_cal$avg_gdp, y = GDP_diabetes_cal$total_consumption), color = "red", method = "lm") +
+  labs(title = "Daily total calories vs Average GDP", x = "Average GDP (in billion $)", y = "Calories")
 ```
 
 We end up again with these 5 outliers that have a higher than average GDP so if we remove them, we obtain the following plots :
 
 ```{r}
-ggplot(GDP_diabetes_cal2, aes(x=GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption)) +
+ggplot(GDP_diabetes_cal2, aes(x = GDP_diabetes_cal2$avg_gdp, y = GDP_diabetes_cal2$total_consumption)) +
   geom_point() +
   geom_text(
-    label= (GDP_diabetes_cal2$country_code),  
-    nudge_x = 0.25, nudge_y = 0.25, 
-    check_overlap = T)+
-geom_smooth(mapping = aes(x = GDP_diabetes_cal2$avg_gdp, y=GDP_diabetes_cal2$total_consumption), color = "red", method = "lm")+
-   labs(title = "Daily total calories vs Average GDP (without outliers)", x = "Average GDP (in billion $)", y = "Calories")
+    label = (GDP_diabetes_cal2$country_code),
+    nudge_x = 0.25, nudge_y = 0.25,
+    check_overlap = T
+  ) +
+  geom_smooth(mapping = aes(x = GDP_diabetes_cal2$avg_gdp, y = GDP_diabetes_cal2$total_consumption), color = "red", method = "lm") +
+  labs(title = "Daily total calories vs Average GDP (without outliers)", x = "Average GDP (in billion $)", y = "Calories")
 ```
 
 Now we can more easily state that there's a trend. It appears that the higher a country's GDP, the higher the total calories consumed, contrary to our hypothesis.
@@ -195,20 +204,20 @@ Now we can more easily state that there's a trend. It appears that the higher a 
 Once again, we tried to see if the diabetes prevalence in each country changed over the years 2000-2013.
 
 ```{r}
-# Plotting the evolution of the prevalence of diabetes for each country 
-#Diabetes_EU2 <- Diabetes_EU[-c(2)] #remove ISO country code
-#Diabetes_unique <- unique(Diabetes_EU2[c('country')]) # Sorting table by country (unique)
+# Plotting the evolution of the prevalence of diabetes for each country
+# Diabetes_EU2 <- Diabetes_EU[-c(2)] #remove ISO country code
+# Diabetes_unique <- unique(Diabetes_EU2[c('country')]) # Sorting table by country (unique)
 
-#for (i in 1:nrow(Diabetes_unique)) { 
-#tmp <- Diabetes_unique$country[i]     
+# for (i in 1:nrow(Diabetes_unique)) {
+# tmp <- Diabetes_unique$country[i]
 
-# Taking subset of data table for the chosen country i 
-#tmp2 <- subset(Diabetes_EU2,country == tmp, select = c("sex","year","prop_diabetes"))
+# Taking subset of data table for the chosen country i
+# tmp2 <- subset(Diabetes_EU2,country == tmp, select = c("sex","year","prop_diabetes"))
 
 # Print plot for each country
-#print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line()
+# print(ggplot(data = tmp2, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line()
 #  + labs(title = paste("Evolution of diabetes prevalence in",tmp), x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent))
-#}
+# }
 ```
 
 
@@ -224,16 +233,19 @@ A decrease of diabetes over time for:
 We take Belgium as an example :
 
 ```{r}
-# Plotting the evolution of the prevalence of diabetes for each country 
-Diabetes_EU2 <- Diabetes_EU[-c(2)] #remove ISO country code
-Diabetes_unique <- unique(Diabetes_EU2[c('country')]) # Sorting table by country (unique)
+# Plotting the evolution of the prevalence of diabetes for each country
+Diabetes_EU2 <- Diabetes_EU[-c(2)] # remove ISO country code
+Diabetes_unique <- unique(Diabetes_EU2[c("country")]) # Sorting table by country (unique)
 
 
 # Taking subset of data table for the chosen country
-BelgiumPlot <- subset(Diabetes_EU2,country == 'Belgium', select = c("sex","year","prop_diabetes"))
+BelgiumPlot <- subset(Diabetes_EU2, country == "Belgium", select = c("sex", "year", "prop_diabetes"))
 
 # Print plot for each country
-ggplot(data = BelgiumPlot, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line() + labs(title ="Evolution of diabetes prevalence in Belgium", x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent)
+ggplot(data = BelgiumPlot, mapping = aes(x = year, y = prop_diabetes, color = sex)) +
+  geom_line() +
+  labs(title = "Evolution of diabetes prevalence in Belgium", x = "Year", y = "Diabetes prevalence") +
+  scale_y_continuous(labels = scales::percent)
 ```
 
 A decrease over time for women but not for men for :
@@ -250,10 +262,13 @@ We take Austria as an example :
 
 ```{r}
 # Taking subset of data table for the chosen country
-AustriaPlot <- subset(Diabetes_EU2,country == 'Austria', select = c("sex","year","prop_diabetes"))
+AustriaPlot <- subset(Diabetes_EU2, country == "Austria", select = c("sex", "year", "prop_diabetes"))
 
 # Print plot for each country
-ggplot(data = AustriaPlot, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line() + labs(title ="Evolution of diabetes prevalence in Austria", x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent)
+ggplot(data = AustriaPlot, mapping = aes(x = year, y = prop_diabetes, color = sex)) +
+  geom_line() +
+  labs(title = "Evolution of diabetes prevalence in Austria", x = "Year", y = "Diabetes prevalence") +
+  scale_y_continuous(labels = scales::percent)
 ```
 
 In other European countries, the prevalence of diabetes is increasing (at different paces) over time.
@@ -262,10 +277,13 @@ We take Croatia as an example :
 
 ```{r}
 # Taking subset of data table for the chosen country
-CroatiaPlot <- subset(Diabetes_EU2,country == 'Croatia', select = c("sex","year","prop_diabetes"))
+CroatiaPlot <- subset(Diabetes_EU2, country == "Croatia", select = c("sex", "year", "prop_diabetes"))
 
 # Print plot for each country
-ggplot(data = CroatiaPlot, mapping = aes(x = year, y =prop_diabetes, color =sex)) + geom_line() + labs(title ="Evolution of diabetes prevalence in Croatia", x= "Year", y="Diabetes prevalence") + scale_y_continuous(labels = scales::percent)
+ggplot(data = CroatiaPlot, mapping = aes(x = year, y = prop_diabetes, color = sex)) +
+  geom_line() +
+  labs(title = "Evolution of diabetes prevalence in Croatia", x = "Year", y = "Diabetes prevalence") +
+  scale_y_continuous(labels = scales::percent)
 ```
 
 ## Plotting Diabetes against each type of macronutrient consumption
@@ -282,7 +300,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Total", x="Calories", y="Diabetes rate") +
+  labs(title = "Total", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -295,7 +313,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Animal protein", x="Calories", y="Diabetes rate") +
+  labs(title = "Animal protein", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -312,7 +330,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Plant protein", x="Calories", y="Diabetes rate") +
+  labs(title = "Plant protein", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -325,7 +343,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Carbs", x="Calories", y="Diabetes rate") +
+  labs(title = "Carbs", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -342,7 +360,7 @@ ggplot(data = GDP_diabetes_cal) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Fat", x="Calories", y="Diabetes rate") +
+  labs(title = "Fat", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -366,7 +384,7 @@ ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = total_consumption, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Total", x="Calories", y="Diabetes rate") +
+  labs(title = "Total", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -379,7 +397,7 @@ ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_prot_animal, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Animal protein", x="Calories", y="Diabetes rate") +
+  labs(title = "Animal protein", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -396,7 +414,7 @@ ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_prot_plant, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Plant protein", x="Calories", y="Diabetes rate") +
+  labs(title = "Plant protein", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -409,7 +427,7 @@ ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_carbs, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Carbs", x="Calories", y="Diabetes rate") +
+  labs(title = "Carbs", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
@@ -426,7 +444,7 @@ ggplot(data = GDP_diabetes_cal2) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_men_diabetes, color = "blue"), formula = y ~ x, method = "lm") +
   geom_point(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red")) +
   geom_smooth(mapping = aes(x = cal_fat, y = prop_women_diabetes, color = "red"), formula = y ~ x, method = "lm") +
-  labs(title="Fat", x="Calories", y="Diabetes rate") +
+  labs(title = "Fat", x = "Calories", y = "Diabetes rate") +
   scale_color_manual(labels = c("Men", "Women"), values = c("blue", "red")) +
   scale_y_continuous(labels = scales::percent)
 ```
