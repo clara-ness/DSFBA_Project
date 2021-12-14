@@ -144,7 +144,7 @@ fviz_nbclust(data_1, kmeans, method = "wss") +
   scale_y_continuous(labels = scales::label_number_si())
 ```
 
-We therefore see from the graph above that the optimal number of clusters is 3. The allocation of countries according to their cluster is therefore as follows:
+We therefore see from the graph above that the optimal number of clusters is 3. When using the k-means method, the allocation of countries according to their cluster is as follows:
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 set.seed(123)
@@ -188,7 +188,7 @@ kbl(countries_cluster_3,
 
 It is important to note that our 3rd cluster only contains 2 countries, and therefore when we analyse correlation and linear regression parameters, we will be mainly considering the overall nature of the relationships. (positive or negative link?)
 
-To go further, we decided to represent on a cluster map to see if there was a difference between the north and the south for example.
+To go further, we decided to represent these clusters on a map. 
 <br>
 ```{r, warning=FALSE}
 
@@ -236,7 +236,8 @@ leaflet(SHP_0) %>%
   title= "Cluster number",
   opacity = .6)
 ```
-We can therefore see that the first cluster is more located in the north and center of Europe while the second cluster is more towards the extremities of Europe (West and East). We can then ask ourselves what are the characteristics of the eastern and western countries. For this we will look at how diabetes is distributed in European countries.
+
+We can see that the first cluster is located more in the north and center of Europe while the second cluster is more towards the extremities (West and East). We can ask ourselves what differentiates these eastern and western countries of Europe. For this we will look at how diabetes is distributed geographically.
 
 ```{r}
 pal <- colorNumeric(
@@ -254,6 +255,7 @@ leaflet(SHP_0) %>%
     opacity = 1
   )
 ```
+
 On the map, we can see that diabetes is mainly located in the south of Europe and precisely at the eastern and western ends. Do we get the same result for women?
 <br><br>
 ```{r}
@@ -272,7 +274,8 @@ leaflet(SHP_0) %>%
     opacity = 1
   )
 ```
-Women with diabetes would therefore be mainly located in the Eastern countries and also in the South-Western countries, which corresponds to the cluster 2 that seems to have the most diabetes. 
+
+Women with diabetes seem to be mainly located in the eastern and south-western regions of Europe, which corresponds to the countries of cluster 2 that have a higher diabetes rate. 
 <br><br>
 ```{r}
 pal <- colorNumeric(
@@ -290,8 +293,8 @@ leaflet(SHP_0) %>%
     opacity = 1
   )
 ```
-We can see then that the countries that are in cluster 2 have lower GDP. 
-We will nevertheless verify this statement algebraically by looking at the characterizations of the clusters with kmeans.  
+
+We observe that the countries that are in cluster 2 have a lower GDP. Let's see if we can reaffirm this claim with a cluster plot.  
 <br><br>
 ```{r, warning=FALSE}
 res_kmeans <- cluster_analysis(data_1, n = 3, method = "kmeans", iterations = 20)
