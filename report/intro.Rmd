@@ -1,3 +1,7 @@
+<p align="center">
+![](../diab.png)
+</p>
+
 # Introduction
 
 ```{r, echo = FALSE, message = FALSE}
