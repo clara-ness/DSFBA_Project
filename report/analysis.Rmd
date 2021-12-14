@@ -236,9 +236,62 @@ leaflet(SHP_0) %>%
   title= "Cluster number",
   opacity = .6)
 ```
-We can therefore see that the first cluster is more located in the north and center of Europe while the second cluster is more towards the extremities of Europe (West and East).
+We can therefore see that the first cluster is more located in the north and center of Europe while the second cluster is more towards the extremities of Europe (West and East). We can then ask ourselves what are the characteristics of the eastern and western countries. For this we will look at how diabetes is distributed in European countries.
 
-We then plot the cluster with the different variables to see their characteristics. 
+```{r}
+pal <- colorNumeric(
+  palette = "YlGnBu",
+  domain = CL_EU$prop_men_diabetes)
+
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>%
+  addTiles() %>%
+  addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
+    color = ~pal(CL_EU$prop_men_diabetes)
+  ) %>%
+  addLegend("bottomright", pal = pal, values = ~CL_EU$prop_men_diabetes,
+    title = "Men Diabetes",
+    opacity = 1
+  )
+```
+On the map, we can see that diabetes is mainly located in the south of Europe and precisely at the eastern and western ends. Do we get the same result for women?
+<br><br>
+```{r}
+pal <- colorNumeric(
+  palette = "YlGnBu",
+  domain = CL_EU$prop_women_diabetes)
+
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>%
+  addTiles() %>%
+  addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
+    color = ~pal(CL_EU$prop_women_diabetes)
+  ) %>%
+  addLegend("bottomright", pal = pal, values = ~CL_EU$prop_women_diabetes,
+    title = "Women Diabetes",
+    opacity = 1
+  )
+```
+Women with diabetes would therefore be mainly located in the Eastern countries and also in the South-Western countries, which corresponds to the cluster 2 that seems to have the most diabetes. 
+<br><br>
+```{r}
+pal <- colorNumeric(
+  palette = "YlGnBu",
+  domain = CL_EU$avg_gdp)
+
+leaflet(SHP_0) %>%
+  setView(lng = 15, lat = 50, zoom = 4) %>%
+  addTiles() %>%
+  addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
+    color = ~pal(CL_EU$avg_gdp)
+  ) %>%
+  addLegend("bottomright", pal = pal, values = ~CL_EU$avg_gdp,
+    title = "Average GDP",
+    opacity = 1
+  )
+```
+We can see then that the countries that are in cluster 2 have lower GDP. 
+We will nevertheless verify this statement algebraically by looking at the characterizations of the clusters with kmeans.  
 <br><br>
 ```{r, warning=FALSE}
 res_kmeans <- cluster_analysis(data_1, n = 3, method = "kmeans", iterations = 20)
