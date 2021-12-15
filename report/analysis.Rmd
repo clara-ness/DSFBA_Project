@@ -878,9 +878,9 @@ tab_model(
 )
 ```
 
-For each cluster, the correlation is positive and but still not so strong, and the estimate of the parameter for cluster 2 is significant.
+For each cluster, the correlation is positive and relatively strong, but only the estimate of the parameter for cluster 2 is significant.
 
-In general, though it seems positive, we cannot conclude that there is a strong link between the wealth of a country and its animal protein consumption.
+In general, we could conclude that there is a positive link between the wealth of a country and its animal protein consumption.
 
 ### GDP - Plant protein
 
@@ -1063,9 +1063,9 @@ tab_model(
 )
 ```
 
-We see that the correlations within clusters is weaker. And actually, even in countries with lower GDPs that belong to cluster 2, the relationship is rather negative. This indicates us that visual interpretation is not enough for analysis. We can maybe say that less wealthy countries that are more developed than those in the same cluster as them may consume more plant protein than more wealthy countries but they still consume less of this macronutrient than their cluster mates.
+We see that the correlations within clusters is weaker. And actually, even in countries with lower GDPs that belong to cluster 2, the relationship is rather negative. This indicates us that visual interpretation is not enough for analysis. We can maybe say that less wealthy countries that are more developed (than those in the same cluster as them) may consume more plant protein than more wealthy countries but they still consume less of this macronutrient than their cluster mates.
 
-Therefore, we cannot conclude that there is a significant link between the wealth of a country and its plant protein consumption, although this relationship seems negative.
+So overall, we could conclude that there is a negative relationship between the wealth of a country and its plant protein consumption.
 
 ### GDP - Carbohydrates
 
@@ -1248,9 +1248,9 @@ tab_model(
 )
 ```
 
-Surprisingly, with these correlations we see that the previous logic is inversed within clusters. For richer countries like those in cluster 1 and 3 the link between GDP and carb consumption is positive within their respective clusters, and for less rich countries like in those in cluster 2, it is negative. The estimate for the model parameter for cluster 2 is even very significant.
+Surprisingly, with these correlations we see that the previous logic is inversed within clusters. For richer countries like those in cluster 1 and 3 the link between GDP and carbs consumption is positive within their respective clusters, and for less rich countries like in those in cluster 2, it is negative. The estimate for the model parameter for cluster 2 is even very significant.
 
-But overall, we cannot conclude that the link between the wealth of a country and its carb consumption is negative, as it is not strong enough.
+Though in general, we could conclude that the link between the wealth of a country and its carb consumption is negative.
 
 
 ### GDP - Fats
@@ -1436,7 +1436,7 @@ tab_model(
 
 Just like for carbs, surprisingly, we see again that the previous logic is inversed within clusters by looking at these correlations. For high GDP countries like those in cluster 1 and 3 the link between GDP and fat consumption is negative within their respective clusters, and for low GDP countries like in those in cluster 2, it is positive. The estimate for the model parameter for cluster 2 is again quite significant. This suggests that among rich countries, the countries that are the most rich tend to consume less fat, and vice versa.
 
-In general, even though it seems positive, we cannot confidently say that there is a definite link between the wealth of a country and its fat consumption.
+Therefore, we could say by looking at the overall results that there is a positive link between the wealth of a country and its fat consumption.
 
 
 ## 4.How do these differences in macronutrients relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
