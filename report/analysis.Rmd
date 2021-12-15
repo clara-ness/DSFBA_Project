@@ -5,7 +5,7 @@ source(here::here("scripts/setup.R"))
 ```
 
 
-## 1.Do European countries that have higher GDPs really have lower diabetes prevalence ?
+## Do European countries that have higher GDPs really have lower diabetes prevalence ?
 
 This first question serves more as a control, since we learned during our research prior to our project that countries with higher GDPs tend to have lower diabetes rates. Indeed, we can observe that in the EDA. 
 
@@ -476,7 +476,7 @@ Clustering here doesn't necessarily help us answer the research question. We can
 However, the clusters defined above could help us answer our other research questions.
 
 
-## 2.Do European countries that have higher GDPs consume less calories ?
+## Do European countries that have higher GDPs consume less calories ?
 
 As mentioned in the first point, countries with a higher GDP tend to have a lower diabetes rate, which could potentially be explained by the consumption of fewer calories.
 
@@ -639,7 +639,7 @@ The results indicate that even within the clusters, these variables are not exac
 When we look at our cluster plot, in terms of total calorie intake it is also the 1st cluster, which contains the richest countries considering GDP per capita, that consumes the most calories. One might therefore think that calorie consumption is not the main reason why high-GDP countries have lower diabetes rates.
 
 
-## 3.How do the macronutrients (animal protein/plant protein/carbohydrates/fat) consumed differ between richer and poorer countries ?
+## How do the macronutrients (animal protein/plant protein/carbohydrates/fat) consumed differ between richer and poorer countries ?
 
 We observed during the EDA that richer countries seemed to consume more fat on average. Now we want to see if we can confirm this relationship, and find out if there is a correlation between the average GDP of a country and the calories consumed for other macronutrients too.
 
@@ -1439,7 +1439,7 @@ Just like for carbs, surprisingly, we see again that the previous logic is inver
 Therefore, we could say by looking at the overall results that there is a positive link between the wealth of a country and its fat consumption.
 
 
-## 4.How do these differences in macronutrients relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
+## How do these differences in macronutrients relate to the diabetes prevalence in these countries ? What is the typical diet that can be observed in richer states that relates to lower diabetes prevalence ?
 
 What we observed in the EDA seemed to not make sense to us as we were expecting a positive relationship between the total calories/calories consumed from fat and diabetes prevalence in a country. Let's see now concretely if there is any correlation between the calories consumed from different macronutrients and the diabetes rate.
 

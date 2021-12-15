@@ -1,8 +1,13 @@
 ---
 title: "European countries, their dietary habits and diabetes prevalence"
 author: "Alesya Alpbaz,Clara Nessi and Fabien Calderini"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
+date: "`r format(Sys.time(), '%d %m %Y')`"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+    theme: "cosmo"
+runtime: shiny
 ---
 
 ```{r child = c('intro.Rmd', 'data.Rmd', 'eda.Rmd','analysis.Rmd', 'concl.Rmd')}
