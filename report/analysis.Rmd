@@ -2403,7 +2403,6 @@ As we see from the cluster averages, cluster 2 has the highest rate of diabetes 
   
 <div class = "col-md-6">
 ```{r}
-
 slices <- c(cl1[1, 5], cl1[1, 6], cl1[1, 7], cl1[1, 8])
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
 pct <- round(slices / sum(slices) * 100)
