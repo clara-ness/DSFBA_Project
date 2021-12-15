@@ -18,7 +18,7 @@ High GDP countries consume more fat and animal protein, but have a lower diabete
 
 ### Limitations
 
-The results of the analysis within clusters often didn't make sense or were not significant/strong enough. We didn't have too many countries to work with but yet we could have tried to increase the cluster number. Then however we would have the risk of having even smaller samples and less observations which are not good for statistical accuracy.
+The results of the analysis within clusters often didn't make sense or were not significant/strong enough. We didn't have too many countries to work with but maybe we could have tried to increase the cluster number to decrease variance within clusters. Then however we would have the risk of having even smaller samples and less observations which are not good for statistical accuracy.
 
 Another limitation is that the linear regressions were not always significant and it was complicated to find the right relationship between the different variables if there were any. Nutrition and health is often complex and it is logical that a simple linear regression with one variable is not enough to explain another.
 
