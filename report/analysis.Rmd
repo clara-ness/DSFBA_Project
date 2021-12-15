@@ -2399,9 +2399,6 @@ kbl(cl_all3,
 
 As we see from the cluster averages, cluster 2 has the highest rate of diabetes followed by cluster 1 and finally the cluster 3 with the lowest rate of diabetes.
 
-<div class = "row">
-  
-<div class = "col-md-6">
 ```{r}
 slices <- c(cl1[1, 5], cl1[1, 6], cl1[1, 7], cl1[1, 8])
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
@@ -2410,9 +2407,7 @@ lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls, "%", sep = "") # ad % to labels
 pie(slices, labels = lbls, col = rainbow(length(lbls)), main = "Consumption Pattern : Cluster 1")
 ```
-</div>
-  
-<div class = "col-md-6">
+
 ```{r}
 slices <- c(cl2[1, 5], cl2[1, 6], cl2[1, 7], cl2[1, 8])
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
@@ -2421,13 +2416,7 @@ lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls, "%", sep = "") # ad % to labels
 pie(slices, labels = lbls, col = rainbow(length(lbls)), main = "Consumption Pattern : Cluster 2")
 ```
-</div>
-</div>
-<div class = "row">
 
-<div class = "col-md-3">
-</div>
-<div class = "col-md-6">
 ```{r}
 slices <- c(cl3[1, 5], cl3[1, 6], cl3[1, 7], cl3[1, 8])
 lbls <- c("Animal Protein", "Plant Protein", "Carbs", "Fat")
@@ -2436,8 +2425,6 @@ lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls, "%", sep = "") # ad % to labels
 pie(slices, labels = lbls, col = rainbow(length(lbls)), main = "Consumption Pattern : Cluster 3")
 ```
-</div>
-</div>
 
 There is not much difference between the diets of our different clusters. However, it should be noted that carbs represent 55% of the diet of cluster 2 and this food greatly influences the rate of diabetes, particularly among women.  Indeed, there is a 1% increase in diabetes rate in women for every 0.168 carbs consumed on average per capita with a significant p-value at 1%. The proportion of carbs should therefore be reduced to less than half of the total proportion to try to have a negative impact on the diabetes rate.
 
