@@ -4,7 +4,7 @@
   <br />
     Welcome to our report !
     <br />
-    <a href="https://github.com/clara-ness/DSFBA_Project/edit/main/report/report.html"><strong>Explore the report »</strong></a>
+    <a href="https://github.com/clara-ness/DSFBA_Project/edit/main/report/report.html"><strong>Read the report »</strong></a>
     <br />
     <br />
     <a href="https://github.com/clara-ness/DSFBA_Project/issues">Report Bug</a>
