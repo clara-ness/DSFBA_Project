@@ -239,7 +239,7 @@ leaflet(SHP_0) %>%
   )
 ```
 
-We can see that the first cluster is located more in the north and center of Europe while the second cluster is more towards the extremities (West and East). We can ask ourselves what differentiates these eastern and western countries of Europe. For this we will look at how diabetes is distributed geographically.
+We can see that the first cluster is located more in the North and center of Europe while the second cluster is more towards the extremities (West and East). We can ask ourselves what differentiates these eastern and western countries of Europe. For this we will look at how diabetes is distributed geographically.
 
 ```{r}
 pal <- colorNumeric(
@@ -261,7 +261,7 @@ leaflet(SHP_0) %>%
   )
 ```
 
-On the map, we can see that diabetes is mainly located in the south of Europe and precisely at the eastern and western ends. Do we get the same result for women?
+On the map, we can see that diabetes is mainly located in the South of Europe and precisely at the eastern and western ends. Do we get the same result for women?
 <br><br>
 ```{r}
 pal <- colorNumeric(
@@ -650,7 +650,7 @@ The results indicate that even within the clusters, these variables are not exac
 When we look at our cluster plot, in terms of total calorie intake it is also the 1st cluster, which contains the richest countries considering GDP per capita, that consumes the most calories. One might therefore think that calorie consumption is not the main reason why high-GDP countries have lower diabetes rates.
 
 
-## How do the macronutrients (animal protein/plant protein/carbohydrates/fat) consumed differ between richer and poorer countries ?
+## How do the macronutrients consumed differ between richer and poorer countries ?
 
 We observed during the EDA that richer countries seemed to consume more fat on average. Now we want to see if we can confirm this relationship, and find out if there is a correlation between the average GDP of a country and the calories consumed for other macronutrients too.
 
