@@ -1,0 +1,71 @@
+---
+title: "Shiny"
+output: html_document
+runtime: shiny
+---
+```{r, echo = FALSE, message = FALSE}
+ packages <- c(
+  "here", # for the project's organization
+  "tidyverse", "lubridate","readr","dplyr", "readxl","data.table", # for wrangling
+  "ggrepel", "gghighlight", "patchwork", "maps", "scales", "ggplot2", "plotly", "shiny", "papeR", "ggpubr", # for plotting
+  "leaflet", "eurostat", "sf", "geojsonsf", # for mapping
+  "knitr", "kableExtra", "bookdown", "rmarkdown", "parameters", "see", "factoextra", "NbClust","sjPlot", "sjmisc", "sjlabelled" # for the report
+)
+purrr::walk(packages, library, character.only = TRUE)
+```
+
+
+```{r, warning=FALSE}
+Diabetes <- read_csv(here::here("data/Diabetes.csv"))
+EU <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
+
+Diabetes <- subset(Diabetes, Year >= 2000 , Year <=2013)
+Diabetes_EU<-Diabetes[Diabetes$`ISO` %in% EU,]
+Diabetes_EU <- Diabetes_EU[-c(6,7)]
+colnames(Diabetes_EU)<-c("country","ISO","sex","year","prop_diabetes")
+Diabetes_EU_men <-subset(Diabetes_EU, sex=="Men")
+Diabetes_EU_women <-subset(Diabetes_EU, sex=="Women")
+colnames(Diabetes_EU_men)<-c("country","country_code","sex","year","prop_men_diabetes")
+colnames(Diabetes_EU_women)<-c("country","country_code","sex","year","prop_women_diabetes")
+Diabetes_EU_men <- Diabetes_EU_men %>% 
+  group_by(country_code) %>%
+  dplyr::summarize(prop_men_diabetes = mean(prop_men_diabetes))
+Diabetes_EU_women <- Diabetes_EU_women %>% 
+  group_by(country_code) %>%
+  dplyr::summarize(prop_women_diabetes = mean(prop_women_diabetes))
+
+
+
+
+
+ # Plotting the evolution of the prevalence of diabetes for each country
+Diabetes_unique <- Diabetes_EU[-c(2)] # remove ISO country code
+ library(tidyverse)
+    library(lubridate)
+    Diabetes_unique<-as.data.frame(Diabetes_unique)
+```
+
+```{r, warning=FALSE}
+selectInput("prop_diabetes", label = "countries:",
+              choices =EU <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE"),  selected = 29)
+
+renderPlot({
+ggplot(data = Diabetes_unique, mapping = aes(x = year, y = input$prop_diabetes)) +
+  geom_line() +
+  labs(title = "Evolution of diabetes prevalence in Belgium", x = "Year", y = "Diabetes prevalence") +
+  scale_y_continuous(labels = scales::percent)
+  
+})
+
+```
+
+
+
+
+
+
+
+
+
+
+
