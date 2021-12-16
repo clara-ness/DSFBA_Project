@@ -211,14 +211,14 @@ CL_EU <- cbind(CL_EU, nb_cluster)
 # Color for each cluster
 for (i in 1:29) {
   if (CL_EU$nb_cluster[i] == 1) {
-    CL_EU$col[i]=c('red')
+    CL_EU$col[i] <- c("red")
   } else if (CL_EU$nb_cluster[i] == 2) {
-    CL_EU$col[i]=c('blue')
+    CL_EU$col[i] <- c("blue")
   } else {
-    CL_EU$col[i]=c('green')
+    CL_EU$col[i] <- c("green")
   }
 }
-CL_EU <- CL_EU[match(SHP_0$FID,CL_EU$EU_cluster),]
+CL_EU <- CL_EU[match(SHP_0$FID, CL_EU$EU_cluster), ]
 ```
 
 ```{r, warning=FALSE}
@@ -229,12 +229,14 @@ leaflet(SHP_0) %>%
     color = "black",
     weight = .5,
     fillOpacity = .5,
-    fillColor = CL_EU$col,) %>%
-  addLegend("bottomright", 
-  colors = c("red","blue","green"),
-  labels = c("1","2","3"),
-  title= "Cluster number",
-  opacity = .6)
+    fillColor = CL_EU$col,
+  ) %>%
+  addLegend("bottomright",
+    colors = c("red", "blue", "green"),
+    labels = c("1", "2", "3"),
+    title = "Cluster number",
+    opacity = .6
+  )
 ```
 
 We can see that the first cluster is located more in the north and center of Europe while the second cluster is more towards the extremities (West and East). We can ask ourselves what differentiates these eastern and western countries of Europe. For this we will look at how diabetes is distributed geographically.
@@ -242,15 +244,18 @@ We can see that the first cluster is located more in the north and center of Eur
 ```{r}
 pal <- colorNumeric(
   palette = "YlGnBu",
-  domain = CL_EU$prop_men_diabetes)
+  domain = CL_EU$prop_men_diabetes
+)
 
 leaflet(SHP_0) %>%
   setView(lng = 15, lat = 50, zoom = 4) %>%
   addTiles() %>%
-  addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
-    color = ~pal(CL_EU$prop_men_diabetes)
+  addPolygons(
+    stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
+    color = ~ pal(CL_EU$prop_men_diabetes)
   ) %>%
-  addLegend("bottomright", pal = pal, values = ~CL_EU$prop_men_diabetes,
+  addLegend("bottomright",
+    pal = pal, values = ~ CL_EU$prop_men_diabetes,
     title = "Men Diabetes",
     opacity = 1
   )
@@ -261,15 +266,18 @@ On the map, we can see that diabetes is mainly located in the south of Europe an
 ```{r}
 pal <- colorNumeric(
   palette = "YlGnBu",
-  domain = CL_EU$prop_women_diabetes)
+  domain = CL_EU$prop_women_diabetes
+)
 
 leaflet(SHP_0) %>%
   setView(lng = 15, lat = 50, zoom = 4) %>%
   addTiles() %>%
-  addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
-    color = ~pal(CL_EU$prop_women_diabetes)
+  addPolygons(
+    stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
+    color = ~ pal(CL_EU$prop_women_diabetes)
   ) %>%
-  addLegend("bottomright", pal = pal, values = ~CL_EU$prop_women_diabetes,
+  addLegend("bottomright",
+    pal = pal, values = ~ CL_EU$prop_women_diabetes,
     title = "Women Diabetes",
     opacity = 1
   )
@@ -280,15 +288,18 @@ Women with diabetes seem to be mainly located in the eastern and south-western r
 ```{r}
 pal <- colorNumeric(
   palette = "YlGnBu",
-  domain = CL_EU$avg_gdp)
+  domain = CL_EU$avg_gdp
+)
 
 leaflet(SHP_0) %>%
   setView(lng = 15, lat = 50, zoom = 4) %>%
   addTiles() %>%
-  addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
-    color = ~pal(CL_EU$avg_gdp)
+  addPolygons(
+    stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1,
+    color = ~ pal(CL_EU$avg_gdp)
   ) %>%
-  addLegend("bottomright", pal = pal, values = ~CL_EU$avg_gdp,
+  addLegend("bottomright",
+    pal = pal, values = ~ CL_EU$avg_gdp,
     title = "Average GDP",
     opacity = 1
   )

@@ -35,7 +35,7 @@ We will only focus on observations of European countries in the 2000s.
 ```{r}
 daily_caloric <- subset(daily_caloric, Year >= 2000)
 EU <- c("AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE", "GBR", "CHE")
-daily_caloric<-daily_caloric[daily_caloric$Code %in% EU,]
+daily_caloric <- daily_caloric[daily_caloric$Code %in% EU, ]
 ```
 
 We used the ISO code as it is standardized worldwide and does not have the risk of having different names in different tables like the countries' names.
@@ -43,24 +43,25 @@ We used the ISO code as it is standardized worldwide and does not have the risk 
 Then, we proceeded to compute the mean of the consumption for each type of macronutrient in each country between the years 2000 and 2013, and the sum of total calories per person per day for each country in order to answer our second research question.
 
 ```{r}
-setDT(daily_caloric)[ , Calories_from_animal_protein := mean(`Calories from animal protein (FAO (2017))`), by = "Entity"]
-setDT(daily_caloric)[ , Calories_from_plant_protein := mean(`Calories from plant protein (FAO (2017))`), by = "Entity"]
-setDT(daily_caloric)[ , Calories_from_carbohydrates := mean(`Calories from carbohydrates (FAO (2017))`), by = "Entity"]
-setDT(daily_caloric)[ , Calories_from_fat := mean(`Calories from fat (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[, Calories_from_animal_protein := mean(`Calories from animal protein (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[, Calories_from_plant_protein := mean(`Calories from plant protein (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[, Calories_from_carbohydrates := mean(`Calories from carbohydrates (FAO (2017))`), by = "Entity"]
+setDT(daily_caloric)[, Calories_from_fat := mean(`Calories from fat (FAO (2017))`), by = "Entity"]
 ```
 
 We then created a new table by adding the sum of total calories per person per day for each country in order to get a broader view with the total consumption of calories. To make sure that the joining of tables go smoothly, we also removed duplicates and the country name column. 
 
 ```{r}
-Caloric_consumption <- data.table(daily_caloric$Entity,daily_caloric$Code,daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein,daily_caloric$Calories_from_carbohydrates,daily_caloric$Calories_from_fat)
-Caloric_consumption <-Caloric_consumption[!duplicated(Caloric_consumption)]
-Caloric_consumption <- Caloric_consumption[,-1] 
-colnames(Caloric_consumption) <- c("country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs","cal_fat")
-Caloric_consumption <-Caloric_consumption %>%
+Caloric_consumption <- data.table(daily_caloric$Entity, daily_caloric$Code, daily_caloric$Calories_from_animal_protein, daily_caloric$Calories_from_plant_protein, daily_caloric$Calories_from_carbohydrates, daily_caloric$Calories_from_fat)
+Caloric_consumption <- Caloric_consumption[!duplicated(Caloric_consumption)]
+Caloric_consumption <- Caloric_consumption[, -1]
+colnames(Caloric_consumption) <- c("country_code", "cal_prot_animal", "cal_prot_plant", "cal_carbs", "cal_fat")
+Caloric_consumption <- Caloric_consumption %>%
   group_by(country_code) %>%
   mutate(
-    total_consumption = sum(c(cal_prot_animal,cal_prot_plant,cal_carbs,cal_fat)))
-Caloric_consumption$total_consumption <- as.numeric(Caloric_consumption$total_consumption) 
+    total_consumption = sum(c(cal_prot_animal, cal_prot_plant, cal_carbs, cal_fat))
+  )
+Caloric_consumption$total_consumption <- as.numeric(Caloric_consumption$total_consumption)
 ```
 
 Our assumption was that a county's wealth may fluctuate over the course of 10 years (ex: a dip during the economic crisis of 2008) but an overall mean is sufficient to compare the different countries and their riches.
@@ -77,11 +78,12 @@ Our assumption was that a county's wealth may fluctuate over the course of 10 ye
 The final table is the following:
 ```{r}
 kbl(Caloric_consumption,
-    caption = "**Table 1**: Caloric Consumption",
-    col.names = c('Country Code', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
-    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Table 1**: Caloric Consumption",
+  col.names = c("Country Code", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates", "Calories from fat", "Total consumption"),
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 
@@ -110,44 +112,45 @@ As we can see below, RStudio imported the Excel file as is, and so our column na
 We decided to fix that and to filter out the years that is in our interest and that we have in common with other tables, so the years 2000-2013. We decided to get rid of the `Indicator Name` and `Indicator Code` variables as well since the values are the same for every row and they do not provide additional useful information.
 
 ```{r}
-colnames(GDP) <- GDP[3,]
-GDP <- GDP[-c(1:3),-c(3:44,59:65)]
+colnames(GDP) <- GDP[3, ]
+GDP <- GDP[-c(1:3), -c(3:44, 59:65)]
 ```
 
 Now, we want to filter out the European countries, just like in the first table :
 
 ```{r}
-GDP <- GDP[GDP$"Country Code" %in% EU,]
+GDP <- GDP[GDP$"Country Code" %in% EU, ]
 ```
 
 In order to join tables easily, we transformed the columns corresponding to different years to a single “year” column, in order to have at each row of this dataset the GDP of a certain country at a certain year.
 
 ```{r}
-GDP <- GDP %>% pivot_longer(c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013'),names_to = "Year",values_to = "Gross Domestic Product")
+GDP <- GDP %>% pivot_longer(c("2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"), names_to = "Year", values_to = "Gross Domestic Product")
 ```
 
 To make it easier to manipulate data, we decided to rename our variables for this table as well. We also made sure that the type of our numeric variable (GDP) was numeric and not character, like it was by default. In order to have graphs that are easy to read in the exploratory data analysis, we also decided to divide the `avg_gdp` column by a billion.
 
 ```{r}
-colnames(GDP) <- c("country_name","country_code","year","avg_gdp")
-GDP$avg_gdp <- as.numeric(GDP$avg_gdp)/1000000000
+colnames(GDP) <- c("country_name", "country_code", "year", "avg_gdp")
+GDP$avg_gdp <- as.numeric(GDP$avg_gdp) / 1000000000
 GDP2 <- GDP
-GDP2$avg_gdp <- GDP2$avg_gdp*1000000000
+GDP2$avg_gdp <- GDP2$avg_gdp * 1000000000
 ```
 
 Lastly, we computed the average GDP for each country over the years 2000-2013 in order to be able to plot different variables together.
 
 ```{r}
-GDP_summarized <- GDP %>% 
-  group_by(country_name, country_code) %>% 
+GDP_summarized <- GDP %>%
+  group_by(country_name, country_code) %>%
   dplyr::summarize(avg_gdp = mean(avg_gdp))
 
 kbl(GDP_summarized,
-    caption = "**Table 2**: GDP",
-    col.names = c('Country Name', 'Country Code', 'Average GDP (in billion $)'),
-    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Table 2**: GDP",
+  col.names = c("Country Name", "Country Code", "Average GDP (in billion $)"),
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 We now have a dataframe with the following variables :
@@ -175,20 +178,20 @@ population <- read_excel(here::here("data/population.xls"))
 As this dataset comes from the same source and is the same file type as GDP, we can proceed with the same wrangling
 
 ```{r}
-colnames(population) <- population[3,]
-population <- population[-c(1:3),-c(3:44,59:65)]
-population <- population[population$"Country Code" %in% EU,]
-population <- population %>% pivot_longer(c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013'),names_to = "Year",values_to = "Total Population")
-colnames(population) <- c("country_name","country_code","year","avg_population")
+colnames(population) <- population[3, ]
+population <- population[-c(1:3), -c(3:44, 59:65)]
+population <- population[population$"Country Code" %in% EU, ]
+population <- population %>% pivot_longer(c("2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"), names_to = "Year", values_to = "Total Population")
+colnames(population) <- c("country_name", "country_code", "year", "avg_population")
 population$avg_population <- as.numeric(population$avg_population)
 ```
 
 In order to analyze the link between the GDP per person and calorie consumption per person, we will create a separate table which we will join to the final clean dataset.
 
 ```{r}
-GDP2 <- mutate(GDP2, gdp_per_person = GDP2$avg_gdp/population$avg_population)
-GDP_summarized2 <- GDP2 %>% 
-  group_by(country_name, country_code) %>% 
+GDP2 <- mutate(GDP2, gdp_per_person = GDP2$avg_gdp / population$avg_population)
+GDP_summarized2 <- GDP2 %>%
+  group_by(country_name, country_code) %>%
   dplyr::summarize(gdp_per_person = mean(gdp_per_person))
 ```
 
@@ -219,36 +222,34 @@ Diabetes <- read_csv(here::here("data/Diabetes.csv"))
 Like with the first 2 datasets, we filtered our data to keep only European countries and observations between the years 2000 and 2013.
 
 ```{r}
-Diabetes <- subset(Diabetes, Year >= 2000 , Year <=2013)
-Diabetes_EU<-Diabetes[Diabetes$`ISO` %in% EU,]
+Diabetes <- subset(Diabetes, Year >= 2000, Year <= 2013)
+Diabetes_EU <- Diabetes[Diabetes$`ISO` %in% EU, ]
 ```
 
 We also decided not to use the 95% confidence interval variable.
 
 ```{r}
-Diabetes_EU <- Diabetes_EU[-c(6,7)]
-colnames(Diabetes_EU)<-c("country","ISO","sex","year","prop_diabetes")
+Diabetes_EU <- Diabetes_EU[-c(6, 7)]
+colnames(Diabetes_EU) <- c("country", "ISO", "sex", "year", "prop_diabetes")
 ```
 
 Then, we separated our dataset into two subsets. One with data about men.
 
 ```{r}
-Diabetes_EU_men <-subset(Diabetes_EU, sex=="Men")
-
+Diabetes_EU_men <- subset(Diabetes_EU, sex == "Men")
 ```
 
 Another one with data about women.
 
 ```{r}
-Diabetes_EU_women <-subset(Diabetes_EU, sex=="Women")
-
+Diabetes_EU_women <- subset(Diabetes_EU, sex == "Women")
 ```
 
 We then changed the variable names of these 2 subsets to facilitate joining tables later on.
 
 ```{r}
-colnames(Diabetes_EU_men)<-c("country","country_code","sex","year","prop_men_diabetes")
-colnames(Diabetes_EU_women)<-c("country","country_code","sex","year","prop_women_diabetes")
+colnames(Diabetes_EU_men) <- c("country", "country_code", "sex", "year", "prop_men_diabetes")
+colnames(Diabetes_EU_women) <- c("country", "country_code", "sex", "year", "prop_women_diabetes")
 ```
 
 Finally we grouped observations by country to get the mean prevalence/rate of diabetes between 2000 and 2013 for each European country :
@@ -256,32 +257,33 @@ Finally we grouped observations by country to get the mean prevalence/rate of di
 * For men :
 
 ```{r}
-Diabetes_EU_men <- Diabetes_EU_men %>% 
+Diabetes_EU_men <- Diabetes_EU_men %>%
   group_by(country_code) %>%
   dplyr::summarize(prop_men_diabetes = mean(prop_men_diabetes))
 
 kbl(Diabetes_EU_men,
-    caption = "**Table 3**: Diabetes rates for men",
-    col.names = c('Country Code', 'Diabetes rate'),
-    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
-
+  caption = "**Table 3**: Diabetes rates for men",
+  col.names = c("Country Code", "Diabetes rate"),
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 * For women :
 
 ```{r}
-Diabetes_EU_women <- Diabetes_EU_women %>% 
+Diabetes_EU_women <- Diabetes_EU_women %>%
   group_by(country_code) %>%
   dplyr::summarize(prop_women_diabetes = mean(prop_women_diabetes))
 
 kbl(Diabetes_EU_men,
-    caption = "**Table 4**: Diabetes rates for women",
-    col.names = c('Country Code', 'Diabetes rate'),
-    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) 
+  caption = "**Table 4**: Diabetes rates for women",
+  col.names = c("Country Code", "Diabetes rate"),
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 We now have 2 dataframes with the following variables :
@@ -295,20 +297,20 @@ We now have 2 dataframes with the following variables :
 For the last step of our tidying, we joined all four tables in one dataset with the `country_code` key :
 
 ```{r}
-GDP_diabetes_cal <- full_join(GDP_summarized,GDP_summarized2, by=c("country_name","country_code"))
-GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_men, by="country_code")
-GDP_diabetes_cal <-full_join(GDP_diabetes_cal,Diabetes_EU_women, by="country_code")
-GDP_diabetes_cal <-full_join(GDP_diabetes_cal ,Caloric_consumption, by="country_code")
+GDP_diabetes_cal <- full_join(GDP_summarized, GDP_summarized2, by = c("country_name", "country_code"))
+GDP_diabetes_cal <- full_join(GDP_diabetes_cal, Diabetes_EU_men, by = "country_code")
+GDP_diabetes_cal <- full_join(GDP_diabetes_cal, Diabetes_EU_women, by = "country_code")
+GDP_diabetes_cal <- full_join(GDP_diabetes_cal, Caloric_consumption, by = "country_code")
 
 kbl(GDP_diabetes_cal,
-    caption = "**Table 5**: Joint table for GDP, diabetes and caloric consumption",
-    col.names = c('Country Name','Country Code','Average GDP (in billion $)','GDP per person (in $)','Men Diabetes', 'Women Diabetes', 'Calories from animal protein', 'Calories from plant protein','Calories from carbohydrates', 'Calories from fat', 'Total consumption'),
-    align = c('cccccc')) %>%
-   kable_classic(full_width = T, html_font = "Cambria") %>%
-   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  caption = "**Table 5**: Joint table for GDP, diabetes and caloric consumption",
+  col.names = c("Country Name", "Country Code", "Average GDP (in billion $)", "GDP per person (in $)", "Men Diabetes", "Women Diabetes", "Calories from animal protein", "Calories from plant protein", "Calories from carbohydrates", "Calories from fat", "Total consumption"),
+  align = c("cccccc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 ## Missing values
 
 We did not have any NA values in our tables, we think this is due to the fact that we really spent time on gathering quality data that matched in terms of dates and countries.
-
