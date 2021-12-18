@@ -114,7 +114,7 @@ The project consists of three folders:
 
 2) The [data](data/) folder where all our data is stored.
 
-3) The [slides + video presentation](Slides + video presentation/) where our slides and the video presentation are stored.
+3) The [Slides&video](Slides&video/) where our slides and the video presentation are stored.
                                    
 4) The [report](report/) folder, which contains all the parts of our report each stored in a different markdown files.
                                   
