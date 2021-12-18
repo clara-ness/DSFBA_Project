@@ -3,7 +3,6 @@
 #############################################
 
 # load the required packages
-##maps only if we use it otherwise can create some conflicts
   packages <- c(
   "here", # for the project's organization
   "tidyverse", "lubridate","readr","dplyr", "readxl","data.table", # for wrangling
