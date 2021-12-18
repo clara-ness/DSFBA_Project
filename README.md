@@ -113,8 +113,10 @@ The project consists of three folders:
 1) The [scripts](scripts/setup.R) folder with the file [setup.R] where all the packages are installed and load.
 
 2) The [data](data/) folder where all our data is stored.
+
+3) The [slides + video presentation](Slides + video presentation/) where our slides and the video presentation are stored.
                                    
-3) The [report](report/) folder, which contains all the parts of our report each stored in a different markdown files.
+4) The [report](report/) folder, which contains all the parts of our report each stored in a different markdown files.
                                   
                                    
 When you arrive on the report, you only need to knit the [report.Rmd] in order to have all the report. All the folders and files are linked thanks to our package [Here](https://www.rdocumentation.org/packages/here/versions/1.0.1/topics/here).
